@@ -1,0 +1,84 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">{{ member.full_name }} <small>Renew membership</small></h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="" id="renew-status">
+                <a class="close" data-hide="alert" href="#">×</a>
+                    <span id="renew-message">
+                    </span>
+            </div>
+
+            <dl class="dl-horizontal">
+                <dt>Membership status:</dt>
+                <dd>{{ member.membership_status }}</dd>
+
+                <dt>Expiration date:</dt>
+                <dd>{{ member.membership_expiration_date }}</dd>
+            </dl>
+
+            <legend>Add new paid membership fee:</legend>
+
+            <input type="hidden" id="fee-member-id" value="{{ member.id }}">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="" for="exampleInputEmail2">From:</label>
+                    <div class="input-group date">
+                        <input type="text" class="form-control" id="fee-from" name="fee-from" value="{{ suggestDates.from }}">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="" for="exampleInputEmail2">To:</label>
+                    <div class="input-group date">
+                        <input type="text" class="form-control" id="fee-to" name="fee-to" value="{{ suggestDates.to }}">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+            <legend>Fees history:</legend>
+
+            {% if fees|length < 1 %}
+                <p>None.</p>
+            {% else %}
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Paid on</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for fee in fees %}
+                        <tr>
+                            <td>{{ fee.from }}</td>
+                            <td>{{ fee.to }}</td>
+                            <td>{{ fee.created_at }}</td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            {% endif %}
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <a href="{{ route('fees.store') }}" class="btn btn-primary" id="btn-proceed-fee">Proceed</a>
+        </div>
+    </div>
+</div>

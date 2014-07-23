@@ -1,0 +1,10 @@
+{% set page_title = 'Dashboard' %}
+{% include 'header.twig' %}
+
+{% if Auth.user().isBoardMember() %}
+    {% include 'homepage.board' %}
+{% else %}
+    {% include 'homepage.regular' %}
+{% endif %}
+
+{% include 'footer.twig' %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Ultim8 - www.ultim8.info">
+
+    <title>{{ page_title }} :: {{ Config.get('main.title') }}</title>
+
+    <link href="{{ Config.get('app.url') }}/static/assets/build/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    {{ Config.get('main.title') }}
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+
+                {% if Auth.check() %}
+
+                    {% if Auth.user().isBoardMember() %}
+
+                        <ul class="nav navbar-nav navbar-left">
+                            <li><a href="/">Dashboard</a></li>
+                            <li><a href="{{ route('members.index') }}">Members</a></li>
+                            <li><a href="#">Membership Fees</a></li>
+                            <li><a href="{{ route('meetings.index') }}">Meetings</a></li>
+                            <li><a href="#">Events</a></li>
+                        </ul>
+
+                    {% else %}
+
+                        {# non-board members main menu #}
+
+                    {% endif %}
+
+                {% endif %}
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    {% if Auth.check() %}
+                        <li><a href="{{ route('logout') }}"><i class="glyphicon glyphicon-user"></i> Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ route('auth') }}"><i class="glyphicon glyphicon-user"></i> Login</a></li>
+                    {% endif %}
+
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>

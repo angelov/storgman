@@ -1,0 +1,98 @@
+{% set page_title = 'Members' %}
+{% include 'header.twig' %}
+
+<h1>Members</h1>
+
+{% if Session.has('action-message') %}
+    <div class="alert alert-success">
+        <a class="close" data-hide="alert" href="#">×</a>
+        <span>
+            {{ Session.get('action-message') }}
+        </span>
+    </div>
+{% endif %}
+
+<div class="" id="action-status">
+    <a class="close" data-hide="alert" href="#">×</a>
+    <span id="action-message"></span>
+</div>
+
+<div class="row" id="members-list-info">
+    <div class="col-md-8">
+        <p>There are total <strong>{{ members|length }}</strong> members.</p>
+    </div>
+
+    <div class="col-md-4">
+
+            <div class="input-group col-md-6 search-box">
+                <input type="text" class="form-control" placeholder="Search..." />
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">
+                          <span class="glyphicon glyphicon-search"></span>
+                      </button>
+                    </span>
+            </div>
+
+            <a href="{{ route('members.create') }}" class="btn btn-info">
+                <i class="glyphicon glyphicon-plus"></i> Add new member
+            </a>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modal-renew-membership"></div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Faculty</th>
+            <th>Field of study</th>
+            <th>Last online</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in members %}
+            <tr>
+                <td>{{ member.first_name }}</td>
+                <td>{{ member.last_name }}</td>
+                <td>{{ member.faculty }}</td>
+                <td>{{ member.field_of_study }}</td>
+                <td>N/A</td>
+                <td class="text-right">
+                    {# view member details #}
+                    <a href="{{ route('members.show', member.id) }}" data-toggle="tooltip"
+                       data-placement="top" title="Details" class="has-tooltip">
+                        <i class="glyphicon glyphicon-user"></i>
+                     </a>
+
+                    {# edit member details #}
+                    <a href="{{ route('members.edit', member.id) }}" data-toggle="tooltip"
+                       data-placement="top" title="Edit" class="has-tooltip">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </a>
+
+                    {# renew membership #}
+                    <a href="{{ route('fees.create', {"member_id": member.id}) }}" data-toggle="tooltip" title="Renew membership"
+                       data-placement="top" class="has-tooltip btn-renew-membership" data-member="{{ member.id }}">
+                        <i class="fa fa-money fa-lg"></i>
+                    </a>
+
+                    {# delete member #}
+                    <a href="{{ route('members.destroy', member.id) }}" data-member="{{ member.id }}"
+                      data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip btn-delete-member">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="text-right">
+    {{ members.links()|raw }}
+</div>
+
+{% include 'footer.twig' %}

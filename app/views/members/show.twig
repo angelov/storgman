@@ -1,0 +1,95 @@
+{% set page_title = member.full_name %}
+{% include 'header.twig' %}
+
+<h1>
+    {{ member.full_name }}
+    <small>
+        <a href="{{ route('members.edit', member.id) }}" class="small text-right col-md-12">
+            <i class="glyphicon glyphicon-pencil"></i> Edit details
+        </a>
+    </small>
+</h1>
+
+<div class="modal fade" id="modal-renew-membership"></div>
+
+<div class="row">
+    <div class="col-md-6">
+        <legend>Personal Information</legend>
+
+        <div class="col-md-5">
+            <img src="{{ route('imagecache', ['medium', member.photo]) }}" alt="..." class="img-thumbnail">
+        </div>
+        <div class="col-md-7">
+
+            <dl class="">
+                <dt>First name:</dt>
+                <dd>{{ member.first_name }}</dd>
+
+                <dt>Last name:</dt>
+                <dd>{{ member.last_name }}</dd>
+
+                <dt>Birthday:</dt>
+                <dd>{{ member.birthday }}</dd>
+
+                <dt>Email:</dt>
+                <dd>{{ member.email }}</dd>
+            </dl>
+        </div>
+
+        <legend>Education</legend>
+
+        <div class="col-md-12">
+            <dl class="">
+                <dt>Faculty:</dt>
+                <dd>{{ member.faculty }}</dd>
+
+                <dt>Field of study:</dt>
+                <dd>{{ member.field_of_study }}</dd>
+            </dl>
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <legend>Membership details</legend>
+
+        <div class="col-md-12">
+            <dl class="">
+                <dt>Membership status:</dt>
+                <dd>{{ member.membership_status }}</dd>
+
+                <dt>Expiration date:</dt>
+                <dd>{{ member.membership_expiration_date }}</dd>
+            </dl>
+
+            <a href="{{ route('fees.create', {"member_id": member.id}) }}"
+               class="btn btn-default btn-renew-membership" data-member="{{ member.id }}">
+                <i class="fa fa-money"></i> Renew membership
+            </a>
+
+        </div>
+
+        <legend>Organization details</legend>
+
+        {% if (member.board_member) %}
+            {% set isBoardMember = 'Yes' %}
+        {% else %}
+            {% set isBoardMember = 'No' %}
+        {% endif %}
+
+        <div class="col-md-12">
+            <dl class="">
+                <dt>Board member:</dt>
+                <dd>{{ isBoardMember }}</dd>
+
+                <dt>Position title:</dt>
+                <dd>{{ member.position_title }}</dd>
+            </dl>
+
+        </div>
+
+    </div>
+</div>
+
+{% include 'footer.twig' %}

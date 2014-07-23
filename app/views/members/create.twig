@@ -1,0 +1,133 @@
+{% set page_title = 'Create a new member' %}
+{% include 'header.twig' %}
+
+<h1>Create a new member:</h1>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form role="form" method="post" action="{{ route('members.store') }}" enctype="multipart/form-data">
+
+            {% if Session.has('errorMessages') %}
+                <div class="alert alert-danger">
+                    <p><strong>Please fix the following errors:</strong></p>
+                    <ul>
+                    {% for message in Session.get('errorMessages') %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div class="row">
+                <div class="col-md-5">
+                    <legend>Personal information:</legend>
+                    <div class="form-group">
+                        <label for="first_name">First name:</label>
+                        <input type="text" class="form-control" id="first-name" name="first_name"
+                               value="{{ Input.old('first_name') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="last_name">Last name:</label>
+                        <input type="text" class="form-control" id="last-name" name="last_name"
+                               value="{{ Input.old('last_name') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthday">Birthday:</label>
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="birthday" name="birthday"
+                                   value="{{ Input.old('birthday') }}">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="{{ Input.old('email') }}">
+                    </div>
+
+                    <legend>Education:</legend>
+
+                    <div class="form-group">
+                        <label for="faculty">Faculty:</label>
+                        <input type="text" class="form-control" id="faculty" name="faculty"
+                               value="{{ Input.old('faculty') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="field_of_study">Field of study:</label>
+                        <input type="text" class="form-control" id="field_of_study" name="field_of_study"
+                               value="{{ Input.old('field_of_study') }}">
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col-md-offset-1">
+                    <legend>Photo:</legend>
+
+                    <div class="row">
+                        <div class="col-md-5" >
+                            <div id="img-preview-photo"></div>
+                        </div>
+                        <div class="col-md-7">
+
+                            <div id="photo-upload">
+                                <span class="btn btn-default fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Select a file to upload</span>
+                                    <input id="member-photo" type="file" name="member_photo" >
+                                </span>
+
+                                <p class="help-block small">
+                                    The photo will be processed and cropped/resized to fit 400x400px in size.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <legend>Organization details:</legend>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="board_member" value="1"> Board member
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="position_title">Position title:</label>
+                        <input type="text" class="form-control" id="position_title" name="position_title"
+                               placeholder="eg. President" value="{{ Input.old('position_title') }}">
+                        <p class="help-block small">Fill only if the member is part of the organization's board</p>
+                    </div>
+
+                    <div class="form-group">
+                        <p style="margin-top: 40px;">
+                            <span class="label label-info">Info:</span>
+                            After submitting the details, the system will generate a random password for
+                            the member and send it to the given email address. Please remind the member to
+                            change it after the first login.
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="row pull-right">
+                <div class="col-md-12 ">
+                    <button type="submit" class="btn btn-info" id="btn-submit-member">Add the member</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% include 'footer.twig' %}

@@ -1,0 +1,47 @@
+{% set page_title = 'Meetings' %}
+{% include 'header.twig' %}
+
+<h1>Meetings</h1>
+
+<a href="{{ route('meetings.create') }}">create meeting</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Location</th>
+        <th># of attendants</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for meeting in meetings %}
+        <tr>
+            <td>{{ meeting.date }}</td>
+            <td>{{ meeting.location }}</td>
+            <td>{{ meeting.attendants|length }}</td>
+            <td class="text-right">
+                {# view meeting report #}
+                <a href="{{ route('meetings.show', meeting.id) }}"
+                   data-toggle="tooltip" data-placement="top" title="View report" class="has-tooltip">
+                    <i class="glyphicon glyphicon-file"></i>
+                </a>
+
+                {# edit meeting details #}
+                <a href="" data-toggle="tooltip"
+                   data-placement="top" title="Edit" class="has-tooltip">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>
+
+                {# delete meeting #}
+                <a href=""
+                   data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% include 'footer.twig' %}

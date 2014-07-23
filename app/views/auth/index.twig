@@ -1,0 +1,33 @@
+{% set page_title = 'Sign in' %}
+{% include 'header.twig' %}
+
+<div class="row  ">
+    <div class="col-md-4 well center-block">
+        <legend>Please Sign In</legend>
+
+        {% if Session.has('auth-error') %}
+            <div class="alert alert-danger alert-dismissable">
+                <a class="close" data-dismiss="alert" aria-hidden="true" href="#">×</a>
+                {{ Session.get('auth-error') }}
+            </div>
+        {% endif %}
+
+        <form role="form" method="post">
+            <div class="form-group">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email address"
+                        value="{{ Input.old('email') }}">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="pasword" name="password" placeholder="Password">
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="remember" value="yes"> Remember me
+                </label>
+            </div>
+            <button type="submit" class="btn btn-info btn-block">Sign in</button>
+        </form>
+    </div>
+</div>
+
+{% include 'footer.twig' %}

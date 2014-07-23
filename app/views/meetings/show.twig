@@ -1,0 +1,53 @@
+{% set page_title = meeting.date ~ ', Meeting details' %}
+{% include 'header.twig' %}
+
+<h1>{{ meeting.date }} <small>Meeting details</small></h1>
+
+{% set attendants = meeting.attendants %}
+
+<div class="row">
+    <div class="col-md-5">
+        <legend>Basic information:</legend>
+
+        <dl class="">
+            <dt>Date:</dt>
+            <dd>{{ meeting.date }}</dd>
+
+            <dt>Location:</dt>
+            <dd>{{ meeting.location }}</dd>
+
+            <dt># of attendants</dt>
+            <dd>{{ attendants|length }}</dd>
+
+            <dt>Created by</dt>
+            <dd>{{ meeting.creator.full_name }}</dd>
+        </dl>
+
+        <legend>Details:</legend>
+        {{ meeting.info|raw }}
+    </div>
+
+    <div class="col-md-7">
+        <legend>Attendants:</legend>
+
+
+        <div id="attendants-list">
+
+            {% for attendant in attendants %}
+
+                <a href="{{ route('members.show', attendant.id) }}" class="attendant has-tooltip"
+                     data-toggle="tooltip" title="{{ attendant.full_name }}">
+                    <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.photo]) }}" />
+                </a>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+{% include 'footer.twig' %}
