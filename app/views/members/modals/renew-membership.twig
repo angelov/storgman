@@ -67,9 +67,11 @@
                             <td>{{ fee.from }}</td>
                             <td>{{ fee.to }}</td>
                             <td>{{ fee.created_at }}</td>
-                            <td>
-                                <a href="{{ route('fees.destroy', fee.id) }}"
-                                   class="btn-delete-fee" data-fee="{{ fee.id }}">DEL</a>
+                            <td class="text-right">
+                                <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"
+                                   class="has-tooltip btn-delete-fee" data-fee="{{ fee.id }}" title="Delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
