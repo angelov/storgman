@@ -25,7 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Exception\FeeNotFoundException;
 use Angelov\Eestec\Platform\Validation\FeesValidator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Model\Fee;
@@ -108,7 +110,6 @@ class FeesController extends \BaseController {
         if (!$this->validator->validate($this->request->all())) {
             $data['status']  = 'danger';
             $data['message'] = 'The data you entered is invalid.';
-            Log::info($this->validator->getMessages());
 
             return json_encode($data);
         }
@@ -129,17 +130,33 @@ class FeesController extends \BaseController {
 
 	}
 
-
 	/**
 	 * Remove the specified fee from storage.
+     * Method available only via ajax.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
-	{
-		//
-	}
+	public function destroy($id) {
 
+        if (!$this->request->ajax()) {
+            return new Response();
+        }
+
+        $data = [];
+
+        try {
+            $this->fees->destroy($id);
+
+            $data['status']  = 'success';
+            $data['message'] = 'Fee deleted successfully.';
+        } catch (FeeNotFoundException $e) {
+            $data['status']  = 'warning';
+            $data['message'] = 'There was something wrong with your request.';
+        }
+
+        return new JsonResponse($data);
+
+	}
 
 }

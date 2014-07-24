@@ -54,4 +54,10 @@ interface FeesRepositoryInterface {
      */
     public function getLatestFeeForMember(Member $member);
 
+    /**
+     * @param $id int
+     * @return mixed
+     */
+    public function destroy($id);
+
 }

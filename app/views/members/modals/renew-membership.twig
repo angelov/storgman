@@ -67,7 +67,10 @@
                             <td>{{ fee.from }}</td>
                             <td>{{ fee.to }}</td>
                             <td>{{ fee.created_at }}</td>
-                            <td></td>
+                            <td>
+                                <a href="{{ route('fees.destroy', fee.id) }}"
+                                   class="btn-delete-fee" data-fee="{{ fee.id }}">DEL</a>
+                            </td>
                         </tr>
                     {% endfor %}
 

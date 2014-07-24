@@ -118,6 +118,43 @@ $(function(){
     });
 
     /**
+     * Deleting a paid membership fee
+     */
+
+    $(document).on('click', '.btn-delete-fee', function() {
+        var confirmed = confirm('Are you sure?');
+        var btn = $(this);
+        var fee = btn.data('fee');
+
+        if (confirmed) {
+
+            $.ajax({
+                type: 'delete',
+                url: btn.attr('href'),
+                dataType: "json",
+                success:function(data){
+
+                    $("#renew-message").html(data.message);
+
+                    $("#renew-status").removeClass()
+                        .addClass('alert')
+                        .addClass('alert-dismissable')
+                        .addClass('alert-' + data.status)
+                        .show();
+
+                    if (data.status == 'success') {
+                        btn.closest('tr').slideUp('slow');
+                    }
+
+                }
+            });
+
+        }
+
+        return false;
+    });
+
+    /**
      * Date picker
      */
 
@@ -200,7 +237,6 @@ $(function(){
      * (only if needed)
      * dirty.
      */
-
 
     // load the members only if needed
     if ($("#new-attendant").length) {

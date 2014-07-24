@@ -25,41 +25,6 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repository;
+namespace Angelov\Eestec\Platform\Exception;
 
-use Angelov\Eestec\Platform\Exception\FeeNotFoundException;
-use Angelov\Eestec\Platform\Exception\NoFeesException;
-use Angelov\Eestec\Platform\Model\Fee;
-use Angelov\Eestec\Platform\Model\Member;
-
-class EloquentFeesRepository implements FeesRepositoryInterface {
-
-    public function store(Fee $fee, Member $member) {
-        $member->fees()->save($fee);
-    }
-
-    public function getFeesForMember(Member $member) {
-        $fees = $member->fees()->get()->all();
-
-        return $fees;
-    }
-
-    public function getLatestFeeForMember(Member $member) {
-        $fee = $member->fees()->orderBy('to', 'DESC')->first();
-
-        if ($fee == null) {
-            throw new NoFeesException();
-        }
-
-        return $fee;
-    }
-
-    public function destroy($id) {
-        if (Fee::find($id) == null) {
-            throw new FeeNotFoundException();
-        }
-
-        Fee::destroy($id);
-    }
-
-}
+class FeeNotFoundException extends \Exception {}
