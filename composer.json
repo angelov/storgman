@@ -8,12 +8,10 @@
         "twig/twig": "1.16.*@dev",
         "barryvdh/laravel-twigbridge": "dev-master",
         "ext-gd": "*",
+        "way/generators": "2.*",
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*"
 	},
-    "require-dev": {
-        "way/generators": "2.*"
-    },
 	"autoload": {
 		"classmap": [
 			"app/commands",
