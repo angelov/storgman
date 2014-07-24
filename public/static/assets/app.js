@@ -86,6 +86,7 @@ $(function(){
 
     $(document).on('click', '#btn-proceed-fee', function() {
         var btn = $(this);
+        console.log("clicked");
 
         $.ajax({
             type: 'post',
@@ -93,7 +94,7 @@ $(function(){
             data: {
                 'from': $('#fee-from').val(),
                 'to': $('#fee-to').val(),
-                'member-id': $('#fee-member-id').val()
+                'member_id': $('#fee-member-id').val()
             },
             dataType: "json",
             success:function(data){
@@ -105,13 +106,14 @@ $(function(){
                     .addClass('alert-' + data.status)
                     .show();
 
-                setTimeout(function(){
-                    $('#modal-renew-membership').modal('hide');
-                }, 1500);
+                if (data.status == 'success') {
+                    setTimeout(function(){
+                        $('#modal-renew-membership').modal('hide');
+                    }, 1500);
+                }
             }
         });
 
-        console.log("will save.");
         return false;
     });
 

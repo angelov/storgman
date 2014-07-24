@@ -25,6 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Validation\FeesValidator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Model\Fee;
@@ -36,13 +37,16 @@ class FeesController extends \BaseController {
     protected $request;
     protected $fees;
     protected $members;
+    protected $validator;
 
     public function __construct(Request $request,
                                 FeesRepositoryInterface $fees,
-                                MembersRepositoryInterface $members) {
+                                MembersRepositoryInterface $members,
+                                FeesValidator $validator) {
         $this->request = $request;
         $this->fees = $fees;
         $this->members = $members;
+        $this->validator = $validator;
 
         $this->beforeFilter('auth');
     }
@@ -101,12 +105,20 @@ class FeesController extends \BaseController {
 	 */
 	public function store() {
 
+        if (!$this->validator->validate($this->request->all())) {
+            $data['status']  = 'danger';
+            $data['message'] = 'The data you entered is invalid.';
+            Log::info($this->validator->getMessages());
+
+            return json_encode($data);
+        }
+
 		$fee = new Fee();
 
         $fee->from = $this->request->get('from');
         $fee->to   = $this->request->get('to');
 
-        $member = $this->members->get($this->request->get('member-id'));
+        $member = $this->members->get($this->request->get('member_id'));
 
         $this->fees->store($fee, $member);
 
