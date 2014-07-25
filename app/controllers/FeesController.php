@@ -51,6 +51,7 @@ class FeesController extends \BaseController {
         $this->validator = $validator;
 
         $this->beforeFilter('auth');
+        $this->beforeFilter('boardMember');
     }
 
     /**
@@ -62,7 +63,7 @@ class FeesController extends \BaseController {
     public function create() {
 
         if (!$this->request->ajax()) {
-            //return new Response();
+            return new Response();
         }
 
         $member_id = $this->request->get('member_id');
