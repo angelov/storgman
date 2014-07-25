@@ -1,4 +1,5 @@
 $(function() {
+
     $('#chart-new-members').highcharts({
         title: {
             text: ''
@@ -35,44 +36,49 @@ $(function() {
         }]
     });
 
-    $('#chart-members-faculties').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: ''
-        },
-        tooltip: {
-            enabled: false
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+    if (typeof membersPerFaculty == 'object') {
+
+        $('#chart-members-faculties').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
                     }
                 }
-            }
-        },
-        series: [{
-            type: 'pie',
-            data: [
-                ['ФИНКИ',   45.0],
-                ['ПМФ',       26.8],
-                ['ФЕИТ',       26.8],
-                ['МФС',    8.5]
-            ]
-        }]
-    });
+            },
+            series: [{
+                type: 'pie',
+                /*data: [
+                    ['ФИНКИ',   45.0],
+                    ['ПМФ',       26.8],
+                    ['ФЕИТ',       26.8],
+                    ['МФС',    8.5]
+                ]*/
+                data: membersPerFaculty
+            }]
+        });
+
+    }
 
     $('#chart-members-years').highcharts({
         chart: {

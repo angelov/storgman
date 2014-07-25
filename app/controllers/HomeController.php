@@ -50,7 +50,18 @@ class HomeController extends BaseController {
 
         $byMembershipStatus = $this->members->countByMembershipStatus();
 
-		return View::make('homepage.index', compact('withBirthday', 'attendance', 'byMembershipStatus'));
+        /** @todo Move the preparation of $perFaculty to separate service */
+        $perFaculty = $this->members->countPerFaculty();
+
+        $fax = [];
+        foreach ($perFaculty as $faculty => $count) {
+            $fax[] = [$faculty, (int) $count];
+        }
+
+        $perFaculty = json_encode($fax);
+
+		return View::make('homepage.index',
+            compact('withBirthday', 'attendance', 'byMembershipStatus', 'perFaculty'));
 
 	}
 

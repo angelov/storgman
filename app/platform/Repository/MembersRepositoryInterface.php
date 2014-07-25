@@ -65,6 +65,6 @@ interface MembersRepositoryInterface {
 
     public function getByIds(array $ids);
 
-    public function countByFaculty();
+    public function countPerFaculty();
 
 }

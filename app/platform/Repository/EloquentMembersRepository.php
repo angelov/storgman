@@ -113,7 +113,7 @@ class EloquentMembersRepository implements MembersRepositoryInterface {
         return Member::whereIn('id', $ids)->get()->all();
     }
 
-    public function countByFaculty() {
+    public function countPerFaculty() {
 
         $results = (array) DB::select('
             select faculty,
