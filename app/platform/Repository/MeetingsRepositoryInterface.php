@@ -44,4 +44,9 @@ interface MeetingsRepositoryInterface {
 
     public function get($id);
 
+    /**
+     * @return array
+     */
+    public function calculateAttendanceDetails();
+
 }

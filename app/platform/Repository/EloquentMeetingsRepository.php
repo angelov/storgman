@@ -30,6 +30,7 @@ namespace Angelov\Eestec\Platform\Repository;
 use Angelov\Eestec\Platform\Exception\MeetingNotFoundException;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
+use DB;
 
 class EloquentMeetingsRepository implements MeetingsRepositoryInterface {
 
@@ -53,6 +54,34 @@ class EloquentMeetingsRepository implements MeetingsRepositoryInterface {
         }
 
         return $meeting;
+    }
+
+    public function calculateAttendanceDetails() {
+
+        $result = (array) DB::select('
+            select total_meetings as meetings,
+                   total_attendants as attendants,
+                   round(total_attendants/total_meetings) as average
+            from (
+                (select sum(attendants) as total_attendants
+                 from
+
+                    (select meeting_id as meeting,
+                           count(member_id) as attendants
+                     from meeting_member
+                     group by (meeting_id)) as details) as tbl1,
+
+                    (select count(id) as total_meetings
+                     from meetings) as tbl2
+            )
+        ')[0];
+
+        $att['meetings'] = $result['meetings'] ?: 0;
+        $att['attendants'] = $result['attendants'] ?: 0;
+        $att['average'] = $result['average'] ?: 0;
+
+        return $att;
+
     }
 
 }

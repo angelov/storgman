@@ -25,14 +25,18 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 
 class HomeController extends BaseController {
 
     protected $members;
+    protected $meetings;
 
-	public function __construct(MembersRepositoryInterface $members) {
+	public function __construct(MembersRepositoryInterface $members,
+                                MeetingsRepositoryInterface $meetings) {
         $this->members = $members;
+        $this->meetings = $meetings;
 
         $this->beforeFilter('auth');
     }
@@ -42,7 +46,10 @@ class HomeController extends BaseController {
         $today = new DateTime('now');
         $withBirthday = $this->members->getByBirthdayDate($today);
 
-		return View::make('homepage.index', compact('withBirthday'));
+        $attendance = $this->meetings->calculateAttendanceDetails();
+
+		return View::make('homepage.index', compact('withBirthday', 'attendance'));
+
 	}
 
 }
