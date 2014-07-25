@@ -48,7 +48,9 @@ class HomeController extends BaseController {
 
         $attendance = $this->meetings->calculateAttendanceDetails();
 
-		return View::make('homepage.index', compact('withBirthday', 'attendance'));
+        $byMembershipStatus = $this->members->countByMembershipStatus();
+
+		return View::make('homepage.index', compact('withBirthday', 'attendance', 'byMembershipStatus'));
 
 	}
 

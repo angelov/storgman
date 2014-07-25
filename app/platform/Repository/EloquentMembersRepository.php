@@ -30,6 +30,7 @@ namespace Angelov\Eestec\Platform\Repository;
 use Carbon\Carbon;
 use Angelov\Eestec\Platform\Exception\MemberNotFoundException;
 use Angelov\Eestec\Platform\Model\Member;
+use DB;
 
 class EloquentMembersRepository implements MembersRepositoryInterface {
 
@@ -80,7 +81,22 @@ class EloquentMembersRepository implements MembersRepositoryInterface {
 
     public function countByMembershipStatus() {
 
-        //$results = DB
+        $result = (array) DB::select('
+            select *
+            from
+              (select count(id) as total
+               from members)
+               as tbl1,
+
+              (select count(id) as active
+               from members
+               where id in
+                  (select distinct member_id from fees)
+               )
+               as tbl2;
+        ')[0];
+
+        return $result;
 
     }
 
