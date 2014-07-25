@@ -113,4 +113,25 @@ class EloquentMembersRepository implements MembersRepositoryInterface {
         return Member::whereIn('id', $ids)->get()->all();
     }
 
+    public function countByFaculty() {
+
+        $results = (array) DB::select('
+            select faculty,
+                   count(id) as members
+            from members
+            group by faculty
+            order by members desc;
+        ');
+
+        $list = [];
+
+        foreach ($results as $current) {
+            $current = (array) $current;
+            $list[$current['faculty']] = $current['members'];
+        }
+
+        return $list;
+
+    }
+
 }
