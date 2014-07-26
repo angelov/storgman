@@ -30,6 +30,7 @@ namespace Angelov\Eestec\Platform\Repository;
 use Carbon\Carbon;
 use Angelov\Eestec\Platform\Exception\MemberNotFoundException;
 use Angelov\Eestec\Platform\Model\Member;
+use DateTime;
 use DB;
 
 class EloquentMembersRepository implements MembersRepositoryInterface {
@@ -100,7 +101,7 @@ class EloquentMembersRepository implements MembersRepositoryInterface {
 
     }
 
-    public function getByBirthdayDate(\DateTime $date) {
+    public function getByBirthdayDate(DateTime $date) {
 
         $members = Member::whereRaw('EXTRACT(DAY from birthday) = ? and EXTRACT(MONTH from birthday) = ?',
                                     [$date->format('d'), $date->format('m')])->get()->all();
@@ -128,6 +129,51 @@ class EloquentMembersRepository implements MembersRepositoryInterface {
         foreach ($results as $current) {
             $current = (array) $current;
             $list[$current['faculty']] = $current['members'];
+        }
+
+        return $list;
+
+    }
+
+    public function countNewMembersPerMonth(DateTime $from, DateTime $to) {
+
+        $from = $from->format("Y-m-d");
+        $to = $to->format("Y-m-d");
+
+        $res = DB::select('
+            select concat(year, "-", lpad(month, 2, "0")) as month,
+                   count(id) as count
+            from
+              (select id,
+                      email,
+                      extract(month from joined) as month,
+                      extract(year from joined) as year
+               from
+                 (select id,
+                         email,
+                         min(`from`) as joined
+                  from
+                    (select members.`id`,
+                            `email`,
+                            fees.`from`,
+                            `to`
+                     from `members`,
+                          `fees`
+                     where members.id = member_id
+                       and fees.`from` between ? and ?) as tbl
+                  group by id) as tbl2) as tbl3
+            group by concat(month, year);
+        ', array($from, $to));
+
+        /*array_walk($res, function(&$current) {
+                $current = (array) $current;
+        });*/
+
+        $list = [];
+
+        foreach ($res as &$current) {
+            $current = (array) $current;
+            $list[$current['month']] = $current['count'];
         }
 
         return $list;

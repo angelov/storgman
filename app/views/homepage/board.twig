@@ -3,6 +3,11 @@
     <div class="col-md-8">
 
         <legend>New members per month</legend>
+        <script type="text/javascript">
+            var membersPerMonth = {};
+            membersPerMonth.months = {{ perMonth.months|raw }};
+            membersPerMonth.values = {{ perMonth.values|raw }};
+        </script>
         <div id="chart-new-members" style="width:100%; height:200px;"></div>
 
     </div>

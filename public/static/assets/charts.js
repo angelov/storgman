@@ -1,40 +1,43 @@
 $(function() {
 
-    $('#chart-new-members').highcharts({
-        title: {
-            text: ''
-        },
-        xAxis: {
-            categories: ['Nov 2013', 'Dec 2013', 'Jan 2014', 'Fev 2014', 'Mar 2014', 'Apr 2014',
-                'May 2014', 'Jun 2014', 'Jul 2014', 'Aug 2014', 'Sep 2014', 'Oct 2014']
-        },
-        yAxis: {
+    if (typeof membersPerMonth == 'object') {
+
+        $('#chart-new-members').highcharts({
             title: {
-                text: 'New members'
+                text: ''
             },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
+            xAxis: {
+                categories: membersPerMonth.months
+            },
+            yAxis: {
+                title: {
+                    text: 'New members'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                    return 'New members in <b>'+ this.x +
+                        '</b>: <b>'+ this.y +'</b>';
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: '',
+                data: membersPerMonth.values
             }]
-        },
-        tooltip: {
-            formatter: function() {
-                return 'New members in <b>'+ this.x +
-                    '</b>: <b>'+ this.y +'</b>';
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: '',
-            data: [5, 10, 12, 14, 18, 21, 0, 0, 12, 21, 1, 0]
-        }]
-    });
+        });
+
+    }
 
     if (typeof membersPerFaculty == 'object') {
 

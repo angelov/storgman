@@ -67,4 +67,6 @@ interface MembersRepositoryInterface {
 
     public function countPerFaculty();
 
+    public function countNewMembersPerMonth(\DateTime $from, \DateTime $to);
+
 }

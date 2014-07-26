@@ -27,16 +27,20 @@
 
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Service\MembersStatisticsService;
 
 class HomeController extends BaseController {
 
     protected $members;
     protected $meetings;
+    protected $membersStats;
 
 	public function __construct(MembersRepositoryInterface $members,
-                                MeetingsRepositoryInterface $meetings) {
+                                MeetingsRepositoryInterface $meetings,
+                                MembersStatisticsService $membersStats) {
         $this->members = $members;
         $this->meetings = $meetings;
+        $this->membersStats = $membersStats;
 
         $this->beforeFilter('auth');
     }
@@ -60,8 +64,12 @@ class HomeController extends BaseController {
 
         $perFaculty = json_encode($fax);
 
+        $perMonthAll= $this->membersStats->newMembersMonthlyLastYear();
+        $perMonth['months'] = json_encode(array_keys($perMonthAll));
+        $perMonth['values'] = json_encode(array_values($perMonthAll));
+
 		return View::make('homepage.index',
-            compact('withBirthday', 'attendance', 'byMembershipStatus', 'perFaculty'));
+            compact('withBirthday', 'attendance', 'byMembershipStatus', 'perFaculty', 'perMonth'));
 
 	}
 
