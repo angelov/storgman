@@ -3,6 +3,9 @@
 Under development by [Angelov Dejan](http://ultim8.info).   
 The application is not production ready yet!
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/build.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/build-status/master)
+
 ### Requirements
 
 * PHP >= 5.4
