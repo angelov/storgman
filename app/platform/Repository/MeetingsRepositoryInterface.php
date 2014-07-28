@@ -30,12 +30,13 @@ namespace Angelov\Eestec\Platform\Repository;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
 
-interface MeetingsRepositoryInterface {
+interface MeetingsRepositoryInterface
+{
 
     /**
-     * @param Meeting $meeting
-     * @param \Angelov\Eestec\Platform\Model\Member $creator
-     * @param array $attendants
+     * @param  Meeting                               $meeting
+     * @param  \Angelov\Eestec\Platform\Model\Member $creator
+     * @param  array                                 $attendants
      * @return void
      */
     public function store(Meeting $meeting, Member $creator, array $attendants);

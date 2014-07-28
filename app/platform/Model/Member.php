@@ -34,7 +34,8 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Auth\UserTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model implements UserInterface, RemindableInterface {
+class Member extends Model implements UserInterface, RemindableInterface
+{
 
     use UserTrait, RemindableTrait;
 
@@ -62,7 +63,8 @@ class Member extends Model implements UserInterface, RemindableInterface {
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function fees() {
+    public function fees()
+    {
         return $this->hasMany('Angelov\Eestec\Platform\Model\Fee');
     }
 
@@ -71,19 +73,23 @@ class Member extends Model implements UserInterface, RemindableInterface {
      *
      * @return string
      */
-    public function getFullNameAttribute() {
+    public function getFullNameAttribute()
+    {
         return $this->first_name . " " . $this->last_name;
     }
 
-    public function getMembershipStatusAttribute() {
+    public function getMembershipStatusAttribute()
+    {
         return ($this->membershipStatus) ? "Active" : "Inactive";
     }
 
-    public function setMembershipStatusAttribute($status) {
+    public function setMembershipStatusAttribute($status)
+    {
         $this->membershipStatus = $status;
     }
 
-    public function getMembershipExpirationDateAttribute() {
+    public function getMembershipExpirationDateAttribute()
+    {
         if (!isset($this->membershipExpirationDate)) {
             return "n/a";
         }
@@ -91,7 +97,8 @@ class Member extends Model implements UserInterface, RemindableInterface {
         return $this->membershipExpirationDate->format('Y-m-d');
     }
 
-    public function getPhotoAttribute($photo) {
+    public function getPhotoAttribute($photo)
+    {
         if (isset($photo)) {
             return $photo;
         }
@@ -102,25 +109,30 @@ class Member extends Model implements UserInterface, RemindableInterface {
     /**
      * @param $date \DateTime|null
      */
-    public function setMembershipExpirationDateAttribute($date) {
+    public function setMembershipExpirationDateAttribute($date)
+    {
         $this->membershipExpirationDate = $date;
     }
 
-    public function isBoardMember() {
+    public function isBoardMember()
+    {
         return $this->board_member;
     }
 
-    public function getAgeAttribute() {
+    public function getAgeAttribute()
+    {
         $birthday = new Carbon($this->birthday);
 
         return $birthday->age;
     }
 
-    public function meetingsAttended() {
+    public function meetingsAttended()
+    {
         return $this->belongsToMany('Angelov\Eestec\Platform\Model\Meeting');
     }
 
-    public function meetingsCreated() {
+    public function meetingsCreated()
+    {
         return $this->hasMany('Angelov\Eestec\Platform\Model\Meeting');
     }
 

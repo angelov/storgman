@@ -30,19 +30,22 @@ namespace Angelov\Eestec\Platform\Repository;
 use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\File\UploadedFile as File;
 
-class LocalPhotosRepository implements PhotosRepositoryInterface {
+class LocalPhotosRepository implements PhotosRepositoryInterface
+{
 
     /**
      * @inheritdoc
      */
-    public function store(File $photo, $type, $fileName = null) {
-        $fullPath = public_path() ."/" . Config::get('main.photos.upload_dir') . "/" . $type;
+    public function store(File $photo, $type, $fileName = null)
+    {
+        $fullPath = public_path() . "/" . Config::get('main.photos.upload_dir') . "/" . $type;
         $fileName = (isset($fileName)) ? $fileName : $photo->getClientOriginalName();
 
         $photo->move($fullPath, $fileName);
     }
 
-    public function destroy($filename, $type) {
+    public function destroy($filename, $type)
+    {
         $fullPath = Config::get('main.photos.upload_dir') . "/" . $type;
 
         unlink($fullPath . "/" . $filename);

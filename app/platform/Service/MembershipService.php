@@ -32,12 +32,14 @@ use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 
-class MembershipService {
+class MembershipService
+{
 
     protected $members;
     protected $fees;
 
-    public function __construct(MembersRepositoryInterface $members, FeesRepositoryInterface $fees) {
+    public function __construct(MembersRepositoryInterface $members, FeesRepositoryInterface $fees)
+    {
         $this->members = $members;
         $this->fees = $fees;
     }
@@ -45,10 +47,11 @@ class MembershipService {
     /**
      * Check if the member is active/inactive
      *
-     * @param Member $member
+     * @param  Member $member
      * @return bool
      */
-    public function isMemberActive(Member $member) {
+    public function isMemberActive(Member $member)
+    {
 
         $expirationDate = $this->getExpirationDate($member);
 
@@ -65,19 +68,20 @@ class MembershipService {
     /**
      * Get the membership expiration date for a given member
      *
-     * @param \Angelov\Eestec\Platform\Model\Member $member
+     * @param  \Angelov\Eestec\Platform\Model\Member $member
      * @return \DateTime
      */
-    public function getExpirationDate(Member $member) {
+    public function getExpirationDate(Member $member)
+    {
 
         try {
             $fee = $this->fees->getLatestFeeForMember($member);
+
             return new \DateTime($fee->to);
         } catch (NoFeesException $e) {
             return null;
         }
 
     }
-
 
 }

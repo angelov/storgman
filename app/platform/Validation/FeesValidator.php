@@ -27,13 +27,14 @@
 
 namespace Angelov\Eestec\Platform\Validation;
 
-class FeesValidator extends Validator {
+class FeesValidator extends Validator
+{
 
-    /** @todo The date in the "to" field must be after the date in the "from" field  */
+    /** @todo The date in the "to" field must be after the date in the "from" field */
 
     protected $rules = [
-        'from'      => 'required|date_format:Y-m-d',
-        'to'        => 'required|date_format:Y-m-d',
+        'from' => 'required|date_format:Y-m-d',
+        'to' => 'required|date_format:Y-m-d',
         'member_id' => 'required|exists:members,id'
     ];
 

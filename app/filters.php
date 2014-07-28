@@ -1,12 +1,15 @@
 <?php
 
-Route::filter('boardMember', function() {
-    $member = Auth::user();
+Route::filter(
+    'boardMember',
+    function () {
+        $member = Auth::user();
 
-    if (!$member->isBoardMember()) {
-        return Redirect::to('/');
+        if (!$member->isBoardMember()) {
+            return Redirect::to('/');
+        }
     }
-});
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -19,16 +22,17 @@ Route::filter('boardMember', function() {
 |
 */
 
-App::before(function($request)
-{
-	//
-});
+App::before(
+    function ($request) {
+        //
+    }
+);
 
-
-App::after(function($request, $response)
-{
-	//
-});
+App::after(
+    function ($request, $response) {
+        //
+    }
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -41,16 +45,21 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
-{
-	if (Auth::guest()) return Redirect::guest('auth');
-});
+Route::filter(
+    'auth',
+    function () {
+        if (Auth::guest()) {
+            return Redirect::guest('auth');
+        }
+    }
+);
 
-
-Route::filter('auth.basic', function()
-{
-	return Auth::basic();
-});
+Route::filter(
+    'auth.basic',
+    function () {
+        return Auth::basic();
+    }
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -63,10 +72,14 @@ Route::filter('auth.basic', function()
 |
 */
 
-Route::filter('guest', function()
-{
-	if (Auth::check()) return Redirect::to('/');
-});
+Route::filter(
+    'guest',
+    function () {
+        if (Auth::check()) {
+            return Redirect::to('/');
+        }
+    }
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -79,10 +92,11 @@ Route::filter('guest', function()
 |
 */
 
-Route::filter('csrf', function()
-{
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
-});
+Route::filter(
+    'csrf',
+    function () {
+        if (Session::token() != Input::get('_token')) {
+            throw new Illuminate\Session\TokenMismatchException;
+        }
+    }
+);

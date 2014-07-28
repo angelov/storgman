@@ -32,21 +32,24 @@ use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
 use DB;
 
-class EloquentMeetingsRepository implements MeetingsRepositoryInterface {
+class EloquentMeetingsRepository implements MeetingsRepositoryInterface
+{
 
-    public function store(Meeting $meeting, Member $creator, array $attendants) {
+    public function store(Meeting $meeting, Member $creator, array $attendants)
+    {
         $meeting->created_by = $creator->id;
         $meeting->save();
         $meeting->attendants()->saveMany($attendants);
     }
 
-    public function all(array $withRelationships = []) {
-
+    public function all(array $withRelationships = [])
+    {
         return Meeting::with($withRelationships)->get()->all();
 
     }
 
-    public function get($id) {
+    public function get($id)
+    {
         $meeting = Meeting::find($id);
 
         if ($meeting == null) {
@@ -56,29 +59,32 @@ class EloquentMeetingsRepository implements MeetingsRepositoryInterface {
         return $meeting;
     }
 
-    public function calculateAttendanceDetails() {
+    public function calculateAttendanceDetails()
+    {
 
-        $result = (array) DB::select('
-            select total_meetings as meetings,
-                   total_attendants as attendants,
-                   round(total_attendants/total_meetings) as average
-            from (
-                (select sum(attendants) as total_attendants
-                 from
+        $result = (array) DB::select(
+            '
+                        select total_meetings as meetings,
+                               total_attendants as attendants,
+                               round(total_attendants/total_meetings) as average
+                        from (
+                            (select sum(attendants) as total_attendants
+                             from
 
-                    (select meeting_id as meeting,
-                           count(member_id) as attendants
-                     from meeting_member
-                     group by (meeting_id)) as details) as tbl1,
+                                (select meeting_id as meeting,
+                                       count(member_id) as attendants
+                                 from meeting_member
+                                 group by (meeting_id)) as details) as tbl1,
 
-                    (select count(id) as total_meetings
-                     from meetings) as tbl2
-            )
-        ')[0];
+                                (select count(id) as total_meetings
+                                 from meetings) as tbl2
+                        )
+                    '
+        )[0];
 
-        $att['meetings'] = $result['meetings'] ?: 0;
-        $att['attendants'] = $result['attendants'] ?: 0;
-        $att['average'] = $result['average'] ?: 0;
+        $att['meetings'] = $result['meetings'] ? : 0;
+        $att['attendants'] = $result['attendants'] ? : 0;
+        $att['average'] = $result['average'] ? : 0;
 
         return $att;
 

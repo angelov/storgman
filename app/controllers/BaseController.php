@@ -24,8 +24,7 @@
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
-
-class BaseController extends Controller {
-
+class BaseController extends Controller
+{
 
 }

@@ -29,21 +29,26 @@ namespace Angelov\Eestec\Platform\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Meeting extends Model {
+class Meeting extends Model
+{
 
-	protected $fillable = [];
+    protected $fillable = [];
     protected $table = 'meetings';
 
-    public function attendants() {
+    public function attendants()
+    {
         return $this->belongsToMany('Angelov\Eestec\Platform\Model\Member');
     }
 
-    public function creator() {
+    public function creator()
+    {
         return $this->belongsTo('Angelov\Eestec\Platform\Model\Member', 'created_by');
     }
 
-    public function getDateAttribute($date) {
+    public function getDateAttribute($date)
+    {
         $date = new \DateTime($date);
+
         return $date->format('Y-m-d');
     }
 

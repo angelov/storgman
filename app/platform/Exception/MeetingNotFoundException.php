@@ -27,4 +27,6 @@
 
 namespace Angelov\Eestec\Platform\Exception;
 
-class MeetingNotFoundException extends \Exception {}
+class MeetingNotFoundException extends \Exception
+{
+}

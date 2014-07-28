@@ -27,4 +27,6 @@
 
 namespace Angelov\Eestec\Platform\Exception;
 
-class NoFeesException extends \Exception {}
+class NoFeesException extends \Exception
+{
+}

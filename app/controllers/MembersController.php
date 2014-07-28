@@ -33,29 +33,33 @@ use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Validation\MembersValidator;
 
-class MembersController extends \BaseController {
+class MembersController extends \BaseController
+{
 
     protected $request;
     protected $members;
     protected $validator;
 
-    public function __construct(Request $request,
-                                MembersRepositoryInterface $members,
-                                MembersValidator $validator) {
-        $this->request   = $request;
-        $this->members   = $members;
+    public function __construct(
+        Request $request,
+        MembersRepositoryInterface $members,
+        MembersValidator $validator
+    ) {
+        $this->request = $request;
+        $this->members = $members;
         $this->validator = $validator;
 
         $this->beforeFilter('auth');
         $this->beforeFilter('boardMember');
     }
 
-	/**
-	 * Display a listing of members
-	 *
-	 * @return Response
-	 */
-	public function index() {
+    /**
+     * Display a listing of members
+     *
+     * @return Response
+     */
+    public function index()
+    {
 
         // load the members for autocompletion
         if ($this->request->ajax()) {
@@ -79,28 +83,31 @@ class MembersController extends \BaseController {
 
         $members = Paginator::make($data->items, $data->totalItems, $perPage);
 
-		return View::make('members.index', compact('members'));
-	}
+        return View::make('members.index', compact('members'));
+    }
 
-	/**
-	 * Show the form for creating a new member
-	 *
-	 * @return Response
-	 */
-	public function create() {
-		return View::make('members.create');
-	}
+    /**
+     * Show the form for creating a new member
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('members.create');
+    }
 
-	/**
-	 * Store a newly created member in storage.
-	 *
-	 * @return Response
-	 */
-	public function store() {
+    /**
+     * Store a newly created member in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
 
         if (!$this->validator->validate($this->request->all())) {
             $errorMessages = $this->validator->getMessages();
             Session::flash('errorMessages', $errorMessages);
+
             return Redirect::back()->withInput();
         }
 
@@ -133,17 +140,19 @@ class MembersController extends \BaseController {
         $this->members->store($member);
 
         Session::flash('action-message', "Member added successfully.");
-		return Redirect::route('members.index');
-	}
 
-	/**
-	 * Display the specified member.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id) {
-		$member = $this->members->get($id);
+        return Redirect::route('members.index');
+    }
+
+    /**
+     * Display the specified member.
+     *
+     * @param  int      $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $member = $this->members->get($id);
 
         /** @var \Angelov\Eestec\Platform\Service\MembershipService $membershipService */
         $membershipService = App::make('MembershipService');
@@ -151,29 +160,31 @@ class MembersController extends \BaseController {
         $member->membership_status = $membershipService->isMemberActive($member);
         $member->membership_expiration_date = $membershipService->getExpirationDate($member);
 
-		return View::make('members.show', compact('member'));
-	}
+        return View::make('members.show', compact('member'));
+    }
 
-	/**
-	 * Show the form for editing the specified member.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id) {
-		$member = $this->members->get($id);
+    /**
+     * Show the form for editing the specified member.
+     *
+     * @param  int      $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $member = $this->members->get($id);
 
-		return View::make('members.edit', compact('member'));
-	}
+        return View::make('members.edit', compact('member'));
+    }
 
-	/**
-	 * Update the specified member in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id) {
-		$member = $this->members->get($id);
+    /**
+     * Update the specified member in storage.
+     *
+     * @param  int      $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        $member = $this->members->get($id);
 
         /**
          * If the unique email rule is set and the member's email
@@ -189,6 +200,7 @@ class MembersController extends \BaseController {
         if (!$this->validator->validate($this->request->all())) {
             $errorMessages = $this->validator->getMessages();
             Session::flash('errorMessages', $errorMessages);
+
             return Redirect::back()->withInput();
         }
 
@@ -217,20 +229,22 @@ class MembersController extends \BaseController {
 
         }
 
-		$this->members->store($member);
+        $this->members->store($member);
 
         Session::flash('action-message', "Member updated successfully.");
-		return Redirect::route('members.index');
-	}
 
-	/**
-	 * Remove the specified members from storage.
+        return Redirect::route('members.index');
+    }
+
+    /**
+     * Remove the specified members from storage.
      * Method available only via AJAX requests
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id) {
+     *
+     * @param  int      $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
 
         if (!$this->request->ajax()) {
             return new Response();
@@ -250,10 +264,10 @@ class MembersController extends \BaseController {
 
             $this->members->destroy($id);
 
-            $data['status']  = 'success';
+            $data['status'] = 'success';
             $data['message'] = 'Member deleted successfully.';
         } catch (MemberNotFoundException $e) {
-            $data['status']  = 'warning';
+            $data['status'] = 'warning';
             $data['message'] = 'There was something wrong with your request.';
         }
 
@@ -261,6 +275,6 @@ class MembersController extends \BaseController {
             return new JsonResponse($data);
         }
 
-	}
+    }
 
 }

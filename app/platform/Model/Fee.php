@@ -29,7 +29,8 @@ namespace Angelov\Eestec\Platform\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Fee extends Model {
+class Fee extends Model
+{
 
     /**
      * The database table used by the model.
@@ -43,7 +44,8 @@ class Fee extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function member() {
+    public function member()
+    {
         return $this->belongsTo('Angelov\Eestec\Platform\Model\Member');
     }
 

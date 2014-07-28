@@ -30,7 +30,8 @@ namespace Angelov\Eestec\Platform\Repository;
 use Angelov\Eestec\Platform\Exception\MemberNotFoundException;
 use Angelov\Eestec\Platform\Model\Member;
 
-interface MembersRepositoryInterface {
+interface MembersRepositoryInterface
+{
 
     /**
      * @return array
@@ -45,7 +46,7 @@ interface MembersRepositoryInterface {
     public function destroy($id);
 
     /**
-     * @param \Angelov\Eestec\Platform\Model\Member $member
+     * @param  \Angelov\Eestec\Platform\Model\Member $member
      * @return void
      */
     public function store(Member $member);

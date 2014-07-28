@@ -30,15 +30,18 @@ use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 
-class MeetingsController extends \BaseController {
+class MeetingsController extends \BaseController
+{
 
     protected $request;
     protected $meetings;
     protected $members;
 
-    public function __construct(Request $request,
-                                MeetingsRepositoryInterface $meetings,
-                                MembersRepositoryInterface $members) {
+    public function __construct(
+        Request $request,
+        MeetingsRepositoryInterface $meetings,
+        MembersRepositoryInterface $members
+    ) {
         $this->request = $request;
         $this->meetings = $meetings;
         $this->members = $members;
@@ -46,35 +49,38 @@ class MeetingsController extends \BaseController {
         $this->beforeFilter('auth');
     }
 
-	/**
-	 * Display a listing of the meetings.
-	 * GET /meetings
-	 *
-	 * @return Response
-	 */
-	public function index() {
+    /**
+     * Display a listing of the meetings.
+     * GET /meetings
+     *
+     * @return Response
+     */
+    public function index()
+    {
         $meetings = $this->meetings->all($with = ['attendants']);
 
-		return View::make('meetings.index', compact('meetings'));
-	}
+        return View::make('meetings.index', compact('meetings'));
+    }
 
-	/**
-	 * Show the form for creating a new meeting report.
-	 * GET /meetings/create
-	 *
-	 * @return Response
-	 */
-	public function create() {
-		return View::make('meetings.create');
-	}
+    /**
+     * Show the form for creating a new meeting report.
+     * GET /meetings/create
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('meetings.create');
+    }
 
-	/**
-	 * Store a newly created meeting report in storage.
-	 * POST /meetings
-	 *
-	 * @return Response
-	 */
-	public function store() {
+    /**
+     * Store a newly created meeting report in storage.
+     * POST /meetings
+     *
+     * @return Response
+     */
+    public function store()
+    {
 
         /** @todo Validate the input */
 
@@ -88,9 +94,12 @@ class MeetingsController extends \BaseController {
 
         if ($ids != '|') {
             $ids = explode("|", $this->request->get('attendants'));
-            $ids = array_filter($ids, function($value) {
+            $ids = array_filter(
+                $ids,
+                function ($value) {
                     return $value != '';
-                });
+                }
+            );
 
             $attendants = $this->members->getByIds($ids);
         }
@@ -101,55 +110,56 @@ class MeetingsController extends \BaseController {
 
         return Redirect::route('meetings.index');
 
-	}
+    }
 
-	/**
-	 * Display the specified resource.
-	 * GET /meetings/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id) {
+    /**
+     * Display the specified resource.
+     * GET /meetings/{id}
+     *
+     * @param  int      $id
+     * @return Response
+     */
+    public function show($id)
+    {
         $meeting = $this->meetings->get($id);
 
-		return View::make('meetings.show', compact('meeting'));
-	}
+        return View::make('meetings.show', compact('meeting'));
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /meetings/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    /**
+     * Show the form for editing the specified resource.
+     * GET /meetings/{id}/edit
+     *
+     * @param  int      $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /meetings/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+    /**
+     * Update the specified resource in storage.
+     * PUT /meetings/{id}
+     *
+     * @param  int      $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        //
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /meetings/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+    /**
+     * Remove the specified resource from storage.
+     * DELETE /meetings/{id}
+     *
+     * @param  int      $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 
 }

@@ -27,4 +27,6 @@
 
 namespace Angelov\Eestec\Platform\Exception;
 
-class FeeNotFoundException extends \Exception {}
+class FeeNotFoundException extends \Exception
+{
+}

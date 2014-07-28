@@ -31,24 +31,25 @@ use Angelov\Eestec\Platform\Exception\NoFeesException;
 use Angelov\Eestec\Platform\Model\Fee;
 use Angelov\Eestec\Platform\Model\Member;
 
-interface FeesRepositoryInterface {
+interface FeesRepositoryInterface
+{
 
     /**
-     * @param Fee $fee
-     * @param Member $member
+     * @param  Fee    $fee
+     * @param  Member $member
      * @return mixed
      */
     public function store(Fee $fee, Member $member);
 
     /**
-     * @param Member $member
+     * @param  Member          $member
      * @return mixed
      * @throws NoFeesException
      */
     public function getFeesForMember(Member $member);
 
     /**
-     * @param Member $member
+     * @param  Member          $member
      * @return mixed
      * @throws NoFeesException
      */

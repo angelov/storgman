@@ -35,7 +35,7 @@ Route::get('/', array('as' => 'homepage', 'uses' => 'HomeController@showHomepage
  * Authentication
  */
 
-Route::group(array('prefix' => 'auth'), function() {
+Route::group(array('prefix' => 'auth'), function () {
 
     Route::get('/',       array('as' => 'auth',     'uses' => 'AuthController@index'));
     Route::post('/',      array('as' => 'postAuth', 'uses' => 'AuthController@login'));

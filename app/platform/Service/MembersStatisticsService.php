@@ -30,11 +30,13 @@ namespace Angelov\Eestec\Platform\Service;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use DateTime;
 
-class MembersStatisticsService {
+class MembersStatisticsService
+{
 
     protected $members;
 
-    public function __construct(MembersRepositoryInterface $members) {
+    public function __construct(MembersRepositoryInterface $members)
+    {
         $this->members = $members;
     }
 
@@ -52,12 +54,13 @@ class MembersStatisticsService {
      *
      * @return array
      */
-    public function newMembersMonthlyLastYear() {
+    public function newMembersMonthlyLastYear()
+    {
 
         $from = (new DateTime('now'))
-                    ->modify('first day of this month')
-                    ->modify('-1 year')
-                    ->modify('+1 month');
+            ->modify('first day of this month')
+            ->modify('-1 year')
+            ->modify('+1 month');
         $to = new DateTime('now');
 
         $res = $this->members->countNewMembersPerMonth($from, $to);
@@ -67,15 +70,15 @@ class MembersStatisticsService {
 
         $list = [];
 
-        for ($m = $from->format('m'); $m <= 12; $m++){
+        for ($m = $from->format('m'); $m <= 12; $m++) {
 
             $count++;
 
-            $dt = new DateTime("1-". $m ."-". $year);
+            $dt = new DateTime("1-" . $m . "-" . $year);
             $month = $dt->format('M');
             $full = $dt->format('Y-m');
 
-            $list[$month ." ". $year] = isset($res[$full]) ? (int) $res[$full] : 0;
+            $list[$month . " " . $year] = isset($res[$full]) ? (int) $res[$full] : 0;
 
             if ($m == 12 && $count < 12) {
                 $m = 0;

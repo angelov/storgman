@@ -29,43 +29,51 @@ namespace Angelov\Eestec\Platform\Validation;
 
 use Illuminate\Validation\Factory;
 
-abstract class Validator {
+abstract class Validator
+{
 
     protected $validatorFactory;
     protected $messages = [];
     protected $rules;
 
-    public function __construct(Factory $validatorFactory) {
+    public function __construct(Factory $validatorFactory)
+    {
         $this->validatorFactory = $validatorFactory;
     }
 
-    public function validate(array $data) {
+    public function validate(array $data)
+    {
         $validator = $this->validatorFactory->make($data, $this->rules);
 
         if ($validator->fails()) {
             $this->messages = $validator->messages()->all();
+
             return false;
         }
 
         return true;
     }
 
-    public function getMessages() {
+    public function getMessages()
+    {
         return $this->messages;
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return $this->rules;
     }
 
-    public function removeRule($field, $rule) {
-        $pattern = "/". $rule .":[a-zA-Z,\-0-9]*/";
+    public function removeRule($field, $rule)
+    {
+        $pattern = "/" . $rule . ":[a-zA-Z,\-0-9]*/";
         $existing = $this->rules[$field];
 
         $this->rules[$field] = preg_replace($pattern, "", $existing);
     }
 
-    public function addRule($field, $rule) {
+    public function addRule($field, $rule)
+    {
         $this->rules[$field] = $this->rules[$field] . "|" . $rule;
     }
 

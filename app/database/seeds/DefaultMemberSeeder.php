@@ -31,18 +31,22 @@ use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 
-class DefaultMemberSeeder extends Seeder {
+class DefaultMemberSeeder extends Seeder
+{
 
     protected $members;
     protected $fees;
 
-    public function __construct(MembersRepositoryInterface $members,
-                                FeesRepositoryInterface $fees) {
+    public function __construct(
+        MembersRepositoryInterface $members,
+        FeesRepositoryInterface $fees
+    ) {
         $this->members = $members;
         $this->fees = $fees;
     }
 
-    public function run() {
+    public function run()
+    {
         DB::table('members')->delete();
 
         $user = new Member();

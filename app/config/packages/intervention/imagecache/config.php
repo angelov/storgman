@@ -9,62 +9,59 @@ return array(
     |
     | Enter the routes name to enable dynamic imagecache manipulation.
     | This handle will define the first part of the URI:
-    | 
+    |
     | {route}/{template}/{filename}
-    | 
+    |
     | Examples: "images", "img/cache"
     |
     */
-   
-    'route' => "members/photo",
 
+    'route' => "members/photo",
     /*
     |--------------------------------------------------------------------------
     | Storage paths
     |--------------------------------------------------------------------------
     |
-    | The following paths will be searched for the image filename, submited 
-    | by URI. 
-    | 
+    | The following paths will be searched for the image filename, submited
+    | by URI.
+    |
     | Define as mich directories as you like.
     |
     */
-    
+
     'paths' => array(
-        public_path(Config::get('main.photos.upload_dir')."/members"),
+        public_path(Config::get('main.photos.upload_dir') . "/members"),
         public_path('static/assets/img')
     ),
-
     /*
     |--------------------------------------------------------------------------
     | Manipulation templates
     |--------------------------------------------------------------------------
     |
     | Here you may specify your own manipulation callbacks.
-    | The keys of this array will define which templates 
+    | The keys of this array will define which templates
     | are available in the URI:
     |
     | {route}/{template}/{filename}
     |
     */
-   
+
     'templates' => array(
 
-        'xsmall' => function($image) {
-            return $image->fit(40, 40);
-        },
-        'small' => function($image) { 
-            return $image->fit(100, 100);
-        },
-        'medium' => function($image) {
-            return $image->fit(200, 200);
-        },
-        'large' => function($image) {
-            return $image->fit(400, 400);
-        }
+        'xsmall' => function ($image) {
+                return $image->fit(40, 40);
+            },
+        'small' => function ($image) {
+                return $image->fit(100, 100);
+            },
+        'medium' => function ($image) {
+                return $image->fit(200, 200);
+            },
+        'large' => function ($image) {
+                return $image->fit(400, 400);
+            }
 
     ),
-
     /*
     |--------------------------------------------------------------------------
     | Image Cache Lifetime
@@ -73,7 +70,7 @@ return array(
     | Lifetime in minutes of the images handled by the imagecache route.
     |
     */
-   
+
     'lifetime' => 43200,
 
 );

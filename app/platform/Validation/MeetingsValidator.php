@@ -27,11 +27,12 @@
 
 namespace Angelov\Eestec\Platform\Validation;
 
-class MeetingsValidator extends Validator {
+class MeetingsValidator extends Validator
+{
 
     protected $rules = [
-        'date'       => 'required|date_format:Y-m-d',
-        'location'   => 'required',
+        'date' => 'required|date_format:Y-m-d',
+        'location' => 'required',
         'created_by' => 'required|exists:members,id'
     ];
 

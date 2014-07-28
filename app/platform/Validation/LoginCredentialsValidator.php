@@ -27,10 +27,11 @@
 
 namespace Angelov\Eestec\Platform\Validation;
 
-class LoginCredentialsValidator extends Validator {
+class LoginCredentialsValidator extends Validator
+{
 
     protected $rules = [
-        'email'    => 'required|email',
+        'email' => 'required|email',
         'password' => 'required|min:6'
     ];
 

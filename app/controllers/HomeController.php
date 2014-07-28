@@ -29,15 +29,18 @@ use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Service\MembersStatisticsService;
 
-class HomeController extends BaseController {
+class HomeController extends BaseController
+{
 
     protected $members;
     protected $meetings;
     protected $membersStats;
 
-	public function __construct(MembersRepositoryInterface $members,
-                                MeetingsRepositoryInterface $meetings,
-                                MembersStatisticsService $membersStats) {
+    public function __construct(
+        MembersRepositoryInterface $members,
+        MeetingsRepositoryInterface $meetings,
+        MembersStatisticsService $membersStats
+    ) {
         $this->members = $members;
         $this->meetings = $meetings;
         $this->membersStats = $membersStats;
@@ -45,7 +48,8 @@ class HomeController extends BaseController {
         $this->beforeFilter('auth');
     }
 
-	public function showHomepage() {
+    public function showHomepage()
+    {
 
         $today = new DateTime('now');
         $withBirthday = $this->members->getByBirthdayDate($today);
@@ -64,13 +68,15 @@ class HomeController extends BaseController {
 
         $perFaculty = json_encode($fax);
 
-        $perMonthAll= $this->membersStats->newMembersMonthlyLastYear();
+        $perMonthAll = $this->membersStats->newMembersMonthlyLastYear();
         $perMonth['months'] = json_encode(array_keys($perMonthAll));
         $perMonth['values'] = json_encode(array_values($perMonthAll));
 
-		return View::make('homepage.index',
-            compact('withBirthday', 'attendance', 'byMembershipStatus', 'perFaculty', 'perMonth'));
+        return View::make(
+            'homepage.index',
+            compact('withBirthday', 'attendance', 'byMembershipStatus', 'perFaculty', 'perMonth')
+        );
 
-	}
+    }
 
 }

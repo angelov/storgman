@@ -32,19 +32,23 @@ use Angelov\Eestec\Platform\Exception\NoFeesException;
 use Angelov\Eestec\Platform\Model\Fee;
 use Angelov\Eestec\Platform\Model\Member;
 
-class EloquentFeesRepository implements FeesRepositoryInterface {
+class EloquentFeesRepository implements FeesRepositoryInterface
+{
 
-    public function store(Fee $fee, Member $member) {
+    public function store(Fee $fee, Member $member)
+    {
         $member->fees()->save($fee);
     }
 
-    public function getFeesForMember(Member $member) {
+    public function getFeesForMember(Member $member)
+    {
         $fees = $member->fees()->get()->all();
 
         return $fees;
     }
 
-    public function getLatestFeeForMember(Member $member) {
+    public function getLatestFeeForMember(Member $member)
+    {
         $fee = $member->fees()->orderBy('to', 'DESC')->first();
 
         if ($fee == null) {
@@ -54,7 +58,8 @@ class EloquentFeesRepository implements FeesRepositoryInterface {
         return $fee;
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         if (Fee::find($id) == null) {
             throw new FeeNotFoundException();
         }

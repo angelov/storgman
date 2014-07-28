@@ -34,17 +34,20 @@ use Angelov\Eestec\Platform\Model\Fee;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 
-class FeesController extends \BaseController {
+class FeesController extends \BaseController
+{
 
     protected $request;
     protected $fees;
     protected $members;
     protected $validator;
 
-    public function __construct(Request $request,
-                                FeesRepositoryInterface $fees,
-                                MembersRepositoryInterface $members,
-                                FeesValidator $validator) {
+    public function __construct(
+        Request $request,
+        FeesRepositoryInterface $fees,
+        MembersRepositoryInterface $members,
+        FeesValidator $validator
+    ) {
         $this->request = $request;
         $this->fees = $fees;
         $this->members = $members;
@@ -60,7 +63,8 @@ class FeesController extends \BaseController {
      *
      * @return Response
      */
-    public function create() {
+    public function create()
+    {
 
         if (!$this->request->ajax()) {
             return new Response();
@@ -81,13 +85,13 @@ class FeesController extends \BaseController {
 
             $exp = clone $exp;
             $suggestDates['from'] = $exp->modify('+1 day')->format('Y-m-d');
-            $suggestDates['to']   = $exp->modify('+1 year')->format('Y-m-d');
+            $suggestDates['to'] = $exp->modify('+1 year')->format('Y-m-d');
 
         } else {
 
             $today = new \DateTime('now');
             $suggestDates['from'] = $today->format('Y-m-d');
-            $suggestDates['to']   = $today->modify('+1 year')->format('Y-m-d');
+            $suggestDates['to'] = $today->modify('+1 year')->format('Y-m-d');
 
         }
 
@@ -101,44 +105,46 @@ class FeesController extends \BaseController {
 
     }
 
-	/**
-	 * Store a newly created fee.
-	 *
-	 * @return Response
-	 */
-	public function store() {
+    /**
+     * Store a newly created fee.
+     *
+     * @return Response
+     */
+    public function store()
+    {
 
         if (!$this->validator->validate($this->request->all())) {
-            $data['status']  = 'danger';
+            $data['status'] = 'danger';
             $data['message'] = 'The data you entered is invalid.';
 
             return json_encode($data);
         }
 
-		$fee = new Fee();
+        $fee = new Fee();
 
         $fee->from = $this->request->get('from');
-        $fee->to   = $this->request->get('to');
+        $fee->to = $this->request->get('to');
 
         $member = $this->members->get($this->request->get('member_id'));
 
         $this->fees->store($fee, $member);
 
-        $data['status']  = 'success';
+        $data['status'] = 'success';
         $data['message'] = 'The membership was renewed successfully.';
 
         return json_encode($data);
 
-	}
+    }
 
-	/**
-	 * Remove the specified fee from storage.
+    /**
+     * Remove the specified fee from storage.
      * Method available only via ajax.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id) {
+     *
+     * @param  int      $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
 
         if (!$this->request->ajax()) {
             return new Response();
@@ -149,15 +155,15 @@ class FeesController extends \BaseController {
         try {
             $this->fees->destroy($id);
 
-            $data['status']  = 'success';
+            $data['status'] = 'success';
             $data['message'] = 'Fee deleted successfully.';
         } catch (FeeNotFoundException $e) {
-            $data['status']  = 'warning';
+            $data['status'] = 'warning';
             $data['message'] = 'There was something wrong with your request.';
         }
 
         return new JsonResponse($data);
 
-	}
+    }
 
 }

@@ -29,37 +29,42 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Validation\LoginCredentialsValidator;
 
-class AuthController extends \BaseController {
+class AuthController extends \BaseController
+{
 
     protected $request;
     protected $validator;
 
-    public function __construct(Request $request, LoginCredentialsValidator $validator) {
+    public function __construct(Request $request, LoginCredentialsValidator $validator)
+    {
         $this->request = $request;
         $this->validator = $validator;
 
         $this->beforeFilter('guest', ['only' => ['index', 'login']]);
-        $this->beforeFilter('auth',  ['only' => ['logout']]);
+        $this->beforeFilter('auth', ['only' => ['logout']]);
     }
 
-	/**
-	 * Display the login form
-	 *
-	 * @return Response
-	 */
-	public function index() {
+    /**
+     * Display the login form
+     *
+     * @return Response
+     */
+    public function index()
+    {
         return View::make('auth.index');
-	}
+    }
 
-	/**
-	 * Check the login data and authenticate the member..
-	 *
-	 * @return Response
-	 */
-	public function login() {
+    /**
+     * Check the login data and authenticate the member..
+     *
+     * @return Response
+     */
+    public function login()
+    {
 
         if (!$this->validator->validate($this->request->all())) {
             Session::flash('auth-error', 'Please insert valid information.');
+
             return Redirect::back()->withInput();
         }
 
@@ -78,6 +83,7 @@ class AuthController extends \BaseController {
             if (!$active) {
                 Auth::logout();
                 Session::flash('auth-error', 'Your membership needs to be reactivated. Have you paid the fees?');
+
                 return Redirect::back();
             }
 
@@ -85,21 +91,22 @@ class AuthController extends \BaseController {
 
         } else {
             Session::flash('auth-error', 'Wrong email or password.');
+
             return Redirect::back()->withInput();
         }
 
-	}
+    }
 
     /**
      * Logout the member
      *
      * @return Response
      */
-    public function logout() {
+    public function logout()
+    {
         Auth::logout();
 
         return Redirect::to('/');
     }
-
 
 }

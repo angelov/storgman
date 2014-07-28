@@ -13,10 +13,10 @@
 
 ClassLoader::addDirectories(array(
 
-	app_path().'/commands',
-	app_path().'/controllers',
-	app_path().'/Model',
-	app_path().'/database/seeds',
+    app_path().'/commands',
+    app_path().'/controllers',
+    app_path().'/Model',
+    app_path().'/database/seeds',
 
 ));
 
@@ -46,17 +46,17 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
-App::error(function(Exception $exception, $code)
-{
-	Log::error($exception);
+App::error(function (Exception $exception, $code) {
+    Log::error($exception);
 });
 
-App::error(function(\Intervention\Image\Exception\NotFoundException $e) {
+App::error(function (\Intervention\Image\Exception\NotFoundException $e) {
    dd($e);
 });
 
-App::missing(function($exception) {
+App::missing(function ($exception) {
     Log::error($exception);
+
     return Response::view('errors.404', array(), 404);
 });
 
@@ -71,9 +71,8 @@ App::missing(function($exception) {
 |
 */
 
-App::down(function()
-{
-	return Response::make("Be right back!", 503);
+App::down(function () {
+    return Response::make("Be right back!", 503);
 });
 
 /*

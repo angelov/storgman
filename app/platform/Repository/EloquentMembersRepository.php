@@ -27,22 +27,24 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
-use Carbon\Carbon;
 use Angelov\Eestec\Platform\Exception\MemberNotFoundException;
 use Angelov\Eestec\Platform\Model\Member;
 use DateTime;
 use DB;
 
-class EloquentMembersRepository implements MembersRepositoryInterface {
+class EloquentMembersRepository implements MembersRepositoryInterface
+{
 
     /**
      * Returns all members from the database
      */
-    public function all() {
+    public function all()
+    {
         return Member::all();
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
 
         if (null == Member::find($id)) {
             throw new MemberNotFoundException();
@@ -51,11 +53,13 @@ class EloquentMembersRepository implements MembersRepositoryInterface {
         Member::destroy($id);
     }
 
-    public function store(Member $member) {
+    public function store(Member $member)
+    {
         $member->save();
     }
 
-    public function get($id) {
+    public function get($id)
+    {
         $member = Member::find($id);
 
         if ($member == null) {
@@ -65,7 +69,8 @@ class EloquentMembersRepository implements MembersRepositoryInterface {
         return $member;
     }
 
-    public function getByPage($page = 1, $limit = 20) {
+    public function getByPage($page = 1, $limit = 20)
+    {
         $results = new \stdClass();
         $results->page = $page;
         $results->limit = $limit;
@@ -80,49 +85,59 @@ class EloquentMembersRepository implements MembersRepositoryInterface {
         return $results;
     }
 
-    public function countByMembershipStatus() {
+    public function countByMembershipStatus()
+    {
 
-        $result = (array) DB::select('
-            select *
-            from
-              (select count(id) as total
-               from members)
-               as tbl1,
+        $result = (array) DB::select(
+            '
+                        SELECT *
+                        FROM
+                          (SELECT count(id) AS total
+                           FROM members)
+                           AS tbl1,
 
-              (select count(id) as active
-               from members
-               where id in
-                  (select distinct member_id from fees)
-               )
-               as tbl2;
-        ')[0];
+                          (SELECT count(id) AS active
+                           FROM members
+                           WHERE id IN
+                              (SELECT DISTINCT member_id FROM fees)
+                           )
+                           AS tbl2;
+                    '
+        )[0];
 
         return $result;
 
     }
 
-    public function getByBirthdayDate(DateTime $date) {
+    public function getByBirthdayDate(DateTime $date)
+    {
 
-        $members = Member::whereRaw('EXTRACT(DAY from birthday) = ? and EXTRACT(MONTH from birthday) = ?',
-                                    [$date->format('d'), $date->format('m')])->get()->all();
+        $members = Member::whereRaw(
+            'EXTRACT(DAY from birthday) = ? and EXTRACT(MONTH from birthday) = ?',
+            [$date->format('d'), $date->format('m')]
+        )->get()->all();
 
         return $members;
 
     }
 
-    public function getByIds(array $ids) {
+    public function getByIds(array $ids)
+    {
         return Member::whereIn('id', $ids)->get()->all();
     }
 
-    public function countPerFaculty() {
+    public function countPerFaculty()
+    {
 
-        $results = (array) DB::select('
-            select faculty,
-                   count(id) as members
-            from members
-            group by faculty
-            order by members desc;
-        ');
+        $results = (array) DB::select(
+            '
+                        SELECT faculty,
+                               count(id) AS members
+                        FROM members
+                        GROUP BY faculty
+                        ORDER BY members DESC;
+                    '
+        );
 
         $list = [];
 
@@ -135,37 +150,41 @@ class EloquentMembersRepository implements MembersRepositoryInterface {
 
     }
 
-    public function countNewMembersPerMonth(DateTime $from, DateTime $to) {
+    public function countNewMembersPerMonth(DateTime $from, DateTime $to)
+    {
 
         $from = $from->format("Y-m-d");
         $to = $to->format("Y-m-d");
 
-        $res = DB::select('
-            select concat(year, "-", lpad(month, 2, "0")) as month,
-                   count(id) as count
-            from
-              (select id,
-                      email,
-                      extract(month from joined) as month,
-                      extract(year from joined) as year
-               from
-                 (select id,
-                         email,
-                         min(`from`) as joined
-                  from
-                    (select members.`id`,
-                            `email`,
-                            fees.`from`,
-                            `to`
-                     from `members`,
-                          `fees`
-                     where members.id = member_id
-                       and fees.`from` between ? and ?) as tbl
-                  group by id) as tbl2) as tbl3
-            group by concat(month, year);
-        ', array($from, $to));
+        $res = DB::select(
+            '
+                        SELECT concat(year, "-", lpad(month, 2, "0")) AS month,
+                               count(id) AS count
+                        FROM
+                          (SELECT id,
+                                  email,
+                                  extract(MONTH FROM joined) AS month,
+                                  extract(YEAR FROM joined) AS year
+                           FROM
+                             (SELECT id,
+                                     email,
+                                     min(`from`) AS joined
+                              FROM
+                                (SELECT members.`id`,
+                                        `email`,
+                                        fees.`from`,
+                                        `to`
+                                 FROM `members`,
+                                      `fees`
+                                 WHERE members.id = member_id
+                                   AND fees.`from` BETWEEN ? AND ?) AS tbl
+                              GROUP BY id) AS tbl2) AS tbl3
+                        GROUP BY concat(month, year);
+                    ',
+            array($from, $to)
+        );
 
-        /*array_walk($res, function(&$current) {
+        /*array_walk($res, function (&$current) {
                 $current = (array) $current;
         });*/
 

@@ -29,13 +29,14 @@ namespace Angelov\Eestec\Platform\Repository;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile as File;
 
-interface PhotosRepositoryInterface {
+interface PhotosRepositoryInterface
+{
 
     /**
      * Store uploaded photo
      *
-     * @param File $file
-     * @param string $type Eg. "members"
+     * @param  File   $file
+     * @param  string $type Eg. "members"
      * @return string Filename
      */
     public function store(File $file, $type);
