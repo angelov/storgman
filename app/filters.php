@@ -1,15 +1,6 @@
 <?php
 
-Route::filter(
-    'boardMember',
-    function () {
-        $member = Auth::user();
-
-        if (!$member->isBoardMember()) {
-            return Redirect::to('/');
-        }
-    }
-);
+Route::filter('boardMember', 'Angelov\Eestec\Platform\Filter\BoardMembersFilter');
 
 /*
 |--------------------------------------------------------------------------
