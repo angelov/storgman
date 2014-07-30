@@ -271,9 +271,7 @@ class MembersController extends \BaseController
             $data['message'] = 'There was something wrong with your request.';
         }
 
-        if ($this->request->ajax()) {
-            return new JsonResponse($data);
-        }
+        return new JsonResponse($data);
 
     }
 
