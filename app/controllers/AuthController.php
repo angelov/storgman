@@ -25,6 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Service\MembershipService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Validation\LoginCredentialsValidator;
@@ -55,7 +56,8 @@ class AuthController extends \BaseController
     }
 
     /**
-     * Check the login data and authenticate the member..
+     * Check the login data and authenticate the member.
+     * Thanks to reddit.com/user/baileylo for the suggestions.
      *
      * @return Response
      */
@@ -68,32 +70,27 @@ class AuthController extends \BaseController
             return Redirect::back()->withInput();
         }
 
-        $email = $this->request->get('email');
-        $password = $this->request->get('password');
+        $credentials = $this->request->only('email', 'password');
         $remember = ($this->request->get('remember') == 'yes');
 
-        if (Auth::attempt(array('email' => $email, 'password' => $password), $remember)) {
-
-            /** @var \Angelov\Eestec\Platform\Service\MembershipService $membershipService */
-            $membershipService = App::make('MembershipService');
-            $member = Auth::user();
-
-            $active = $membershipService->isMemberActive($member);
-
-            if (!$active) {
-                Auth::logout();
-                Session::flash('auth-error', 'Your membership needs to be reactivated. Have you paid the fees?');
-
-                return Redirect::back();
-            }
-
-            return Redirect::to('/');
-
-        } else {
+        if (Auth::attempt($credentials, $remember)) {
             Session::flash('auth-error', 'Wrong email or password.');
 
             return Redirect::back()->withInput();
         }
+
+        /** @var MembershipService $membershipService */
+        $membershipService = App::make('MembershipService');
+        $member = Auth::user();
+
+        if (!$membershipService->isMemberActive($member)) {
+            Auth::logout();
+            Session::flash('auth-error', 'Your membership needs to be reactivated. Have you paid the fees?');
+
+            return Redirect::back();
+        }
+
+        return Redirect::to('/');
 
     }
 
