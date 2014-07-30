@@ -25,6 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Validation\MeetingsValidator;
 use Illuminate\Http\Request;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
@@ -36,15 +37,18 @@ class MeetingsController extends \BaseController
     protected $request;
     protected $meetings;
     protected $members;
+    protected $validator;
 
     public function __construct(
         Request $request,
         MeetingsRepositoryInterface $meetings,
-        MembersRepositoryInterface $members
+        MembersRepositoryInterface $members,
+        MeetingsValidator $validator
     ) {
         $this->request = $request;
         $this->meetings = $meetings;
         $this->members = $members;
+        $this->validator = $validator;
 
         $this->beforeFilter('auth');
     }
@@ -82,7 +86,12 @@ class MeetingsController extends \BaseController
     public function store()
     {
 
-        /** @todo Validate the input */
+        if (!$this->validator->validate($this->request->all())) {
+            $errorMessages = $this->validator->getMessages();
+            Session::flash('errorMessages', $errorMessages);
+
+            return Redirect::back()->withInput();
+        }
 
         $meeting = new Meeting();
         $meeting->date = $this->request->get('date');
@@ -92,6 +101,7 @@ class MeetingsController extends \BaseController
         $ids = $this->request->get('attendants');
         $attendants = [];
 
+        /** @todo Move this to separate service! */
         if ($ids != '|') {
             $ids = explode("|", $this->request->get('attendants'));
             $ids = array_filter(
