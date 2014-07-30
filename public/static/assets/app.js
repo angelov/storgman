@@ -241,6 +241,8 @@ $(function(){
     // load the members only if needed
     if ($("#new-attendant").length) {
 
+        var countAttendants = 0;
+
         var engine = new Bloodhound({
             name: 'members',
             prefetch: {url: '/members'},
@@ -283,6 +285,8 @@ $(function(){
 
                 $('#new-attendant').val('');
 
+                $('#count-attendants').html(++countAttendants);
+
             });
 
         // delete the attendant from the meeting
@@ -296,6 +300,8 @@ $(function(){
             inp.val(str);
 
             $(this).closest('.attendant').hide();
+            $('#count-attendants').html(--countAttendants);
+
             return false;
 
         });
