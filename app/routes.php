@@ -26,20 +26,26 @@
  */
 
 /**
- * Load the homepage
+ * Global patterns
  */
 
-Route::get('/', array('as' => 'homepage', 'uses' => 'HomeController@showHomepage'));
+Route::pattern('id', '[0-9]+');
+
+/**
+ * Dashboard
+ */
+
+Route::get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage']);
 
 /**
  * Authentication
  */
 
-Route::group(array('prefix' => 'auth'), function () {
+Route::group(['prefix' => 'auth'], function () {
 
-    Route::get('/',       array('as' => 'auth',     'uses' => 'AuthController@index'));
-    Route::post('/',      array('as' => 'postAuth', 'uses' => 'AuthController@login'));
-    Route::get('/logout', array('as' => 'logout',   'uses' => 'AuthController@logout'));
+    Route::get('/',       ['as' => 'auth',     'uses' => 'AuthController@index']);
+    Route::post('/',      ['as' => 'postAuth', 'uses' => 'AuthController@login']);
+    Route::get('/logout', ['as' => 'logout',   'uses' => 'AuthController@logout']);
 
 });
 
@@ -47,16 +53,42 @@ Route::group(array('prefix' => 'auth'), function () {
  * Members management
  */
 
-Route::resource('members', 'MembersController');
+Route::group(['prefix' => 'members'], function () {
+
+    Route::get('/',          ['as' => 'members.index',   'uses' => 'MembersController@index']);
+    Route::get('/create',    ['as' => 'members.create',  'uses' => 'MembersController@create']);
+    Route::post('/',         ['as' => 'members.store',   'uses' => 'MembersController@store']);
+    Route::get('/{id}',      ['as' => 'members.show',    'uses' => 'MembersController@show']);
+    Route::get('/{id}/edit', ['as' => 'members.edit',    'uses' => 'MembersController@edit']);
+    Route::put('/{id}',      ['as' => 'members.update',  'uses' => 'MembersController@update']);
+    Route::delete('/{id}',   ['as' => 'members.destroy', 'uses' => 'MembersController@destroy']);
+
+});
 
 /**
  * Membership fees management
  */
 
-Route::resource('fees', 'FeesController');
+Route::group(['prefix' => 'members'], function () {
+
+    Route::get('/create',  ['as' => 'fees.create',  'uses' => 'FeesController@create']);
+    Route::post('/',       ['as' => 'fees.store',   'uses' => 'FeesController@store']);
+    Route::delete('/{id}', ['as' => 'fees.destroy', 'uses' => 'FeesController@destroy']);
+
+});
 
 /**
  * Meetings management
  */
 
-Route::resource('meetings', 'MeetingsController');
+Route::group(['prefix' => 'meetings'], function () {
+
+    Route::get('/',          ['as' => 'meetings.index',   'uses' => 'MeetingsController@index']);
+    Route::get('/create',    ['as' => 'meetings.create',  'uses' => 'MeetingsController@create']);
+    Route::post('/',         ['as' => 'meetings.store',   'uses' => 'MeetingsController@store']);
+    Route::get('/{id}',      ['as' => 'meetings.show',    'uses' => 'MeetingsController@show']);
+    Route::get('/{id}/edit', ['as' => 'meetings.edit',    'uses' => 'MeetingsController@edit']);
+    Route::put('/{id}',      ['as' => 'meetings.update',  'uses' => 'MeetingsController@update']);
+    Route::delete('/{id}',   ['as' => 'meetings.destroy', 'uses' => 'MeetingsController@destroy']);
+
+});
