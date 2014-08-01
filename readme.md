@@ -16,6 +16,8 @@ The application is not production ready yet!
 * Bower
 * Grunt
 
+Note: You can use [Laravel Homestead](laravel.com/docs/homestead) as your development environment, since it has everything you need for this project.
+
 ### Installation
 
 To install the application on your local machine, follow these steps:
