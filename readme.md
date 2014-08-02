@@ -1,6 +1,15 @@
 ## EESTEC Platform for Local Committees
 
-Under development by [Angelov Dejan](http://ultim8.info).   
+“EESTEC Platform” is a web application which aims to ease the internal management of the EESTEC's local committees.
+The main idea for this to be achieved is to automate many of the tasks currently done “by hand” and to collect the big
+number of information (such as list of members and their info) currently spread across many spreadsheets, papers, mails
+etc. in one place.
+
+[Electrical Engineering Students’ European Association (EESTEC)](http://eestec.net) is a non-political, non-profit
+organization ofand for Electrical Engineering and Computer Science (EECS) students of universities, institutes and
+technical schools in Europe.
+
+Under development by [Angelov Dejan](http://ultim8.info).
 The application is not production ready yet!
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/?branch=master)
