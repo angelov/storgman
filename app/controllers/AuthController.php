@@ -73,7 +73,7 @@ class AuthController extends \BaseController
         $credentials = $this->request->only('email', 'password');
         $remember = ($this->request->get('remember') == 'yes');
 
-        if (Auth::attempt($credentials, $remember)) {
+        if (!Auth::attempt($credentials, $remember)) {
             Session::flash('auth-error', 'Wrong email or password.');
 
             return Redirect::back()->withInput();
