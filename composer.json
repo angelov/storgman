@@ -9,7 +9,8 @@
         "ext-gd": "*",
         "way/generators": "2.*",
         "intervention/image": "2.*",
-        "intervention/imagecache": "2.*"
+        "intervention/imagecache": "2.*",
+        "fzaninotto/faker": "1.4.0"
     },
     "autoload": {
         "classmap": [
