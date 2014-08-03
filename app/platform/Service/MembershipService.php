@@ -84,4 +84,15 @@ class MembershipService
 
     }
 
+    public function getJoinedDate(Member $member)
+    {
+        try {
+            $fee = $this->fees->getFirstFeeForMember($member);
+
+            return new \DateTime($fee->from);
+        } catch (NoFeesException $e) {
+            return new \DateTime($member->created_at);
+        }
+    }
+
 }

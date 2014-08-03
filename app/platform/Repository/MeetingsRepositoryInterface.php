@@ -43,11 +43,24 @@ interface MeetingsRepositoryInterface
 
     public function all(array $withRelationships = []);
 
+    public function countMeetingsInPeriod(\DateTime $from, \DateTime $to);
+
     public function get($id);
 
     /**
+     * @todo rename the method to getTotalAttendanceDetails() or something similar
      * @return array
      */
     public function calculateAttendanceDetails();
+
+    /**
+     * Count the meetings in a given period, attended by the member
+     *
+     * @param Member $member
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return int
+     */
+    public function countAttendanceForMember(Member $member, \DateTime $from, \DateTime $to);
 
 }

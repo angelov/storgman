@@ -45,7 +45,13 @@ class EloquentMeetingsRepository implements MeetingsRepositoryInterface
     public function all(array $withRelationships = [])
     {
         return Meeting::with($withRelationships)->get()->all();
+    }
 
+    public function countMeetingsInPeriod(\DateTime $from, \DateTime $to) {
+        $from = $from->format('Y-m-d');
+        $to = $to->format('Y-m-d');
+
+        return Meeting::whereBetween('date', array($from, $to))->count();
     }
 
     public function get($id)
@@ -87,6 +93,28 @@ class EloquentMeetingsRepository implements MeetingsRepositoryInterface
         $att['average'] = $result['average'] ? : 0;
 
         return $att;
+
+    }
+
+    public function countAttendanceForMember(Member $member, \DateTime $from, \DateTime $to)
+    {
+
+        $from = $from->format("Y-m-d");
+        $to = $to->format("Y-m-d");
+
+        $result = DB::select(
+            "
+                        SELECT count(meeting_id) AS attended
+                        FROM meetings,
+                             meeting_member
+                        WHERE meeting_id=meetings.id
+                          AND member_id = ?
+                          AND `date` BETWEEN ? AND ?
+                    ",
+            array($member->id, $from, $to)
+        )[0];
+
+        return $result->attended;
 
     }
 

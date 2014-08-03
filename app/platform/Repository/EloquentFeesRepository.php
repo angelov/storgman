@@ -49,7 +49,17 @@ class EloquentFeesRepository implements FeesRepositoryInterface
 
     public function getLatestFeeForMember(Member $member)
     {
-        $fee = $member->fees()->orderBy('to', 'DESC')->first();
+        return $this->getFeeByOrder($member, "DESC");
+    }
+
+    public function getFirstFeeForMember(Member $member)
+    {
+        return $this->getFeeByOrder($member, "ASC");
+    }
+
+    private function getFeeByOrder(Member $member, $order)
+    {
+        $fee = $member->fees()->orderBy('to', $order)->first();
 
         if ($fee == null) {
             throw new NoFeesException();
