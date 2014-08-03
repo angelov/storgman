@@ -25,6 +25,8 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Service\MeetingsService;
+use Angelov\Eestec\Platform\Service\MembershipService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -154,13 +156,18 @@ class MembersController extends \BaseController
     {
         $member = $this->members->get($id);
 
-        /** @var \Angelov\Eestec\Platform\Service\MembershipService $membershipService */
+        /** @var MembershipService $membershipService */
         $membershipService = App::make('MembershipService');
+
+        /** @var MeetingsService $meetingsService */
+        $meetingsService = App::make('MeetingsService');
 
         $member->membership_status = $membershipService->isMemberActive($member);
         $member->membership_expiration_date = $membershipService->getExpirationDate($member);
 
-        return View::make('members.show', compact('member'));
+        $attendanceRate = $meetingsService->calculateAttendanceRateForMember($member);
+
+        return View::make('members.show', compact('member', 'attendanceRate'));
     }
 
     /**

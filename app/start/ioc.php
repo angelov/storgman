@@ -20,6 +20,10 @@ App::bind('MembershipService', function () {
     return App::make('Angelov\Eestec\Platform\Service\MembershipService');
 });
 
+App::bind('MeetingsService', function () {
+    return App::make('Angelov\Eestec\Platform\Service\MeetingsService');
+});
+
 App::bind('PhotosRepository', function () {
     return App::make('Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface');
 });
