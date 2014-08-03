@@ -87,22 +87,26 @@ class EloquentMembersRepository implements MembersRepositoryInterface
 
     public function countByMembershipStatus()
     {
+        // MySQL and PostgreSQL have different methods for getting
+        // the current date, so we can't do that inside the SQL
+        // query.
+        $currentDate = (new DateTime('now'))->format('Y-m-d');
 
-        $result = (array) DB::select(
+        $result = (array)DB::select(
             '
-                        SELECT *
-                        FROM
-                          (SELECT count(id) AS total
-                           FROM members)
-                           AS tbl1,
+                SELECT *
+                FROM
+                  (SELECT count(id) AS total
+                   FROM members) AS tbl1,
 
-                          (SELECT count(id) AS active
-                           FROM members
-                           WHERE id IN
-                              (SELECT DISTINCT member_id FROM fees)
-                           )
-                           AS tbl2;
-                    '
+                  (SELECT count(id) AS active
+                   FROM members
+                   WHERE id IN
+                       (SELECT DISTINCT member_id
+                        FROM fees
+                        WHERE `to` > \'' . $currentDate . '\') ) AS tbl2;
+
+            '
         )[0];
 
         return $result;
@@ -129,7 +133,7 @@ class EloquentMembersRepository implements MembersRepositoryInterface
     public function countPerFaculty()
     {
 
-        $results = (array) DB::select(
+        $results = (array)DB::select(
             '
                         SELECT faculty,
                                count(id) AS members
@@ -142,7 +146,7 @@ class EloquentMembersRepository implements MembersRepositoryInterface
         $list = [];
 
         foreach ($results as $current) {
-            $current = (array) $current;
+            $current = (array)$current;
             $list[$current['faculty']] = $current['members'];
         }
 
@@ -191,7 +195,7 @@ class EloquentMembersRepository implements MembersRepositoryInterface
         $list = [];
 
         foreach ($res as &$current) {
-            $current = (array) $current;
+            $current = (array)$current;
             $list[$current['month']] = $current['count'];
         }
 
