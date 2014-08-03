@@ -29,6 +29,15 @@ namespace Angelov\Eestec\Platform\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $from
+ * @property int $to
+ * @property int $member_id
+ * @property string $created_at
+ * @property string $updated_at
+ * @property \Angelov\Eestec\Platform\Model\Member $member
+ */
 class Fee extends Model
 {
 

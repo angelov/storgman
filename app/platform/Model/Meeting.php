@@ -29,6 +29,17 @@ namespace Angelov\Eestec\Platform\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $date
+ * @property string $location
+ * @property string $info
+ * @property int $created_by
+ * @property string $created_at
+ * @property string $updated_at
+ * @property \Illuminate\Database\Eloquent\Collection $attendants
+ * @property \Angelov\Eestec\Platform\Model\Member $creator
+ */
 class Meeting extends Model
 {
 

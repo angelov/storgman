@@ -34,6 +34,29 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Auth\UserTrait;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $email
+ * @property string $password
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $faculty
+ * @property string $field_of_study
+ * @property string $photo
+ * @property string $birthday
+ * @property bool $board_member
+ * @property string $position_title
+ * @property string $remember_token
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $full_name
+ * @property int $age
+ * @property string $membership_status
+ * @property string $membership_expiration_date
+ * @property \Illuminate\Database\Eloquent\Collection $fees
+ * @property \Illuminate\Database\Eloquent\Collection $meetingsAttended
+ * @property \Illuminate\Database\Eloquent\Collection $meetingsCreated
+ */
 class Member extends Model implements UserInterface, RemindableInterface
 {
 
