@@ -69,7 +69,7 @@ Route::group(['prefix' => 'members'], function () {
  * Membership fees management
  */
 
-Route::group(['prefix' => 'members'], function () {
+Route::group(['prefix' => 'fees'], function () {
 
     Route::get('/create',  ['as' => 'fees.create',  'uses' => 'FeesController@create']);
     Route::post('/',       ['as' => 'fees.store',   'uses' => 'FeesController@store']);
