@@ -69,6 +69,10 @@ class MeetingsService
         $attended = $this->meetings->countAttendanceForMember($member, $calculateFrom, $calculateTo);
         $total = $this->meetings->countMeetingsInPeriod($calculateFrom, $calculateTo);
 
+        if ($total == 0) {
+            return 100; // this is a little weird case...
+        }
+
         $rate = ($attended / $total) * 100;
 
         return (int)round($rate, 0);
