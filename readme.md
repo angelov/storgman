@@ -9,6 +9,8 @@ etc. in one place.
 organization ofand for Electrical Engineering and Computer Science (EECS) students of universities, institutes and
 technical schools in Europe.
 
+You can read the detailed description of the project [here](http://angelovdejan.wordpress.com/2014/08/05/introducing-eestec-platform-for-local-committees/).
+
 Under development by [Angelov Dejan](http://ultim8.info).
 The application is not production ready yet!
 
@@ -25,7 +27,7 @@ The application is not production ready yet!
 * Bower
 * Grunt
 
-Note: You can use [Laravel Homestead](laravel.com/docs/homestead) as your development environment, since it has everything you need for this project.
+Note: You can use [Laravel Homestead](http://laravel.com/docs/homestead) as your development environment, since it has everything you need for this project.
 
 ### Installation
 
