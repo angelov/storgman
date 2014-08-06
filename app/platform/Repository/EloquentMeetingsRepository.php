@@ -68,24 +68,23 @@ class EloquentMeetingsRepository implements MeetingsRepositoryInterface
     public function calculateAttendanceDetails()
     {
 
-        $result = (array) DB::select(
+        // The query works with both MySQL and PostgreSQL
+        $result = (array)DB::select(
             '
-                        select total_meetings as meetings,
-                               total_attendants as attendants,
-                               round(total_attendants/total_meetings) as average
-                        from (
-                            (select sum(attendants) as total_attendants
-                             from
+                SELECT tbl2.total_meetings AS meetings,
+                       total_attendants AS attendants,
+                       round(total_attendants/tbl2.total_meetings) AS average
+                FROM
+                  (SELECT sum(details.attendants) AS total_attendants
+                   FROM
+                     (SELECT meeting_id AS meeting,
+                             count(member_id) AS attendants
+                      FROM meeting_member
+                      GROUP BY meeting_id) AS details) AS tbl1,
 
-                                (select meeting_id as meeting,
-                                       count(member_id) as attendants
-                                 from meeting_member
-                                 group by (meeting_id)) as details) as tbl1,
-
-                                (select count(id) as total_meetings
-                                 from meetings) as tbl2
-                        )
-                    '
+                  (SELECT count(id) AS total_meetings
+                   FROM meetings) AS tbl2
+            '
         )[0];
 
         $att['meetings'] = $result['meetings'] ? : 0;
@@ -102,15 +101,16 @@ class EloquentMeetingsRepository implements MeetingsRepositoryInterface
         $from = $from->format("Y-m-d");
         $to = $to->format("Y-m-d");
 
+        // The query works with both MySQL and PostgreSQL
         $result = DB::select(
-            "
-                        SELECT count(meeting_id) AS attended
-                        FROM meetings,
-                             meeting_member
-                        WHERE meeting_id=meetings.id
-                          AND member_id = ?
-                          AND `date` BETWEEN ? AND ?
-                    ",
+            '
+                SELECT count(meeting_id) AS attended
+                FROM meetings,
+                     meeting_member
+                WHERE meeting_id=meetings.id
+                  AND member_id = ?
+                  AND date BETWEEN ? AND ?
+            ',
             array($member->id, $from, $to)
         )[0];
 

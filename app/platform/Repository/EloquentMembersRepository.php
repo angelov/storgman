@@ -87,25 +87,20 @@ class EloquentMembersRepository implements MembersRepositoryInterface
 
     public function countByMembershipStatus()
     {
-        // MySQL and PostgreSQL have different methods for getting
-        // the current date, so we can't do that inside the SQL
-        // query.
-        $currentDate = (new DateTime('now'))->format('Y-m-d');
 
+        // The query currently works only with PostgreSQL
         $result = (array)DB::select(
             '
                 SELECT *
                 FROM
                   (SELECT count(id) AS total
-                   FROM members) AS tbl1,
-
+                   FROM members) tbl1,
                   (SELECT count(id) AS active
                    FROM members
                    WHERE id IN
                        (SELECT DISTINCT member_id
                         FROM fees
-                        WHERE `to` > \'' . $currentDate . '\') ) AS tbl2;
-
+                        WHERE cast("to" AS DATE) > current_date)) tbl2
             '
         )[0];
 
@@ -133,14 +128,15 @@ class EloquentMembersRepository implements MembersRepositoryInterface
     public function countPerFaculty()
     {
 
+        // The query works with both MySQL and PostgreSQL
         $results = (array)DB::select(
             '
-                        SELECT faculty,
-                               count(id) AS members
-                        FROM members
-                        GROUP BY faculty
-                        ORDER BY members DESC;
-                    '
+                SELECT faculty,
+                       count(id) AS members
+                FROM members
+                GROUP BY faculty
+                ORDER BY members DESC;
+            '
         );
 
         $list = [];
@@ -160,37 +156,39 @@ class EloquentMembersRepository implements MembersRepositoryInterface
         $from = $from->format("Y-m-d");
         $to = $to->format("Y-m-d");
 
+        // The query currently works only with PostgreSQL
         $res = DB::select(
             '
-                        SELECT concat(year, "-", lpad(month, 2, "0")) AS month,
-                               count(id) AS count
-                        FROM
-                          (SELECT id,
-                                  email,
-                                  extract(MONTH FROM joined) AS month,
-                                  extract(YEAR FROM joined) AS year
-                           FROM
-                             (SELECT id,
-                                     email,
-                                     min(`from`) AS joined
-                              FROM
-                                (SELECT members.`id`,
-                                        `email`,
-                                        fees.`from`,
-                                        `to`
-                                 FROM `members`,
-                                      `fees`
-                                 WHERE members.id = member_id
-                                   AND fees.`from` BETWEEN ? AND ?) AS tbl
-                              GROUP BY id) AS tbl2) AS tbl3
-                        GROUP BY concat(month, year);
-                    ',
+                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS TEXT), 2, \'0\')) AS month,
+                       count(id) AS count
+                FROM
+                  (SELECT id,
+                          email,
+                          extract(MONTH
+                                  FROM joined) AS MONTH,
+                          extract(YEAR
+                                  FROM joined) AS YEAR
+                   FROM
+                     (SELECT id,
+                             email,
+                             min("from") AS joined
+                      FROM
+                        (SELECT members."id",
+                                members."email",
+                                fees."from",
+                                fees. "to"
+                         FROM members,
+                              fees
+                         WHERE members.id = member_id
+                           AND fees."from" BETWEEN ? AND ?) tbl
+                      GROUP BY id,
+                               email) AS tbl2) tbl3
+                GROUP BY concat(MONTH, YEAR),
+                         MONTH,
+                         YEAR;
+            ',
             array($from, $to)
         );
-
-        /*array_walk($res, function (&$current) {
-                $current = (array) $current;
-        });*/
 
         $list = [];
 
