@@ -18,19 +18,15 @@
 </div>
 
 <div class="row" id="members-list-info">
-    <div class="col-md-8">
+    <div class="col-md-7">
         <p>There are total <strong>{{ members|length }}</strong> members.</p>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-5">
 
-            <div class="input-group col-md-6 search-box">
-                <input type="text" class="form-control" placeholder="Search..." />
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">
-                          <span class="glyphicon glyphicon-search"></span>
-                      </button>
-                    </span>
+            <div class="input-group col-md-7 search-box">
+                <input type="text" class="form-control" placeholder="Search..." id="quick-member-search" />
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
             </div>
 
             <a href="{{ route('members.create') }}" class="btn btn-info">

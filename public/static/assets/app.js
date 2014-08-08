@@ -57,6 +57,58 @@ $(function(){
     });
 
     /**
+     * Searching for a member
+     * needs refactoring.
+     */
+
+//    var searchResized = false;
+//
+//    $("#quick-member-search").click(function(){
+//
+//        if (!searchResized) {
+//            console.log($(this).css("left"));
+//            var elwidth = $(this).width() + 80;
+//
+//            $(this).animate({
+//                'marginLeft'    : "-=50px",
+//                'width': elwidth + "px"
+//            });
+//
+//            searchResized = true;
+//        }
+//
+//    });
+
+    if ($("#quick-member-search").length) {
+
+        var engine2 = new Bloodhound({
+            name: 'members',
+            prefetch: {url: '/members'},
+            datumTokenizer: function(d) {
+                return Bloodhound.tokenizers.whitespace(d.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace
+        });
+        engine2.initialize();
+
+        $("#quick-member-search").typeahead(
+            {
+                hint: true,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: 'states',
+                displayKey: 'value',
+                source: engine2.ttAdapter()
+            }
+        ).bind('typeahead:selected', function(obj, member) {
+                window.location = "/members/" + member.id;
+            });
+
+    }
+
+    /**
      * Show modal window with member's membership fees
      */
 
