@@ -70,4 +70,6 @@ interface MembersRepositoryInterface
 
     public function countNewMembersPerMonth(\DateTime $from, \DateTime $to);
 
+    public function countAll();
+
 }

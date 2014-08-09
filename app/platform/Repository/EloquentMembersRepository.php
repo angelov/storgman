@@ -201,4 +201,8 @@ class EloquentMembersRepository implements MembersRepositoryInterface
 
     }
 
+    public function countAll() {
+        return Member::count();
+    }
+
 }

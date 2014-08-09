@@ -84,8 +84,9 @@ class MembersController extends \BaseController
         $data = $this->members->getByPage($page, $perPage);
 
         $members = Paginator::make($data->items, $data->totalItems, $perPage);
+        $count = $this->members->countAll();
 
-        return View::make('members.index', compact('members'));
+        return View::make('members.index', compact('members', 'count'));
     }
 
     /**
