@@ -42,7 +42,8 @@ module.exports = function(grunt) {
                         dir + '/vendor/bootstrap-datepicker/css/datepicker3.css',
                         dir + '/vendor/font-awesome/css/font-awesome.css',
                         dir + '/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css',
-                        dir + '/style.css'
+                        dir + '/style.css',
+                        dir + '/typeahead-fix.css'
                     ]
                 }
             }
