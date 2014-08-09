@@ -25,6 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Service\MeetingsService;
 use Angelov\Eestec\Platform\Validation\MeetingsValidator;
 use Illuminate\Http\Request;
 use Angelov\Eestec\Platform\Model\Meeting;
@@ -38,17 +39,20 @@ class MeetingsController extends \BaseController
     protected $meetings;
     protected $members;
     protected $validator;
+    protected $meetingsService;
 
     public function __construct(
         Request $request,
         MeetingsRepositoryInterface $meetings,
         MembersRepositoryInterface $members,
+        MeetingsService $meetingsService,
         MeetingsValidator $validator
     ) {
         $this->request = $request;
         $this->meetings = $meetings;
         $this->members = $members;
         $this->validator = $validator;
+        $this->meetingsService = $meetingsService;
 
         $this->beforeFilter('auth');
     }
@@ -101,17 +105,10 @@ class MeetingsController extends \BaseController
         $ids = $this->request->get('attendants');
         $attendants = [];
 
-        /** @todo Move this to separate service! */
-        if ($ids != '|') {
-            $ids = explode("|", $this->request->get('attendants'));
-            $ids = array_filter(
-                $ids,
-                function ($value) {
-                    return $value != '';
-                }
-            );
+        $parsedIds = $this->meetingsService->parseAttendantsIds($ids);
 
-            $attendants = $this->members->getByIds($ids);
+        if (count($parsedIds) > 0) {
+            $attendants = $this->members->getByIds($parsedIds);
         }
 
         $creator = Auth::user();

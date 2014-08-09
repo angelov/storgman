@@ -77,4 +77,23 @@ class MeetingsService
 
         return (int)round($rate, 0);
     }
+
+    /**
+     * Receives a string that contains the attendants' IDs and
+     * converts it to an array.
+     *
+     * @param $attendants
+     * @return array
+     */
+    public function parseAttendantsIds($attendants) {
+        $ids = explode("|", $attendants);
+        $ids = array_filter(
+            $ids,
+            function ($value) {
+                return $value != '';
+            }
+        );
+
+        return $ids;
+    }
 }
