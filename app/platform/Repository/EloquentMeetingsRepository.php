@@ -65,6 +65,25 @@ class EloquentMeetingsRepository implements MeetingsRepositoryInterface
         return $meeting;
     }
 
+    public function getByPage($page = 1, $limit = 20, $withRelationships = [])
+    {
+        // This code is very similar to the one in MembersRepository.
+        // @todo Find a way to prevent the code duplication.
+
+        $results = new \stdClass();
+        $results->page = $page;
+        $results->limit = $limit;
+        $results->totalItems = 0;
+        $results->items = [];
+
+        $meetings = Meeting::with($withRelationships)->skip($limit * ($page - 1))->take($limit)->get();
+
+        $results->totalItems = Meeting::count();
+        $results->items = $meetings->all();
+
+        return $results;
+    }
+
     public function calculateAttendanceDetails()
     {
 

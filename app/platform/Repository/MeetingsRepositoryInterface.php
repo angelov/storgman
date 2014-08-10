@@ -47,6 +47,8 @@ interface MeetingsRepositoryInterface
 
     public function get($id);
 
+    public function getByPage($page, $limit, $with);
+
     /**
      * @todo rename the method to getTotalAttendanceDetails() or something similar
      * @return array

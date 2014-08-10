@@ -65,7 +65,12 @@ class MeetingsController extends \BaseController
      */
     public function index()
     {
-        $meetings = $this->meetings->all($with = ['attendants']);
+        $page = $this->request->get('page', 1);
+        $perPage = 15;
+        $with = ['attendants'];
+        $data = $this->meetings->getByPage($page, $perPage, $with);
+
+        $meetings = Paginator::make($data->items, $data->totalItems, $perPage);
 
         return View::make('meetings.index', compact('meetings'));
     }
