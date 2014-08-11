@@ -25,13 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Factory\MembersFactory;
+use Angelov\Eestec\Platform\Filler\MembersFiller;
 use Angelov\Eestec\Platform\Service\MeetingsService;
 use Angelov\Eestec\Platform\Service\MembershipService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Exception\MemberNotFoundException;
-use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Validation\MembersValidator;
 
@@ -106,7 +107,6 @@ class MembersController extends \BaseController
      */
     public function store()
     {
-
         if (!$this->validator->validate($this->request->all())) {
             $errorMessages = $this->validator->getMessages();
             Session::flash('errorMessages', $errorMessages);
@@ -114,31 +114,7 @@ class MembersController extends \BaseController
             return Redirect::back()->withInput();
         }
 
-        $member = new Member();
-
-        $member->first_name = $this->request->get('first_name');
-        $member->last_name = $this->request->get('last_name');
-        $member->birthday = $this->request->get('birthday');
-        $member->email = $this->request->get('email');
-        $member->password = Hash::make('123456'); // Hash::make(str_random(8))
-        $member->faculty = $this->request->get('faculty');
-        $member->field_of_study = $this->request->get('field_of_study');
-        $member->board_member = ($this->request->get('board_member') == 1);
-        $member->position_title = $this->request->get('position_title');
-
-        if ($this->request->hasFile('member_photo')) {
-
-            $photo = $this->request->file('member_photo');
-
-            /** @var \Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface $photos */
-            $photos = App::make('PhotosRepository');
-
-            $photoFileName = md5($member->email) . "." . $photo->getClientOriginalExtension();
-            $photos->store($photo, 'members', $photoFileName);
-
-            $member->photo = $photoFileName;
-
-        }
+        $member = MembersFactory::createFromRequest($this->request);
 
         $this->members->store($member);
 
@@ -212,30 +188,9 @@ class MembersController extends \BaseController
             return Redirect::back()->withInput();
         }
 
-        $member->first_name = $this->request->get('first_name');
-        $member->last_name = $this->request->get('last_name');
-        $member->birthday = $this->request->get('birthday');
-        //$member->password = Hash::make('123456'); // Hash::make(str_random(8))
-        $member->faculty = $this->request->get('faculty');
-        $member->field_of_study = $this->request->get('field_of_study');
-        $member->board_member = ($this->request->get('board_member') == 1);
-        $member->position_title = $this->request->get('position_title');
-        $member->email = $this->request->get('email');
-
-
-        if ($this->request->hasFile('member_photo')) {
-
-            $photo = $this->request->file('member_photo');
-
-            /** @var \Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface $photos */
-            $photos = App::make('PhotosRepository');
-
-            $photoFileName = md5($member->email) . "." . $photo->getClientOriginalExtension();
-            $photos->store($photo, 'members', $photoFileName);
-
-            $member->photo = $photoFileName;
-
-        }
+        /** @var MembersFiller $filler */
+        $filler = App::make('MembersFiller');
+        $filler->fillFromRequest($member, $this->request);
 
         $this->members->store($member);
 
@@ -253,7 +208,6 @@ class MembersController extends \BaseController
      */
     public function destroy($id)
     {
-
         if (!$this->request->ajax()) {
             return new Response();
         }
@@ -280,7 +234,6 @@ class MembersController extends \BaseController
         }
 
         return new JsonResponse($data);
-
     }
 
 }

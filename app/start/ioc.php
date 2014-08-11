@@ -2,6 +2,8 @@
 
 /**
  * Binding interfaces to implementations
+ *
+ * @todo This starts to get bigger, think about ServiceProviders?
  */
 
 App::bind('Angelov\Eestec\Platform\Repository\MembersRepositoryInterface',
@@ -26,4 +28,8 @@ App::bind('MeetingsService', function () {
 
 App::bind('PhotosRepository', function () {
     return App::make('Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface');
+});
+
+App::bind('MembersFiller', function () {
+    return App::make('Angelov\Eestec\Platform\Filler\MembersFiller');
 });
