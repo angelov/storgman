@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Filler;
+namespace Angelov\Eestec\Platform\Populator;
 
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface;
@@ -33,9 +33,9 @@ use App;
 use Hash;
 use Illuminate\Http\Request;
 
-class MembersFiller
+class MembersPopulator
 {
-    public function fillFromRequest(Member $member, Request $request)
+    public function populateFromRequest(Member $member, Request $request)
     {
         $member->first_name = $request->get('first_name');
         $member->last_name = $request->get('last_name');

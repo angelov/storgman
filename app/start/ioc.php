@@ -30,6 +30,6 @@ App::bind('PhotosRepository', function () {
     return App::make('Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface');
 });
 
-App::bind('MembersFiller', function () {
-    return App::make('Angelov\Eestec\Platform\Filler\MembersFiller');
+App::bind('MembersPopulator', function () {
+    return App::make('Angelov\Eestec\Platform\Populator\MembersPopulator');
 });

@@ -26,7 +26,7 @@
  */
 
 use Angelov\Eestec\Platform\Factory\MembersFactory;
-use Angelov\Eestec\Platform\Filler\MembersFiller;
+use Angelov\Eestec\Platform\Populator\MembersPopulator;
 use Angelov\Eestec\Platform\Service\MeetingsService;
 use Angelov\Eestec\Platform\Service\MembershipService;
 use Illuminate\Http\JsonResponse;
@@ -188,9 +188,9 @@ class MembersController extends \BaseController
             return Redirect::back()->withInput();
         }
 
-        /** @var MembersFiller $filler */
-        $filler = App::make('MembersFiller');
-        $filler->fillFromRequest($member, $this->request);
+        /** @var MembersPopulator $filler */
+        $populator = App::make('MembersPopulator');
+        $populator->populateFromRequest($member, $this->request);
 
         $this->members->store($member);
 

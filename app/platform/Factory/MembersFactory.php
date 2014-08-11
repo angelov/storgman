@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Factory;
 
-use Angelov\Eestec\Platform\Filler\MembersFiller;
+use Angelov\Eestec\Platform\Populator\MembersPopulator;
 use Angelov\Eestec\Platform\Model\Member;
 use App;
 use Illuminate\Http\Request;
@@ -38,10 +38,10 @@ class MembersFactory
     {
         $member = new Member();
 
-        /** @var MembersFiller $filler */
-        $filler = App::make('MembersFiller');
+        /** @var MembersPopulator $filler */
+        $populator = App::make('MembersPopulator');
 
-        $filler->fillFromRequest($member, $request);
+        $populator->populateFromRequest($member, $request);
 
         return $member;
     }
