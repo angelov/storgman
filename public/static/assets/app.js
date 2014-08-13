@@ -217,7 +217,7 @@ $(function(){
             days = '0' + days;
         }
 
-        var month = date.getMonth();
+        var month = date.getMonth() + 1; // getMonths()'s returning from 0 to 11 is retarded.
         if (month < 10) {
             month = '0' + month;
         }
