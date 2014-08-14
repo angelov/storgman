@@ -221,7 +221,7 @@ $(function(){
     $(document).on('focus',"#fee-from", function(){
         $(this).datepicker(datePickerOptions).on('changeDate', function() {
             var date = moment($(this).val());
-            date.add('years', 1);
+            date.add(1, 'years');
             $('#fee-to').val(date.format("YYYY-MM-DD"));
         });
     });
