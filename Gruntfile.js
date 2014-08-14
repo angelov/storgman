@@ -19,6 +19,7 @@ module.exports = function(grunt) {
                     dir + '/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.js',
                     dir + '/vendor/typeahead.js/dist/typeahead.jquery.min.js',
                     dir + '/vendor/typeahead.js/dist/bloodhound.min.js',
+                    dir + '/vendor/moment/moment.js',
                     dir + '/app.js',
                     dir + '/charts.js'
                 ],

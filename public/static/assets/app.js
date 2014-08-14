@@ -210,22 +210,6 @@ $(function(){
      * Date picker
      */
 
-    var formatDate = function(date) {
-
-        var days = date.getDate();
-        if (days < 10) {
-            days = '0' + days;
-        }
-
-        var month = date.getMonth() + 1; // getMonths()'s returning from 0 to 11 is retarded.
-        if (month < 10) {
-            month = '0' + month;
-        }
-
-        return date.getFullYear() + "-" + month + "-" + days;
-
-    };
-
     var datePickerOptions = {
         weekStart: 1,
         autoclose : true,
@@ -236,10 +220,9 @@ $(function(){
 
     $(document).on('focus',"#fee-from", function(){
         $(this).datepicker(datePickerOptions).on('changeDate', function() {
-            //console.log($(this).val());
-            var date = new Date($(this).val());
-            date.setFullYear(date.getFullYear() + 1);
-            $('#fee-to').val(formatDate(date));
+            var date = moment($(this).val());
+            date.add('years', 1);
+            $('#fee-to').val(date.format("YYYY-MM-DD"));
         });
     });
 
@@ -367,7 +350,5 @@ $(function(){
         });
 
     }
-
-
 
 });
