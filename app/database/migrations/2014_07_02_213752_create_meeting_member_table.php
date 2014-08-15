@@ -19,10 +19,18 @@ class CreateMeetingMemberTable extends Migration
                 $table->increments('id');
                 $table->unsignedInteger('meeting_id');
                 $table->index('meeting_id');
-                $table->foreign('meeting_id')->references('id')->on('meetings');
+                $table->foreign('meeting_id')
+                    ->references('id')
+                    ->on('meetings')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
                 $table->unsignedInteger('member_id');
                 $table->index('member_id');
-                $table->foreign('member_id')->references('id')->on('members');
+                $table->foreign('member_id')
+                    ->references('id')
+                    ->on('members')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
             }
         );
     }

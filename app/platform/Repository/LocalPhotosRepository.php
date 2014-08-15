@@ -47,8 +47,11 @@ class LocalPhotosRepository implements PhotosRepositoryInterface
     public function destroy($filename, $type)
     {
         $fullPath = Config::get('main.photos.upload_dir') . "/" . $type;
+        $imagePath = $fullPath . "/" . $filename;
 
-        unlink($fullPath . "/" . $filename);
+        if (file_exists($imagePath)) {
+            unlink($fullPath . "/" . $filename);
+        }
     }
 
 }

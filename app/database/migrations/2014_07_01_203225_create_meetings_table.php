@@ -21,7 +21,11 @@ class CreateMeetingsTable extends Migration
                 $table->string('location');
                 $table->unsignedInteger('created_by');
                 $table->index('created_by');
-                $table->foreign('created_by')->references('id')->on('members');
+                $table->foreign('created_by')
+                    ->references('id')
+                    ->on('members')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
                 $table->text('info')->nullable();
                 $table->timestamps();
             }
