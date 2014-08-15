@@ -1,32 +1,99 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-10">
+        <a href="{{ route('members.edit', member.id) }}" class="text-muted pull-right"
+                style="margin-top: 20px; margin-bottom: 10px;">
+            <i class="glyphicon glyphicon-pencil"></i> Edit details
+        </a>
+    </div>
+</div>
 
-        <legend>Personal Information</legend>
-
-        <dl class="">
-            <dt>First name:</dt>
-            <dd>{{ member.first_name }}</dd>
-
-            <dt>Last name:</dt>
-            <dd>{{ member.last_name }}</dd>
-
-            <dt>Birthday:</dt>
-            <dd>{{ member.birthday }}</dd>
-
-            <dt>Email:</dt>
-            <dd>{{ member.email }}</dd>
-        </dl>
+<div class="row">
+    <div class="col-md-4">
+        <ul class="list-group text-right">
+            <li class="list-group-item text-muted text-left">Personal information</li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>First name:</strong></span>
+                {{ member.first_name }}
+            </li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Last name:</strong></span>
+                {{ member.last_name }}
+            </li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Birthday:</strong></span>
+                {{ member.birthday }}
+            </li>
+        </ul>
     </div>
 
     <div class="col-md-6">
-        <legend>Education</legend>
+        <ul class="list-group text-right">
+            <li class="list-group-item text-muted text-left">Education</li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Faculty:</strong></span>
+                {{ member.faculty }}
+            </li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Field of study:</strong></span>
+                {{ member.field_of_study }}
+            </li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Expected year of graduation:</strong></span>
+                2015
+            </li>
+        </ul>
+    </div>
+</div>
 
-        <dl class="">
-            <dt>Faculty:</dt>
-            <dd>{{ member.faculty }}</dd>
+<div class="row">
 
-            <dt>Field of study:</dt>
-            <dd>{{ member.field_of_study }}</dd>
-        </dl>
+    <div class="col-md-7">
+        <ul class="list-group text-right">
+            <li class="list-group-item text-muted text-left">Contact</li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Email:</strong></span>
+                <a href="mailto:{{ member.email }}" target="_blank">
+                    {{ member.email }}
+                </a>
+            </li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Web site:</strong></span>
+                <a href="http://angelovdejan.wordpress.com" target="_blank">
+                    http://angelovdejan.wordpress.com
+                </a>
+            </li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Phone:</strong></span>
+                +38972621805
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-3">
+        <ul class="list-group text-right">
+            <li class="list-group-item text-muted text-left">Social networks</li>
+            <li class="list-group-item">
+                <a href="">
+                    <i class="fa fa-facebook-square fa-2x" style="display: inline;"></i>
+                </a>
+
+                <a href="">
+                    <i class="fa fa-twitter-square fa-2x"></i>
+                </a>
+
+                <a href="">
+                    <i class="fa fa-google-plus-square fa-2x"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{# SHOULD BE REMOVED LATER! #}
+
+<div class="row">
+    <div class="col-md-10">
+        <p class="pull-right text-muted small"><small>* Since not all features are implemented yet,
+            some data shown here is fake and static.</small></p>
     </div>
 </div>

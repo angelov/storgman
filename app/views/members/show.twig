@@ -29,6 +29,12 @@
                                 <i class="glyphicon glyphicon-ok" style="margin-right: 5px;"></i> Active
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <i class="glyphicon glyphicon-heart" style="margin-right: 5px"></i>
+                                Member since 2011-03-08
+                            </td>
+                        </tr>
 
                         <tr>
                             <td>
@@ -59,13 +65,14 @@
         <div class="row">
             <div class="col-m-12">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li class="active"><a href="#basic" role="tab" data-toggle="tab">Basic info</a></li>
-                    <li><a href="#membership" role="tab" data-toggle="tab">Membership</a></li>
-                    <li><a href="#meetings" role="tab" data-toggle="tab">Meetings</a></li>
-                    <li class="pull-right">
-                        <a href="{{ route('members.edit', member.id) }}" class="text-muted"     >
-                            <i class="glyphicon glyphicon-pencil"></i> Edit details
-                        </a>
+                    <li class="active">
+                        <a href="#member-basic-info-tab" role="tab" data-toggle="tab">Basic information</a>
+                    </li>
+                    <li>
+                        <a href="#member-membership-tab" role="tab" data-toggle="tab">Membership</a>
+                    </li>
+                    <li>
+                        <a href="#member-meetings-tab" role="tab" data-toggle="tab">Meetings</a>
                     </li>
                 </ul>
             </div>
@@ -73,17 +80,17 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="tab-content">
+                <div class="tab-content" id="member-profile-tabs">
 
-                    <div class="tab-pane active" id="basic">
+                    <div class="tab-pane active" id="member-basic-info-tab">
                         {% include 'members.profile.basic' %}
                     </div>
 
-                    <div class="tab-pane" id="membership">
+                    <div class="tab-pane" id="member-membership-tab">
                         {% include 'members.profile.membership' %}
                     </div>
 
-                    <div class="tab-pane" id="meetings">
+                    <div class="tab-pane" id="member-meetings-tab">
                         {% include 'members.profile.meetings' %}
                     </div>
 
