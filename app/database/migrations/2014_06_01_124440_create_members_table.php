@@ -27,7 +27,7 @@ class CreateMembersTable extends Migration
                 $table->string('photo')->nullable();
                 $table->date('birthday');
                 $table->boolean('board_member')->default(false);
-                $table->string('position_title');
+                $table->string('position_title')->nullable();
                 $table->string('remember_token')->nullable();
                 $table->timestamps();
 

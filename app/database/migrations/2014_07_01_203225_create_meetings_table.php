@@ -22,7 +22,7 @@ class CreateMeetingsTable extends Migration
                 $table->unsignedInteger('created_by');
                 $table->index('created_by');
                 $table->foreign('created_by')->references('id')->on('members');
-                $table->text('info');
+                $table->text('info')->nullable();
                 $table->timestamps();
             }
         );
