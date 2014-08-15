@@ -75,82 +75,18 @@
             <div class="col-md-12">
                 <div class="tab-content">
 
-                    {# *** IMPORTANT! *** #}
-                    {# The tab content should be moved to separate template files #}
-
                     <div class="tab-pane active" id="basic">
-
-                        <div class="row">
-                            <div class="col-md-5">
-
-                                <legend>Personal Information</legend>
-
-                                <dl class="">
-                                    <dt>First name:</dt>
-                                    <dd>{{ member.first_name }}</dd>
-
-                                    <dt>Last name:</dt>
-                                    <dd>{{ member.last_name }}</dd>
-
-                                    <dt>Birthday:</dt>
-                                    <dd>{{ member.birthday }}</dd>
-
-                                    <dt>Email:</dt>
-                                    <dd>{{ member.email }}</dd>
-                                </dl>
-                            </div>
-
-                            <div class="col-md-5">
-                                <legend>Education</legend>
-
-                                <dl class="">
-                                    <dt>Faculty:</dt>
-                                    <dd>{{ member.faculty }}</dd>
-
-                                    <dt>Field of study:</dt>
-                                    <dd>{{ member.field_of_study }}</dd>
-                                </dl>
-                            </div>
-                        </div>
-
+                        {% include 'members.profile.basic' %}
                     </div>
 
                     <div class="tab-pane" id="membership">
-
-                        <div class="row">
-                            <legend>Membership details</legend>
-
-                            <div class="col-md-12">
-                                <dl class="">
-                                    <dt>Membership status:</dt>
-                                    <dd>{{ member.membership_status }}</dd>
-
-                                    <dt>Expiration date:</dt>
-                                    <dd>{{ member.membership_expiration_date }}</dd>
-                                </dl>
-
-                                <a href="{{ route('fees.create', {"member_id": member.id}) }}"
-                                   class="btn btn-default btn-renew-membership" data-member="{{ member.id }}">
-                                    <i class="fa fa-money"></i> Renew membership
-                                </a>
-
-                            </div>
-                        </div>
-
+                        {% include 'members.profile.membership' %}
                     </div>
 
                     <div class="tab-pane" id="meetings">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <legend>Meetings details</legend>
-
-                                <dl class="">
-                                    <dt>Meetings attendance rate:</dt>
-                                    <dd>{{ attendanceRate }}%</dd>
-                                </dl>
-                            </div>
-                        </div>
+                        {% include 'members.profile.meetings' %}
                     </div>
+
                 </div>
             </div>
 
