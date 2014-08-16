@@ -17,7 +17,7 @@
     <tbody>
     {% for meeting in meetings %}
         <tr>
-            <td>{{ meeting.date }}</td>
+            <td><span class="date-to-format">{{ meeting.date }}</span></td>
             <td>{{ meeting.location }}</td>
             <td>{{ meeting.attendants|length }}</td>
             <td class="text-right">

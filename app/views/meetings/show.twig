@@ -1,7 +1,7 @@
 {% set page_title = meeting.date ~ ', Meeting details' %}
 {% include 'header.twig' %}
 
-<h1>{{ meeting.date }} <small>Meeting details</small></h1>
+<h1><span class="date-to-format">{{ meeting.date }}</span> <small>Meeting details</small></h1>
 
 {% set attendants = meeting.attendants %}
 
@@ -11,7 +11,7 @@
 
         <dl class="">
             <dt>Date:</dt>
-            <dd>{{ meeting.date }}</dd>
+            <dd><span class="date-to-format">{{ meeting.date }}</span></dd>
 
             <dt>Location:</dt>
             <dd>{{ meeting.location }}</dd>
