@@ -20,6 +20,7 @@ module.exports = function(grunt) {
                     dir + '/vendor/typeahead.js/dist/typeahead.jquery.min.js',
                     dir + '/vendor/typeahead.js/dist/bloodhound.min.js',
                     dir + '/vendor/moment/moment.js',
+                    dir + '/vendor/slimScroll/jquery.slimscroll.min.js',
                     dir + '/app.js',
                     dir + '/charts.js'
                 ],

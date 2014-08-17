@@ -385,4 +385,8 @@ $(function(){
 
     }
 
+    $('#table-member-attendance').slimScroll({
+        height: '130px'
+    });
+
 });

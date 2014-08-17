@@ -124,4 +124,60 @@ $(function() {
 
         }]
     });
+
+    // experimental
+
+    $('#chart-member-attendance').highcharts({
+        chart: {
+            height: 200,
+            events: {
+                load: function () {
+                    var chart = this;
+                    $(chart.series).each(function (i, serie) {
+                        var elem = '<p style="float: left; margin-left: 10px;">' +
+                            '<span style="width: 15px; height: 15px; ' +
+                            'vertical-align: text-bottom;' +
+                            'margin-right: 2px; display: inline-block; ' +
+                            'background-color: ' + serie.color + '"></span> ' + serie.name + "" +
+                            "</p>";
+
+                        $("#chart-member-attendance-legend").append(elem);
+                    });
+                }
+            }
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ["Sep 2013","Oct 2013","Nov 2013","Dec 2013",
+                "Jan 2014","Feb 2014","Mar 2014","Apr 2014",
+                "May 2014","Jun 2014","Jul 2014","Aug 2014"]
+        },
+        yAxis: {
+            title: {
+                enabled: false
+            },
+            allowDecimals: false
+        },
+        tooltip: {
+            formatter: function() {
+                return 'Meetings: <b>'+ this.y +'</b>';
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Total',
+            data: [4,3,3,5,4,3,2,3,4,4,2,3]
+        },{
+            name: 'Attended',
+            data: [4,2,3,4,2,1,2,3,2,2,1,3]
+        }]
+    });
+
 });

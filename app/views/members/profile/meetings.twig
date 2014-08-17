@@ -1,10 +1,97 @@
 <div class="row">
     <div class="col-md-5">
-        <legend>Meetings details</legend>
 
-        <dl class="">
-            <dt>Meetings attendance rate:</dt>
-            <dd>{{ attendanceRate }}%</dd>
-        </dl>
+        <ul class="list-group" style="margin-top: 20px;">
+            <li class="list-group-item text-muted text-left">
+                Attendance
+                <span class="pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            Last year <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+
+                </span>
+            </li>
+            <li class="list-group-item">
+                <div class="row" style="margin-top: 10px">
+                    <div class="col-md-3 text-center">
+                        Total:<br />
+                        <h3>444</h3>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        Attended:<br />
+                        <h3>222</h3>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        Missed:<br />
+                        <h3>222</h3>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        Rate:<br />
+                        <h3>50%</h3>
+
+                        {#<dd>{{ attendanceRate }}%</dd>#}
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <p class="small text-muted" style="margin-top: -10px !important;">
+            * If the member joined less than a year ago, only the meetings since his joining are calculated.
+        </p>
+
+    </div>
+
+    <div class="col-md-5">
+        <ul class="list-group" style="margin-top: 20px;">
+            <li class="list-group-item text-muted text-left">Latest meetings</li>
+            <li class="list-group-item"  style="width: 100%; height: 150px">
+                <div id="table-member-attendance" style="width: 100%;">
+                    <table class="table table-striped small">
+                        <tbody>
+                        <tr>
+                            <td>20 Sep 2013</td>
+                            <td><strong>Attended</strong></td>
+                        </tr>
+                        <tr>
+                            <td>13 Sep 2013</td>
+                            <td><strong>Missed</strong></td>
+                        </tr>
+                        <tr>
+                            <td>6 Sep 2013</td>
+                            <td><strong>Missed</strong></td>
+                        </tr>
+                        <tr>
+                            <td>31 Aug 2013</td>
+                            <td><strong>Missed</strong></td>
+                        </tr>
+                        <tr>
+                            <td>24 Aug 2013</td>
+                            <td><strong>Missed</strong></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        <ul class="list-group" style="margin-top: 20px;">
+            <li class="list-group-item text-muted text-left">
+                Meetings in the last year
+                <span id="chart-member-attendance-legend" class="pull-right small""></span>
+            </li>
+            <li class="list-group-item">
+                <div id="chart-member-attendance" style="height: 200px; width: 670px"></div>
+            </li>
+        </ul>
     </div>
 </div>
