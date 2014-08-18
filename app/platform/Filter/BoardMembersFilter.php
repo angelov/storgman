@@ -28,17 +28,20 @@
 namespace Angelov\Eestec\Platform\Filter;
 
 use Angelov\Eestec\Platform\Model\Member;
-use Auth;
 use Redirect;
 
 class BoardMembersFilter
 {
+    protected $member;
+
+    public function __construct(Member $member)
+    {
+        $this->member = $member;
+    }
+
     public function filter()
     {
-        /** @var Member $member */
-        $member = Auth::user();
-
-        if (!$member->isBoardMember()) {
+        if (!$this->member->isBoardMember()) {
             return Redirect::to('/');
         }
     }

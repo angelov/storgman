@@ -1,6 +1,6 @@
 <?php
 
-Route::filter('boardMember', 'Angelov\Eestec\Platform\Filter\BoardMembersFilter');
+Route::filter('boardMember', 'BoardMembersFilter');
 
 /*
 |--------------------------------------------------------------------------

@@ -33,3 +33,7 @@ App::bind('PhotosRepository', function () {
 App::bind('MembersPopulator', function () {
     return App::make('Angelov\Eestec\Platform\Populator\MembersPopulator');
 });
+
+App::bind('BoardMembersFilter', function() {
+    return new \Angelov\Eestec\Platform\Filter\BoardMembersFilter(Auth::user());
+});
