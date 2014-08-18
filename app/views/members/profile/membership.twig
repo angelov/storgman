@@ -1,20 +1,131 @@
 <div class="row">
-    <div class="col-md-5">
-        <legend>Membership details</legend>
+    <div class="col-md-10">
 
-        <dl class="">
-            <dt>Membership status:</dt>
-            <dd>{{ member.membership_status }}</dd>
-
-            <dt>Expiration date:</dt>
-            <dd>{{ member.membership_expiration_date }}</dd>
-        </dl>
-
-        <a href="{{ route('fees.create', {"member_id": member.id}) }}"
-           class="btn btn-default btn-renew-membership" data-member="{{ member.id }}">
-            <i class="fa fa-money"></i> Renew membership
-        </a>
+        <ul class="list-group" style="margin-top: 20px;">
+            <li class="list-group-item text-muted text-left">
+                Membership
+                <span class="pull-right">
+                    <button type="button" class="btn btn-default btn-xs">
+                        Renew membership
+                    </button>
+                </span>
+            </li>
+            <li class="list-group-item text-center" style="height: 100px;">
+                <div class="row"  style="margin-top: 10px">
+                    <div class="col-md-4">
+                        Joined:<br />
+                        <h4 style="margin-top: 15px;">
+                            <i class="fa fa-calendar"></i> 30 Mar 2011
+                        </h4>
+                    </div>
+                    <div class="col-md-4">
+                        Membership status:<br />
+                        <h4 style="margin-top: 15px;">
+                            <i class="fa fa-check"></i> {{ member.membership_status }}
+                        </h4>
+                    </div>
+                    <div class="col-md-4">
+                        Expiration date:<br />
+                        <h4 style="margin-top: 15px;">
+                            <i class="fa fa-calendar"></i>
+                            <span class="date-to-format"> 30 Mar 2015</span>
+                            {#{{ member.membership_expiration_date }}#}
+                        </h4>
+                    </div>
+                </div>
+            </li>
+        </ul>
 
     </div>
 
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        <ul class="list-group">
+            <li class="list-group-item text-muted text-left">
+                Paid fees
+            </li>
+            <li class="list-group-item">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Paid on</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2007-12-06</td>
+                            <td>2008-12-06</td>
+                            <td>2014-08-15 15:52:46</td>
+                            <td class="text-right">
+                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
+                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2007-12-06</td>
+                            <td>2008-12-06</td>
+                            <td>2014-08-15 15:52:46</td>
+                            <td class="text-right">
+                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
+                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2007-12-06</td>
+                            <td>2008-12-06</td>
+                            <td>2014-08-15 15:52:46</td>
+                            <td class="text-right">
+                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
+                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2007-12-06</td>
+                            <td>2008-12-06</td>
+                            <td>2014-08-15 15:52:46</td>
+                            <td class="text-right">
+                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
+                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2007-12-06</td>
+                            <td>2008-12-06</td>
+                            <td>2014-08-15 15:52:46</td>
+                            <td class="text-right">
+                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
+                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2007-12-06</td>
+                            <td>2008-12-06</td>
+                            <td>2014-08-15 15:52:46</td>
+                            <td class="text-right">
+                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
+                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
 </div>
