@@ -27,6 +27,7 @@
 
 use Angelov\Eestec\Platform\Factory\MembersFactory;
 use Angelov\Eestec\Platform\Populator\MembersPopulator;
+use Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface;
 use Angelov\Eestec\Platform\Service\MeetingsService;
 use Angelov\Eestec\Platform\Service\MembershipService;
 use Illuminate\Http\JsonResponse;
@@ -70,6 +71,7 @@ class MembersController extends \BaseController
             $result = [];
 
             foreach ($members as $member) {
+                $tmp = [];
                 $tmp['value'] = $member->full_name;
                 $tmp['image'] = URL::route('imagecache', ['xsmall', $member->photo]);
                 $tmp['id'] = $member->id;
@@ -218,7 +220,7 @@ class MembersController extends \BaseController
             $member = $this->members->get($id);
 
             if (isset($member->photo)) {
-                /** @var \Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface $photos */
+                /** @var PhotosRepositoryInterface $photos */
                 $photos = App::make('PhotosRepository');
 
                 $photos->destroy($member->photo, 'members');

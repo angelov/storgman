@@ -26,6 +26,7 @@
  */
 
 use Angelov\Eestec\Platform\Exception\FeeNotFoundException;
+use Angelov\Eestec\Platform\Service\MembershipService;
 use Angelov\Eestec\Platform\Validation\FeesValidator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -73,13 +74,15 @@ class FeesController extends \BaseController
         $member_id = $this->request->get('member_id');
         $member = $this->members->get($member_id);
 
-        /** @var \Angelov\Eestec\Platform\Service\MembershipService $membershipService */
+        /** @var MembershipService $membershipService */
         $membershipService = App::make('MembershipService');
 
         $exp = $membershipService->getExpirationDate($member);
 
         $member->membership_status = $membershipService->isMemberActive($member);
         $member->membership_expiration_date = $exp;
+
+        $suggestDates = [];
 
         if ($exp != null) {
 
@@ -113,11 +116,13 @@ class FeesController extends \BaseController
     public function store()
     {
 
+        $data = [];
+
         if (!$this->validator->validate($this->request->all())) {
             $data['status'] = 'danger';
             $data['message'] = 'The data you entered is invalid.';
 
-            return json_encode($data);
+            return new JsonResponse($data);
         }
 
         $fee = new Fee();
@@ -132,7 +137,7 @@ class FeesController extends \BaseController
         $data['status'] = 'success';
         $data['message'] = 'The membership was renewed successfully.';
 
-        return json_encode($data);
+        return new JsonResponse($data);
 
     }
 
