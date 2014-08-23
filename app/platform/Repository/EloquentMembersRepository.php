@@ -27,30 +27,15 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
-use Angelov\Eestec\Platform\Exception\MemberNotFoundException;
 use Angelov\Eestec\Platform\Model\Member;
 use DateTime;
 use DB;
 
-class EloquentMembersRepository implements MembersRepositoryInterface
+class EloquentMembersRepository extends AbstractEloquentRepository implements MembersRepositoryInterface
 {
-
-    /**
-     * Returns all members from the database
-     */
-    public function all()
+    public function __construct(Member $model)
     {
-        return Member::all();
-    }
-
-    public function destroy($id)
-    {
-
-        if (null == Member::find($id)) {
-            throw new MemberNotFoundException();
-        }
-
-        Member::destroy($id);
+        $this->model = $model;
     }
 
     public function store(Member $member)
@@ -58,36 +43,8 @@ class EloquentMembersRepository implements MembersRepositoryInterface
         $member->save();
     }
 
-    public function get($id)
-    {
-        $member = Member::find($id);
-
-        if ($member == null) {
-            throw new MemberNotFoundException();
-        }
-
-        return $member;
-    }
-
-    public function getByPage($page = 1, $limit = 20)
-    {
-        $results = new \stdClass();
-        $results->page = $page;
-        $results->limit = $limit;
-        $results->totalItems = 0;
-        $results->items = array();
-
-        $members = Member::skip($limit * ($page - 1))->take($limit)->get();
-
-        $results->totalItems = Member::count();
-        $results->items = $members->all();
-
-        return $results;
-    }
-
     public function countByMembershipStatus()
     {
-
         // The query currently works only with PostgreSQL
         $result = (array)DB::select(
             '
@@ -105,24 +62,16 @@ class EloquentMembersRepository implements MembersRepositoryInterface
         )[0];
 
         return $result;
-
     }
 
     public function getByBirthdayDate(DateTime $date)
     {
-
         $members = Member::whereRaw(
             'EXTRACT(DAY from birthday) = ? and EXTRACT(MONTH from birthday) = ?',
             [$date->format('d'), $date->format('m')]
         )->get()->all();
 
         return $members;
-
-    }
-
-    public function getByIds(array $ids)
-    {
-        return Member::whereIn('id', $ids)->get()->all();
     }
 
     public function countPerFaculty()
@@ -152,7 +101,6 @@ class EloquentMembersRepository implements MembersRepositoryInterface
 
     public function countNewMembersPerMonth(DateTime $from, DateTime $to)
     {
-
         $from = $from->format("Y-m-d");
         $to = $to->format("Y-m-d");
 
@@ -198,11 +146,6 @@ class EloquentMembersRepository implements MembersRepositoryInterface
         }
 
         return $list;
-
-    }
-
-    public function countAll() {
-        return Member::count();
     }
 
 }

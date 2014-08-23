@@ -27,13 +27,17 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
-use Angelov\Eestec\Platform\Exception\MeetingNotFoundException;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
 use DB;
 
-class EloquentMeetingsRepository implements MeetingsRepositoryInterface
+class EloquentMeetingsRepository extends AbstractEloquentRepository implements MeetingsRepositoryInterface
 {
+
+    public function __construct(Meeting $meeting)
+    {
+        $this->model = $meeting;
+    }
 
     public function store(Meeting $meeting, Member $creator, array $attendants)
     {
@@ -42,46 +46,11 @@ class EloquentMeetingsRepository implements MeetingsRepositoryInterface
         $meeting->attendants()->saveMany($attendants);
     }
 
-    public function all(array $withRelationships = [])
-    {
-        return Meeting::with($withRelationships)->get()->all();
-    }
-
     public function countMeetingsInPeriod(\DateTime $from, \DateTime $to) {
         $from = $from->format('Y-m-d');
         $to = $to->format('Y-m-d');
 
         return Meeting::whereBetween('date', array($from, $to))->count();
-    }
-
-    public function get($id)
-    {
-        $meeting = Meeting::find($id);
-
-        if ($meeting == null) {
-            throw new MeetingNotFoundException();
-        }
-
-        return $meeting;
-    }
-
-    public function getByPage($page = 1, $limit = 20, $withRelationships = [])
-    {
-        // This code is very similar to the one in MembersRepository.
-        // @todo Find a way to prevent the code duplication.
-
-        $results = new \stdClass();
-        $results->page = $page;
-        $results->limit = $limit;
-        $results->totalItems = 0;
-        $results->items = [];
-
-        $meetings = Meeting::with($withRelationships)->skip($limit * ($page - 1))->take($limit)->get();
-
-        $results->totalItems = Meeting::count();
-        $results->items = $meetings->all();
-
-        return $results;
     }
 
     public function calculateAttendanceDetails()

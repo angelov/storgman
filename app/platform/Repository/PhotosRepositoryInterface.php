@@ -31,7 +31,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile as File;
 
 interface PhotosRepositoryInterface
 {
-
     /**
      * Store uploaded photo
      *
@@ -41,6 +40,13 @@ interface PhotosRepositoryInterface
      */
     public function store(File $file, $type);
 
+    /**
+     * Deletes a photo from the storage
+     *
+     * @param string $filename
+     * @param string $type Eg. "members"
+     * @return void
+     */
     public function destroy($filename, $type);
 
 }

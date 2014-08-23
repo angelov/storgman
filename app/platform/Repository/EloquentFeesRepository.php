@@ -27,13 +27,16 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
-use Angelov\Eestec\Platform\Exception\FeeNotFoundException;
 use Angelov\Eestec\Platform\Exception\NoFeesException;
 use Angelov\Eestec\Platform\Model\Fee;
 use Angelov\Eestec\Platform\Model\Member;
 
-class EloquentFeesRepository implements FeesRepositoryInterface
+class EloquentFeesRepository extends AbstractEloquentRepository implements FeesRepositoryInterface
 {
+    public function __construct(Fee $model)
+    {
+        $this->model = $model;
+    }
 
     public function store(Fee $fee, Member $member)
     {
@@ -67,14 +70,4 @@ class EloquentFeesRepository implements FeesRepositoryInterface
 
         return $fee;
     }
-
-    public function destroy($id)
-    {
-        if (Fee::find($id) == null) {
-            throw new FeeNotFoundException();
-        }
-
-        Fee::destroy($id);
-    }
-
 }

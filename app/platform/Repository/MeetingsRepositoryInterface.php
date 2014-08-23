@@ -32,24 +32,60 @@ use Angelov\Eestec\Platform\Model\Member;
 
 interface MeetingsRepositoryInterface
 {
-
     /**
-     * @param  Meeting                               $meeting
-     * @param  \Angelov\Eestec\Platform\Model\Member $creator
-     * @param  array                                 $attendants
+     * Stores the meeting and creates a list of attendants
+     *
+     * @param  Meeting  $meeting
+     * @param  Member   $creator
+     * @param  array    $attendants
      * @return void
      */
     public function store(Meeting $meeting, Member $creator, array $attendants);
 
+    /**
+     *  Returns all meetings
+     *
+     * @param array $withRelationships
+     * @return array
+     */
     public function all(array $withRelationships = []);
 
+    /**
+     * Counts the meetings in a given date range
+     *
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return int
+     */
     public function countMeetingsInPeriod(\DateTime $from, \DateTime $to);
 
+    /**
+     * Returns a specific meeting
+     *
+     * @param int $id
+     * @return Meeting
+     */
     public function get($id);
 
-    public function getByPage($page, $limit, $with);
+    /**
+     * Returns array of meetings for a specific page
+     *
+     * @param int $page
+     * @param int $limit
+     * @param array $withRelationships
+     * @return \stdClass
+     */
+    public function getByPage($page, $limit, array $withRelationships);
 
     /**
+     * Calculates global attendance details.
+     * Example result:
+     *      array(
+     *          'meetings' => 50,
+     *          'attendants' => '3152',
+     *          'average' => '63'
+     *      )
+     *
      * @todo rename the method to getTotalAttendanceDetails() or something similar
      * @return array
      */

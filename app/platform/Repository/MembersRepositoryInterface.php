@@ -27,49 +27,114 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
-use Angelov\Eestec\Platform\Exception\MemberNotFoundException;
+use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Model\Member;
 
 interface MembersRepositoryInterface
 {
-
     /**
+     * Returns all members
+     *
      * @return array
      */
     public function all();
 
     /**
+     * Deletes a specific member from the storage
+     *
      * @param $id int
      * @return void
-     * @throws MemberNotFoundException
+     * @throws ResourceNotFoundException
      */
     public function destroy($id);
 
     /**
-     * @param  \Angelov\Eestec\Platform\Model\Member $member
+     * Stores the given member
+     *
+     * @param  Member $member
      * @return void
      */
     public function store(Member $member);
 
     /**
-     * @param $id
-     * @return \Angelov\Eestec\Platform\Model\Member
-     * @throws MemberNotFoundException
+     * Returns the member with the given ID
+     *
+     * @param int $id
+     * @return Member
+     * @throws ResourceNotFoundException
      */
     public function get($id);
 
-    public function getByPage($page, $limit);
+    /**
+     * Returns the members for a specific page
+     *
+     * @param int $page
+     * @param int $limit
+     * @param array $withRelationships
+     * @return \stdClass
+     */
+    public function getByPage($page, $limit, array $withRelationships);
 
+    /**
+     * Returns the number of total and active members
+     * Example:
+     *      array(
+     *         'total' => 593,
+     *         'active' => 122
+     *      )
+     *
+     * @return array
+     */
     public function countByMembershipStatus();
 
+    /**
+     * Returns the members with birthday on a given date
+     *
+     * @param \DateTime $date
+     * @return array
+     */
     public function getByBirthdayDate(\DateTime $date);
 
+    /**
+     * Returns the member with the specific IDs
+     *
+     * @param array $ids
+     * @return array
+     */
     public function getByIds(array $ids);
 
+    /**
+     * Counts the members per faculties
+     * Example:
+     *      array(
+     *          'Fax 3' => 203,
+     *          'Fax 2' => 195,
+     *          'Fax 1' => 194,
+     *      )
+     *
+     * @return array
+     */
     public function countPerFaculty();
 
+    /**
+     * Counts the number of new members per months in a given period
+     * Example:
+     *      array(
+     *          '2014-07' => 11,
+     *          '2014-08' => 6
+     *      )
+     *
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return array
+     */
     public function countNewMembersPerMonth(\DateTime $from, \DateTime $to);
 
+    /**
+     * Counts the members
+     *
+     * @return int
+     */
     public function countAll();
 
 }

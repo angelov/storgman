@@ -27,6 +27,4 @@
 
 namespace Angelov\Eestec\Platform\Exception;
 
-class MemberNotFoundException extends \Exception
-{
-}
+class ResourceNotFoundException extends \Exception {}

@@ -33,33 +33,47 @@ use Angelov\Eestec\Platform\Model\Member;
 
 interface FeesRepositoryInterface
 {
-
     /**
+     * Stores a fee and relate it to a specific member
+     *
      * @param  Fee    $fee
      * @param  Member $member
-     * @return mixed
+     * @return void
      */
     public function store(Fee $fee, Member $member);
 
     /**
+     * Returns all fees paid by a member
+     *
      * @param  Member          $member
-     * @return mixed
+     * @return array
      * @throws NoFeesException
      */
     public function getFeesForMember(Member $member);
 
     /**
+     * Returns the latest fee paid by a member
+     *
      * @param  Member          $member
-     * @return mixed
+     * @return Fee
      * @throws NoFeesException
      */
     public function getLatestFeeForMember(Member $member);
 
+    /**
+     * Returns the first fee paid by a member
+     *
+     * @param Member $member
+     * @return Fee
+     * @throws NoFeesException
+     */
     public function getFirstFeeForMember(Member $member);
 
     /**
+     * Deletes a fee from the storage
+     *
      * @param $id int
-     * @return mixed
+     * @return void
      */
     public function destroy($id);
 
