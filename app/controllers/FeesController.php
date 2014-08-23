@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Exception\FeeNotFoundException;
+use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Service\MembershipService;
 use Angelov\Eestec\Platform\Validation\FeesValidator;
 use Illuminate\Http\JsonResponse;
@@ -162,7 +162,7 @@ class FeesController extends \BaseController
 
             $data['status'] = 'success';
             $data['message'] = 'Fee deleted successfully.';
-        } catch (FeeNotFoundException $e) {
+        } catch (ResourceNotFoundException $e) {
             $data['status'] = 'warning';
             $data['message'] = 'There was something wrong with your request.';
         }

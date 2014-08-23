@@ -25,6 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Factory\MembersFactory;
 use Angelov\Eestec\Platform\Populator\MembersPopulator;
 use Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface;
@@ -33,7 +34,6 @@ use Angelov\Eestec\Platform\Service\MembershipService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Angelov\Eestec\Platform\Exception\MemberNotFoundException;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Validation\MembersValidator;
 
@@ -230,7 +230,7 @@ class MembersController extends \BaseController
 
             $data['status'] = 'success';
             $data['message'] = 'Member deleted successfully.';
-        } catch (MemberNotFoundException $e) {
+        } catch (ResourceNotFoundException $e) {
             $data['status'] = 'warning';
             $data['message'] = 'There was something wrong with your request.';
         }

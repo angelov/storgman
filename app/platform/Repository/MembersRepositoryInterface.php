@@ -73,7 +73,7 @@ interface MembersRepositoryInterface
      * @param array $withRelationships
      * @return \stdClass
      */
-    public function getByPage($page, $limit, array $withRelationships);
+    public function getByPage($page, $limit, array $withRelationships = []);
 
     /**
      * Returns the number of total and active members
