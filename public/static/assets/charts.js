@@ -149,6 +149,9 @@ $(function() {
         title: {
             text: ''
         },
+        credits: {
+            enabled: false
+        },
         xAxis: {
             categories: ["Sep 2013","Oct 2013","Nov 2013","Dec 2013",
                 "Jan 2014","Feb 2014","Mar 2014","Apr 2014",
@@ -177,6 +180,41 @@ $(function() {
         },{
             name: 'Attended',
             data: [4,2,3,4,2,1,2,3,2,2,1,3]
+        }]
+    });
+
+    $('#chart-meeting-returning-members').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: ''
+        },
+        tooltip: {
+            enabled: false
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                size: 80,
+                showInLegend: true
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            type: 'pie',
+            data: [
+                ['New',   20.0],
+                ['Returning',       80.0]
+            ]
         }]
     });
 

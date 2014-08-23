@@ -5,44 +5,107 @@
 
 {% set attendants = meeting.attendants %}
 
-<div class="row">
+<div class="row" style="margin-top: 30px;">
     <div class="col-md-5">
-        <legend>Basic information:</legend>
 
-        <dl class="">
-            <dt>Date:</dt>
-            <dd><span class="date-to-format">{{ meeting.date }}</span></dd>
+        <ul class="list-group text-right">
+            <li class="list-group-item text-muted text-left">Basic information</li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Date:</strong></span>
+                <span class="date-to-format">{{ meeting.date }}</span>
+            </li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Location:</strong></span>
+                {{ meeting.location }}
+            </li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong># of attendants</strong></span>
+                {{ attendants|length }}
+            </li>
+            <li class="list-group-item">
+                <span class="pull-left"><strong>Created by:</strong></span>
+                {{ meeting.creator.full_name }}
+            </li>
+        </ul>
 
-            <dt>Location:</dt>
-            <dd>{{ meeting.location }}</dd>
+        <ul class="list-group">
+            <li class="list-group-item text-muted text-left">Details</li>
+            <li class="list-group-item">
+                <p>{{ meeting.info|raw }}</p>
+            </li>
+        </ul>
 
-            <dt># of attendants</dt>
-            <dd>{{ attendants|length }}</dd>
-
-            <dt>Created by</dt>
-            <dd>{{ meeting.creator.full_name }}</dd>
-        </dl>
-
-        <legend>Details:</legend>
-        {{ meeting.info|raw }}
     </div>
 
     <div class="col-md-7">
-        <legend>Attendants:</legend>
 
+        <ul class="list-group">
+            <li class="list-group-item text-muted text-left">
+                Statistics
+                <span class="pull-right small text-muted">(not implemented yet)</span>
+            </li>
+            <li class="list-group-item" style="height: 164px">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div id="chart-meeting-returning-members" style="margin-top: 10px; height: 130px"></div>
+                    </div>
 
-        <div id="attendants-list">
+                    <div class="col-md-7">
 
-            {% for attendant in attendants %}
+                        <table class="table" style="margin-top: -10px;">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="text-success">
+                                            <i class="glyphicon glyphicon-arrow-up" style=""></i>
+                                            <strong>5 more</strong>
+                                        </span>
+                                        attendants than the last meeting
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="text-danger">
+                                            <i class="glyphicon glyphicon-arrow-down" style=""></i>
+                                            <strong>10 less</strong>
+                                        </span>
+                                        attendants than average
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                <a href="{{ route('members.show', attendant.id) }}" class="attendant has-tooltip"
-                     data-toggle="tooltip" title="{{ attendant.full_name }}">
-                    <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.photo]) }}" />
-                </a>
+                        <p class="small text-muted">
+                            * New members are those members who hasn't attended the previous meeting.
+                            Returning are those who has.
+                        </p>
+                    </div>
+                </div>
 
-            {% endfor %}
+            </li>
+        </ul>
 
-        </div>
+        <ul class="list-group">
+            <li class="list-group-item text-muted text-left">Attendants</li>
+            <li class="list-group-item">
+
+                {% for attendant in attendants %}
+
+                    <a href="{{ route('members.show', attendant.id) }}" class="attendant has-tooltip"
+                       data-toggle="tooltip" title="{{ attendant.full_name }}">
+                        <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.photo]) }}" />
+                    </a>
+
+                {% endfor %}
+
+            </li>
+        </ul>
+
     </div>
 
 
