@@ -3,46 +3,62 @@
 
 <h1>Meetings</h1>
 
-<a href="{{ route('meetings.create') }}">create meeting</a>
+<div class="row">
+    <div class="col-md-7">
+        <p>There are total <strong>N</strong> meetings.</p>
+    </div>
 
-<table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th>Location</th>
-        <th># of attendants</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for meeting in meetings %}
-        <tr>
-            <td><span class="date-to-format">{{ meeting.date }}</span></td>
-            <td>{{ meeting.location }}</td>
-            <td>{{ meeting.attendants|length }}</td>
-            <td class="text-right">
-                {# view meeting report #}
-                <a href="{{ route('meetings.show', meeting.id) }}"
-                   data-toggle="tooltip" data-placement="top" title="View report" class="has-tooltip">
-                    <i class="glyphicon glyphicon-file"></i>
-                </a>
+    <div class="col-md-5 text-right">
 
-                {# edit meeting details #}
-                <a href="" data-toggle="tooltip"
-                   data-placement="top" title="Edit" class="has-tooltip">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                </a>
+        <a href="{{ route('meetings.create') }}" class="btn btn-info">
+            <i class="glyphicon glyphicon-plus"></i> Create meeting report
+        </a>
 
-                {# delete meeting #}
-                <a href=""
-                   data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </a>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Location</th>
+                <th># of attendants</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for meeting in meetings %}
+                <tr>
+                    <td><span class="date-to-format">{{ meeting.date }}</span></td>
+                    <td>{{ meeting.location }}</td>
+                    <td>{{ meeting.attendants|length }}</td>
+                    <td class="text-right">
+                        {# view meeting report #}
+                        <a href="{{ route('meetings.show', meeting.id) }}"
+                           data-toggle="tooltip" data-placement="top" title="View report" class="has-tooltip">
+                            <i class="glyphicon glyphicon-file"></i>
+                        </a>
+
+                        {# edit meeting details #}
+                        <a href="" data-toggle="tooltip"
+                           data-placement="top" title="Edit" class="has-tooltip">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+
+                        {# delete meeting #}
+                        <a href=""
+                           data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <div class="text-right">
     {{ meetings.links()|raw }}
