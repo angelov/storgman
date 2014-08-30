@@ -71,8 +71,9 @@ class MeetingsController extends \BaseController
         $data = $this->meetings->getByPage($page, $perPage, $with);
 
         $meetings = Paginator::make($data->items, $data->totalItems, $perPage);
+        $count = $data->totalItems;
 
-        return View::make('meetings.index', compact('meetings'));
+        return View::make('meetings.index', compact('meetings', 'count'));
     }
 
     /**
