@@ -49,6 +49,7 @@ class NewMembersPerMonthReport implements JsonSerializable
     {
         $year = $this->beginDate->format("Y");
         $count = 0;
+        $numNeededMonths = $this->calculateNumberOfMonths();
 
         for ($m = $this->beginDate->format('m'); $m <= 12; $m++) {
 
@@ -63,11 +64,18 @@ class NewMembersPerMonthReport implements JsonSerializable
                 $year++;
             }
 
-            if ($count == 12) {
+            if ($count == $numNeededMonths) {
                 break;
             }
 
         }
+    }
+
+    private function calculateNumberOfMonths()
+    {
+        $diff = $this->beginDate->diff($this->endDate);
+
+        return abs($diff->y*12 + $diff->m) + 1;
     }
 
     public function addMonth($month, $count)
