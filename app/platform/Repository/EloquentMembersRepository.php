@@ -28,6 +28,9 @@
 namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Report\MembershipStatusReport;
+use Angelov\Eestec\Platform\Report\MembersPerFacultyReport;
+use Angelov\Eestec\Platform\Report\NewMembersPerMonthReport;
 use DateTime;
 use DB;
 
@@ -61,7 +64,9 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
             '
         )[0];
 
-        return $result;
+        $report = new MembershipStatusReport($result['total'], $result['active']);
+
+        return $report;
     }
 
     public function getByBirthdayDate(DateTime $date)
@@ -88,19 +93,21 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
             '
         );
 
-        $list = [];
+        $report = new MembersPerFacultyReport();
 
         foreach ($results as $current) {
             $current = (array)$current;
-            $list[$current['faculty']] = $current['members'];
+            $report->addFaculty($current["faculty"], $current["members"]);
         }
 
-        return $list;
+        return $report;
 
     }
 
     public function countNewMembersPerMonth(DateTime $from, DateTime $to)
     {
+        $report = new NewMembersPerMonthReport($from, $to);
+
         $from = $from->format("Y-m-d");
         $to = $to->format("Y-m-d");
 
@@ -138,14 +145,12 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
             array($from, $to)
         );
 
-        $list = [];
-
         foreach ($res as &$current) {
             $current = (array)$current;
-            $list[$current['month']] = $current['count'];
+            $report->addMonth($current["month"], $current["count"]);
         }
 
-        return $list;
+        return $report;
     }
 
 }

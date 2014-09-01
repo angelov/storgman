@@ -50,27 +50,16 @@ class HomeController extends BaseController
 
     public function showHomepage()
     {
-
         $today = new DateTime('now');
+
         $withBirthday = $this->members->getByBirthdayDate($today);
-
         $attendance = $this->meetings->calculateAttendanceDetails();
-
         $byMembershipStatus = $this->members->countByMembershipStatus();
-
-        /** @todo Move the preparation of $perFaculty to separate service */
-        $perFaculty = $this->members->countPerFaculty();
-
-        $fax = [];
-        foreach ($perFaculty as $faculty => $count) {
-            $fax[] = [$faculty, (int) $count];
-        }
-
-        $perFaculty = json_encode($fax);
+        $perFaculty = json_encode($this->members->countPerFaculty());
 
         $perMonthAll = $this->membersStats->newMembersMonthlyLastYear();
-        $perMonth['months'] = json_encode(array_keys($perMonthAll));
-        $perMonth['values'] = json_encode(array_values($perMonthAll));
+        $perMonth['months'] = json_encode($perMonthAll->getMonthsTitles());
+        $perMonth['values'] = json_encode($perMonthAll->getMonthsValues());
 
         return View::make(
             'homepage.index',

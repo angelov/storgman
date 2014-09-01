@@ -25,38 +25,58 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Service;
+namespace Angelov\Eestec\Platform\Report;
 
-use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
-use DateTime;
+use JsonSerializable;
 
-class MembersStatisticsService
+class MembershipStatusReport implements JsonSerializable
 {
-
-    protected $members;
-
-    public function __construct(MembersRepositoryInterface $members)
-    {
-        $this->members = $members;
-    }
+    protected $total = 0;
+    protected $active = 0;
 
     /**
-     * Returns an array with num. of new members in
-     * each of the last 12 months.
-     *
-     * @todo Smelly code, smelly code... what are you doing here?
+     * @param integer $total Total number of members
+     * @param integer $active The number of active members
      */
-    public function newMembersMonthlyLastYear()
+    function __construct($total, $active)
     {
-        $from = (new DateTime('now'))
-            ->modify('first day of this month')
-            ->modify('-1 year')
-            ->modify('+1 month');
-        $to = new DateTime('now');
-
-        $report = $this->members->countNewMembersPerMonth($from, $to);
-
-        return $report;
+        $this->active = $active;
+        $this->total = $total;
     }
 
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    public function setTotal($total)
+    {
+        $this->total = $total;
+    }
+
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    public function getInactive()
+    {
+        return $this->total - $this->active;
+    }
+
+    public function jsonSerialize()
+    {
+        $data = [
+            "total" => $this->getTotal(),
+            "active" => $this->getActive(),
+            "inactive" => $this->getInactive()
+        ];
+
+        return $data;
+    }
 }

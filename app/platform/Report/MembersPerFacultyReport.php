@@ -25,38 +25,36 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Service;
+namespace Angelov\Eestec\Platform\Report;
 
-use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
-use DateTime;
+use JsonSerializable;
 
-class MembersStatisticsService
+class MembersPerFacultyReport implements JsonSerializable
 {
-
-    protected $members;
-
-    public function __construct(MembersRepositoryInterface $members)
-    {
-        $this->members = $members;
-    }
+    protected $faculties = [];
 
     /**
-     * Returns an array with num. of new members in
-     * each of the last 12 months.
-     *
-     * @todo Smelly code, smelly code... what are you doing here?
+     * @param string $faculty The faculty's name
+     * @param integer $countMembers Number of members who go to the specific faculty
      */
-    public function newMembersMonthlyLastYear()
+    public function addFaculty($faculty, $countMembers)
     {
-        $from = (new DateTime('now'))
-            ->modify('first day of this month')
-            ->modify('-1 year')
-            ->modify('+1 month');
-        $to = new DateTime('now');
-
-        $report = $this->members->countNewMembersPerMonth($from, $to);
-
-        return $report;
+        $this->faculties[$faculty] = $countMembers;
     }
 
+    public function getFaculties()
+    {
+        return $this->faculties;
+    }
+
+    public function jsonSerialize()
+    {
+        $faculties = [];
+
+        foreach ($this->faculties as $faculty => $count) {
+            $faculties[] = [$faculty, (int)$count];
+        }
+
+        return $faculties;
+    }
 }

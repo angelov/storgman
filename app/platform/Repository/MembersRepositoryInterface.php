@@ -29,6 +29,9 @@ namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Report\MembershipStatusReport;
+use Angelov\Eestec\Platform\Report\MembersPerFacultyReport;
+use Angelov\Eestec\Platform\Report\NewMembersPerMonthReport;
 
 interface MembersRepositoryInterface
 {
@@ -77,13 +80,8 @@ interface MembersRepositoryInterface
 
     /**
      * Returns the number of total and active members
-     * Example:
-     *      array(
-     *         'total' => 593,
-     *         'active' => 122
-     *      )
      *
-     * @return array
+     * @return MembershipStatusReport
      */
     public function countByMembershipStatus();
 
@@ -105,28 +103,17 @@ interface MembersRepositoryInterface
 
     /**
      * Counts the members per faculties
-     * Example:
-     *      array(
-     *          'Fax 3' => 203,
-     *          'Fax 2' => 195,
-     *          'Fax 1' => 194,
-     *      )
      *
-     * @return array
+     * @return MembersPerFacultyReport
      */
     public function countPerFaculty();
 
     /**
      * Counts the number of new members per months in a given period
-     * Example:
-     *      array(
-     *          '2014-07' => 11,
-     *          '2014-08' => 6
-     *      )
      *
      * @param \DateTime $from
      * @param \DateTime $to
-     * @return array
+     * @return NewMembersPerMonthReport
      */
     public function countNewMembersPerMonth(\DateTime $from, \DateTime $to);
 
