@@ -53,9 +53,6 @@ class FeesController extends \BaseController
         $this->fees = $fees;
         $this->members = $members;
         $this->validator = $validator;
-
-        $this->beforeFilter('auth');
-        $this->beforeFilter('boardMember');
     }
 
     /**
@@ -66,11 +63,6 @@ class FeesController extends \BaseController
      */
     public function create()
     {
-
-        if (!$this->request->ajax()) {
-            return new Response();
-        }
-
         $member_id = $this->request->get('member_id');
         $member = $this->members->get($member_id);
 
@@ -115,7 +107,6 @@ class FeesController extends \BaseController
      */
     public function store()
     {
-
         $data = [];
 
         if (!$this->validator->validate($this->request->all())) {
@@ -150,11 +141,6 @@ class FeesController extends \BaseController
      */
     public function destroy($id)
     {
-
-        if (!$this->request->ajax()) {
-            return new Response();
-        }
-
         $data = [];
 
         try {

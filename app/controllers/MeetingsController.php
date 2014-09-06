@@ -53,8 +53,6 @@ class MeetingsController extends \BaseController
         $this->members = $members;
         $this->validator = $validator;
         $this->meetingsService = $meetingsService;
-
-        $this->beforeFilter('auth');
     }
 
     /**

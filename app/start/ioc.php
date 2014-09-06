@@ -37,3 +37,7 @@ App::bind('MembersPopulator', function () {
 App::bind('BoardMembersFilter', function() {
     return new \Angelov\Eestec\Platform\Filter\BoardMembersFilter(Auth::user());
 });
+
+App::bind('AjaxFilter', function() {
+    return new \Angelov\Eestec\Platform\Filter\AjaxFilter(App::make('request'));
+});

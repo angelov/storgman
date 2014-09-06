@@ -1,6 +1,7 @@
 <?php
 
 Route::filter('boardMember', 'BoardMembersFilter');
+Route::filter('ajax', 'AjaxFilter');
 
 /*
 |--------------------------------------------------------------------------

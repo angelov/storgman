@@ -53,7 +53,7 @@ Route::group(['prefix' => 'auth'], function () {
  * Members management
  */
 
-Route::group(['prefix' => 'members'], function () {
+Route::group(['prefix' => 'members', 'before' => 'auth|boardMember'], function () {
 
     Route::get('/',          ['as' => 'members.index',    'uses' => 'MembersController@index']);
     Route::get('/create',    ['as' => 'members.create',   'uses' => 'MembersController@create']);
@@ -61,8 +61,16 @@ Route::group(['prefix' => 'members'], function () {
     Route::get('/{id}',      ['as' => 'members.show',     'uses' => 'MembersController@show']);
     Route::get('/{id}/edit', ['as' => 'members.edit',     'uses' => 'MembersController@edit']);
     Route::put('/{id}',      ['as' => 'members.update',   'uses' => 'MembersController@update']);
-    Route::delete('/{id}',   ['as' => 'members.destroy',  'uses' => 'MembersController@destroy']);
-    Route::get('/prefetch',  ['as' => 'members.prefetch', 'uses' => 'MembersController@prefetch']);
+    Route::delete('/{id}',
+        ['as' => 'members.destroy',
+         'uses' => 'MembersController@destroy',
+         'before' => 'ajax']
+    );
+    Route::get('/prefetch',
+        ['as' => 'members.prefetch',
+         'uses' => 'MembersController@prefetch',
+         'before' => 'ajax']
+    );
 
 });
 
@@ -70,7 +78,7 @@ Route::group(['prefix' => 'members'], function () {
  * Membership fees management
  */
 
-Route::group(['prefix' => 'fees'], function () {
+Route::group(['prefix' => 'fees', 'before' => 'auth|boardMember|ajax'], function () {
 
     Route::get('/create',  ['as' => 'fees.create',  'uses' => 'FeesController@create']);
     Route::post('/',       ['as' => 'fees.store',   'uses' => 'FeesController@store']);
@@ -80,9 +88,11 @@ Route::group(['prefix' => 'fees'], function () {
 
 /**
  * Meetings management
+ *
+ * @todo Some routes should be allowed only to board members
  */
 
-Route::group(['prefix' => 'meetings'], function () {
+Route::group(['prefix' => 'meetings', 'before' => 'auth'], function () {
 
     Route::get('/',          ['as' => 'meetings.index',   'uses' => 'MeetingsController@index']);
     Route::get('/create',    ['as' => 'meetings.create',  'uses' => 'MeetingsController@create']);

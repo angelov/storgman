@@ -52,9 +52,6 @@ class MembersController extends \BaseController
         $this->request = $request;
         $this->members = $members;
         $this->validator = $validator;
-
-        $this->beforeFilter('auth');
-        $this->beforeFilter('boardMember');
     }
 
     /**
@@ -81,10 +78,6 @@ class MembersController extends \BaseController
      */
     public function prefetch()
     {
-        if (!$this->request->ajax()) {
-            return new Response();
-        }
-
         $members = $this->members->all();
         $result = [];
 
@@ -218,10 +211,6 @@ class MembersController extends \BaseController
      */
     public function destroy($id)
     {
-        if (!$this->request->ajax()) {
-            return new Response();
-        }
-
         $data = [];
 
         try {
