@@ -29,6 +29,7 @@ namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsReport;
 use DB;
 
 class EloquentMeetingsRepository extends AbstractEloquentRepository implements MeetingsRepositoryInterface
@@ -55,7 +56,6 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
 
     public function calculateAttendanceDetails()
     {
-
         // The query works with both MySQL and PostgreSQL
         $result = (array)DB::select(
             '
@@ -75,11 +75,13 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
             '
         )[0];
 
-        $att['meetings'] = $result['meetings'] ? : 0;
-        $att['attendants'] = $result['attendants'] ? : 0;
-        $att['average'] = $result['average'] ? : 0;
+        $report = new MeetingsAttendanceDetailsReport();
 
-        return $att;
+        $report->setMeetings($result['meetings'] ? : 0);
+        $report->setAttendants($result['attendants'] ? : 0);
+        $report->setAverage($result['average'] ? : 0);
+
+        return $report;
 
     }
 
