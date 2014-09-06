@@ -25,8 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Service\MeetingsService;
 use Angelov\Eestec\Platform\Validation\MeetingsValidator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
@@ -166,11 +168,23 @@ class MeetingsController extends \BaseController
      * DELETE /meetings/{id}
      *
      * @param  int      $id
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {
-        //
+        $data = [];
+
+        try {
+            $this->meetings->destroy($id);
+
+            $data['status'] = 'success';
+            $data['message'] = 'Meeting deleted successfully.';
+        } catch (ResourceNotFoundException $e) {
+            $data['status'] = 'warning';
+            $data['message'] = 'There was something wrong with your request.';
+        }
+
+        return new JsonResponse($data);
     }
 
 }

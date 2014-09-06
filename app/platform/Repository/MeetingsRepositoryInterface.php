@@ -28,6 +28,7 @@
 namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsReport;
@@ -51,6 +52,15 @@ interface MeetingsRepositoryInterface
      * @return array
      */
     public function all(array $withRelationships = []);
+
+    /**
+     * Deletes a specific member from the storage
+     *
+     * @param $id int
+     * @return void
+     * @throws ResourceNotFoundException
+     */
+    public function destroy($id);
 
     /**
      * Counts the meetings in a given date range

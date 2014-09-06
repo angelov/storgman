@@ -3,6 +3,11 @@
 
 <h1>Meetings</h1>
 
+<div class="" id="action-status" style="display: none;">
+    <a class="close" data-hide="alert" href="#">×</a>
+    <span id="action-message"></span>
+</div>
+
 <div class="row">
     <div class="col-md-7">
         <p>There are total <strong>{{ count }}</strong> meetings.</p>
@@ -48,8 +53,9 @@
                         </a>
 
                         {# delete meeting #}
-                        <a href=""
-                           data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
+                        <a data-toggle="tooltip" data-placement="top" title="Delete"
+                           href="{{ route('meetings.destroy', meeting.id) }}" data-meeting="{{ meeting.id }}"
+                           class="btn-delete-meeting has-tooltip">
                             <i class="glyphicon glyphicon-trash"></i>
                         </a>
                     </td>
