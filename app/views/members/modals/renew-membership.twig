@@ -64,8 +64,8 @@
 
                     {% for fee in fees %}
                         <tr>
-                            <td>{{ fee.from }}</td>
-                            <td>{{ fee.to }}</td>
+                            <td>{{ fee.from_date }}</td>
+                            <td>{{ fee.to_date }}</td>
                             <td>{{ fee.created_at }}</td>
                             <td class="text-right">
                                 <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"

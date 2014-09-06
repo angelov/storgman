@@ -62,7 +62,7 @@ class EloquentFeesRepository extends AbstractEloquentRepository implements FeesR
 
     private function getFeeByOrder(Member $member, $order)
     {
-        $fee = $member->fees()->orderBy('to', $order)->first();
+        $fee = $member->fees()->orderBy('to_date', $order)->first();
 
         if ($fee == null) {
             throw new NoFeesException();

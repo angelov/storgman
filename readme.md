@@ -22,7 +22,7 @@ The application is not production ready yet!
 * PHP >= 5.4
 * MCrypt and GD PHP extensions
 * Apache/nginx web server
-* PostgreSQL database (MySQL is currently not supported)
+* Relational database (tested with PostgreSQL and MySQL)
 * Composer
 * Bower
 * Grunt

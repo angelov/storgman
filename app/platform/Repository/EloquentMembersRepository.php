@@ -48,7 +48,9 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
 
     public function countByMembershipStatus()
     {
-        // The query currently works only with PostgreSQL
+        $currentDate = (new DateTime('now'))->format('Y-m-d');
+
+        // The query works with both MySQL and PostgreSQL
         $result = (array)DB::select(
             '
                 SELECT *
@@ -60,8 +62,8 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
                    WHERE id IN
                        (SELECT DISTINCT member_id
                         FROM fees
-                        WHERE cast("to" AS DATE) > current_date)) tbl2
-            '
+                        WHERE cast(to_date AS DATE) > ?)) tbl2
+            ', [$currentDate]
         )[0];
 
         $report = new MembershipStatusReport($result['total'], $result['active']);
@@ -111,10 +113,10 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
         $from = $from->format("Y-m-d");
         $to = $to->format("Y-m-d");
 
-        // The query currently works only with PostgreSQL
+        // The query works with both MySQL and PostgreSQL
         $res = DB::select(
             '
-                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS TEXT), 2, \'0\')) AS month,
+                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS CHAR(2)), 2, \'0\')) AS month,
                        count(id) AS count
                 FROM
                   (SELECT id,
@@ -126,16 +128,16 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
                    FROM
                      (SELECT id,
                              email,
-                             min("from") AS joined
+                             min(from_date) AS joined
                       FROM
-                        (SELECT members."id",
-                                members."email",
-                                fees."from",
-                                fees. "to"
+                        (SELECT members.id,
+                                members.email,
+                                fees.from_date,
+                                fees.to_date
                          FROM members,
                               fees
                          WHERE members.id = member_id
-                           AND fees."from" BETWEEN ? AND ?) tbl
+                           AND fees.from_date BETWEEN ? AND ?) tbl
                       GROUP BY id,
                                email) AS tbl2) tbl3
                 GROUP BY concat(MONTH, YEAR),
@@ -147,7 +149,7 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
 
         foreach ($res as &$current) {
             $current = (array)$current;
-            $report->addMonth($current["month"], $current["count"]);
+            $report->addMonth($current["month"], (int)$current["count"]);
         }
 
         return $report;

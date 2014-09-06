@@ -31,8 +31,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $from
- * @property int $to
+ * @property int $from_date
+ * @property int $to_date
  * @property int $member_id
  * @property string $created_at
  * @property string $updated_at

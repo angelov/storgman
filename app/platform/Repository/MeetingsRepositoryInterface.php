@@ -29,6 +29,7 @@ namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsReport;
 
 interface MeetingsRepositoryInterface
 {
@@ -79,15 +80,9 @@ interface MeetingsRepositoryInterface
 
     /**
      * Calculates global attendance details.
-     * Example result:
-     *      array(
-     *          'meetings' => 50,
-     *          'attendants' => '3152',
-     *          'average' => '63'
-     *      )
      *
      * @todo rename the method to getTotalAttendanceDetails() or something similar
-     * @return array
+     * @return MeetingsAttendanceDetailsReport
      */
     public function calculateAttendanceDetails();
 

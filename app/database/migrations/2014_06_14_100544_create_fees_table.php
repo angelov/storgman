@@ -17,10 +17,14 @@ class CreateFeesTable extends Migration
             'fees',
             function (Blueprint $table) {
                 $table->increments('id');
-                $table->date('from');
-                $table->date('to');
+                $table->date('from_date');
+                $table->date('to_date');
                 $table->unsignedInteger('member_id');
-                $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade')->onUpdate('cascade');
+                $table->foreign('member_id')
+                    ->references('id')
+                    ->on('members')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
                 $table->timestamps();
             }
         );

@@ -65,8 +65,8 @@ class DefaultMemberSeeder extends Seeder
 
         $fee = new Fee();
         $today = new \DateTime('now');
-        $fee->from = $today->format('Y-m-d');
-        $fee->to = $today->modify("+1 year");
+        $fee->from_date = $today->format('Y-m-d');
+        $fee->to_date = $today->modify("+1 year");
 
         $this->fees->store($fee, $user);
     }

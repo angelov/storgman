@@ -110,10 +110,10 @@ class FakeDataSeeder extends Seeder
             for ($i = 0; $i < 3; $i++) {
                 $fee = new Fee();
 
-                $fee->from = $from->format('Y-m-d');
+                $fee->from_date = $from->format('Y-m-d');
 
                 $to = $from->modify('+1 year');
-                $fee->to = $to->format('Y-m-d');
+                $fee->to_date = $to->format('Y-m-d');
 
                 $this->fees->store($fee, $member);
 

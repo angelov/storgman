@@ -118,8 +118,8 @@ class FeesController extends \BaseController
 
         $fee = new Fee();
 
-        $fee->from = $this->request->get('from');
-        $fee->to = $this->request->get('to');
+        $fee->from_date = $this->request->get('from');
+        $fee->to_date = $this->request->get('to');
 
         $member = $this->members->get($this->request->get('member_id'));
 

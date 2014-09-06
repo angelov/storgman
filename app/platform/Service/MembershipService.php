@@ -77,7 +77,7 @@ class MembershipService
         try {
             $fee = $this->fees->getLatestFeeForMember($member);
 
-            return new \DateTime($fee->to);
+            return new \DateTime($fee->to_date);
         } catch (NoFeesException $e) {
             return null;
         }
@@ -89,7 +89,7 @@ class MembershipService
         try {
             $fee = $this->fees->getFirstFeeForMember($member);
 
-            return new \DateTime($fee->from);
+            return new \DateTime($fee->from_date);
         } catch (NoFeesException $e) {
             return new \DateTime($member->created_at);
         }
