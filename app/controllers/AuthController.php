@@ -40,9 +40,6 @@ class AuthController extends \BaseController
     {
         $this->request = $request;
         $this->validator = $validator;
-
-        $this->beforeFilter('guest', ['only' => ['index', 'login']]);
-        $this->beforeFilter('auth', ['only' => ['logout']]);
     }
 
     /**

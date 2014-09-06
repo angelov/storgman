@@ -44,8 +44,6 @@ class HomeController extends BaseController
         $this->members = $members;
         $this->meetings = $meetings;
         $this->membersStats = $membersStats;
-
-        $this->beforeFilter('auth');
     }
 
     public function showHomepage()

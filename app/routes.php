@@ -35,7 +35,7 @@ Route::pattern('id', '[0-9]+');
  * Dashboard
  */
 
-Route::get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage']);
+Route::get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage', 'before' => 'auth']);
 
 /**
  * Authentication
@@ -43,9 +43,21 @@ Route::get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage']);
 
 Route::group(['prefix' => 'auth'], function () {
 
-    Route::get('/',       ['as' => 'auth',     'uses' => 'AuthController@index']);
-    Route::post('/',      ['as' => 'postAuth', 'uses' => 'AuthController@login']);
-    Route::get('/logout', ['as' => 'logout',   'uses' => 'AuthController@logout']);
+    Route::get('/',
+        ['as' => 'auth',
+         'uses' => 'AuthController@index',
+         'before' => 'guest']
+    );
+    Route::post('/',
+        ['as' => 'postAuth',
+         'uses' => 'AuthController@login',
+         'before' => 'guest']
+    );
+    Route::get('/logout',
+        ['as' => 'logout',
+         'uses' => 'AuthController@logout',
+         'before' => 'auth']
+    );
 
 });
 
