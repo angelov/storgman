@@ -10,7 +10,8 @@
         "way/generators": "2.*",
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*",
-        "fzaninotto/faker": "1.4.0"
+        "fzaninotto/faker": "1.4.0",
+        "nesbot/carbon": "1.*"
     },
     "autoload": {
         "classmap": [

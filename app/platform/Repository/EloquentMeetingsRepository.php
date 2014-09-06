@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsReport;
@@ -47,9 +48,9 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
         $meeting->attendants()->saveMany($attendants);
     }
 
-    public function countMeetingsInPeriod(\DateTime $from, \DateTime $to) {
-        $from = $from->format('Y-m-d');
-        $to = $to->format('Y-m-d');
+    public function countMeetingsInPeriod(DateTime $from, DateTime $to) {
+        $from = $from->toDateString();
+        $to = $to->toDateString();
 
         return Meeting::whereBetween('date', array($from, $to))->count();
     }
@@ -85,11 +86,11 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
 
     }
 
-    public function countAttendanceForMember(Member $member, \DateTime $from, \DateTime $to)
+    public function countAttendanceForMember(Member $member, DateTime $from, DateTime $to)
     {
 
-        $from = $from->format("Y-m-d");
-        $to = $to->format("Y-m-d");
+        $from = $from->toDateString();
+        $to = $to->toDateString();
 
         // The query works with both MySQL and PostgreSQL
         $result = DB::select(

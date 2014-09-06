@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Report;
 
-use DateTime;
+use Angelov\Eestec\Platform\DateTime;
 use JsonSerializable;
 
 class NewMembersPerMonthReport implements JsonSerializable
@@ -73,9 +73,7 @@ class NewMembersPerMonthReport implements JsonSerializable
 
     private function calculateNumberOfMonths()
     {
-        $diff = $this->beginDate->diff($this->endDate);
-
-        return abs($diff->y*12 + $diff->m) + 1;
+        return DateTime::monthsBetween($this->beginDate, $this->endDate) + 1;
     }
 
     public function addMonth($month, $count)
@@ -93,7 +91,7 @@ class NewMembersPerMonthReport implements JsonSerializable
             $m = $parts[1];
             $y = $parts[0];
 
-            $m = new \DateTime("01-" . $m . "-" . $y);
+            $m = new DateTime("01-" . $m . "-" . $y);
 
             $month = $m->format("M Y");
         }

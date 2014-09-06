@@ -25,31 +25,43 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Service;
+namespace Angelov\Eestec\Platform;
 
-use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
+use Carbon\Carbon;
 
-class MembersStatisticsService
+class DateTime extends Carbon
 {
-    protected $members;
-
-    public function __construct(MembersRepositoryInterface $members)
+    public static function oneYearAgo()
     {
-        $this->members = $members;
+        $date = new self;
+        $date->modify('-1 year');
+
+        return $date;
     }
 
-    /**
-     * Returns an array with num. of new members in
-     * each of the last 12 months.
-     */
-    public function newMembersMonthlyLastYear()
+    public static function twelveMonthsAgo($includeCurrent = false)
     {
-        $from = DateTime::twelveMonthsAgo(true);
-        $to = new DateTime('now');
+        $date = new self;
+        $date->modify('first day of this month')
+             ->modify('-1 year');
 
-        $report = $this->members->countNewMembersPerMonth($from, $to);
+        if ($includeCurrent) {
+            $date->modify('+1 month');
+        }
 
-        return $report;
+        return $date;
+    }
+
+    public static function nowAsDateString()
+    {
+        $date = new self;
+        return $date->toDateString();
+    }
+
+    public static function monthsBetween(self $from, self $to)
+    {
+        $diff = $from->diff($to);
+
+        return abs($diff->y*12 + $diff->m);
     }
 }

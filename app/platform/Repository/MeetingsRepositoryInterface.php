@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsReport;
@@ -54,11 +55,11 @@ interface MeetingsRepositoryInterface
     /**
      * Counts the meetings in a given date range
      *
-     * @param \DateTime $from
-     * @param \DateTime $to
+     * @param DateTime $from
+     * @param DateTime $to
      * @return int
      */
-    public function countMeetingsInPeriod(\DateTime $from, \DateTime $to);
+    public function countMeetingsInPeriod(DateTime $from, DateTime $to);
 
     /**
      * Returns a specific meeting
@@ -90,10 +91,10 @@ interface MeetingsRepositoryInterface
      * Count the meetings in a given period, attended by the member
      *
      * @param Member $member
-     * @param \DateTime $from
-     * @param \DateTime $to
+     * @param DateTime $from
+     * @param DateTime $to
      * @return int
      */
-    public function countAttendanceForMember(Member $member, \DateTime $from, \DateTime $to);
+    public function countAttendanceForMember(Member $member, DateTime $from, DateTime $to);
 
 }

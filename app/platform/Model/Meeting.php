@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Model;
 
+use Angelov\Eestec\Platform\DateTime;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -58,9 +59,9 @@ class Meeting extends Model
 
     public function getDateAttribute($date)
     {
-        $date = new \DateTime($date);
+        $date = new DateTime($date);
 
-        return $date->format('Y-m-d');
+        return $date->toDateString();
     }
 
 }

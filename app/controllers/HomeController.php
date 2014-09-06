@@ -25,6 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Service\MembersStatisticsService;
@@ -48,7 +49,7 @@ class HomeController extends BaseController
 
     public function showHomepage()
     {
-        $today = new DateTime('now');
+        $today = new DateTime();
 
         $withBirthday = $this->members->getByBirthdayDate($today);
         $attendance = $this->meetings->calculateAttendanceDetails();

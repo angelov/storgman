@@ -27,11 +27,11 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Report\MembershipStatusReport;
 use Angelov\Eestec\Platform\Report\MembersPerFacultyReport;
 use Angelov\Eestec\Platform\Report\NewMembersPerMonthReport;
-use DateTime;
 use DB;
 
 class EloquentMembersRepository extends AbstractEloquentRepository implements MembersRepositoryInterface
@@ -48,7 +48,7 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
 
     public function countByMembershipStatus()
     {
-        $currentDate = (new DateTime('now'))->format('Y-m-d');
+        $currentDate = DateTime::nowAsDateString();
 
         // The query works with both MySQL and PostgreSQL
         $result = (array)DB::select(
@@ -110,8 +110,8 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
     {
         $report = new NewMembersPerMonthReport($from, $to);
 
-        $from = $from->format("Y-m-d");
-        $to = $to->format("Y-m-d");
+        $from = $from->toDateString();
+        $to = $to->toDateString();
 
         // The query works with both MySQL and PostgreSQL
         $res = DB::select(

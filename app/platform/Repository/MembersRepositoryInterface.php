@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Report\MembershipStatusReport;
@@ -88,10 +89,10 @@ interface MembersRepositoryInterface
     /**
      * Returns the members with birthday on a given date
      *
-     * @param \DateTime $date
+     * @param DateTime $date
      * @return array
      */
-    public function getByBirthdayDate(\DateTime $date);
+    public function getByBirthdayDate(DateTime $date);
 
     /**
      * Returns the member with the specific IDs
@@ -111,11 +112,11 @@ interface MembersRepositoryInterface
     /**
      * Counts the number of new members per months in a given period
      *
-     * @param \DateTime $from
-     * @param \DateTime $to
+     * @param DateTime $from
+     * @param DateTime $to
      * @return NewMembersPerMonthReport
      */
-    public function countNewMembersPerMonth(\DateTime $from, \DateTime $to);
+    public function countNewMembersPerMonth(DateTime $from, DateTime $to);
 
     /**
      * Counts the members

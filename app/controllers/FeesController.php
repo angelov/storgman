@@ -74,6 +74,7 @@ class FeesController extends \BaseController
         $member->membership_status = $membershipService->isMemberActive($member);
         $member->membership_expiration_date = $exp;
 
+        /** @todo Move the suggesting to separate place */
         $suggestDates = [];
 
         if ($exp != null) {

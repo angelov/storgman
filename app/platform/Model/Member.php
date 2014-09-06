@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Model;
 
+use Angelov\Eestec\Platform\DateTime;
 use Carbon\Carbon;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\UserInterface;
@@ -117,7 +118,7 @@ class Member extends Model implements UserInterface, RemindableInterface
             return "n/a";
         }
 
-        return $this->membershipExpirationDate->format('Y-m-d');
+        return $this->membershipExpirationDate->toDateString();
     }
 
     public function getPhotoAttribute($photo)
@@ -132,7 +133,7 @@ class Member extends Model implements UserInterface, RemindableInterface
     /**
      * @param $date \DateTime|null
      */
-    public function setMembershipExpirationDateAttribute($date)
+    public function setMembershipExpirationDateAttribute(DateTime $date = null)
     {
         $this->membershipExpirationDate = $date;
     }

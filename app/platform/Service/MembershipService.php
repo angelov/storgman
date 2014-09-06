@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Service;
 
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Exception\NoFeesException;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
@@ -52,36 +53,32 @@ class MembershipService
      */
     public function isMemberActive(Member $member)
     {
-
         $expirationDate = $this->getExpirationDate($member);
 
         if ($expirationDate == null) {
             return false;
         }
 
-        $today = (new \DateTime('now'))->format('Y-m-d');
+        $today = new DateTime();
 
         return $today < $expirationDate;
-
     }
 
     /**
      * Get the membership expiration date for a given member
      *
      * @param  \Angelov\Eestec\Platform\Model\Member $member
-     * @return \DateTime
+     * @return DateTime
      */
     public function getExpirationDate(Member $member)
     {
-
         try {
             $fee = $this->fees->getLatestFeeForMember($member);
 
-            return new \DateTime($fee->to_date);
+            return new DateTime($fee->to_date);
         } catch (NoFeesException $e) {
             return null;
         }
-
     }
 
     public function getJoinedDate(Member $member)
@@ -89,9 +86,9 @@ class MembershipService
         try {
             $fee = $this->fees->getFirstFeeForMember($member);
 
-            return new \DateTime($fee->from_date);
+            return new DateTime($fee->from_date);
         } catch (NoFeesException $e) {
-            return new \DateTime($member->created_at);
+            return new DateTime($member->created_at);
         }
     }
 

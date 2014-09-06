@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Service;
 
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 
@@ -50,7 +51,7 @@ class MeetingsService
     public function calculateAttendanceRateForMember(Member $member)
     {
         $memberJoinedDate = $this->membership->getJoinedDate($member);
-        $oneYearAgo = (new \DateTime('now'))->modify('-1 year');
+        $oneYearAgo = DateTime::oneYearAgo();
 
         if ($memberJoinedDate < $oneYearAgo) {
             // The member is part of the organization for more
@@ -64,7 +65,7 @@ class MeetingsService
             $calculateFrom = $memberJoinedDate;
         }
 
-        $calculateTo = new \DateTime('now');
+        $calculateTo = new DateTime();
 
         $attended = $this->meetings->countAttendanceForMember($member, $calculateFrom, $calculateTo);
         $total = $this->meetings->countMeetingsInPeriod($calculateFrom, $calculateTo);
