@@ -50,6 +50,9 @@ class HomeController extends BaseController
     public function showHomepage()
     {
         $today = new Date();
+        $logged = Auth::user();
+
+        $boardMember = $logged->isBoardMember();
 
         $withBirthday = $this->members->getByBirthdayDate($today);
         $attendance = $this->meetings->calculateAttendanceDetails();
@@ -62,7 +65,8 @@ class HomeController extends BaseController
 
         return View::make(
             'homepage.index',
-            compact('withBirthday', 'attendance', 'byMembershipStatus', 'perFaculty', 'perMonth')
+            compact('withBirthday', 'attendance', 'byMembershipStatus',
+                    'perFaculty', 'perMonth', 'boardMember')
         );
 
     }
