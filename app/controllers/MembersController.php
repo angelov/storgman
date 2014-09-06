@@ -74,7 +74,7 @@ class MembersController extends \BaseController
     /**
      * Returns the list of members to be used for autocompletion
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function prefetch()
     {
@@ -207,7 +207,7 @@ class MembersController extends \BaseController
      * Method available only via AJAX requests
      *
      * @param  int      $id
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {

@@ -104,7 +104,7 @@ class FeesController extends \BaseController
     /**
      * Store a newly created fee.
      *
-     * @return Response
+     * @return JsonResponse
      */
     public function store()
     {
@@ -138,7 +138,7 @@ class FeesController extends \BaseController
      * Method available only via ajax.
      *
      * @param  int      $id
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($id)
     {

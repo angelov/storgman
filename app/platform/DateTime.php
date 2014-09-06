@@ -58,7 +58,7 @@ class DateTime extends Carbon
         return $date->toDateString();
     }
 
-    public static function monthsBetween(self $from, self $to)
+    public static function monthsBetween(DateTime $from, DateTime $to)
     {
         $diff = $from->diff($to);
 
