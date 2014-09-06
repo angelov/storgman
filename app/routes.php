@@ -55,13 +55,14 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'members'], function () {
 
-    Route::get('/',          ['as' => 'members.index',   'uses' => 'MembersController@index']);
-    Route::get('/create',    ['as' => 'members.create',  'uses' => 'MembersController@create']);
-    Route::post('/',         ['as' => 'members.store',   'uses' => 'MembersController@store']);
-    Route::get('/{id}',      ['as' => 'members.show',    'uses' => 'MembersController@show']);
-    Route::get('/{id}/edit', ['as' => 'members.edit',    'uses' => 'MembersController@edit']);
-    Route::put('/{id}',      ['as' => 'members.update',  'uses' => 'MembersController@update']);
-    Route::delete('/{id}',   ['as' => 'members.destroy', 'uses' => 'MembersController@destroy']);
+    Route::get('/',          ['as' => 'members.index',    'uses' => 'MembersController@index']);
+    Route::get('/create',    ['as' => 'members.create',   'uses' => 'MembersController@create']);
+    Route::post('/',         ['as' => 'members.store',    'uses' => 'MembersController@store']);
+    Route::get('/{id}',      ['as' => 'members.show',     'uses' => 'MembersController@show']);
+    Route::get('/{id}/edit', ['as' => 'members.edit',     'uses' => 'MembersController@edit']);
+    Route::put('/{id}',      ['as' => 'members.update',   'uses' => 'MembersController@update']);
+    Route::delete('/{id}',   ['as' => 'members.destroy',  'uses' => 'MembersController@destroy']);
+    Route::get('/prefetch',  ['as' => 'members.prefetch', 'uses' => 'MembersController@prefetch']);
 
 });
 

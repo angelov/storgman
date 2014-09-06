@@ -117,7 +117,7 @@ $(function(){
 
         var engine2 = new Bloodhound({
             name: 'members',
-            prefetch: {url: '/members'},
+            prefetch: {url: '/members/prefetch'},
             datumTokenizer: function(d) {
                 return Bloodhound.tokenizers.whitespace(d.value);
             },
@@ -314,7 +314,7 @@ $(function(){
 
         var engine = new Bloodhound({
             name: 'members',
-            prefetch: {url: '/members'},
+            prefetch: {url: '/members/prefetch'},
             datumTokenizer: function(d) {
                 return Bloodhound.tokenizers.whitespace(d.value);
             },

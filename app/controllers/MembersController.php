@@ -64,24 +64,6 @@ class MembersController extends \BaseController
      */
     public function index()
     {
-
-        // load the members for autocompletion
-        if ($this->request->ajax()) {
-            $members = $this->members->all();
-            $result = [];
-
-            foreach ($members as $member) {
-                $tmp = [];
-                $tmp['value'] = $member->full_name;
-                $tmp['image'] = URL::route('imagecache', ['xsmall', $member->photo]);
-                $tmp['id'] = $member->id;
-
-                $result[] = $tmp;
-            }
-
-            return json_encode($result);
-        }
-
         $page = $this->request->get('page', 1);
         $perPage = 15;
         $data = $this->members->getByPage($page, $perPage);
@@ -90,6 +72,32 @@ class MembersController extends \BaseController
         $count = $this->members->countAll();
 
         return View::make('members.index', compact('members', 'count'));
+    }
+
+    /**
+     * Returns the list of members to be used for autocompletion
+     *
+     * @return Response
+     */
+    public function prefetch()
+    {
+        if (!$this->request->ajax()) {
+            return new Response();
+        }
+
+        $members = $this->members->all();
+        $result = [];
+
+        foreach ($members as $member) {
+            $tmp = [];
+            $tmp['value'] = $member->full_name;
+            $tmp['image'] = URL::route('imagecache', ['xsmall', $member->photo]);
+            $tmp['id'] = $member->id;
+
+            $result[] = $tmp;
+        }
+
+        return new JsonResponse($result);
     }
 
     /**
