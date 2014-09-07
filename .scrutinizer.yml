@@ -1,6 +1,9 @@
 tools:
     external_code_coverage: true
 
+filter:
+    excluded_paths: [tests/*, _ide_helper.php, vendor/*]
+
 checks:
     php:
         code_rating: true
