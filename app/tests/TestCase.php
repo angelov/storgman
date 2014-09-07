@@ -1,7 +1,11 @@
 <?php
 
+use Way\Tests\ModelHelpers;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
+    use ModelHelpers;
+
     /**
 	 * Creates the application.
 	 *
