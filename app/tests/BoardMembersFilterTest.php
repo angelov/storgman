@@ -1,4 +1,5 @@
 <?php
+use Angelov\Eestec\Platform\Filter\BoardMembersFilter;
 
 /**
  * EESTEC Platform for Local Committees
@@ -25,24 +26,31 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Filter;
-
-use Angelov\Eestec\Platform\Exception\NotAllowedException;
-use Illuminate\Http\Request;
-
-class AjaxFilter
+class BoardMembersFilterTest extends TestCase
 {
-    protected $request;
-
-    public function __construct(Request $request)
+    public function testRedirectsIfNotBoardMember()
     {
-        $this->request = $request;
+        $member = Mockery::mock('Angelov\Eestec\Platform\Model\Member');
+        $member->shouldReceive('isBoardMember')
+            ->once()
+            ->andReturn(false);
+
+        $filter = new BoardMembersFilter($member);
+        $response = $filter->filter();
+
+        $this->assertInstanceOf('Illuminate\Http\RedirectResponse', $response);
     }
 
-    public function filter()
+    public function testContinuesIfAjax()
     {
-        if (!$this->request->ajax()) {
-            throw new NotAllowedException();
-        }
+        $member = Mockery::mock('Angelov\Eestec\Platform\Model\Member');
+        $member->shouldReceive('isBoardMember')
+            ->once()
+            ->andReturn(true);
+
+        $filter = new BoardMembersFilter($member);
+        $response = $filter->filter();
+
+        $this->assertEquals(null, $response);
     }
 }

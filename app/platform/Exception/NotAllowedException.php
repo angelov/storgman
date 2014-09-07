@@ -25,24 +25,6 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Filter;
+namespace Angelov\Eestec\Platform\Exception;
 
-use Angelov\Eestec\Platform\Exception\NotAllowedException;
-use Illuminate\Http\Request;
-
-class AjaxFilter
-{
-    protected $request;
-
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
-
-    public function filter()
-    {
-        if (!$this->request->ajax()) {
-            throw new NotAllowedException();
-        }
-    }
-}
+class NotAllowedException extends \Exception { }

@@ -1,4 +1,5 @@
 <?php
+use Angelov\Eestec\Platform\Filter\AjaxFilter;
 
 /**
  * EESTEC Platform for Local Committees
@@ -25,24 +26,30 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Filter;
-
-use Angelov\Eestec\Platform\Exception\NotAllowedException;
-use Illuminate\Http\Request;
-
-class AjaxFilter
+class AjaxFilterTest extends TestCase
 {
-    protected $request;
-
-    public function __construct(Request $request)
+    /** @expectedException Angelov\Eestec\Platform\Exception\NotAllowedException */
+    public function testThrowsExceptionIfNotAjax()
     {
-        $this->request = $request;
+        $request = Mockery::mock('Illuminate\Http\Request');
+        $request->shouldReceive('ajax')
+            ->once()
+            ->andReturn(false);
+
+        $filter = new AjaxFilter($request);
+        $filter->filter();
     }
 
-    public function filter()
+    public function testContinuesIfAjax()
     {
-        if (!$this->request->ajax()) {
-            throw new NotAllowedException();
-        }
+        $request = Mockery::mock('Illuminate\Http\Request');
+        $request->shouldReceive('ajax')
+            ->once()
+            ->andReturn(true);
+
+        $filter = new AjaxFilter($request);
+        $response = $filter->filter();
+
+        $this->assertNull($response, 'The method should not return anything.');
     }
 }
