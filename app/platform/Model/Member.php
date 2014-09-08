@@ -51,6 +51,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property string $full_name
+ * @property string $twitter
+ * @property string $facebook
+ * @property string $google_plus
+ * @property string $phone
+ * @property string $website
+ * @property int $year_of_graduation
  * @property int $age
  * @property string $membership_status
  * @property string $membership_expiration_date
@@ -60,7 +66,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Member extends Model implements UserInterface, RemindableInterface
 {
-
     use UserTrait, RemindableTrait;
 
     protected $membershipStatus = null;

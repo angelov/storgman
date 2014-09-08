@@ -54,12 +54,18 @@ class DefaultMemberSeeder extends Seeder
         $user->password = Hash::make('123456');
         $user->first_name = "Administrator";
         $user->last_name = "DontNeedIt";
+
         $user->faculty = "WillChangeIt";
         $user->field_of_study = "Something";
-        $user->photo = "";
+        $user->year_of_graduation = 2015;
+
         $user->birthday = "1990-01-01";
+
         $user->board_member = true;
         $user->position_title = "Administrator";
+
+        $user->phone = "38972000000";
+        $user->website = "http://ultim8.info";
 
         $this->members->store($user);
 

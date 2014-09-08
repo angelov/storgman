@@ -79,6 +79,24 @@ class FakeDataSeeder extends Seeder
             $member->last_name = $this->faker->lastName;
             $member->faculty = $this->faker->randomElement($faculties);
             $member->field_of_study = $this->faker->randomElement($fieldOfStudies);
+            $member->year_of_graduation = $this->faker->numberBetween(2015, 2018);
+
+            $social = strtolower($member->first_name . $member->last_name);
+
+            if ($this->faker->boolean(60)) {
+                $member->facebook = $social;
+            }
+
+            if ($this->faker->boolean(60)) {
+                $member->twitter = $social;
+            }
+
+            if ($this->faker->boolean(60)) {
+                $member->google_plus = $social;
+            }
+
+            $member->phone = $this->faker->phoneNumber;
+            $member->website = "http://". $social .".com";
 
             $birthday = $this->faker->dateTimeBetween($birthYearFrom, $birthYearTo);
 

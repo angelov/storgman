@@ -24,19 +24,22 @@
                 <div class="col-md-5">
                     <legend>Personal information:</legend>
                     <div class="form-group">
-                        <label for="first_name">First name:</label>
+                        <label for="first_name">First name:
+                            <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="first_name" name="first_name"
                                value="{{ member.first_name }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="last_name">Last name:</label>
+                        <label for="last_name">Last name:
+                            <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="last_name" name="last_name"
                                value="{{ member.last_name }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="birthday">Birthday:</label>
+                        <label for="birthday">Birthday:
+                            <span class="text-danger">*</span></label>
                         <div class="input-group date">
                             <input type="text" class="form-control" id="birthday" name="birthday"
                                    value="{{ member.birthday }}">
@@ -46,24 +49,52 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                               value="{{ member.email }}">
-                    </div>
-
                     <legend>Education:</legend>
 
                     <div class="form-group">
-                        <label for="faculty">Faculty:</label>
+                        <label for="faculty">Faculty:
+                            <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="faculty" name="faculty"
                                value="{{ member.faculty }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="field_of_study">Field of study:</label>
+                        <label for="field_of_study">Field of study:
+                            <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="field_of_study" name="field_of_study"
                                value="{{ member.field_of_study }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="year_of_graduation">
+                            (Expected) year of graduation:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="year_of_graduation" name="year_of_graduation"
+                               value="{{ member.year_of_graduation }}">
+                    </div>
+
+                    <legend>Contact information:</legend>
+
+                    <div class="form-group">
+                        <label for="email">
+                            Email:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="{{ member.email }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="website">Website:</label>
+                        <input type="text" class="form-control" id="website" name="website"
+                               value="{{ member.website }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone number:</label>
+                        <input type="phone" class="form-control" id="phone" name="phone"
+                               value="{{ member.phone }}">
                     </div>
 
                 </div>
@@ -113,11 +144,45 @@
                         <p class="help-block small">Fill only if the member is part of the organization's board</p>
                     </div>
 
+                    <legend>Social profiles:</legend>
+
+                    <div class="form-group">
+                        <label for="facebook">Facebook:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">https://facebook.com/</span>
+                            <input type="text" class="form-control" id="facebook" name="facebook"
+                                   value="{{ member.facebook }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="twitter">Twitter:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">https://twitter.com/</span>
+                            <input type="text" class="form-control" id="twitter" name="twitter"
+                                   value="{{ member.twitter }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="google_plus">Google+:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">https://plus.google.com/</span>
+                            <input type="text" class="form-control" id="google_plus" name="google_plus"
+                                   value="{{ member.google_plus }}">
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="row pull-right">
-                <div class="col-md-12 ">
+            <div class="row" style="margin-top: 20px">
+                <div class="col-md-6">
+                    <p class="text-muted">
+                        <span class="text-danger">*</span> - required fields
+                    </p>
+                </div>
+                <div class="col-md-6 text-right">
                     <button type="submit" class="btn btn-info" id="btn-submit-member">Update details</button>
                 </div>
             </div>

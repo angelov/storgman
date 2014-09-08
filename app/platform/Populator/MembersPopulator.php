@@ -49,8 +49,16 @@ class MembersPopulator
 
         $member->faculty = $request->get('faculty');
         $member->field_of_study = $request->get('field_of_study');
+        $member->year_of_graduation = $request->get('year_of_graduation');
         $member->board_member = ($request->get('board_member') == 1);
         $member->position_title = $request->get('position_title');
+
+        $member->facebook = $request->get('facebook');
+        $member->twitter = $request->get('twitter');
+        $member->google_plus = $request->get('google_plus');
+
+        $member->phone = $request->get('phone');
+        $member->website = $request->get('website');
 
         if ($request->hasFile('member_photo')) {
 

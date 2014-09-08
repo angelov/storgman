@@ -36,6 +36,7 @@ class MembersValidator extends Validator
         'last_name' => 'required',
         'faculty' => 'required',
         'field_of_study' => 'required',
+        'year_of_graduation' => 'required|integer',
         'birthday' => 'required|date_format:Y-m-d',
         'member_photo' => 'image|max:3000'
     ];
