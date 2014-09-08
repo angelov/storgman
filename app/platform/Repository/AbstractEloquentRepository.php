@@ -93,6 +93,16 @@ abstract class AbstractEloquentRepository
         return $results;
     }
 
+    public function latest($count, array $withRelationships = [])
+    {
+        $fetched = $this->model->with($withRelationships)
+            ->orderBy('date', 'desc')
+            ->take($count)
+            ->get()->all();
+
+        return $fetched;
+    }
+
     public function getByIds(array $ids = [])
     {
         $query = $this->model->newQuery();

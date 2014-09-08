@@ -54,6 +54,15 @@ interface MeetingsRepositoryInterface
     public function all(array $withRelationships = []);
 
     /**
+     * Returns the latest N meetings
+     *
+     * @param $count
+     * @param array $withRelationships
+     * @return array
+     */
+    public function latest($count, array $withRelationships = []);
+
+    /**
      * Deletes a specific member from the storage
      *
      * @param $id int
@@ -96,6 +105,14 @@ interface MeetingsRepositoryInterface
      * @return MeetingsAttendanceDetailsReport
      */
     public function calculateAttendanceDetails();
+
+    /**
+     * Returns array of members who attended the meeting
+     *
+     * @param Meeting $meeting
+     * @return array
+     */
+    public function getMeetingAttendants(Meeting $meeting);
 
     /**
      * Count the meetings in a given period, attended by the member

@@ -28,7 +28,10 @@
 namespace Angelov\Eestec\Platform\Service;
 
 use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Report\MeetingAttendedReport;
+use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsForMemberReport;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 
 class MeetingsService
@@ -43,12 +46,12 @@ class MeetingsService
     }
 
     /**
-     * Calculates the member's attendance rate for the weekly meetings.
+     * Calculates the member's attendance details for the weekly meetings.
      *
      * @param Member $member
-     * @return int Attendance rate in percents
+     * @return MeetingsAttendanceDetailsForMemberReport
      */
-    public function calculateAttendanceRateForMember(Member $member)
+    public function calculateAttendanceDetailsForMember(Member $member)
     {
         $memberJoinedDate = $this->membership->getJoinedDate($member);
         $oneYearAgo = DateTime::oneYearAgo();
@@ -70,13 +73,32 @@ class MeetingsService
         $attended = $this->meetings->countAttendanceForMember($member, $calculateFrom, $calculateTo);
         $total = $this->meetings->countMeetingsInPeriod($calculateFrom, $calculateTo);
 
-        if ($total == 0) {
-            return 100; // this is a little weird case...
+        $report = new MeetingsAttendanceDetailsForMemberReport($attended, $total - $attended);
+
+        return $report;
+    }
+
+    public function latestMeetingsAttendanceStatusForMember($member)
+    {
+        $meetings = $this->meetings->latest(10, ['attendants']);
+        $reports = [];
+
+        foreach ($meetings as $meeting) {
+            $attendance = $this->memberHasAttendedMeeting($member, $meeting);
+            $reports[] = new MeetingAttendedReport($member, $meeting, $attendance);
         }
 
-        $rate = ($attended / $total) * 100;
+        return $reports;
+    }
 
-        return (int)round($rate, 0);
+    public function memberHasAttendedMeeting(Member $member, Meeting $meeting)
+    {
+        $ids = [];
+        foreach ($this->meetings->getMeetingAttendants($meeting) as $attendant) {
+            $ids[] = $attendant->id;
+        }
+
+        return in_array($member->id, $ids);
     }
 
     /**

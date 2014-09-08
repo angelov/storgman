@@ -40,7 +40,6 @@ use Angelov\Eestec\Platform\Validation\MembersValidator;
 
 class MembersController extends \BaseController
 {
-
     protected $request;
     protected $members;
     protected $validator;
@@ -142,6 +141,8 @@ class MembersController extends \BaseController
     {
         $member = $this->members->get($id);
 
+        /** Method dependency injection is coming soon \m/ */
+
         /** @var MembershipService $membershipService */
         $membershipService = App::make('MembershipService');
 
@@ -150,13 +151,17 @@ class MembersController extends \BaseController
 
         $fees = $this->fees->getFeesForMember($member);
 
+        /** @todo I don't like what i've done here. */
         $member->membership_status = $membershipService->isMemberActive($member);
         $member->membership_expiration_date = $membershipService->getExpirationDate($member);
 
-        $attendanceRate = $meetingsService->calculateAttendanceRateForMember($member);
+        $attendance = $meetingsService->calculateAttendanceDetailsForMember($member);
         $joinedDate = $membershipService->getJoinedDate($member);
 
-        return View::make('members.show', compact('member', 'attendanceRate', 'fees', 'joinedDate'));
+        $latestMeetings = $meetingsService->latestMeetingsAttendanceStatusForMember($member);
+
+        return View::make('members.show', compact('member', 'attendance', 'fees',
+                          'joinedDate', 'latestMeetings'));
     }
 
     /**

@@ -35,7 +35,6 @@ use DB;
 
 class EloquentMeetingsRepository extends AbstractEloquentRepository implements MeetingsRepositoryInterface
 {
-
     public function __construct(Meeting $meeting)
     {
         $this->model = $meeting;
@@ -109,4 +108,8 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
 
     }
 
+    public function getMeetingAttendants(Meeting $meeting)
+    {
+        return $meeting->attendants->all();
+    }
 }
