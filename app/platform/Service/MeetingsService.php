@@ -32,6 +32,7 @@ use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Report\MeetingAttendedReport;
 use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsForMemberReport;
+use Angelov\Eestec\Platform\Report\MeetingsAttendedByMemberPerMonthReport;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 
 class MeetingsService
@@ -99,6 +100,23 @@ class MeetingsService
         }
 
         return in_array($member->id, $ids);
+    }
+
+    public function calculateMonthlyAttendanceDetailsForMember(Member $member)
+    {
+        $begin = DateTime::twelveMonthsAgo(true);
+        $end = new DateTime();
+
+        $total = $this->meetings->countMeetingsPerMonth($begin, $end);
+        $attended = $this->meetings->countAttendedMeetingsByMemberPerMonth($member, $begin, $end);
+
+        $report = new MeetingsAttendedByMemberPerMonthReport(
+            $total->getMonthsTitles(),
+            $total->getMonthsValues(),
+            $attended->getMonthsValues()
+        );
+
+        return $report;
     }
 
     /**

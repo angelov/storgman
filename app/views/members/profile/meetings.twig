@@ -79,10 +79,12 @@
         <ul class="list-group" style="margin-top: 20px;">
             <li class="list-group-item text-muted text-left">
                 Meetings in the last year
-                <span class="text-muted small">(not implemented yet)</span>
                 <span id="chart-member-attendance-legend" class="pull-right small""></span>
             </li>
             <li class="list-group-item">
+                <script type="text/javascript">
+                    var memberAttendancePerMonth = {{ monthly|raw }}
+                </script>
                 <div id="chart-member-attendance" style="height: 200px; width: 670px"></div>
             </li>
         </ul>

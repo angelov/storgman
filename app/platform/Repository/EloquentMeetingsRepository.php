@@ -31,6 +31,7 @@ use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsReport;
+use Angelov\Eestec\Platform\Report\MeetingsPerMonthReport;
 use DB;
 
 class EloquentMeetingsRepository extends AbstractEloquentRepository implements MeetingsRepositoryInterface
@@ -111,5 +112,77 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
     public function getMeetingAttendants(Meeting $meeting)
     {
         return $meeting->attendants->all();
+    }
+
+    public function countMeetingsPerMonth(DateTime $from, DateTime $to)
+    {
+        $report = new MeetingsPerMonthReport($from, $to);
+        $from = $from->toDateString();
+        $to = $to->toDateString();
+
+        $res = DB::select(
+            '
+                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS CHAR(2)), 2, \'0\')) AS MONTH,
+                       count(id) AS COUNT
+                FROM
+                  ( SELECT id,
+                           extract(MONTH
+                                   FROM date) AS MONTH,
+                           extract(YEAR
+                                   FROM date) AS YEAR
+                   FROM
+                     ( SELECT id, date
+                      FROM meetings
+                      WHERE date BETWEEN ? AND ?) tbl1) tbl2
+                GROUP BY YEAR,
+                         MONTH
+            ',
+            [$from, $to]
+        );
+
+        foreach ($res as &$current) {
+            $current = (array)$current;
+            $report->addMonth($current["month"], (int)$current["count"]);
+        };
+
+        return $report;
+    }
+
+    public function countAttendedMeetingsByMemberPerMonth(Member $member, DateTime $from, DateTime $to)
+    {
+        $report = new MeetingsPerMonthReport($from, $to);
+        $from = $from->toDateString();
+        $to = $to->toDateString();
+
+        $res = DB::select(
+            '
+                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS CHAR(2)), 2, \'0\')) AS MONTH,
+                       count(id) AS COUNT
+                FROM
+                  (SELECT id,
+                          extract(MONTH
+                                  FROM date) AS MONTH,
+                          extract(YEAR
+                                  FROM date) AS YEAR
+                   FROM
+                     (SELECT id, date
+                      FROM meetings
+                      WHERE id IN
+                          (SELECT meeting_id
+                           FROM meeting_member
+                           WHERE member_id = ?)
+                        AND date BETWEEN ? AND ? ) tbl1) tbl2
+                GROUP BY YEAR,
+                         MONTH
+            ',
+            [$member->id, $from, $to]
+        );
+
+        foreach ($res as &$current) {
+            $current = (array)$current;
+            $report->addMonth($current["month"], (int)$current["count"]);
+        };
+
+        return $report;
     }
 }

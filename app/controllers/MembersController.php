@@ -160,8 +160,10 @@ class MembersController extends \BaseController
 
         $latestMeetings = $meetingsService->latestMeetingsAttendanceStatusForMember($member);
 
+        $monthly = json_encode($meetingsService->calculateMonthlyAttendanceDetailsForMember($member));
+
         return View::make('members.show', compact('member', 'attendance', 'fees',
-                          'joinedDate', 'latestMeetings'));
+                          'joinedDate', 'latestMeetings', 'monthly'));
     }
 
     /**

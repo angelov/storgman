@@ -30,7 +30,51 @@ namespace Angelov\Eestec\Platform\Report;
 use Angelov\Eestec\Platform\DateTime;
 use JsonSerializable;
 
-class NewMembersPerMonthReport extends AbstractMonthlyReport implements JsonSerializable
+class MeetingsAttendedByMemberPerMonthReport implements JsonSerializable
 {
+    protected $total = [];
+    protected $attended = [];
+    protected $months = [];
 
+    function __construct(array $months, array $total, array $attended)
+    {
+        $this->attended = $attended;
+        $this->months = $months;
+        $this->total = $total;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAttended()
+    {
+        return $this->attended;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMonths()
+    {
+        return $this->months;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    public function jsonSerialize()
+    {
+        $data = [
+            "months" => $this->getMonths(),
+            "total" => $this->getTotal(),
+            "attended" => $this->getAttended()
+        ];
+
+        return $data;
+    }
 }

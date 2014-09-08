@@ -27,10 +27,6 @@
 
 namespace Angelov\Eestec\Platform\Report;
 
-use Angelov\Eestec\Platform\DateTime;
-use JsonSerializable;
-
-class NewMembersPerMonthReport extends AbstractMonthlyReport implements JsonSerializable
+class MeetingsPerMonthReport extends AbstractMonthlyReport
 {
-
 }

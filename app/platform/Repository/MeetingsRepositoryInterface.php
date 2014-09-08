@@ -32,6 +32,7 @@ use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsReport;
+use Angelov\Eestec\Platform\Report\MeetingsPerMonthReport;
 
 interface MeetingsRepositoryInterface
 {
@@ -124,4 +125,22 @@ interface MeetingsRepositoryInterface
      */
     public function countAttendanceForMember(Member $member, DateTime $from, DateTime $to);
 
+    /**
+     * Count the total number of meetings per month
+     *
+     * @param DateTime $from
+     * @param DateTime $to
+     * @return MeetingsPerMonthReport
+     */
+    public function countMeetingsPerMonth(DateTime $from, DateTime $to);
+
+    /**
+     * Count the number of meetings attended by member per month
+     *
+     * @param Member $member
+     * @param DateTime $from
+     * @param DateTime $to
+     * @return MeetingsPerMonthReport
+     */
+    public function countAttendedMeetingsByMemberPerMonth(Member $member, DateTime $from, DateTime $to);
 }
