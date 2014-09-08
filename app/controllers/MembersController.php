@@ -28,6 +28,7 @@
 use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Factory\MembersFactory;
 use Angelov\Eestec\Platform\Populator\MembersPopulator;
+use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface;
 use Angelov\Eestec\Platform\Service\MeetingsService;
 use Angelov\Eestec\Platform\Service\MembershipService;
@@ -43,14 +44,17 @@ class MembersController extends \BaseController
     protected $request;
     protected $members;
     protected $validator;
+    protected $fees;
 
     public function __construct(
         Request $request,
         MembersRepositoryInterface $members,
+        FeesRepositoryInterface $fees,
         MembersValidator $validator
     ) {
         $this->request = $request;
         $this->members = $members;
+        $this->fees = $fees;
         $this->validator = $validator;
     }
 
@@ -131,6 +135,8 @@ class MembersController extends \BaseController
      *
      * @param  int      $id
      * @return Response
+     *
+     * @todo Information separated in tabs (in the view) should be separated in few methods
      */
     public function show($id)
     {
@@ -142,12 +148,15 @@ class MembersController extends \BaseController
         /** @var MeetingsService $meetingsService */
         $meetingsService = App::make('MeetingsService');
 
+        $fees = $this->fees->getFeesForMember($member);
+
         $member->membership_status = $membershipService->isMemberActive($member);
         $member->membership_expiration_date = $membershipService->getExpirationDate($member);
 
         $attendanceRate = $meetingsService->calculateAttendanceRateForMember($member);
+        $joinedDate = $membershipService->getJoinedDate($member);
 
-        return View::make('members.show', compact('member', 'attendanceRate'));
+        return View::make('members.show', compact('member', 'attendanceRate', 'fees', 'joinedDate'));
     }
 
     /**

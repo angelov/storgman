@@ -15,21 +15,25 @@
                     <div class="col-md-4">
                         Joined:<br />
                         <h4 style="margin-top: 15px;">
-                            <i class="fa fa-calendar"></i> 30 Mar 2011
+                            <i class="fa fa-calendar"></i>
+                            <span class="date-to-format">{{ joinedDate }}</span>
                         </h4>
                     </div>
                     <div class="col-md-4">
                         Membership status:<br />
                         <h4 style="margin-top: 15px;">
-                            <i class="fa fa-check"></i> {{ member.membership_status }}
+                            {% if member.membership_status == 'Active' %}
+                                <i class="fa fa-check"></i> Active
+                            {% else %}
+                                <i class="fa fa-times"></i> Inactive
+                            {% endif %}
                         </h4>
                     </div>
                     <div class="col-md-4">
                         Expiration date:<br />
                         <h4 style="margin-top: 15px;">
                             <i class="fa fa-calendar"></i>
-                            <span class="date-to-format"> 30 Mar 2015</span>
-                            {#{{ member.membership_expiration_date }}#}
+                            <span class="date-to-format">{{ member.membership_expiration_date }}</span>
                         </h4>
                     </div>
                 </div>
@@ -57,72 +61,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2007-12-06</td>
-                            <td>2008-12-06</td>
-                            <td>2014-08-15 15:52:46</td>
-                            <td class="text-right">
-                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
-                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2007-12-06</td>
-                            <td>2008-12-06</td>
-                            <td>2014-08-15 15:52:46</td>
-                            <td class="text-right">
-                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
-                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2007-12-06</td>
-                            <td>2008-12-06</td>
-                            <td>2014-08-15 15:52:46</td>
-                            <td class="text-right">
-                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
-                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2007-12-06</td>
-                            <td>2008-12-06</td>
-                            <td>2014-08-15 15:52:46</td>
-                            <td class="text-right">
-                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
-                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2007-12-06</td>
-                            <td>2008-12-06</td>
-                            <td>2014-08-15 15:52:46</td>
-                            <td class="text-right">
-                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
-                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2007-12-06</td>
-                            <td>2008-12-06</td>
-                            <td>2014-08-15 15:52:46</td>
-                            <td class="text-right">
-                                <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
-                                   class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
+
+                        {% for fee in fees %}
+
+                            <tr>
+                                <td class="date-to-format">{{ fee.from_date }}</td>
+                                <td class="date-to-format">{{ fee.to_date }}</td>
+                                <td>{{ fee.created_at }}</td>
+                                <td class="text-right">
+                                    <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
+                                       class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
                     </tbody>
                 </table>
             </li>

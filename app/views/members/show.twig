@@ -26,13 +26,17 @@
                     <tbody>
                         <tr>
                             <td>
-                                <i class="glyphicon glyphicon-ok" style="margin-right: 5px;"></i> Active
+                                {% if member.membership_status == 'Active' %}
+                                    <i class="fa fa-check" style="margin-right: 5px;"></i> Active
+                                {% else %}
+                                    <i class="fa fa-times" style="margin-right: 5px;"></i> Inactive
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <i class="glyphicon glyphicon-heart" style="margin-right: 5px"></i>
-                                Joined <span class="date-to-humanize">2011-08-30</span>
+                                Joined <span class="date-to-humanize">{{ joinedDate }}</span>
                             </td>
                         </tr>
 
