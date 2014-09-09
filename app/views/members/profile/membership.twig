@@ -69,8 +69,8 @@
                                 <td class="date-to-format">{{ fee.to_date }}</td>
                                 <td>{{ fee.created_at }}</td>
                                 <td class="text-right">
-                                    <a href="{{ route('fees.destroy', 5) }}" data-toggle="tooltip" data-placement="top"
-                                       class="has-tooltip btn-delete-fee" data-fee="1" title="Delete">
+                                    <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"
+                                       class="has-tooltip btn-delete-fee" data-fee="{{ fee.id }}" title="Delete">
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </a>
                                 </td>

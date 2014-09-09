@@ -46,44 +46,16 @@
                 </div>
             </div>
 
-            <legend>Fees history:</legend>
-
-            {% if fees|length < 1 %}
-                <p>None.</p>
-            {% else %}
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Paid on</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    {% for fee in fees %}
-                        <tr>
-                            <td>{{ fee.from_date }}</td>
-                            <td>{{ fee.to_date }}</td>
-                            <td>{{ fee.created_at }}</td>
-                            <td class="text-right">
-                                <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"
-                                   class="has-tooltip btn-delete-fee" data-fee="{{ fee.id }}" title="Delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-
-                    </tbody>
-                </table>
-            {% endif %}
-
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <a href="{{ route('fees.store') }}" class="btn btn-primary" id="btn-proceed-fee">Proceed</a>
+            <div class="pull-left">
+                <a href="" target="_blank" class="btn btn-default">View fees</a>
+            </div>
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a href="{{ route('fees.store') }}" class="btn btn-primary" id="btn-proceed-fee">Proceed</a>
+            </div>
+
         </div>
     </div>
 </div>
