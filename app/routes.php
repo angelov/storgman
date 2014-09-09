@@ -90,11 +90,27 @@ Route::group(['prefix' => 'members', 'before' => 'auth|boardMember'], function (
  * Membership fees management
  */
 
-Route::group(['prefix' => 'fees', 'before' => 'auth|boardMember|ajax'], function () {
+Route::group(['prefix' => 'fees', 'before' => 'auth|boardMember'], function () {
 
-    Route::get('/create',  ['as' => 'fees.create',  'uses' => 'FeesController@create']);
-    Route::post('/',       ['as' => 'fees.store',   'uses' => 'FeesController@store']);
-    Route::delete('/{id}', ['as' => 'fees.destroy', 'uses' => 'FeesController@destroy']);
+    Route::get('/',
+        ['as' => 'fees.index',
+         'uses' => 'FeesController@index']
+    );
+    Route::get('/create',
+        ['as' => 'fees.create',
+         'uses' => 'FeesController@create',
+         'before' => 'ajax']
+    );
+    Route::post('/',
+        ['as' => 'fees.store',
+         'uses' => 'FeesController@store',
+         'before' => 'ajax']
+    );
+    Route::delete('/{id}',
+        ['as' => 'fees.destroy',
+         'uses' => 'FeesController@destroy',
+         'before' => 'ajax']
+    );
 
 });
 

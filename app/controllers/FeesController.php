@@ -56,6 +56,21 @@ class FeesController extends \BaseController
     }
 
     /**
+     * Display the main page for managing the fees
+     *
+     * @return Response
+     */
+
+    public function index()
+    {
+        // Experimental!
+        $member = $this->members->get(301);
+        $fees = $this->fees->getFeesForMember($member);
+
+        return View::make('fees.index', compact('fees'));
+    }
+
+    /**
      * Show the form for creating a new fee.
      * Method available only via ajax.
      *

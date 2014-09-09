@@ -1,0 +1,179 @@
+{% set page_title = 'Fees' %}
+{% include 'header.twig' %}
+
+<h1>Fees</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <legend>Create new paid fee:</legend>
+                <div class="input-group col-md-7 search-box">
+                    <input type="text" class="form-control" placeholder="Enter the name" id="quick-member-search-for-fee" />
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="member-info" style="margin-top: 20px; display: none;">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ route('imagecache', ['medium', "default-member-photo.png"]) }}" alt="..."
+                         class="img-thumbnail" style="width: 100%">
+                </div>
+                <div class="col-md-7">
+                    <h4>Dejan Angelov</h4>
+                    <dl class="dl-horizontal" style="margin-top: 20px;">
+                        <dt>Membership status:</dt>
+                        <dd>Active</dd>
+
+                        <dt>Joined on:</dt>
+                        <dd class="date-to-format">2009-06-01</dd>
+
+                        <dt>Expiration date:</dt>
+                        <dd class="date-to-format">2014-12-03</dd>
+                    </dl>
+                    <span class="pull-right" style="margin-top: 10px;">
+
+                        <div class="modal fade" id="modal-renew-membership"></div>
+
+                        <a href="{{ route('fees.create', {"member_id": 305}) }}" class="btn-renew-membership btn btn-success"
+                           data-member="305">Renew membership
+                        </a>
+                        <a href="" class="btn btn-default">All fees</a>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6" style="margin-top: 10px;">
+        <ul class="list-group">
+            <li class="list-group-item text-muted text-left">
+                Latest paid fees
+            </li>
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Member</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Paid on</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for fee in fees %}
+
+                                <tr>
+                                    <td>
+                                        <a href="{{ route('members.show', fee.member.id) }}">
+                                            {{ fee.member.full_name }}
+                                        </a>
+                                    </td>
+                                    <td class="date-to-format">{{ fee.from_date }}</td>
+                                    <td class="date-to-format">{{ fee.to_date }}</td>
+                                    <td>{{ fee.created_at }}</td>
+                                    <td class="text-right">
+                                        <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"
+                                           class="has-tooltip btn-delete-fee" data-fee="{{ fee.id }}" title="Delete">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                        <div class="pull-right">
+                            <a href="" class="btn btn-default">Full history</a>
+                        </div>
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <ul class="list-group" style="margin-top: 10px;">
+            <li class="list-group-item text-muted text-left">
+                Memberships to expire soon
+            </li>
+            <li class="list-group-item">
+                <table class="table table-striped">
+                    <tbody>
+
+                        <tr>
+                            <td>Dejan Angelov</td>
+                            <td>
+                                <strong class="date-to-humanize">2014-09-29</strong>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Emmet Boyer</td>
+                            <td>
+                                <strong class="date-to-humanize">2014-10-19</strong>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Catherine McLaughlin</td>
+                            <td>
+                                <strong class="date-to-humanize">2014-11-20</strong>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Laurel Leuschke</td>
+                            <td>
+                                <strong class="date-to-humanize">2014-12-21</strong>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Elsa Lindgren</td>
+                            <td>
+                                <strong class="date-to-humanize">2014-12-22</strong>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-8">
+        <ul class="list-group" style="margin-top: 10px;">
+            <li class="list-group-item text-muted text-left">
+                Paid membership fees per month
+                <span id="chart-fees-per-month-legend" class="pull-right small""></span>
+            </li>
+            <li class="list-group-item">
+                <script type="text/javascript">
+                    var totalFeesPerMonth = {
+                        "months":["Oct 2013","Nov 2013","Dec 2013","Jan 2014",
+                                  "Feb 2014","Mar 2014","Apr 2014","May 2014",
+                                  "Jun 2014","Jul 2014","Aug 2014","Sep 2014"],
+                        "expected":[34,53,45,44,74,35,38,64,26,29,55,27],
+                        "paid":    [30,55,47,42,70,29,32,66,25,34,56,15]
+                    };
+                </script>
+                <div id="chart-fees-per-month" style="width: 100%"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% include 'footer.twig' %}

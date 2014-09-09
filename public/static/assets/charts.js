@@ -83,50 +83,6 @@ $(function() {
 
     }
 
-    $('#chart-members-years').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: ''
-        },
-        legend: {
-            enabled: false
-        },
-        xAxis: {
-            categories: [
-                '2008', '2009', '2010', '2011', '2012', '2013', '2014'
-            ]
-        },
-        credits: {
-            enabled: false
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Members'
-            }
-        },
-        tooltip: {
-            formatter: function() {
-                return 'Members in <b>'+ this.x +
-                    '</b>: <b>'+ this.y +'</b>';
-            }
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            data: [135, 128, 199, 190, 180, 194, 160]
-
-        }]
-    });
-
-    // experimental
-
     if (typeof memberAttendancePerMonth == 'object') {
 
         $('#chart-member-attendance').highcharts({
@@ -185,6 +141,51 @@ $(function() {
 
     }
 
+    // experimental
+
+    $('#chart-members-years').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        legend: {
+            enabled: false
+        },
+        xAxis: {
+            categories: [
+                '2008', '2009', '2010', '2011', '2012', '2013', '2014'
+            ]
+        },
+        credits: {
+            enabled: false
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Members'
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                return 'Members in <b>'+ this.x +
+                    '</b>: <b>'+ this.y +'</b>';
+            }
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            data: [135, 128, 199, 190, 180, 194, 160]
+
+        }]
+    });
+
+
     $('#chart-meeting-returning-members').highcharts({
         chart: {
             plotBackgroundColor: null,
@@ -219,5 +220,69 @@ $(function() {
             ]
         }]
     });
+
+    if (typeof totalFeesPerMonth == 'object') {
+
+        $('#chart-fees-per-month').highcharts({
+            chart: {
+                events: {
+                    load: function () {
+                        var chart = this;
+                        $(chart.series).each(function (i, serie) {
+                            var elem = '<p style="float: left; margin-left: 10px;">' +
+                                '<span style="width: 15px; height: 15px; ' +
+                                'vertical-align: text-bottom;' +
+                                'margin-right: 2px; display: inline-block; ' +
+                                'background-color: ' + serie.color + '"></span> ' + serie.name + "" +
+                                "</p>";
+
+                            $("#chart-fees-per-month-legend").append(elem);
+                        });
+                    }
+                }
+            },
+            title: {
+                text: ''
+            },
+            credits: {
+                enabled: false
+            },
+            xAxis: {
+                categories: totalFeesPerMonth.months
+            },
+            yAxis: {
+                title: {
+                    enabled: false
+                },
+                allowDecimals: false
+            },
+            tooltip: {
+                formatter: function() {
+                    var s = [];
+
+                    $.each(this.points, function(i, point) {
+                        s.push(point.series.name + ': <strong>' + point.y +'</strong>');
+                    });
+
+                    return s.join('<br />');
+                },
+                shared: true
+            },
+            legend: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Expected',
+                data: totalFeesPerMonth.expected
+            },{
+                name: 'Paid',
+                data: totalFeesPerMonth.paid
+            }]
+        });
+
+    }
 
 });

@@ -424,4 +424,8 @@ $(function(){
         height: '130px'
     });
 
+    $('#quick-member-search-for-fee').focus(function(){
+       $("#member-info").show();
+    });
+
 });
