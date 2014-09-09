@@ -225,6 +225,7 @@ $(function() {
 
         $('#chart-fees-per-month').highcharts({
             chart: {
+                height: 200,
                 events: {
                     load: function () {
                         var chart = this;
@@ -251,6 +252,7 @@ $(function() {
                 categories: totalFeesPerMonth.months
             },
             yAxis: {
+                min: 0,
                 title: {
                     enabled: false
                 },

@@ -63,11 +63,9 @@ class FeesController extends \BaseController
 
     public function index()
     {
-        // Experimental!
-        $member = $this->members->get(301);
-        $fees = $this->fees->getFeesForMember($member);
+        $latest = $this->fees->latest(5, ['member'], 'id');
 
-        return View::make('fees.index', compact('fees'));
+        return View::make('fees.index', compact('latest'));
     }
 
     /**

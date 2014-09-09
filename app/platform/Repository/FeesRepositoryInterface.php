@@ -70,6 +70,23 @@ interface FeesRepositoryInterface
     public function getFirstFeeForMember(Member $member);
 
     /**
+     * Returns the latest N fees
+     *
+     * @param $count
+     * @param array $withRelationships
+     * @return array
+     */
+    public function latest($count, array $withRelationships = []);
+
+    /**
+     * Returns the member who paid the fee
+     *
+     * @param Fee $fee
+     * @return Member
+     */
+    public function getFeeMember(Fee $fee);
+
+    /**
      * Deletes a fee from the storage
      *
      * @param $id int

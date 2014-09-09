@@ -93,10 +93,10 @@ abstract class AbstractEloquentRepository
         return $results;
     }
 
-    public function latest($count, array $withRelationships = [])
+    public function latest($count, array $withRelationships = [], $orderByField = 'date')
     {
         $fetched = $this->model->with($withRelationships)
-            ->orderBy('date', 'desc')
+            ->orderBy($orderByField, 'desc')
             ->take($count)
             ->get()->all();
 

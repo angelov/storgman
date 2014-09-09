@@ -70,4 +70,9 @@ class EloquentFeesRepository extends AbstractEloquentRepository implements FeesR
 
         return $fee;
     }
+
+    public function getFeeMember(Fee $fee)
+    {
+        return $fee->member;
+    }
 }
