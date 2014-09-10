@@ -122,8 +122,8 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
 
         $res = DB::select(
             '
-                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS CHAR(2)), 2, \'0\')) AS MONTH,
-                       count(id) AS COUNT
+                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS CHAR(2)), 2, \'0\')) AS month,
+                       count(id) AS count
                 FROM
                   ( SELECT id,
                            extract(MONTH
@@ -156,8 +156,8 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
 
         $res = DB::select(
             '
-                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS CHAR(2)), 2, \'0\')) AS MONTH,
-                       count(id) AS COUNT
+                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS CHAR(2)), 2, \'0\')) AS month,
+                       count(id) AS count
                 FROM
                   (SELECT id,
                           extract(MONTH
