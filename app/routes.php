@@ -96,6 +96,10 @@ Route::group(['prefix' => 'fees', 'before' => 'auth|boardMember'], function () {
         ['as' => 'fees.index',
          'uses' => 'FeesController@index']
     );
+    Route::get('/archive',
+        ['as' => 'fees.archive',
+         'uses' => 'FeesController@archive']
+    );
     Route::get('/create',
         ['as' => 'fees.create',
          'uses' => 'FeesController@create',

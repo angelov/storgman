@@ -220,18 +220,15 @@ $(function(){
                 dataType: "json",
                 success:function(data){
 
-                    $("#renew-message").html(data.message);
+                    $("#action-message").html(data.message);
 
-                    $("#renew-status").removeClass()
+                    $("#action-status").removeClass()
                         .addClass('alert')
                         .addClass('alert-dismissable')
                         .addClass('alert-' + data.status)
                         .show();
 
-                    if (data.status == 'success') {
-                        btn.closest('tr').slideUp('slow');
-                    }
-
+                    btn.closest('tr').slideUp('slow');
                 }
             });
 
@@ -427,5 +424,14 @@ $(function(){
     $('#quick-member-search-for-fee').focus(function(){
        $("#member-info").show();
     });
+
+    $('.row-fee').hover(
+        function(){
+            $(this).children().eq(1).find('.link-all-fees-member').show();
+        },
+        function(){
+            $(this).children().eq(1).find('.link-all-fees-member').hide();
+        }
+    );
 
 });

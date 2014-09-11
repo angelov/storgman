@@ -1,0 +1,66 @@
+{% set page_title = 'Fees' %}
+{% include 'header.twig' %}
+
+<h1>Fees Archive</h1>
+
+<div class="" id="action-status" style="display: none;">
+    <a class="close" data-hide="alert" href="#">×</a>
+    <span id="action-message"></span>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <p>There are total <strong>{{ count }}</strong> paid fees.</p>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-2">Paid on</th>
+                    <th class="col-md-5">Member</th>
+                    <th class="col-md-2">From</th>
+                    <th class="col-md-2">To</th>
+                    <th class="col-md-1">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for fee in fees %}
+
+                <tr class="row-fee">
+                    <td>{{ fee.created_at }}</td>
+                    <td>
+                        <a href="{{ route('members.show', fee.member.id) }}">
+                            {{ fee.member.full_name }}
+                        </a>
+                        <a href=""
+                           class="small pull-right link-all-fees-member btn btn-xs btn-default"
+                           style="display: none;">
+                            All fees
+                        </a>
+                    </td>
+                    <td class="date-to-format">{{ fee.from_date }}</td>
+                    <td class="date-to-format">{{ fee.to_date }}</td>
+                    <td class="text-right">
+                        <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"
+                           class="has-tooltip btn-delete-fee" data-fee="{{ fee.id }}" title="Delete">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="text-right">
+    {{ fees.links()|raw }}
+</div>
+
+{% include 'footer.twig' %}

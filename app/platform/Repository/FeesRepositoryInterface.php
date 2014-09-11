@@ -43,6 +43,16 @@ interface FeesRepositoryInterface
     public function store(Fee $fee, Member $member);
 
     /**
+     * Returns array of fees for a specific page
+     *
+     * @param int $page
+     * @param int $limit
+     * @param array $withRelationships
+     * @return \stdClass
+     */
+    public function getByPage($page, $limit, array $withRelationships);
+
+    /**
      * Returns all fees paid by a member
      *
      * @param  Member          $member

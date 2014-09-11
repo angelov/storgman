@@ -60,12 +60,29 @@ class FeesController extends \BaseController
      *
      * @return Response
      */
-
     public function index()
     {
         $latest = $this->fees->latest(5, ['member'], 'id');
 
         return View::make('fees.index', compact('latest'));
+    }
+
+    /**
+     * List all paid fees
+     *
+     * @return Response
+     */
+    public function archive()
+    {
+        $page = $this->request->get('page', 1);
+        $perPage = 15;
+        $with = ['member'];
+        $data = $this->fees->getByPage($page, $perPage, $with);
+
+        $fees = Paginator::make($data->items, $data->totalItems, $perPage);
+        $count = $data->totalItems;
+
+        return View::make('fees.archive', compact('fees', 'count'));
     }
 
     /**
