@@ -2,9 +2,6 @@
 
 return array(
 
-    "title" => "EESTEC LC Skopje",
-    "photos" => [
-        "upload_dir" => "static/photos"
-    ]
+    "title" => "EESTEC LC Skopje"
 
 );

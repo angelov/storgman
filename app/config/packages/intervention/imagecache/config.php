@@ -30,7 +30,7 @@ return array(
     */
 
     'paths' => array(
-        public_path(Config::get('main.photos.upload_dir') . "/members"),
+        storage_path('photos/members'),
         public_path('static/assets/img')
     ),
     /*
