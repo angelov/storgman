@@ -115,7 +115,8 @@ return array(
         'Illuminate\Workbench\WorkbenchServiceProvider',
         'Barryvdh\TwigBridge\ServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
-        'Intervention\Image\ImageServiceProvider'
+        'Intervention\Image\ImageServiceProvider',
+        'Angelov\Eestec\Platform\Eventing\EventingServiceProvider'
 
     ),
     /*
