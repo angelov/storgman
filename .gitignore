@@ -14,3 +14,4 @@ node_modules/
 bootstrap/environment.php
 app/config/development/
 app/config/testing/
+app/storage/photos/

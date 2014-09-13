@@ -155,4 +155,9 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
         return $report;
     }
 
+    public function getBoardMembers()
+    {
+        return $this->model->where('board_member', true)->get()->all();
+    }
+
 }

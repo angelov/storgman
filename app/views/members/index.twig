@@ -19,7 +19,15 @@
 
 <div class="row">
     <div class="col-md-7">
-        <p>There are total <strong>{{ count }}</strong> members.</p>
+        <p>
+            There are total <strong>{{ count }}</strong> members.
+
+
+            <a href="{{ route('members.board') }}" class="small" style="margin-left: 5px;">
+                View board members
+            </a>
+
+        </p>
     </div>
 
     <div class="col-md-5 text-right">

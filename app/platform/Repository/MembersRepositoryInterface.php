@@ -125,4 +125,11 @@ interface MembersRepositoryInterface
      */
     public function countAll();
 
+    /**
+     * Returns an array with the board members
+     *
+     * @return array
+     */
+    public function getBoardMembers();
+
 }

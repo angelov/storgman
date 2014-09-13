@@ -97,6 +97,17 @@ class MembersController extends \BaseController
     }
 
     /**
+     * Show a page that lists the board members
+     *
+     * @return Response
+     */
+    public function board()
+    {
+        $members = $this->members->getBoardMembers();
+        return View::make('members.board', compact('members'));
+    }
+
+    /**
      * Show the form for creating a new member
      *
      * @return Response

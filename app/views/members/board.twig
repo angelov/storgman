@@ -1,0 +1,43 @@
+{% set page_title = "Board Members" %}
+{% include 'header.twig' %}
+
+<h1>Board Members</h1>
+
+<div class="row">
+
+    {% for member in members %}
+
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{ route('imagecache', ['small', member.photo]) }}" />
+                        </div>
+
+
+                        <div class="col-md-8" style="display: inline-block; vertical-align: text-top">
+                            <h4>{{ member.full_name }}</h4>
+                            <p class="text-muted">
+                                <i class="glyphicon glyphicon-briefcase" style="margin-right: 5px;"></i>
+                                {{ member.position_title }}
+                            </p>
+
+                            <p class="text-right small" style="padding-top: 15px; margin-bottom: 0">
+                                <a href="{{ route('members.show', member.id) }}">
+                                    <i class="glyphicon glyphicon-user"></i> View profile
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    {% endfor %}
+
+
+</div>
+
+{% include 'footer.twig' %}
