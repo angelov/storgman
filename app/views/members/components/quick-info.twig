@@ -1,0 +1,32 @@
+<ul class="list-group" style="margin-top: 20px;">
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-md-4">
+                <img id="quick-info-member-photo" src="{{ route('imagecache', ['small', member.photo]) }}"
+                     alt="..." class="" style="width: 100%">
+            </div>
+            <div class="col-md-8">
+                <h4>{{ member.full_name }}</h4>
+                <p style="margin-top: 20px">
+                    <strong>Membership status:</strong>
+                    <span class="pull-right">{{ membershipStatus }}</span>
+                    <br />
+                    <strong>Joined on:</strong>
+                    <span class="pull-right date-to-format">{{ joinedDate }}</span>
+                    <br />
+                    <strong>Expiration date:</strong>
+                    <span class="pull-right">{{ expirationDate }}</span>
+                </p>
+
+                <span class="pull-right text-right" style="margin-top: 10px;">
+
+                    <a href="{{ route('fees.create', {"member_id": member.id}) }}" class="btn-renew-membership btn btn-success"
+                           data-member="{{ member.id }}">Renew membership
+                    </a>
+                    <a href="" class="btn btn-default">All fees</a>
+
+                </span>
+
+            </div>
+        </div>
+    </li>

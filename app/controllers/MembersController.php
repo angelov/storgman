@@ -178,6 +178,29 @@ class MembersController extends \BaseController
     }
 
     /**
+     * Returns html component with short member info
+     * (focused on the membership)
+     *
+     * @param int $id
+     * @return Response
+     */
+    public function quickMemberInfo($id)
+    {
+        $member = $this->members->get($id);
+
+        /** @var MembershipService $membershipService */
+        $membershipService = App::make('MembershipService');
+        $member->membership_status = $membershipService->isMemberActive($member);
+
+        $membershipStatus = $member->membership_status;
+        $joinedDate = $membershipService->getJoinedDate($member)->toDateString();
+        $expirationDate = $membershipService->getExpirationDate($member)->toDateString();
+
+        return View::make('members.components.quick-info',
+            compact('member', 'membershipStatus', 'joinedDate', 'expirationDate'));
+    }
+
+    /**
      * Show the form for editing the specified member.
      *
      * @param  int      $id

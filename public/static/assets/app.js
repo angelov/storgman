@@ -146,7 +146,7 @@ $(function(){
      * Show modal window with member's membership fees
      */
 
-    $('.btn-renew-membership').click(function() {
+    $(document).on('click', '.btn-renew-membership', function() {
 
         var btn = $(this);
         var member = btn.data('member');
@@ -421,9 +421,47 @@ $(function(){
         height: '130px'
     });
 
-    $('#quick-member-search-for-fee').focus(function(){
-       $("#member-info").show();
-    });
+    if ($('#quick-member-search-for-fee').length) {
+        var engineA = new Bloodhound({
+            name: 'members',
+            prefetch: {url: '/members/prefetch'},
+            datumTokenizer: function(d) {
+                return Bloodhound.tokenizers.whitespace(d.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace
+        });
+        engineA.initialize();
+
+        $('#quick-member-search-for-fee').typeahead(
+            {
+                hint: true,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: 'states',
+                displayKey: 'value',
+                source: engineA.ttAdapter()
+            }
+        ).bind('typeahead:selected', function(obj, member) {
+
+                $.ajax({
+                    type: 'get',
+                    url: '/members/' + member.id + '/quick-info',
+                    success:function(data){
+
+                        console.log(data);
+                        $("#member-info").html(data).show();
+
+                    }
+                });
+
+            });
+    }
+
+    $('#quick-member-search-for-fee').click(function(){
+        $(this).val('');
+    })
 
     $('.row-fee').hover(
         function(){

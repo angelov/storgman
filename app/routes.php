@@ -84,6 +84,11 @@ Route::group(['prefix' => 'members', 'before' => 'auth|boardMember'], function (
          'before' => 'ajax']
     );
     Route::get('/board',     ['as' => 'members.board',  'uses' => 'MembersController@board']);
+    Route::get('/{id}/quick-info',
+        ['as' => 'members.quick',
+         'uses' => 'MembersController@quickMemberInfo',
+         'before' => 'ajax']
+    );
 
 });
 

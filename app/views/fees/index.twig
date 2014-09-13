@@ -8,44 +8,23 @@
         <div class="row">
             <div class="col-md-12">
                 <legend>Create new paid fee:</legend>
-                <div class="input-group col-md-7 search-box">
-                    <input type="text" class="form-control" placeholder="Enter the name" id="quick-member-search-for-fee" />
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                </div>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group" style="margin-bottom: 0;"">
+                        <label for="quick-member-search-for-fee" class="col-md-4 control-label">Choose a member:</label>
+                        <div class="input-group col-md-7">
+                            <input type="text" class="form-control" id="quick-member-search-for-fee" placeholder="Enter the name">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                        </div>
+                    </div>
+                </form>
+
             </div>
         </div>
 
-        <div id="member-info" style="margin-top: 20px; display: none;">
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="{{ route('imagecache', ['medium', "default-member-photo.png"]) }}" alt="..."
-                         class="img-thumbnail" style="width: 100%">
-                </div>
-                <div class="col-md-7">
-                    <h4>Dejan Angelov</h4>
-                    <dl class="dl-horizontal" style="margin-top: 20px;">
-                        <dt>Membership status:</dt>
-                        <dd>Active</dd>
+        <div class="modal fade" id="modal-renew-membership"></div>
 
-                        <dt>Joined on:</dt>
-                        <dd class="date-to-format">2009-06-01</dd>
+        <div id="member-info" style="margin-top: 20px; display: none;"></div>
 
-                        <dt>Expiration date:</dt>
-                        <dd class="date-to-format">2014-12-03</dd>
-                    </dl>
-                    <span class="pull-right" style="margin-top: 10px;">
-
-                        <div class="modal fade" id="modal-renew-membership"></div>
-
-                        <a href="{{ route('fees.create', {"member_id": 305}) }}" class="btn-renew-membership btn btn-success"
-                           data-member="305">Renew membership
-                        </a>
-                        <a href="" class="btn btn-default">All fees</a>
-                    </span>
-
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="col-md-7" style="margin-top: 10px;">
