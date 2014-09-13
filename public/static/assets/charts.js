@@ -10,6 +10,8 @@ $(function() {
                 categories: membersPerMonth.months
             },
             yAxis: {
+                allowDecimals: false,
+                floor: 0,
                 title: {
                     text: 'New members'
                 },
@@ -114,6 +116,7 @@ $(function() {
                 categories: memberAttendancePerMonth.months
             },
             yAxis: {
+                floor: 0,
                 title: {
                     enabled: false
                 },
@@ -121,8 +124,15 @@ $(function() {
             },
             tooltip: {
                 formatter: function() {
-                    return 'Meetings: <b>'+ this.y +'</b>';
-                }
+                    var s = [];
+
+                    $.each(this.points, function(i, point) {
+                        s.push(point.series.name + ': <strong>' + point.y +'</strong>');
+                    });
+
+                    return s.join('<br />');
+                },
+                shared: true
             },
             legend: {
                 enabled: false
@@ -252,7 +262,7 @@ $(function() {
                 categories: totalFeesPerMonth.months
             },
             yAxis: {
-                min: 0,
+                floor: 0,
                 title: {
                     enabled: false
                 },
