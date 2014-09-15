@@ -1,0 +1,9 @@
+tools:
+
+    php_analyzer:
+        extensions:
+            - php
+        filter:
+            excluded_paths: [app/tests/*]
+
+    external_code_coverage: true
