@@ -35,7 +35,6 @@ use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 
 class FakeDataSeeder extends Seeder
 {
-
     protected $members;
     protected $fees;
     protected $meetings;
@@ -57,17 +56,17 @@ class FakeDataSeeder extends Seeder
 
     public function run()
     {
-        $this->generateMembers(300);
+        $this->generateMembers(5);
         $this->generateFees();
-        $this->generateMeetings(50);
+        $this->generateMeetings(10);
     }
 
     private function generateMembers($count = 200)
     {
         $faculties = ["Fax 1", "Fax 2", "Fax 3"];
         $fieldOfStudies = ["Computer Science", "Electrical Engineering", "Automation"];
-        $birthYearFrom = "year 1987";
-        $birthYearTo = "year 1994";
+        $birthYearFrom = "-27 years";
+        $birthYearTo = "-19 years";
 
         for ($i = 0; $i <= $count; $i++) {
 
