@@ -27,6 +27,7 @@
 
 use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Factory\MembersFactory;
+use Angelov\Eestec\Platform\Paginator\MembersPaginator;
 use Angelov\Eestec\Platform\Populator\MembersPopulator;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface;
@@ -43,18 +44,21 @@ class MembersController extends \BaseController
     protected $request;
     protected $members;
     protected $validator;
+    protected $paginator;
     protected $fees;
 
     public function __construct(
         Request $request,
         MembersRepositoryInterface $members,
         FeesRepositoryInterface $fees,
+        MembersPaginator $paginator,
         MembersValidator $validator
     ) {
         $this->request = $request;
         $this->members = $members;
         $this->fees = $fees;
         $this->validator = $validator;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -65,13 +69,9 @@ class MembersController extends \BaseController
     public function index()
     {
         $page = $this->request->get('page', 1);
-        $perPage = 15;
-        $data = $this->members->getByPage($page, $perPage);
+        $members = $this->paginator->get($page);
 
-        $members = Paginator::make($data->items, $data->totalItems, $perPage);
-        $count = $this->members->countAll();
-
-        return View::make('members.index', compact('members', 'count'));
+        return View::make('members.index', compact('members'));
     }
 
     /**

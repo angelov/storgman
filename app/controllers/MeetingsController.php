@@ -26,6 +26,7 @@
  */
 
 use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Paginator\MeetingsPaginator;
 use Angelov\Eestec\Platform\Service\MeetingsService;
 use Angelov\Eestec\Platform\Validation\MeetingsValidator;
 use Illuminate\Http\JsonResponse;
@@ -41,18 +42,21 @@ class MeetingsController extends \BaseController
     protected $meetings;
     protected $members;
     protected $validator;
+    protected $paginator;
     protected $meetingsService;
 
     public function __construct(
         Request $request,
         MeetingsRepositoryInterface $meetings,
         MembersRepositoryInterface $members,
+        MeetingsPaginator $paginator,
         MeetingsService $meetingsService,
         MeetingsValidator $validator
     ) {
         $this->request = $request;
         $this->meetings = $meetings;
         $this->members = $members;
+        $this->paginator = $paginator;
         $this->validator = $validator;
         $this->meetingsService = $meetingsService;
     }
@@ -66,14 +70,9 @@ class MeetingsController extends \BaseController
     public function index()
     {
         $page = $this->request->get('page', 1);
-        $perPage = 15;
-        $with = ['attendants'];
-        $data = $this->meetings->getByPage($page, $perPage, $with);
+        $meetings = $this->paginator->get($page, ['attendants']);
 
-        $meetings = Paginator::make($data->items, $data->totalItems, $perPage);
-        $count = $data->totalItems;
-
-        return View::make('meetings.index', compact('meetings', 'count'));
+        return View::make('meetings.index', compact('meetings'));
     }
 
     /**

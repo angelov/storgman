@@ -26,6 +26,7 @@
  */
 
 use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Paginator\FeesPaginator;
 use Angelov\Eestec\Platform\Service\MembershipService;
 use Angelov\Eestec\Platform\Validation\FeesValidator;
 use Illuminate\Http\JsonResponse;
@@ -42,17 +43,20 @@ class FeesController extends \BaseController
     protected $fees;
     protected $members;
     protected $validator;
+    protected $paginator;
 
     public function __construct(
         Request $request,
         FeesRepositoryInterface $fees,
         MembersRepositoryInterface $members,
-        FeesValidator $validator
+        FeesValidator $validator,
+        FeesPaginator $paginator
     ) {
         $this->request = $request;
         $this->fees = $fees;
         $this->members = $members;
         $this->validator = $validator;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -75,14 +79,9 @@ class FeesController extends \BaseController
     public function archive()
     {
         $page = $this->request->get('page', 1);
-        $perPage = 15;
-        $with = ['member'];
-        $data = $this->fees->getByPage($page, $perPage, $with);
+        $fees = $this->paginator->get($page, ['member']);
 
-        $fees = Paginator::make($data->items, $data->totalItems, $perPage);
-        $count = $data->totalItems;
-
-        return View::make('fees.archive', compact('fees', 'count'));
+        return View::make('fees.archive', compact('fees'));
     }
 
     /**
