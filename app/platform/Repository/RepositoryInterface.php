@@ -27,57 +27,68 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
-use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Model\Fee;
+use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
-use Angelov\Eestec\Platform\Report\MembershipStatusReport;
-use Angelov\Eestec\Platform\Report\MembersPerFacultyReport;
-use Angelov\Eestec\Platform\Report\NewMembersPerMonthReport;
 
-interface MembersRepositoryInterface extends RepositoryInterface
+interface RepositoryInterface
 {
     /**
-     * Stores the given member
+     * Returns all items
      *
-     * @param  Member $member
+     * @return array
+     */
+    public function all();
+
+    /**
+     * Returns array of items for a specific page
+     *
+     * @param int $page
+     * @param int $limit
+     * @param array $withRelationships
+     * @return \stdClass
+     */
+    public function getByPage($page, $limit, array $withRelationships);
+
+    /**
+     * Returns the latest N items
+     *
+     * @param $count
+     * @param array $withRelationships
+     * @return array
+     */
+    public function latest($count, array $withRelationships = []);
+
+    /**
+     * Deletes a fee from the storage
+     *
+     * @param $id int
      * @return void
      */
-    public function store(Member $member);
+    public function destroy($id);
 
     /**
-     * Returns the number of total and active members
+     * Returns the member with the given ID
      *
-     * @return MembershipStatusReport
+     * @param int $id
+     * @return Fee|Meeting|Member
+     * @throws ResourceNotFoundException
      */
-    public function countByMembershipStatus();
+    public function get($id);
 
     /**
-     * Returns the members with birthday on a given date
+     * Returns the member with the specific IDs
      *
-     * @param DateTime $date
+     * @param array $ids
      * @return array
      */
-    public function getByBirthdayDate(DateTime $date);
+    public function getByIds(array $ids);
 
     /**
-     * Counts the members per faculties
+     * Counts the members
      *
-     * @return MembersPerFacultyReport
+     * @return int
      */
-    public function countPerFaculty();
-
-    /**
-     * Counts the number of new members per months in a given period
-     *
-     * @param DateTime $from
-     * @param DateTime $to
-     * @return NewMembersPerMonthReport
-     */
-    public function countNewMembersPerMonth(DateTime $from, DateTime $to);
-
-    /**
-     * Returns an array with the board members
-     *
-     * @return array
-     */
-    public function getBoardMembers();
+    public function countAll();
 }

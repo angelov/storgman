@@ -28,13 +28,12 @@
 namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Model\Meeting;
 use Angelov\Eestec\Platform\Model\Member;
 use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsReport;
 use Angelov\Eestec\Platform\Report\MeetingsPerMonthReport;
 
-interface MeetingsRepositoryInterface
+interface MeetingsRepositoryInterface extends RepositoryInterface
 {
     /**
      * Stores the meeting and creates a list of attendants
@@ -47,32 +46,6 @@ interface MeetingsRepositoryInterface
     public function store(Meeting $meeting, Member $creator, array $attendants);
 
     /**
-     *  Returns all meetings
-     *
-     * @param array $withRelationships
-     * @return array
-     */
-    public function all(array $withRelationships = []);
-
-    /**
-     * Returns the latest N meetings
-     *
-     * @param $count
-     * @param array $withRelationships
-     * @return array
-     */
-    public function latest($count, array $withRelationships = []);
-
-    /**
-     * Deletes a specific member from the storage
-     *
-     * @param $id int
-     * @return void
-     * @throws ResourceNotFoundException
-     */
-    public function destroy($id);
-
-    /**
      * Counts the meetings in a given date range
      *
      * @param DateTime $from
@@ -80,24 +53,6 @@ interface MeetingsRepositoryInterface
      * @return int
      */
     public function countMeetingsInPeriod(DateTime $from, DateTime $to);
-
-    /**
-     * Returns a specific meeting
-     *
-     * @param int $id
-     * @return Meeting
-     */
-    public function get($id);
-
-    /**
-     * Returns array of meetings for a specific page
-     *
-     * @param int $page
-     * @param int $limit
-     * @param array $withRelationships
-     * @return \stdClass
-     */
-    public function getByPage($page, $limit, array $withRelationships);
 
     /**
      * Calculates global attendance details.

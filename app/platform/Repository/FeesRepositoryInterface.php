@@ -31,7 +31,7 @@ use Angelov\Eestec\Platform\Exception\NoFeesException;
 use Angelov\Eestec\Platform\Model\Fee;
 use Angelov\Eestec\Platform\Model\Member;
 
-interface FeesRepositoryInterface
+interface FeesRepositoryInterface extends RepositoryInterface
 {
     /**
      * Stores a fee and relate it to a specific member
@@ -41,16 +41,6 @@ interface FeesRepositoryInterface
      * @return void
      */
     public function store(Fee $fee, Member $member);
-
-    /**
-     * Returns array of fees for a specific page
-     *
-     * @param int $page
-     * @param int $limit
-     * @param array $withRelationships
-     * @return \stdClass
-     */
-    public function getByPage($page, $limit, array $withRelationships);
 
     /**
      * Returns all fees paid by a member
@@ -80,28 +70,10 @@ interface FeesRepositoryInterface
     public function getFirstFeeForMember(Member $member);
 
     /**
-     * Returns the latest N fees
-     *
-     * @param $count
-     * @param array $withRelationships
-     * @return array
-     */
-    public function latest($count, array $withRelationships = []);
-
-    /**
      * Returns the member who paid the fee
      *
      * @param Fee $fee
      * @return Member
      */
     public function getFeeMember(Fee $fee);
-
-    /**
-     * Deletes a fee from the storage
-     *
-     * @param $id int
-     * @return void
-     */
-    public function destroy($id);
-
 }
