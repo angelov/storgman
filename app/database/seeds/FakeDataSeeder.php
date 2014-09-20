@@ -56,9 +56,9 @@ class FakeDataSeeder extends Seeder
 
     public function run()
     {
-        $this->generateMembers(5);
+        $this->generateMembers(200);
         $this->generateFees();
-        $this->generateMeetings(10);
+        $this->generateMeetings(50);
     }
 
     private function generateMembers($count = 200)

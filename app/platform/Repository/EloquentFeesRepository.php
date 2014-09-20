@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Exception\NoFeesException;
 use Angelov\Eestec\Platform\Model\Fee;
 use Angelov\Eestec\Platform\Model\Member;
@@ -74,5 +75,18 @@ class EloquentFeesRepository extends AbstractEloquentRepository implements FeesR
     public function getFeeMember(Fee $fee)
     {
         return $fee->member;
+    }
+
+    public function getSoonToExpire($count = 10)
+    {
+        $now = DateTime::nowAsDateString();
+        $fees = $this->model
+            ->where('to_date', '>', $now)
+            ->orderBy('to_date')
+            ->take($count)
+            ->get()
+            ->all();
+
+        return $fees;
     }
 }

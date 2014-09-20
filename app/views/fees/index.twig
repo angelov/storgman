@@ -94,40 +94,14 @@
                 <table class="table table-striped">
                     <tbody>
 
-                        <tr>
-                            <td>Dejan Angelov</td>
-                            <td>
-                                <strong class="date-to-humanize">2014-09-29</strong>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Emmet Boyer</td>
-                            <td>
-                                <strong class="date-to-humanize">2014-10-19</strong>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Catherine McLaughlin</td>
-                            <td>
-                                <strong class="date-to-humanize">2014-11-20</strong>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Laurel Leuschke</td>
-                            <td>
-                                <strong class="date-to-humanize">2014-12-21</strong>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Elsa Lindgren</td>
-                            <td>
-                                <strong class="date-to-humanize">2014-12-22</strong>
-                            </td>
-                        </tr>
+                        {% for fee in toExpire %}
+                            <tr>
+                                <td>{{ fee.member.full_name }}</td>
+                                <td>
+                                    <strong class="date-to-humanize">{{ fee.to_date }}</strong>
+                                </td>
+                            </tr>
+                        {% endfor %}
 
                     </tbody>
                 </table>

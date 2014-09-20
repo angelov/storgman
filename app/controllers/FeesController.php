@@ -38,7 +38,6 @@ use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 
 class FeesController extends \BaseController
 {
-
     protected $request;
     protected $fees;
     protected $members;
@@ -67,8 +66,9 @@ class FeesController extends \BaseController
     public function index()
     {
         $latest = $this->fees->latest(5, ['member'], 'id');
+        $toExpire = $this->fees->getSoonToExpire(5);
 
-        return View::make('fees.index', compact('latest'));
+        return View::make('fees.index', compact('latest', 'toExpire'));
     }
 
     /**

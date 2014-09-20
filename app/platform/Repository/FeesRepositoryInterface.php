@@ -76,4 +76,12 @@ interface FeesRepositoryInterface extends RepositoryInterface
      * @return Member
      */
     public function getFeeMember(Fee $fee);
+
+    /**
+     * Return the N fees which will expire first
+     *
+     * @param int $count
+     * @return array
+     */
+    public function getSoonToExpire($count = 10);
 }
