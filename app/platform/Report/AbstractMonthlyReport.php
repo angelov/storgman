@@ -112,6 +112,11 @@ abstract class AbstractMonthlyReport implements JsonSerializable
         return $this->months;
     }
 
+    public function setMonths(array $months)
+    {
+        $this->months = $months;
+    }
+
     public function jsonSerialize()
     {
         // @todo

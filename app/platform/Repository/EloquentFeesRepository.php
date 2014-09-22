@@ -31,6 +31,9 @@ use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Exception\NoFeesException;
 use Angelov\Eestec\Platform\Model\Fee;
 use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Report\ExpectedFeesPerMonthReport;
+use Angelov\Eestec\Platform\Report\PaidFeesPerMonthReport;
+use DB;
 
 class EloquentFeesRepository extends AbstractEloquentRepository implements FeesRepositoryInterface
 {
@@ -88,5 +91,71 @@ class EloquentFeesRepository extends AbstractEloquentRepository implements FeesR
             ->all();
 
         return $fees;
+    }
+
+    public function calculateExpectedFeesPerMonth(DateTime $from, DateTime $to)
+    {
+        $report = new ExpectedFeesPerMonthReport($from, $to);
+
+        $res = DB::select(
+            '
+                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS CHAR(2)), 2, \'0\')) AS month,
+                       count(*) AS count
+                FROM
+                  (SELECT extract(MONTH
+                                  FROM to_date) AS MONTH,
+                          extract(YEAR
+                                  FROM to_date) AS YEAR
+                   FROM
+                     (SELECT to_date
+                      FROM fees
+                      WHERE to_date BETWEEN ? AND ?) tbl1) tbl2
+                GROUP BY concat(MONTH, YEAR), MONTH, YEAR
+                ORDER BY YEAR, MONTH
+            ', [$from->toDateString(), $to->toDateString()]
+        );
+
+        /** @todo Similar code is duplicated across the project */
+        foreach ($res as &$crnt) {
+            $report->addMonth($crnt->month, (int) $crnt->count);
+        }
+
+        return $report;
+    }
+
+    /**
+     *              /\
+     * @todo These two queries can be combined
+     *             \/
+     */
+
+    public function calculatePaidFeesPerMonth(DateTime $from, DateTime $to)
+    {
+        $report = new PaidFeesPerMonthReport($from, $to);
+
+        $res = DB::select(
+            '
+                SELECT concat(YEAR, \'-\', lpad(cast(MONTH AS CHAR(2)), 2, \'0\')) AS month,
+                       count(*) AS count
+                FROM
+                  (SELECT extract(MONTH
+                                  FROM from_date) AS MONTH,
+                          extract(YEAR
+                                  FROM from_date) AS YEAR
+                   FROM
+                     (SELECT from_date
+                      FROM fees
+                      WHERE from_date BETWEEN ? AND ?) tbl1) tbl2
+                GROUP BY concat(MONTH, YEAR), MONTH, YEAR
+                ORDER BY YEAR, MONTH
+
+            ', [$from->toDateString(), $to->toDateString()]
+        );
+
+        foreach ($res as &$crnt) {
+            $report->addMonth($crnt->month, (int) $crnt->count);
+        }
+
+        return $report;
     }
 }

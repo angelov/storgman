@@ -30,12 +30,12 @@ namespace Angelov\Eestec\Platform\Service;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Exception\NoFeesException;
 use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Report\ExpectedAndPaidFeesPerMonthReport;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 
 class MembershipService
 {
-
     protected $members;
     protected $fees;
 
@@ -90,6 +90,21 @@ class MembershipService
         } catch (NoFeesException $e) {
             return new DateTime($member->created_at);
         }
+    }
+
+    public function getExpectedAndPaidFeesPerMonthLastYear()
+    {
+        $to = DateTime::now();
+        $from = DateTime::twelveMonthsAgo(true);
+
+        $expected = $this->fees->calculateExpectedFeesPerMonth($from, $to);
+        $paid =  $this->fees->calculatePaidFeesPerMonth($from, $to);
+
+        $report = new ExpectedAndPaidFeesPerMonthReport($from, $to);
+        $report->setExpectedFees($expected->getMonthsValues());
+        $report->setPaidFees($paid->getMonthsValues());
+
+        return $report;
     }
 
 }

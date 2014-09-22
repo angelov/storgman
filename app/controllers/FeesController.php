@@ -43,12 +43,14 @@ class FeesController extends \BaseController
     protected $members;
     protected $validator;
     protected $paginator;
+    protected $membership;
 
     public function __construct(
         Request $request,
         FeesRepositoryInterface $fees,
         MembersRepositoryInterface $members,
         FeesValidator $validator,
+        MembershipService $membership,
         FeesPaginator $paginator
     ) {
         $this->request = $request;
@@ -56,6 +58,7 @@ class FeesController extends \BaseController
         $this->members = $members;
         $this->validator = $validator;
         $this->paginator = $paginator;
+        $this->membership = $membership;
     }
 
     /**
@@ -67,8 +70,9 @@ class FeesController extends \BaseController
     {
         $latest = $this->fees->latest(5, ['member'], 'id');
         $toExpire = $this->fees->getSoonToExpire(5);
+        $fees = json_encode($this->membership->getExpectedAndPaidFeesPerMonthLastYear());
 
-        return View::make('fees.index', compact('latest', 'toExpire'));
+        return View::make('fees.index', compact('latest', 'toExpire', 'fees'));
     }
 
     /**

@@ -27,9 +27,12 @@
 
 namespace Angelov\Eestec\Platform\Repository;
 
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Exception\NoFeesException;
 use Angelov\Eestec\Platform\Model\Fee;
 use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Report\ExpectedFeesPerMonthReport;
+use Angelov\Eestec\Platform\Report\PaidFeesPerMonthReport;
 
 interface FeesRepositoryInterface extends RepositoryInterface
 {
@@ -84,4 +87,22 @@ interface FeesRepositoryInterface extends RepositoryInterface
      * @return array
      */
     public function getSoonToExpire($count = 10);
+
+    /**
+     * Returns a report how many fees have been paid per month
+     *
+     * @param DateTime $from
+     * @param DateTime $to
+     * @return ExpectedFeesPerMonthReport
+     */
+    public function calculateExpectedFeesPerMonth(DateTime $from, DateTime $to);
+
+    /**
+     * Returns a report how many fees were expected to be paid per month
+     *
+     * @param DateTime $from
+     * @param DateTime $to
+     * @return PaidFeesPerMonthReport
+     */
+    public function calculatePaidFeesPerMonth(DateTime $from, DateTime $to);
 }

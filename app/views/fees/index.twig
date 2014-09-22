@@ -117,13 +117,7 @@
             </li>
             <li class="list-group-item">
                 <script type="text/javascript">
-                    var totalFeesPerMonth = {
-                        "months":["Oct 2013","Nov 2013","Dec 2013","Jan 2014",
-                                  "Feb 2014","Mar 2014","Apr 2014","May 2014",
-                                  "Jun 2014","Jul 2014","Aug 2014","Sep 2014"],
-                        "expected":[34,53,45,44,74,35,38,64,26,29,55,27],
-                        "paid":    [30,55,47,42,70,29,32,66,25,34,56,15]
-                    };
+                    var totalFeesPerMonth = {{ fees|raw }};
                 </script>
                 <div id="chart-fees-per-month" style="width: 100%"></div>
             </li>
