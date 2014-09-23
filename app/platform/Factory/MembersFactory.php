@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Factory;
 
 use Angelov\Eestec\Platform\Populator\MembersPopulator;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Member;
 use App;
 use Illuminate\Http\Request;
 

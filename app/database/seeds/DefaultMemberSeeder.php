@@ -26,8 +26,8 @@
  */
 
 use Illuminate\Database\Seeder;
-use Angelov\Eestec\Platform\Model\Fee;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Fee;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 

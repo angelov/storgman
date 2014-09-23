@@ -31,7 +31,7 @@ use Angelov\Eestec\Platform\Service\MeetingsService;
 use Angelov\Eestec\Platform\Validation\MeetingsValidator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Angelov\Eestec\Platform\Model\Meeting;
+use Angelov\Eestec\Platform\Entity\Meeting;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 

@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Populator;
 
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface;
 use App;
 use Hash;

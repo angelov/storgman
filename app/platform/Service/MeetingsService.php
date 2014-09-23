@@ -28,8 +28,8 @@
 namespace Angelov\Eestec\Platform\Service;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Model\Meeting;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Meeting;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Report\MeetingAttendedReport;
 use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsForMemberReport;
 use Angelov\Eestec\Platform\Report\MeetingsAttendedByMemberPerMonthReport;
@@ -49,7 +49,7 @@ class MeetingsService
     /**
      * Calculates the member's attendance details for the weekly meetings.
      *
-     * @param Member $member
+     * @param \Angelov\Eestec\Platform\Entity\Member $member
      * @return MeetingsAttendanceDetailsForMemberReport
      */
     public function calculateAttendanceDetailsForMember(Member $member)

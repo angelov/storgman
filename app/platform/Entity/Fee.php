@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $member_id
  * @property string $created_at
  * @property string $updated_at
- * @property \Angelov\Eestec\Platform\Model\Member $member
+ * @property \Angelov\Eestec\Platform\Entity\Member $member
  */
 class Fee extends Model
 {
@@ -55,7 +55,7 @@ class Fee extends Model
      */
     public function member()
     {
-        return $this->belongsTo('Angelov\Eestec\Platform\Model\Member');
+        return $this->belongsTo('Angelov\Eestec\Platform\Entity\Member');
     }
 
 }

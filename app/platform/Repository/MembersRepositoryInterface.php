@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Report\MembershipStatusReport;
 use Angelov\Eestec\Platform\Report\MembersPerFacultyReport;
 use Angelov\Eestec\Platform\Report\NewMembersPerMonthReport;

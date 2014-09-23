@@ -27,7 +27,7 @@ return array(
     |
     */
 
-    'model' => 'Angelov\Eestec\Platform\Model\Member',
+    'model' => 'Angelov\Eestec\Platform\Entity\Member',
     /*
     |--------------------------------------------------------------------------
     | Authentication Table

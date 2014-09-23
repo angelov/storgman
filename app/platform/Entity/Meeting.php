@@ -39,7 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property \Illuminate\Database\Eloquent\Collection $attendants
- * @property \Angelov\Eestec\Platform\Model\Member $creator
+ * @property \Angelov\Eestec\Platform\Entity\Member $creator
  */
 class Meeting extends Model
 {
@@ -49,12 +49,12 @@ class Meeting extends Model
 
     public function attendants()
     {
-        return $this->belongsToMany('Angelov\Eestec\Platform\Model\Member');
+        return $this->belongsToMany('Angelov\Eestec\Platform\Entity\Member');
     }
 
     public function creator()
     {
-        return $this->belongsTo('Angelov\Eestec\Platform\Model\Member', 'created_by');
+        return $this->belongsTo('Angelov\Eestec\Platform\Entity\Member', 'created_by');
     }
 
     public function getDateAttribute($date)

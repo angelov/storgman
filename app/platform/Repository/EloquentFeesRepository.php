@@ -29,17 +29,17 @@ namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Exception\NoFeesException;
-use Angelov\Eestec\Platform\Model\Fee;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Fee;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Report\ExpectedFeesPerMonthReport;
 use Angelov\Eestec\Platform\Report\PaidFeesPerMonthReport;
 use DB;
 
 class EloquentFeesRepository extends AbstractEloquentRepository implements FeesRepositoryInterface
 {
-    public function __construct(Fee $model)
+    public function __construct(Fee $entity)
     {
-        $this->model = $model;
+        $this->entity = $entity;
     }
 
     public function store(Fee $fee, Member $member)
@@ -83,7 +83,7 @@ class EloquentFeesRepository extends AbstractEloquentRepository implements FeesR
     public function getSoonToExpire($count = 10)
     {
         $now = DateTime::nowAsDateString();
-        $fees = $this->model
+        $fees = $this->entity
             ->where('to_date', '>', $now)
             ->orderBy('to_date')
             ->take($count)

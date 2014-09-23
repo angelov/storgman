@@ -27,8 +27,8 @@
 
 namespace Angelov\Eestec\Platform\Report;
 
-use Angelov\Eestec\Platform\Model\Meeting;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Meeting;
+use Angelov\Eestec\Platform\Entity\Member;
 
 class MeetingAttendedReport
 {
@@ -65,7 +65,7 @@ class MeetingAttendedReport
     }
 
     /**
-     * @param \Angelov\Eestec\Platform\Model\Meeting $meeting
+     * @param Meeting $meeting
      */
     public function setMeeting($meeting)
     {
@@ -73,7 +73,7 @@ class MeetingAttendedReport
     }
 
     /**
-     * @return \Angelov\Eestec\Platform\Model\Meeting
+     * @return Meeting
      */
     public function getMeeting()
     {
@@ -81,7 +81,7 @@ class MeetingAttendedReport
     }
 
     /**
-     * @param \Angelov\Eestec\Platform\Model\Member $member
+     * @param Member $member
      */
     public function setMember($member)
     {
@@ -89,7 +89,7 @@ class MeetingAttendedReport
     }
 
     /**
-     * @return \Angelov\Eestec\Platform\Model\Member
+     * @return Member
      */
     public function getMember()
     {

@@ -32,31 +32,31 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractEloquentRepository
 {
-    protected $model;
+    protected $entity;
 
-    public function __construct(Model $model)
+    public function __construct(Model $entity)
     {
-        $this->model = $model;
+        $this->entity = $entity;
     }
 
-    public function getModel()
+    public function getEntity()
     {
-        return $this->model;
+        return $this->entity;
     }
 
-    public function setModel(Model $model)
+    public function setEntity(Model $entity)
     {
-        $this->model = $model;
+        $this->entity = $entity;
     }
 
     public function all(array $withRelationships = [])
     {
-        return $this->model->with($withRelationships)->get()->all();
+        return $this->entity->with($withRelationships)->get()->all();
     }
 
     public function get($id)
     {
-        $resource = $this->model->find($id);
+        $resource = $this->entity->find($id);
 
         if ($resource == null) {
             throw new ResourceNotFoundException();
@@ -81,7 +81,7 @@ abstract class AbstractEloquentRepository
 
         // This will show a warning in the IDEs, but that's
         // because the QueryBuilder uses __call()
-        $fetched = $this->model->with($withRelationships)
+        $fetched = $this->entity->with($withRelationships)
             ->orderBy('id', 'desc')
             ->skip($limit * ($page - 1))
             ->take($limit)
@@ -95,7 +95,7 @@ abstract class AbstractEloquentRepository
 
     public function latest($count, array $withRelationships = [], $orderByField = 'date')
     {
-        $fetched = $this->model->with($withRelationships)
+        $fetched = $this->entity->with($withRelationships)
             ->orderBy($orderByField, 'desc')
             ->take($count)
             ->get()->all();
@@ -105,7 +105,7 @@ abstract class AbstractEloquentRepository
 
     public function getByIds(array $ids = [])
     {
-        $query = $this->model->newQuery();
+        $query = $this->entity->newQuery();
         $results = $query->findMany($ids)->all();
 
         return $results;
@@ -113,7 +113,7 @@ abstract class AbstractEloquentRepository
 
     public function countAll()
     {
-        $eloquentQuery = $this->model->newQuery();
+        $eloquentQuery = $this->entity->newQuery();
         $queryBuilder = $eloquentQuery->getQuery();
 
         return $queryBuilder->count();

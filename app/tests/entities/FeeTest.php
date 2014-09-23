@@ -29,6 +29,6 @@ class FeeTest extends TestCase
 {
     public function testBelongsToMember()
     {
-        $this->assertBelongsTo('member', 'Angelov\Eestec\Platform\Model\Fee');
+        $this->assertBelongsTo('member', 'Angelov\Eestec\Platform\Entity\Fee');
     }
 }

@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Filter;
 
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Member;
 use Redirect;
 
 class BoardMembersFilter

@@ -28,8 +28,8 @@
 namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Model\Meeting;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Meeting;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsReport;
 use Angelov\Eestec\Platform\Report\MeetingsPerMonthReport;
 use DB;
@@ -38,7 +38,7 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
 {
     public function __construct(Meeting $meeting)
     {
-        $this->model = $meeting;
+        $this->entity = $meeting;
     }
 
     public function store(Meeting $meeting, Member $creator, array $attendants)

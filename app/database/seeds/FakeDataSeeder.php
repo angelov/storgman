@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Model\Fee;
-use Angelov\Eestec\Platform\Model\Meeting;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Fee;
+use Angelov\Eestec\Platform\Entity\Meeting;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Illuminate\Database\Seeder;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;

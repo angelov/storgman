@@ -32,7 +32,7 @@ use Angelov\Eestec\Platform\Validation\FeesValidator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Angelov\Eestec\Platform\Model\Fee;
+use Angelov\Eestec\Platform\Entity\Fee;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 

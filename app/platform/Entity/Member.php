@@ -94,7 +94,7 @@ class Member extends Model implements UserInterface, RemindableInterface
      */
     public function fees()
     {
-        return $this->hasMany('Angelov\Eestec\Platform\Model\Fee');
+        return $this->hasMany('Angelov\Eestec\Platform\Entity\Fee');
     }
 
     /**
@@ -157,12 +157,12 @@ class Member extends Model implements UserInterface, RemindableInterface
 
     public function meetingsAttended()
     {
-        return $this->belongsToMany('Angelov\Eestec\Platform\Model\Meeting');
+        return $this->belongsToMany('Angelov\Eestec\Platform\Entity\Meeting');
     }
 
     public function meetingsCreated()
     {
-        return $this->hasMany('Angelov\Eestec\Platform\Model\Meeting');
+        return $this->hasMany('Angelov\Eestec\Platform\Entity\Meeting');
     }
 
 }

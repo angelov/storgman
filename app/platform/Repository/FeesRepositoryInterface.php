@@ -29,8 +29,8 @@ namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Exception\NoFeesException;
-use Angelov\Eestec\Platform\Model\Fee;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Fee;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Report\ExpectedFeesPerMonthReport;
 use Angelov\Eestec\Platform\Report\PaidFeesPerMonthReport;
 
@@ -40,7 +40,7 @@ interface FeesRepositoryInterface extends RepositoryInterface
      * Stores a fee and relate it to a specific member
      *
      * @param  Fee    $fee
-     * @param  Member $member
+     * @param  \Angelov\Eestec\Platform\Entity\Member $member
      * @return void
      */
     public function store(Fee $fee, Member $member);
@@ -58,7 +58,7 @@ interface FeesRepositoryInterface extends RepositoryInterface
      * Returns the latest fee paid by a member
      *
      * @param  Member          $member
-     * @return Fee
+     * @return \Angelov\Eestec\Platform\Entity\Fee
      * @throws NoFeesException
      */
     public function getLatestFeeForMember(Member $member);
@@ -67,7 +67,7 @@ interface FeesRepositoryInterface extends RepositoryInterface
      * Returns the first fee paid by a member
      *
      * @param Member $member
-     * @return Fee
+     * @return \Angelov\Eestec\Platform\Entity\Fee
      * @throws NoFeesException
      */
     public function getFirstFeeForMember(Member $member);
@@ -75,7 +75,7 @@ interface FeesRepositoryInterface extends RepositoryInterface
     /**
      * Returns the member who paid the fee
      *
-     * @param Fee $fee
+     * @param \Angelov\Eestec\Platform\Entity\Fee $fee
      * @return Member
      */
     public function getFeeMember(Fee $fee);

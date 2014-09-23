@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Model\Meeting;
+use Angelov\Eestec\Platform\Entity\Meeting;
 
 /**
  * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6

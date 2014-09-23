@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Report\MembershipStatusReport;
 use Angelov\Eestec\Platform\Report\MembersPerFacultyReport;
 use Angelov\Eestec\Platform\Report\NewMembersPerMonthReport;
@@ -36,9 +36,9 @@ use DB;
 
 class EloquentMembersRepository extends AbstractEloquentRepository implements MembersRepositoryInterface
 {
-    public function __construct(Member $model)
+    public function __construct(Member $entity)
     {
-        $this->model = $model;
+        $this->entity = $entity;
     }
 
     public function store(Member $member)
@@ -157,7 +157,7 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
 
     public function getBoardMembers()
     {
-        return $this->model->where('board_member', true)->get()->all();
+        return $this->entity->where('board_member', true)->get()->all();
     }
 
 }

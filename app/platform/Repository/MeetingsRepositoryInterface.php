@@ -28,8 +28,8 @@
 namespace Angelov\Eestec\Platform\Repository;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Model\Meeting;
-use Angelov\Eestec\Platform\Model\Member;
+use Angelov\Eestec\Platform\Entity\Meeting;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Report\MeetingsAttendanceDetailsReport;
 use Angelov\Eestec\Platform\Report\MeetingsPerMonthReport;
 
@@ -38,7 +38,7 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
     /**
      * Stores the meeting and creates a list of attendants
      *
-     * @param  Meeting  $meeting
+     * @param  Meeting $meeting
      * @param  Member   $creator
      * @param  array    $attendants
      * @return void

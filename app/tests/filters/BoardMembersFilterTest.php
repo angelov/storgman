@@ -30,7 +30,7 @@ class BoardMembersFilterTest extends TestCase
 {
     public function testRedirectsIfNotBoardMember()
     {
-        $member = Mockery::mock('Angelov\Eestec\Platform\Model\Member');
+        $member = Mockery::mock('Angelov\Eestec\Platform\Entity\Member');
         $member->shouldReceive('isBoardMember')
             ->once()
             ->andReturn(false);
@@ -43,7 +43,7 @@ class BoardMembersFilterTest extends TestCase
 
     public function testContinuesIfAjax()
     {
-        $member = Mockery::mock('Angelov\Eestec\Platform\Model\Member');
+        $member = Mockery::mock('Angelov\Eestec\Platform\Entity\Member');
         $member->shouldReceive('isBoardMember')
             ->once()
             ->andReturn(true);
