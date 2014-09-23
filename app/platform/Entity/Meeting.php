@@ -25,37 +25,43 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Model;
+namespace Angelov\Eestec\Platform\Entity;
 
+use Angelov\Eestec\Platform\DateTime;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $from_date
- * @property int $to_date
- * @property int $member_id
+ * @property string $date
+ * @property string $location
+ * @property string $info
+ * @property int $created_by
  * @property string $created_at
  * @property string $updated_at
- * @property \Angelov\Eestec\Platform\Model\Member $member
+ * @property \Illuminate\Database\Eloquent\Collection $attendants
+ * @property \Angelov\Eestec\Platform\Model\Member $creator
  */
-class Fee extends Model
+class Meeting extends Model
 {
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'fees';
+    protected $fillable = [];
+    protected $table = 'meetings';
 
-    /**
-     * The member who paid the fee
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function member()
+    public function attendants()
     {
-        return $this->belongsTo('Angelov\Eestec\Platform\Model\Member');
+        return $this->belongsToMany('Angelov\Eestec\Platform\Model\Member');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo('Angelov\Eestec\Platform\Model\Member', 'created_by');
+    }
+
+    public function getDateAttribute($date)
+    {
+        $date = new DateTime($date);
+
+        return $date->toDateString();
     }
 
 }

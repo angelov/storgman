@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Model;
+namespace Angelov\Eestec\Platform\Entity;
 
 use Angelov\Eestec\Platform\DateTime;
 use Carbon\Carbon;
