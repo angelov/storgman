@@ -67,6 +67,8 @@ class DefaultMemberSeeder extends Seeder
         $user->phone = "38972000000";
         $user->website = "http://ultim8.info";
 
+        $user->approved = true;
+
         $this->members->store($user);
 
         $fee = new Fee();

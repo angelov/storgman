@@ -3,7 +3,7 @@
 
 <div class="row  ">
     <div class="col-md-4 well center-block">
-        <legend>Please Sign In</legend>
+        <legend style="margin-top: -20px;">Please Sign In</legend>
 
         {% if Session.has('auth-error') %}
             <div class="alert alert-danger alert-dismissable">
@@ -26,6 +26,7 @@
                 </label>
             </div>
             <button type="submit" class="btn btn-info btn-block">Sign in</button>
+            <a href="{{ route('members.register') }}" class="btn btn-default btn-block">Create account</a>
         </form>
     </div>
 </div>

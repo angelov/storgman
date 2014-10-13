@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateMembersTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -34,6 +33,7 @@ class CreateMembersTable extends Migration
                 $table->string('website')->nullable();
                 $table->boolean('board_member')->default(false);
                 $table->string('position_title')->nullable();
+                $table->boolean('approved')->default(false);
                 $table->string('remember_token')->nullable();
                 $table->timestamps();
 
@@ -51,5 +51,4 @@ class CreateMembersTable extends Migration
     {
         Schema::drop('members');
     }
-
 }

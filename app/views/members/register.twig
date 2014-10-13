@@ -1,0 +1,192 @@
+{% set page_title = 'Create new account' %}
+{% include 'header.twig' %}
+
+<h1>Create new account:</h1>
+
+{% if Session.has('action-message') %}
+    <div class="alert alert-success">
+        <a class="close" data-hide="alert" href="#">×</a>
+        <span>
+            {{ Session.get('action-message') }}
+        </span>
+    </div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form role="form" method="post" action="{{ route('members.postRegister') }}" enctype="multipart/form-data">
+
+            {% if Session.has('errorMessages') %}
+                <div class="alert alert-danger">
+                    <p><strong>Please fix the following errors:</strong></p>
+                    <ul>
+                        {% for message in Session.get('errorMessages') %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div class="row">
+                <div class="col-md-5">
+                    <legend>Personal information:</legend>
+                    <div class="form-group">
+                        <label for="first_name">
+                            First name:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="first-name" name="first_name"
+                               value="{{ Input.old('first_name') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="last_name">
+                            Last name:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="last-name" name="last_name"
+                               value="{{ Input.old('last_name') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthday">
+                            Birthday:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group date">
+                            <input type="text" class="form-control" id="birthday" name="birthday"
+                                   value="{{ Input.old('birthday') }}">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <legend>Education:</legend>
+
+                    <div class="form-group">
+                        <label for="faculty">
+                            Faculty:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="faculty" name="faculty"
+                               value="{{ Input.old('faculty') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="field_of_study">
+                            Field of study:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="field_of_study" name="field_of_study"
+                               value="{{ Input.old('field_of_study') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="year_of_graduation">
+                            (Expected) year of graduation:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="year_of_graduation" name="year_of_graduation"
+                               value="{{ Input.old('year_of_graduation') }}">
+                    </div>
+
+                    <legend>Contact information:</legend>
+
+                    <div class="form-group">
+                        <label for="email">
+                            Email:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="{{ Input.old('email') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="website">Website:</label>
+                        <input type="text" class="form-control" id="website" name="website"
+                               value="{{ Input.old('website') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone number:</label>
+                        <input type="phone" class="form-control" id="phone" name="phone"
+                               value="{{ Input.old('phone') }}">
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col-md-offset-1">
+                    <legend>Photo:</legend>
+
+                    <div class="row">
+                        <div class="col-md-5" >
+                            <div id="img-preview-photo"></div>
+                        </div>
+                        <div class="col-md-7">
+
+                            <div id="photo-upload">
+                                <span class="btn btn-default fileinput-button">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Select a file to upload</span>
+                                    <input id="member-photo" type="file" name="member_photo" >
+                                </span>
+
+                                <p class="help-block small">
+                                    The photo will be processed and cropped/resized to fit 400x400px in size.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <legend>Social profiles:</legend>
+
+                    <div class="form-group">
+                        <label for="facebook">Facebook:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">https://facebook.com/</span>
+                            <input type="text" class="form-control" id="facebook" name="facebook"
+                                   value="{{ Input.old('facebook') }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="twitter">Twitter:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">https://twitter.com/</span>
+                            <input type="text" class="form-control" id="twitter" name="twitter"
+                                   value="{{ Input.old('twitter') }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="google_plus">Google+:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">https://plus.google.com/</span>
+                            <input type="text" class="form-control" id="google_plus" name="google_plus"
+                                   value="{{ Input.old('google_plus') }}">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 20px">
+                <div class="col-md-6">
+                    <p class="text-muted">
+                        <span class="text-danger">*</span> - required fields
+                    </p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="submit" class="btn btn-info" id="btn-submit-member">Register</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% include 'footer.twig' %}

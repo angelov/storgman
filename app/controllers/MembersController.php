@@ -133,6 +133,12 @@ class MembersController extends \BaseController
 
         $member = MembersFactory::createFromRequest($this->request);
 
+        /**
+         * Automatically approve the member's account when
+         * it is created by the board members
+         */
+        $member->approved = true;
+
         $this->members->store($member);
 
         Session::flash('action-message', "Member added successfully.");
@@ -285,4 +291,38 @@ class MembersController extends \BaseController
         return new JsonResponse($data);
     }
 
+    /**
+     * The new members can create their profiles on the system
+     *
+     * @return Response
+     */
+    public function register()
+    {
+        return View::make('members.register');
+    }
+
+    /**
+     * Proceed the information submitted via the registration form
+     *
+     * @return Response
+     */
+    public function postRegister()
+    {
+        /** @todo Duplicated code */
+        if (!$this->validator->validate($this->request->all())) {
+            $errorMessages = $this->validator->getMessages();
+            Session::flash('errorMessages', $errorMessages);
+
+            return Redirect::back()->withInput();
+        }
+
+        $member = MembersFactory::createFromRequest($this->request);
+
+        $this->members->store($member);
+
+        Session::flash('action-message',
+            "Your account was created successfully. You will be notified when the board members approve it.");
+
+        return Redirect::route('members.register');
+    }
 }
