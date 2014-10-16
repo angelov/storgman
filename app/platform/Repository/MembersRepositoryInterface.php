@@ -80,4 +80,11 @@ interface MembersRepositoryInterface extends RepositoryInterface
      * @return array
      */
     public function getBoardMembers();
+
+    /**
+     * Returns an array with the unapproved member accounts
+     *
+     * @return array
+     */
+    public function getUnapprovedMembers();
 }

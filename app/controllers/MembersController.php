@@ -108,6 +108,17 @@ class MembersController extends \BaseController
     }
 
     /**
+     * Show a page with the unapproved member accounts
+     *
+     * @return Response
+     */
+    public function unapproved()
+    {
+        $members = $this->members->getUnapprovedMembers();
+        return View::make('members.unapproved', compact('members'));
+    }
+
+    /**
      * Show the form for creating a new member
      *
      * @return Response

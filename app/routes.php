@@ -65,8 +65,6 @@ Route::group(['prefix' => 'auth'], function () {
  * Members management
  */
 
-
-
 Route::group(['prefix' => 'members'], function () {
 
     Route::group(['before' => 'guest'], function() {
@@ -103,6 +101,7 @@ Route::group(['prefix' => 'members'], function () {
              'uses' => 'MembersController@quickMemberInfo',
              'before' => 'ajax']
         );
+        Route::get('/unapproved', ['as' => 'members.unapproved',  'uses' => 'MembersController@unapproved']);
     });
 
 });

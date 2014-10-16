@@ -1,0 +1,31 @@
+{% set page_title = "Unapproved member accounts" %}
+{% include 'header.twig' %}
+
+<h1>Unapproved member accounts</h1>
+
+<table class="table table-bordered table-striped" style="margin-top: 15px;">
+    <thead>
+        <tr>
+            <th>Full name</th>
+            <th>Faculty</th>
+            <th>Field of study</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for member in members %}
+        <tr>
+            <td>
+                {{ member.full_name }}
+            </td>
+            <td>{{ member.faculty }}</td>
+            <td>{{ member.field_of_study }}</td>
+            <td class="text-right">
+                [approve] [decline]
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% include 'footer.twig' %}

@@ -160,4 +160,9 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
         return $this->entity->where('board_member', true)->get()->all();
     }
 
+    public function getUnapprovedMembers()
+    {
+        return $this->entity->where('approved', false)->get()->all();
+    }
+
 }
