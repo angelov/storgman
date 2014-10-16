@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Repository;
 use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class AbstractEloquentRepository
+abstract class AbstractEloquentRepository implements RepositoryInterface
 {
     protected $entity;
 

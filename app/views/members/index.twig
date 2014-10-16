@@ -49,22 +49,24 @@
 <table class="table table-bordered table-striped" style="margin-top: 15px;">
     <thead>
         <tr>
-            <th>First name</th>
-            <th>Last name</th>
+            <th>Full name</th>
             <th>Faculty</th>
             <th>Field of study</th>
-            <th>Last online</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for member in members %}
             <tr>
-                <td>{{ member.first_name }}</td>
-                <td>{{ member.last_name }}</td>
+                <td>
+                    {{ member.full_name }}
+
+                    {% if member.approved == false %}
+                        <span class="label label-warning">Unapproved</span>
+                    {% endif %}
+                </td>
                 <td>{{ member.faculty }}</td>
                 <td>{{ member.field_of_study }}</td>
-                <td>N/A</td>
                 <td class="text-right">
                     {# view member details #}
                     <a href="{{ route('members.show', member.id) }}" data-toggle="tooltip"
