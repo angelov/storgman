@@ -3,6 +3,11 @@
 
 <h1>Unapproved member accounts</h1>
 
+<div class="" id="action-status" style="display: none;">
+    <a class="close" data-hide="alert" href="#">×</a>
+    <span id="action-message"></span>
+</div>
+
 <table class="table table-bordered table-striped" style="margin-top: 15px;">
     <thead>
         <tr>
@@ -21,7 +26,23 @@
             <td>{{ member.faculty }}</td>
             <td>{{ member.field_of_study }}</td>
             <td class="text-right">
-                [approve] [decline]
+                {# view member details #}
+                <a href="{{ route('members.show', member.id) }}" data-toggle="tooltip"
+                   data-placement="top" title="Details" class="has-tooltip">
+                    <i class="glyphicon glyphicon-user"></i>
+                </a>
+
+                {# approve #}
+                <a href="{{ route('members.approve', member.id) }}" data-toggle="tooltip" data-member="{{ member.id }}"
+                   data-placement="top" title="Approve" class="has-tooltip btn-approve-member">
+                    <i class="fa fa-check"></i>
+                </a>
+
+                {# decline #}
+                <a href="" data-toggle="tooltip"
+                   data-placement="top" title="Decline" class="has-tooltip">
+                    <i class="fa fa-times"></i>
+                </a>
             </td>
         </tr>
     {% endfor %}

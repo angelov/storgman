@@ -101,6 +101,11 @@ Route::group(['prefix' => 'members'], function () {
              'uses' => 'MembersController@quickMemberInfo',
              'before' => 'ajax']
         );
+        Route::post('/{id}/approve',
+            ['as' => 'members.approve',
+             'uses' => 'MembersController@approve',
+             'before' => 'ajax']
+        );
         Route::get('/unapproved', ['as' => 'members.unapproved',  'uses' => 'MembersController@unapproved']);
     });
 

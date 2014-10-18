@@ -306,6 +306,31 @@ class MembersController extends \BaseController
     }
 
     /**
+     * Approve a pending member account
+     *
+     * @param int   $id
+     * @return JsonResponse
+     */
+    public function approve($id)
+    {
+        /** @todo Duplicated code, create ResourceNotFound error handler  */
+
+        try {
+            $member = $this->members->get($id);
+            $member->approved = true;
+            $this->members->store($member);
+
+            $data['status'] = 'success';
+            $data['message'] = 'Member approved successfully.';
+        } catch (ResourceNotFoundException $e) {
+            $data['status'] = 'warning';
+            $data['message'] = 'There was something wrong with your request.';
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
      * The new members can create their profiles on the system
      *
      * @return Response
