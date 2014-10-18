@@ -71,7 +71,10 @@ class MembersController extends \BaseController
         $page = $this->request->get('page', 1);
         $members = $this->paginator->get($page);
 
-        return View::make('members.index', compact('members'));
+        /** @todo This can get a little optimized */
+        $pending = count($this->members->getUnapprovedMembers());
+
+        return View::make('members.index', compact('members', 'pending'));
     }
 
     /**

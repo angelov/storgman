@@ -22,11 +22,16 @@
         <p>
             There are total <strong>{{ members.getTotal }}</strong> members.
 
-
             <a href="{{ route('members.board') }}" class="small" style="margin-left: 5px;">
                 View board members
             </a>
 
+            {% if pending > 0 %}
+                <span class="text-muted">|</span>
+                <a href="{{ route('members.unapproved') }}" class="small" >
+                    <strong>{{ pending }} pending approvals</strong>
+                </a>
+            {% endif %}
         </p>
     </div>
 
