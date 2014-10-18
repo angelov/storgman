@@ -39,8 +39,8 @@
                 </a>
 
                 {# decline #}
-                <a href="" data-toggle="tooltip"
-                   data-placement="top" title="Decline" class="has-tooltip">
+                <a href="{{ route('members.decline', member.id) }}" data-toggle="tooltip" data-member="{{ member.id }}"
+                   data-placement="top" title="Decline" class="has-tooltip btn-approve-member">
                     <i class="fa fa-times"></i>
                 </a>
             </td>

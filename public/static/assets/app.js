@@ -90,12 +90,41 @@ $(function(){
         return false;
     });
 
-
     /**
      * Approving a member
      */
 
     $(document).on('click', '.btn-approve-member', function() {
+        var btn = $(this);
+        var member = btn.data('member');
+
+        $.ajax({
+            type: 'post',
+            url: btn.attr('href'),
+            dataType: "json",
+            success:function(data){
+
+                $("#action-message").html(data.message);
+
+                $("#action-status").removeClass()
+                    .addClass('alert')
+                    .addClass('alert-dismissable')
+                    .addClass('alert-' + data.status)
+                    .show();
+
+                btn.closest('tr').slideUp('slow');
+
+            }
+        });
+
+        return false;
+    });
+
+    /**
+     * Declining a pending member account
+     */
+
+    $(document).on('click', '.btn-decline-member', function() {
         var btn = $(this);
         var member = btn.data('member');
 

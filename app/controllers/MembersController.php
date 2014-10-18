@@ -307,6 +307,7 @@ class MembersController extends \BaseController
 
     /**
      * Approve a pending member account
+     * Method available only via AJAX requests
      *
      * @param int   $id
      * @return JsonResponse
@@ -322,6 +323,32 @@ class MembersController extends \BaseController
 
             $data['status'] = 'success';
             $data['message'] = 'Member approved successfully.';
+        } catch (ResourceNotFoundException $e) {
+            $data['status'] = 'warning';
+            $data['message'] = 'There was something wrong with your request.';
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * Decline a pending member account
+     * Method available only via AJAX requests
+     *
+     * @param int   $id
+     * @return JsonResponse
+     */
+    public function decline($id)
+    {
+        /** @todo Duplicated code, create ResourceNotFound error handler  */
+
+        try {
+            $this->members->destroy($id);
+
+            /** @todo Send an email saying that the account was declined */
+
+            $data['status'] = 'success';
+            $data['message'] = 'Member declined successfully.';
         } catch (ResourceNotFoundException $e) {
             $data['status'] = 'warning';
             $data['message'] = 'There was something wrong with your request.';
