@@ -66,7 +66,7 @@ abstract class Validator
 
     public function removeRule($field, $rule)
     {
-        $pattern = "/" . $rule . ":[a-zA-Z,\-0-9]*/";
+        $pattern = "/" . $rule . "[:[a-zA-Z,\-0-9]*]*/";
         $existing = $this->rules[$field];
 
         $this->rules[$field] = preg_replace($pattern, "", $existing);

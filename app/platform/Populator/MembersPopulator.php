@@ -42,9 +42,8 @@ class MembersPopulator
         $member->birthday = $request->get('birthday');
         $member->email = $request->get('email');
 
-        // Only when creating new member
-        if (!isset($member->password)) {
-            $member->password = Hash::make('123456'); // Hash::make(str_random(8))
+        if ($request->has('password')) {
+            $member->password = Hash::make($request->get('password'));
         }
 
         $member->faculty = $request->get('faculty');

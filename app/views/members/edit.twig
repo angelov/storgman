@@ -49,6 +49,44 @@
                         </div>
                     </div>
 
+                    <legend>Authentication info:</legend>
+
+                    <div class="form-group">
+                        <label for="email">
+                            Email:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="{{ member.email }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">
+                            Password:
+                        </label>
+                        <input type="password" class="form-control" id="password" name="password" />
+                    </div>
+
+                    <legend>Organization details:</legend>
+
+                    {% set board_member = "" %}
+                    {% if member.board_member %}
+                        {% set board_member = "checked" %}
+                    {% endif %}
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="board_member" value="1" {{ board_member }}> Board member
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="position_title">Position title:</label>
+                        <input type="text" class="form-control" id="position_title" name="position_title"
+                               placeholder="eg. President" value="{{ member.position_title }}">
+                        <p class="help-block small">Fill only if the member is part of the organization's board</p>
+                    </div>
+
                     <legend>Education:</legend>
 
                     <div class="form-group">
@@ -72,29 +110,6 @@
                         </label>
                         <input type="text" class="form-control" id="year_of_graduation" name="year_of_graduation"
                                value="{{ member.year_of_graduation }}">
-                    </div>
-
-                    <legend>Contact information:</legend>
-
-                    <div class="form-group">
-                        <label for="email">
-                            Email:
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input type="email" class="form-control" id="email" name="email"
-                               value="{{ member.email }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="website">Website:</label>
-                        <input type="text" class="form-control" id="website" name="website"
-                               value="{{ member.website }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone number:</label>
-                        <input type="phone" class="form-control" id="phone" name="phone"
-                               value="{{ member.phone }}">
                     </div>
 
                 </div>
@@ -124,24 +139,18 @@
                         </div>
                     </div>
 
-                    <legend>Organization details:</legend>
+                    <legend>Contact information:</legend>
 
-                    {% set board_member = "" %}
-                    {% if member.board_member %}
-                        {% set board_member = "checked" %}
-                    {% endif %}
-
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="board_member" value="1" {{ board_member }}> Board member
-                        </label>
+                    <div class="form-group">
+                        <label for="website">Website:</label>
+                        <input type="text" class="form-control" id="website" name="website"
+                               value="{{ member.website }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="position_title">Position title:</label>
-                        <input type="text" class="form-control" id="position_title" name="position_title"
-                               placeholder="eg. President" value="{{ member.position_title }}">
-                        <p class="help-block small">Fill only if the member is part of the organization's board</p>
+                        <label for="phone">Phone number:</label>
+                        <input type="phone" class="form-control" id="phone" name="phone"
+                               value="{{ member.phone }}">
                     </div>
 
                     <legend>Social profiles:</legend>

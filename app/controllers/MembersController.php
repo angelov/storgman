@@ -254,6 +254,17 @@ class MembersController extends \BaseController
             $this->validator->removeRule('email', 'unique');
         }
 
+        /**
+         * We don't want to change the member's password if there's
+         * no new password inserted.
+         *
+         * @todo There is probably better way to do this
+         */
+        if ($this->request->get('password') == '') {
+            $this->validator->removeRule('password', 'required');
+            $this->validator->removeRule('password', 'min');
+        }
+
         if (!$this->validator->validate($this->request->all())) {
             $errorMessages = $this->validator->getMessages();
             Session::flash('errorMessages', $errorMessages);

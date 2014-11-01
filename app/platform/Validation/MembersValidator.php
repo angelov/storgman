@@ -29,16 +29,15 @@ namespace Angelov\Eestec\Platform\Validation;
 
 class MembersValidator extends Validator
 {
-
     protected $rules = [
-        'email' => 'required|unique:members|email',
         'first_name' => 'required',
         'last_name' => 'required',
+        'email' => 'required|unique:members|email',
+        'password' => 'required|min:6',
         'faculty' => 'required',
         'field_of_study' => 'required',
         'year_of_graduation' => 'required|integer',
         'birthday' => 'required|date_format:Y-m-d',
         'member_photo' => 'image|max:3000'
     ];
-
 }

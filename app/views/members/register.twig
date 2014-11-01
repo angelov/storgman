@@ -1,4 +1,4 @@
-{% set page_title = 'Create new account' %}
+    {% set page_title = 'Create new account' %}
 {% include 'header.twig' %}
 
 <h1>Create new account:</h1>
@@ -63,6 +63,25 @@
                         </div>
                     </div>
 
+                    <legend>Authentication info:</legend>
+
+                    <div class="form-group">
+                        <label for="email">
+                            Email:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="{{ Input.old('email') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">
+                            Password:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="password" class="form-control" id="password" name="password" />
+                    </div>
+
                     <legend>Education:</legend>
 
                     <div class="form-group">
@@ -92,29 +111,6 @@
                                value="{{ Input.old('year_of_graduation') }}">
                     </div>
 
-                    <legend>Contact information:</legend>
-
-                    <div class="form-group">
-                        <label for="email">
-                            Email:
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input type="email" class="form-control" id="email" name="email"
-                               value="{{ Input.old('email') }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="website">Website:</label>
-                        <input type="text" class="form-control" id="website" name="website"
-                               value="{{ Input.old('website') }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone number:</label>
-                        <input type="phone" class="form-control" id="phone" name="phone"
-                               value="{{ Input.old('phone') }}">
-                    </div>
-
                 </div>
 
                 <div class="col-md-6 col-md-offset-1">
@@ -139,6 +135,29 @@
 
                             </div>
                         </div>
+                    </div>
+
+                    <legend>Contact information:</legend>
+
+                    <div class="form-group">
+                        <label for="email">
+                            Email:
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="email" class="form-control" id="email" name="email"
+                               value="{{ Input.old('email') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="website">Website:</label>
+                        <input type="text" class="form-control" id="website" name="website"
+                               value="{{ Input.old('website') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone number:</label>
+                        <input type="phone" class="form-control" id="phone" name="phone"
+                               value="{{ Input.old('phone') }}">
                     </div>
 
                     <legend>Social profiles:</legend>
