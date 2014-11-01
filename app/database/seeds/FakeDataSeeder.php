@@ -63,6 +63,8 @@ class FakeDataSeeder extends Seeder
 
     private function generateMembers($count = 200)
     {
+        print "Generating members started...\n";
+
         $faculties = ["Fax 1", "Fax 2", "Fax 3"];
         $fieldOfStudies = ["Computer Science", "Electrical Engineering", "Automation"];
         $birthYearFrom = "-27 years";
@@ -79,6 +81,10 @@ class FakeDataSeeder extends Seeder
             $member->faculty = $this->faker->randomElement($faculties);
             $member->field_of_study = $this->faker->randomElement($fieldOfStudies);
             $member->year_of_graduation = $this->faker->numberBetween(2015, 2018);
+
+            if ($this->faker->boolean(90)) {
+                $member->approved = true;
+            }
 
             $social = strtolower($member->first_name . $member->last_name);
 
@@ -107,6 +113,8 @@ class FakeDataSeeder extends Seeder
             $this->members->store($member);
 
         }
+
+        print "Generated ". $count ." members.\n";
     }
 
     private function hasGeneratedMembers()
@@ -119,6 +127,9 @@ class FakeDataSeeder extends Seeder
         if (!$this->hasGeneratedMembers()) {
             return;
         }
+
+        print "Generating fees started...\n";
+        $fees = 0;
 
         foreach ($this->generatedMembers as $member) {
 
@@ -133,6 +144,7 @@ class FakeDataSeeder extends Seeder
                 $fee->to_date = $to->format('Y-m-d');
 
                 $this->fees->store($fee, $member);
+                $fees++;
 
                 $now = new \DateTime('now');
 
@@ -144,6 +156,8 @@ class FakeDataSeeder extends Seeder
             }
 
         }
+
+        print "Generated ". $fees ." fees.\n";
     }
 
     private function generateMeetings($count = 50)
@@ -152,6 +166,9 @@ class FakeDataSeeder extends Seeder
         if (!$this->hasGeneratedMembers()) {
             return;
         }
+
+        print "Generating meetings started...\n";
+        $attendings = 0;
 
         // Calculate the date for the first meeting..
         // There will be one meeting per week.
@@ -167,11 +184,14 @@ class FakeDataSeeder extends Seeder
 
             $creator = $this->generatedMembers[0];
             $attendants = $this->pickGeneratedMembers($this->calculateNeededAttendants());
+            $attendings += count($attendants);
 
             $this->meetings->store($meeting, $creator, $attendants);
 
             $date->modify('+1 week');
         }
+
+        print "Generated ". $count ." meetings with ". $attendings ." total attendings\n";
 
     }
 
