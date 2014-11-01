@@ -80,6 +80,13 @@ class AuthController extends \BaseController
         $membershipService = App::make('MembershipService');
         $member = Auth::user();
 
+        if (!$member->approved) {
+            Auth::logout();
+            Session::flash('auth-error', 'Your account is not approved yet.');
+
+            return Redirect::back()->withInput();
+        }
+
         if (!$membershipService->isMemberActive($member)) {
             Auth::logout();
             Session::flash('auth-error', 'Your membership needs to be reactivated. Have you paid the fees?');
