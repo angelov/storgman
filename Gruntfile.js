@@ -22,6 +22,9 @@ module.exports = function(grunt) {
                     dir + '/vendor/moment/moment.js',
                     dir + '/vendor/slimScroll/jquery.slimscroll.min.js',
                     dir + '/app.js',
+                    dir + '/dates.js',
+                    dir + '/datepicker.js',
+                    dir + '/wysiwyg.js',
                     dir + '/charts.js'
                 ],
                 dest: dir + '/build/js/app.js'

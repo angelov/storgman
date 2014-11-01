@@ -22,40 +22,6 @@ $(function(){
     $('.has-tooltip').tooltip();
 
     /**
-     * Formatting the dates and making them human-readable
-     */
-
-    $(".date-to-humanize").each(function() {
-        //console.log($(this).html());
-        var original = $(this).html();
-        var date = moment(original);
-        var now = moment();
-        var duration = moment.duration(now - date);
-
-        var prefix = '';
-        var suffix = '';
-        if (now.diff(date) < 0) {
-            prefix = 'in ';
-        } else {
-            suffix = ' ago';
-        }
-
-        $(this).html(prefix + duration.humanize() + suffix);
-        $(this).attr('title', original);
-    });
-
-    // this should be set before
-    var dateFormat = "DD MMM YYYY";
-
-    $(".date-to-format").each(function() {
-        var original = $(this).html();
-        var date = moment(original);
-
-        $(this).html(date.format(dateFormat));
-        $(this).attr('title', original);
-    });
-
-    /**
      * Deleting a member
      */
 
@@ -298,26 +264,6 @@ $(function(){
     });
 
     /**
-     * Date picker
-     */
-
-    var datePickerOptions = {
-        weekStart: 1,
-        autoclose : true,
-        format: "yyyy-mm-dd"
-    };
-
-    $('.input-group.date').datepicker(datePickerOptions);
-
-    $(document).on('focus',"#fee-from", function(){
-        $(this).datepicker(datePickerOptions).on('changeDate', function() {
-            var date = moment($(this).val());
-            date.add(1, 'years');
-            $('#fee-to').val(date.format("YYYY-MM-DD"));
-        });
-    });
-
-    /**
      * Member's photo upload
      */
 
@@ -338,24 +284,6 @@ $(function(){
                 $("#img-preview-photo").css("background-image", "url("+this.result+")");
             }
         }
-    });
-
-    /**
-     * WYSIWYG editor for meeting's details
-     */
-
-    $('#txt-meeting-details').wysihtml5({
-        toolbar: {
-            "font-styles": false,
-            "emphasis": true,
-            "lists": true,
-            "html": false,
-            "link": true,
-            "image": false,
-            "color": false,
-            "blockquote": false
-        }
-
     });
 
     /**
