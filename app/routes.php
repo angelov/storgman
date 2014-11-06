@@ -151,10 +151,10 @@ Route::group(['prefix' => 'fees', 'before' => 'auth|boardMember'], function () {
 /**
  * Meetings management
  *
- * @todo Some routes should be allowed only to board members
+ * @todo Regular members should be able to view limited details
  */
 
-Route::group(['prefix' => 'meetings', 'before' => 'auth'], function () {
+Route::group(['prefix' => 'meetings', 'before' => 'auth|boardMember'], function () {
 
     Route::get('/',          ['as' => 'meetings.index',   'uses' => 'MeetingsController@index']);
     Route::get('/create',    ['as' => 'meetings.create',  'uses' => 'MeetingsController@create']);
