@@ -17,6 +17,29 @@ The application is not production ready yet!
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/build.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/build-status/master)
 
+### Roadmap
+
+##### Version 1 
+I'm a student and I work full time on some other stuff, so, unfortunately, I can't provide the full attention this project needs. Because of that, I can't tell a concrete release date of the application. However, the first version is almost finished and only some smaller pieces are missing for it to be completed.
+
+Here is a list of some planned things that still need to be finished:
+* Editing meeting reports
+* The results from some dabatabase queries can be cached
+* Sending emails to the members when some events occur (eg. their account is approved)
+* Members should be able to edit their profiles
+* The configuration files can be cleaned from some unnecessary stuff
+* Provide option to store the static files (like members' photos) on AWS (or something similar)
+
+I also plan to upgrade this application to use Laravel 5 Framework (scheduled to be released in late november/early december) before releasing the first version.
+
+##### Version 2
+
+Here's a list of some features planned to be included in the second version:
+
+* Option for the members to connect their accounts with their other accounts on some social networks (eg. to be able to login using their Facebook accounts)
+* Office space reservations - Members can check if the office space is available and request to use it for some meeting or something similar.
+* ....
+
 ### Requirements
 
 * PHP >= 5.4
