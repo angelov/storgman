@@ -4,11 +4,11 @@
     "keywords": ["eestec", "organization"],
     "require": {
         "php": ">=5.4.0",
-        "laravel/framework": "4.2.*",
+        "laravel/framework": "5.0.*@dev",
         "twig/twig": "1.16.*@dev",
-        "barryvdh/laravel-twigbridge": "dev-master",
+        "rcrowe/twigbridge": "0.6.*",
         "ext-gd": "*",
-        "way/generators": "2.*",
+        "way/generators": "~3.0",
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*",
         "nesbot/carbon": "1.*"
@@ -47,5 +47,5 @@
     "config": {
         "preferred-install": "dist"
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }

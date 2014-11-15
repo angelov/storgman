@@ -113,7 +113,7 @@ return array(
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
         'Illuminate\Workbench\WorkbenchServiceProvider',
-        'Barryvdh\TwigBridge\ServiceProvider',
+        'TwigBridge\ServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Angelov\Eestec\Platform\Eventing\EventingServiceProvider'
