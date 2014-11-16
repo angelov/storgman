@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace App\Http\Controllers;
+namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\DateTime as Date;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;

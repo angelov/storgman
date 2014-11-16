@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace App\Console;
+namespace Angelov\Eestec\Platform\Console;
 
 use Exception;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;

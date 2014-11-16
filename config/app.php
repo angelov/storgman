@@ -105,9 +105,9 @@ return array(
         /*
 		 * Application Service Providers...
 		 */
-        'App\Providers\AppServiceProvider',
-        'App\Providers\EventServiceProvider',
-        'App\Providers\RouteServiceProvider',
+        'Angelov\Eestec\Platform\Providers\AppServiceProvider',
+        'Angelov\Eestec\Platform\Providers\EventServiceProvider',
+        'Angelov\Eestec\Platform\Providers\RouteServiceProvider',
         //'Angelov\Eestec\Platform\Eventing\EventingServiceProvider',
 
         /*

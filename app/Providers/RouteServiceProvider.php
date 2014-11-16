@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace App\Providers;
+namespace Angelov\Eestec\Platform\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -39,9 +39,9 @@ class RouteServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $middleware = [
-        'auth' => 'App\Http\Middleware\Authenticate',
+        'auth' => 'Angelov\Eestec\Platform\Http\Middleware\Authenticate',
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
+        'guest' => 'Angelov\Eestec\Platform\Http\Middleware\RedirectIfAuthenticated',
     ];
 
     /**
@@ -55,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider {
      */
     public function before(Router $router, UrlGenerator $url)
     {
-        $url->setRootControllerNamespace('App\Http\Controllers');
+        $url->setRootControllerNamespace('Angelov\Eestec\Platform\Http\Controllers');
     }
 
     /**
@@ -66,7 +66,7 @@ class RouteServiceProvider extends ServiceProvider {
      */
     public function map(Router $router)
     {
-        $router->group(['namespace' => 'App\Http\Controllers'], function($router)
+        $router->group(['namespace' => 'Angelov\Eestec\Platform\Http\Controllers'], function($router)
         {
             require app_path('Http/routes.php');
         });
