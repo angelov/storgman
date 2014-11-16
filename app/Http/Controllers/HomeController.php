@@ -28,6 +28,7 @@
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\DateTime as Date;
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Service\MembersStatisticsService;
@@ -49,10 +50,9 @@ class HomeController extends BaseController
         $this->membersStats = $membersStats;
     }
 
-    public function showHomepage()
+    public function showHomepage(Member $logged)
     {
         $today = new Date();
-        $logged = Auth::user();
 
         $boardMember = $logged->isBoardMember();
 
