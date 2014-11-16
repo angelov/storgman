@@ -11,7 +11,7 @@ Thumbs.db
 /public/static/assets/build/
 /public/static/photos/
 node_modules/
-bootstrap/environment.php
+*.env
 app/config/development/
 app/config/testing/
 app/storage/photos/
