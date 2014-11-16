@@ -42,6 +42,8 @@ class RouteServiceProvider extends ServiceProvider {
         'auth' => 'Angelov\Eestec\Platform\Http\Middleware\Authenticate',
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
         'guest' => 'Angelov\Eestec\Platform\Http\Middleware\RedirectIfAuthenticated',
+        'boardMember' => 'Angelov\Eestec\Platform\Http\Middleware\BoardMembersOnlyMiddleware',
+        'ajax' => 'Angelov\Eestec\Platform\Http\Middleware\AjaxOnlyMiddleware',
     ];
 
     /**
