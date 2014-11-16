@@ -29,10 +29,10 @@ namespace Angelov\Eestec\Platform\Entity;
 
 use Angelov\Eestec\Platform\DateTime;
 use Carbon\Carbon;
-use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableInterface;
-use Illuminate\Auth\UserTrait;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableInterface;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -64,9 +64,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Database\Eloquent\Collection $meetingsAttended
  * @property \Illuminate\Database\Eloquent\Collection $meetingsCreated
  */
-class Member extends Model implements UserInterface, RemindableInterface
+class Member extends Model implements AuthenticatableInterface, CanResetPasswordInterface
 {
-    use UserTrait, RemindableTrait;
+    use Authenticatable, CanResetPassword;
 
     protected $membershipStatus = null;
     protected $membershipExpirationDate = null;
