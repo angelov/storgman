@@ -21,14 +21,11 @@
     },
     "autoload": {
         "classmap": [
-            "app/commands",
-            "app/controllers",
-            "app/database/migrations",
-            "app/database/seeds",
-            "app/tests/TestCase.php"
+            "database",
+            "tests/TestCase.php"
         ],
         "psr-4": {
-            "Angelov\\Eestec\\Platform\\": "app/platform"
+            "App\\": "app/"
         }
     },
     "scripts": {
