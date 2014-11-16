@@ -56,6 +56,4 @@ $status = $app->make('Illuminate\Contracts\Console\Kernel')->handle(
 |
 */
 
-$app->shutdown();
-
 exit($status);
