@@ -12,7 +12,7 @@ Thumbs.db
 /public/static/photos/
 node_modules/
 *.env
-app/config/development/
-app/config/testing/
-app/storage/photos/
-app/storage/views/
+config/development/
+config/testing/
+storage/photos/
+storage/views/

@@ -35,7 +35,7 @@ Route::pattern('id', '[0-9]+');
  * Dashboard
  */
 
-Route::get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage', 'before' => 'auth']);
+Route::get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage', 'middleware' => 'auth']);
 
 /**
  * Authentication
@@ -46,17 +46,17 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('/',
         ['as' => 'auth',
          'uses' => 'AuthController@index',
-         'before' => 'guest']
+         'middleware' => 'guest']
     );
     Route::post('/',
         ['as' => 'postAuth',
          'uses' => 'AuthController@login',
-         'before' => 'guest']
+         'middleware' => 'guest']
     );
     Route::get('/logout',
         ['as' => 'logout',
          'uses' => 'AuthController@logout',
-         'before' => 'auth']
+         'middleware' => 'auth']
     );
 
 });
@@ -67,7 +67,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'members'], function () {
 
-    Route::group(['before' => 'guest'], function() {
+    Route::group(['middleware' => 'guest'], function() {
         Route::get('/register',
             ['as' => 'members.register',
              'uses' => 'MembersController@register']
@@ -78,7 +78,7 @@ Route::group(['prefix' => 'members'], function () {
         );
     });
 
-    Route::group(['before' => 'auth|boardMember'], function() {
+    Route::group(['middleware' => 'auth|boardMember'], function() {
         Route::get('/',          ['as' => 'members.index',  'uses' => 'MembersController@index']);
         Route::get('/create',    ['as' => 'members.create', 'uses' => 'MembersController@create']);
         Route::post('/',         ['as' => 'members.store',  'uses' => 'MembersController@store']);
@@ -88,28 +88,28 @@ Route::group(['prefix' => 'members'], function () {
         Route::delete('/{id}',
             ['as' => 'members.destroy',
              'uses' => 'MembersController@destroy',
-             'before' => 'ajax']
+             'middleware' => 'ajax']
         );
         Route::get('/prefetch',
             ['as' => 'members.prefetch',
              'uses' => 'MembersController@prefetch',
-             'before' => 'ajax']
+             'middleware' => 'ajax']
         );
         Route::get('/board',     ['as' => 'members.board',  'uses' => 'MembersController@board']);
         Route::get('/{id}/quick-info',
             ['as' => 'members.quick',
              'uses' => 'MembersController@quickMemberInfo',
-             'before' => 'ajax']
+             'middleware' => 'ajax']
         );
         Route::post('/{id}/approve',
             ['as' => 'members.approve',
              'uses' => 'MembersController@approve',
-             'before' => 'ajax']
+             'middleware' => 'ajax']
         );
         Route::post('/{id}/decline',
             ['as' => 'members.decline',
              'uses' => 'MembersController@decline',
-             'before' => 'ajax']
+             'middleware' => 'ajax']
         );
         Route::get('/unapproved', ['as' => 'members.unapproved',  'uses' => 'MembersController@unapproved']);
     });
@@ -120,7 +120,7 @@ Route::group(['prefix' => 'members'], function () {
  * Membership fees management
  */
 
-Route::group(['prefix' => 'fees', 'before' => 'auth|boardMember'], function () {
+Route::group(['prefix' => 'fees', 'middleware' => 'auth|boardMember'], function () {
 
     Route::get('/',
         ['as' => 'fees.index',
@@ -133,17 +133,17 @@ Route::group(['prefix' => 'fees', 'before' => 'auth|boardMember'], function () {
     Route::get('/create',
         ['as' => 'fees.create',
          'uses' => 'FeesController@create',
-         'before' => 'ajax']
+         'middleware' => 'ajax']
     );
     Route::post('/',
         ['as' => 'fees.store',
          'uses' => 'FeesController@store',
-         'before' => 'ajax']
+         'middleware' => 'ajax']
     );
     Route::delete('/{id}',
         ['as' => 'fees.destroy',
          'uses' => 'FeesController@destroy',
-         'before' => 'ajax']
+         'middleware' => 'ajax']
     );
 
 });
@@ -154,7 +154,7 @@ Route::group(['prefix' => 'fees', 'before' => 'auth|boardMember'], function () {
  * @todo Regular members should be able to view limited details
  */
 
-Route::group(['prefix' => 'meetings', 'before' => 'auth|boardMember'], function () {
+Route::group(['prefix' => 'meetings', 'middleware' => 'auth|boardMember'], function () {
 
     Route::get('/',          ['as' => 'meetings.index',   'uses' => 'MeetingsController@index']);
     Route::get('/create',    ['as' => 'meetings.create',  'uses' => 'MeetingsController@create']);
