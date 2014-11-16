@@ -108,6 +108,8 @@ return array(
         'Angelov\Eestec\Platform\Providers\AppServiceProvider',
         'Angelov\Eestec\Platform\Providers\EventServiceProvider',
         'Angelov\Eestec\Platform\Providers\RouteServiceProvider',
+        'Angelov\Eestec\Platform\Providers\RepositoriesServiceProvider',
+        'Angelov\Eestec\Platform\Providers\ServicesServiceProvider',
         //'Angelov\Eestec\Platform\Eventing\EventingServiceProvider',
 
         /*
