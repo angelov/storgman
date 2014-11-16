@@ -16,6 +16,7 @@ return array(
     */
 
     'driver' => 'file',
+
     /*
     |--------------------------------------------------------------------------
     | File Cache Location
@@ -27,7 +28,8 @@ return array(
     |
     */
 
-    'path' => storage_path() . '/cache',
+    'path' => storage_path().'/framework/cache',
+
     /*
     |--------------------------------------------------------------------------
     | Database Cache Connection
@@ -40,6 +42,7 @@ return array(
     */
 
     'connection' => null,
+
     /*
     |--------------------------------------------------------------------------
     | Database Cache Table
@@ -52,6 +55,7 @@ return array(
     */
 
     'table' => 'cache',
+
     /*
     |--------------------------------------------------------------------------
     | Memcached Servers
@@ -68,6 +72,7 @@ return array(
         array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 100),
 
     ),
+
     /*
     |--------------------------------------------------------------------------
     | Cache Key Prefix
