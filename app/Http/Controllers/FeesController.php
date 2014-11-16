@@ -37,6 +37,7 @@ use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Entity\Fee;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
+use View;
 
 class FeesController extends BaseController
 {

@@ -31,6 +31,7 @@ use Angelov\Eestec\Platform\Service\MembershipService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Validation\LoginCredentialsValidator;
+use View;
 
 class AuthController extends BaseController
 {

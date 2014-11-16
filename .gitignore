@@ -15,3 +15,4 @@ node_modules/
 app/config/development/
 app/config/testing/
 app/storage/photos/
+app/storage/views/

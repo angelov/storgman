@@ -32,6 +32,7 @@ use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Service\MembersStatisticsService;
+use View;
 
 class HomeController extends BaseController
 {
@@ -65,7 +66,7 @@ class HomeController extends BaseController
         $perMonth['months'] = json_encode($perMonthAll->getMonthsTitles());
         $perMonth['values'] = json_encode($perMonthAll->getMonthsValues());
 
-        return View::make(
+        return \View::make(
             'homepage.index',
             compact('withBirthday', 'attendance', 'byMembershipStatus',
                     'perFaculty', 'perMonth', 'boardMember')

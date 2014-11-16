@@ -40,6 +40,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Validation\MembersValidator;
+use View;
 
 class MembersController extends BaseController
 {
