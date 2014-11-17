@@ -33,6 +33,7 @@ use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Service\MembersStatisticsService;
 use View;
+use Auth;
 
 class HomeController extends BaseController
 {
@@ -40,6 +41,7 @@ class HomeController extends BaseController
     protected $members;
     protected $meetings;
     protected $membersStats;
+    protected $authenticator;
 
     public function __construct(
         MembersRepositoryInterface $members,
@@ -51,10 +53,10 @@ class HomeController extends BaseController
         $this->membersStats = $membersStats;
     }
 
-    public function showHomepage(Member $logged)
+    public function showHomepage()
     {
         $today = new Date();
-
+        $logged = Auth::user();
         $boardMember = $logged->isBoardMember();
 
         $withBirthday = $this->members->getByBirthdayDate($today);

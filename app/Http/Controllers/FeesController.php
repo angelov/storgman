@@ -38,6 +38,7 @@ use Angelov\Eestec\Platform\Entity\Fee;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use View;
+use App;
 
 class FeesController extends BaseController
 {

@@ -36,6 +36,9 @@ use Illuminate\Http\Request;
 use Angelov\Eestec\Platform\Entity\Meeting;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
+use Auth;
+use Redirect;
+use Session;
 use View;
 
 class MeetingsController extends BaseController

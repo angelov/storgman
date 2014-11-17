@@ -40,12 +40,14 @@ class ServicesServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->container->bind('MembershipService', function () {
-            return App::make('Angelov\Eestec\Platform\Service\MembershipService');
+        $container = $this->container;
+
+        $this->container->bind('MembershipService', function () use ($container) {
+            return $container->make('Angelov\Eestec\Platform\Service\MembershipService');
         });
 
-        $this->container->bind('MeetingsService', function () {
-            return App::make('Angelov\Eestec\Platform\Service\MeetingsService');
+        $this->container->bind('MeetingsService', function () use ($container) {
+            return $container->make('Angelov\Eestec\Platform\Service\MeetingsService');
         });
     }
 }
