@@ -7,6 +7,7 @@
     <div class="col-md-12">
 
         <form role="form" method="post" action="{{ route('meetings.store') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
             {% if Session.has('errorMessages') %}
                 <div class="alert alert-danger">

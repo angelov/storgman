@@ -8,6 +8,7 @@
 
         <form role="form" action="{{ route('members.update', member.id) }}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
             {% if Session.has('errorMessages') %}
                 <div class="alert alert-danger">

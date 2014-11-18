@@ -9,6 +9,7 @@
             <div class="col-md-12">
                 <legend>Create new paid fee:</legend>
                 <form class="form-horizontal" role="form">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="form-group" style="margin-bottom: 0;"">
                         <label for="quick-member-search-for-fee" class="col-md-4 control-label">Choose a member:</label>
                         <div class="input-group col-md-7">
