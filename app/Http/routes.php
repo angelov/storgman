@@ -78,7 +78,7 @@ Route::group(['prefix' => 'members'], function () {
         );
     });
 
-    Route::group(['middleware' => 'auth|boardMember'], function() {
+    Route::group(['middleware' => ['auth', 'boardMember']], function() {
         Route::get('/',          ['as' => 'members.index',  'uses' => 'MembersController@index']);
         Route::get('/create',    ['as' => 'members.create', 'uses' => 'MembersController@create']);
         Route::post('/',         ['as' => 'members.store',  'uses' => 'MembersController@store']);
@@ -120,7 +120,7 @@ Route::group(['prefix' => 'members'], function () {
  * Membership fees management
  */
 
-Route::group(['prefix' => 'fees', 'middleware' => 'auth|boardMember'], function () {
+Route::group(['prefix' => 'fees', 'middleware' => ['auth', 'boardMember']], function () {
 
     Route::get('/',
         ['as' => 'fees.index',
@@ -154,7 +154,7 @@ Route::group(['prefix' => 'fees', 'middleware' => 'auth|boardMember'], function 
  * @todo Regular members should be able to view limited details
  */
 
-Route::group(['prefix' => 'meetings', 'middleware' => 'auth|boardMember'], function () {
+Route::group(['prefix' => 'meetings', ['auth', 'boardMember']], function () {
 
     Route::get('/',          ['as' => 'meetings.index',   'uses' => 'MeetingsController@index']);
     Route::get('/create',    ['as' => 'meetings.create',  'uses' => 'MeetingsController@create']);

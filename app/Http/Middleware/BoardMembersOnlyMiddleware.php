@@ -2,15 +2,16 @@
 
 use Angelov\Eestec\Platform\Entity\Member;
 use Closure;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Routing\Middleware;
 
 class BoardMembersOnlyMiddleware implements Middleware
 {
-    protected $member;
+    protected $guard;
 
-    public function __construct(Member $member)
+    public function __construct(Guard $auth)
     {
-        $this->member = $member;
+        $this->guard = $auth;
     }
 
 	/**
@@ -22,9 +23,14 @@ class BoardMembersOnlyMiddleware implements Middleware
 	 */
 	public function handle($request, Closure $next)
 	{
-        if (!$this->member->isBoardMember()) {
+        /** @var Member $member */
+        $member = $this->guard->user();
+
+        if (!$member->isBoardMember()) {
             return \Redirect::to('/');
         }
+
+        return $next($request);
 	}
 
 }

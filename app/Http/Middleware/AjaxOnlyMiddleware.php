@@ -19,6 +19,8 @@ class AjaxOnlyMiddleware implements Middleware
         if (!$request->ajax()) {
             throw new NotAllowedException();
         }
+
+        return $next($request);
 	}
 
 }
