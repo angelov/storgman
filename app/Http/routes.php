@@ -25,35 +25,39 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Illuminate\Routing\Router;
+
+/** @var Router $router */
+
 /**
  * Global patterns
  */
 
-Route::pattern('id', '[0-9]+');
+$router->pattern('id', '[0-9]+');
 
 /**
  * Dashboard
  */
 
-Route::get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage', 'middleware' => 'auth']);
+$router->get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage', 'middleware' => 'auth']);
 
 /**
  * Authentication
  */
 
-Route::group(['prefix' => 'auth'], function () {
+$router->group(['prefix' => 'auth'], function (Router $router) {
 
-    Route::get('/',
+    $router->get('/',
         ['as' => 'auth',
          'uses' => 'AuthController@index',
          'middleware' => 'guest']
     );
-    Route::post('/',
+    $router->post('/',
         ['as' => 'postAuth',
          'uses' => 'AuthController@login',
          'middleware' => 'guest']
     );
-    Route::get('/logout',
+    $router->get('/logout',
         ['as' => 'logout',
          'uses' => 'AuthController@logout',
          'middleware' => 'auth']
@@ -65,53 +69,53 @@ Route::group(['prefix' => 'auth'], function () {
  * Members management
  */
 
-Route::group(['prefix' => 'members'], function () {
+$router->group(['prefix' => 'members'], function (Router $router) {
 
-    Route::group(['middleware' => 'guest'], function() {
-        Route::get('/register',
+    $router->group(['middleware' => 'guest'], function(Router $router) {
+        $router->get('/register',
             ['as' => 'members.register',
              'uses' => 'MembersController@register']
         );
-        Route::post('/register',
+        $router->post('/register',
             ['as' => 'members.postRegister',
              'uses' => 'MembersController@postRegister']
         );
     });
 
-    Route::group(['middleware' => ['auth', 'boardMember']], function() {
-        Route::get('/',          ['as' => 'members.index',  'uses' => 'MembersController@index']);
-        Route::get('/create',    ['as' => 'members.create', 'uses' => 'MembersController@create']);
-        Route::post('/',         ['as' => 'members.store',  'uses' => 'MembersController@store']);
-        Route::get('/{id}',      ['as' => 'members.show',   'uses' => 'MembersController@show']);
-        Route::get('/{id}/edit', ['as' => 'members.edit',   'uses' => 'MembersController@edit']);
-        Route::put('/{id}',      ['as' => 'members.update', 'uses' => 'MembersController@update']);
-        Route::delete('/{id}',
+    $router->group(['middleware' => ['auth', 'boardMember']], function(Router $router) {
+        $router->get('/',          ['as' => 'members.index',  'uses' => 'MembersController@index']);
+        $router->get('/create',    ['as' => 'members.create', 'uses' => 'MembersController@create']);
+        $router->post('/',         ['as' => 'members.store',  'uses' => 'MembersController@store']);
+        $router->get('/{id}',      ['as' => 'members.show',   'uses' => 'MembersController@show']);
+        $router->get('/{id}/edit', ['as' => 'members.edit',   'uses' => 'MembersController@edit']);
+        $router->put('/{id}',      ['as' => 'members.update', 'uses' => 'MembersController@update']);
+        $router->delete('/{id}',
             ['as' => 'members.destroy',
              'uses' => 'MembersController@destroy',
              'middleware' => 'ajax']
         );
-        Route::get('/prefetch',
+        $router->get('/prefetch',
             ['as' => 'members.prefetch',
              'uses' => 'MembersController@prefetch',
              'middleware' => 'ajax']
         );
-        Route::get('/board',     ['as' => 'members.board',  'uses' => 'MembersController@board']);
-        Route::get('/{id}/quick-info',
+        $router->get('/board',     ['as' => 'members.board',  'uses' => 'MembersController@board']);
+        $router->get('/{id}/quick-info',
             ['as' => 'members.quick',
              'uses' => 'MembersController@quickMemberInfo',
              'middleware' => 'ajax']
         );
-        Route::post('/{id}/approve',
+        $router->post('/{id}/approve',
             ['as' => 'members.approve',
              'uses' => 'MembersController@approve',
              'middleware' => 'ajax']
         );
-        Route::post('/{id}/decline',
+        $router->post('/{id}/decline',
             ['as' => 'members.decline',
              'uses' => 'MembersController@decline',
              'middleware' => 'ajax']
         );
-        Route::get('/unapproved', ['as' => 'members.unapproved',  'uses' => 'MembersController@unapproved']);
+        $router->get('/unapproved', ['as' => 'members.unapproved',  'uses' => 'MembersController@unapproved']);
     });
 
 });
@@ -120,27 +124,27 @@ Route::group(['prefix' => 'members'], function () {
  * Membership fees management
  */
 
-Route::group(['prefix' => 'fees', 'middleware' => ['auth', 'boardMember']], function () {
+$router->group(['prefix' => 'fees', 'middleware' => ['auth', 'boardMember']], function (Router $router) {
 
-    Route::get('/',
+    $router->get('/',
         ['as' => 'fees.index',
          'uses' => 'FeesController@index']
     );
-    Route::get('/archive',
+    $router->get('/archive',
         ['as' => 'fees.archive',
          'uses' => 'FeesController@archive']
     );
-    Route::get('/create',
+    $router->get('/create',
         ['as' => 'fees.create',
          'uses' => 'FeesController@create',
          'middleware' => 'ajax']
     );
-    Route::post('/',
+    $router->post('/',
         ['as' => 'fees.store',
          'uses' => 'FeesController@store',
          'middleware' => 'ajax']
     );
-    Route::delete('/{id}',
+    $router->delete('/{id}',
         ['as' => 'fees.destroy',
          'uses' => 'FeesController@destroy',
          'middleware' => 'ajax']
@@ -154,14 +158,14 @@ Route::group(['prefix' => 'fees', 'middleware' => ['auth', 'boardMember']], func
  * @todo Regular members should be able to view limited details
  */
 
-Route::group(['prefix' => 'meetings', ['auth', 'boardMember']], function () {
+$router->group(['prefix' => 'meetings', ['auth', 'boardMember']], function (Router $router) {
 
-    Route::get('/',          ['as' => 'meetings.index',   'uses' => 'MeetingsController@index']);
-    Route::get('/create',    ['as' => 'meetings.create',  'uses' => 'MeetingsController@create']);
-    Route::post('/',         ['as' => 'meetings.store',   'uses' => 'MeetingsController@store']);
-    Route::get('/{id}',      ['as' => 'meetings.show',    'uses' => 'MeetingsController@show']);
-    Route::get('/{id}/edit', ['as' => 'meetings.edit',    'uses' => 'MeetingsController@edit']);
-    Route::put('/{id}',      ['as' => 'meetings.update',  'uses' => 'MeetingsController@update']);
-    Route::delete('/{id}',   ['as' => 'meetings.destroy', 'uses' => 'MeetingsController@destroy']);
+    $router->get('/',          ['as' => 'meetings.index',   'uses' => 'MeetingsController@index']);
+    $router->get('/create',    ['as' => 'meetings.create',  'uses' => 'MeetingsController@create']);
+    $router->post('/',         ['as' => 'meetings.store',   'uses' => 'MeetingsController@store']);
+    $router->get('/{id}',      ['as' => 'meetings.show',    'uses' => 'MeetingsController@show']);
+    $router->get('/{id}/edit', ['as' => 'meetings.edit',    'uses' => 'MeetingsController@edit']);
+    $router->put('/{id}',      ['as' => 'meetings.update',  'uses' => 'MeetingsController@update']);
+    $router->delete('/{id}',   ['as' => 'meetings.destroy', 'uses' => 'MeetingsController@destroy']);
 
 });
