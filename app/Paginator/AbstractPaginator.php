@@ -27,17 +27,25 @@
 
 namespace Angelov\Eestec\Platform\Paginator;
 
+use Angelov\Eestec\Platform\Repository\RepositoryInterface;
+
 abstract class AbstractPaginator
 {
+    /** @var Factory $paginator */
     protected $paginator;
+
+    /** @var RepositoryInterface */
     protected $repository;
+
     protected $itemsPerPage = 15;
     protected $totalItems = 0;
 
     public function get($page, $with = [])
     {
         $data = $this->repository->getByPage($page, $this->itemsPerPage, $with);
-        $paginated = $this->paginator->make($data->items, $data->totalItems, $this->itemsPerPage);
+        $paginator = $this->paginator;
+        $paginated = $paginator::make($data->items, $data->totalItems, $this->itemsPerPage);
+
         $this->totalItems = $data->totalItems;
 
         return $paginated;

@@ -28,7 +28,6 @@
 namespace Angelov\Eestec\Platform\Paginator;
 
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
-use Illuminate\Pagination\Factory;
 
 class MembersPaginator extends AbstractPaginator
 {

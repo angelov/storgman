@@ -27,13 +27,19 @@
 
 namespace Angelov\Eestec\Platform\Paginator;
 
-use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
-class MeetingsPaginator extends AbstractPaginator
+class Factory
 {
-    public function __construct(Factory $paginator, MeetingsRepositoryInterface $meetings)
-    {
-        $this->paginator = $paginator;
-        $this->repository = $meetings;
+    public static function make(array $items, $totalItems, $itemsPerPage) {
+
+        $page = Paginator::resolveCurrentPage();
+
+        return new LengthAwarePaginator($items, $totalItems, $itemsPerPage, $page, [
+            'path' => Paginator::resolveCurrentPath()
+        ]);
     }
+
 }
+ 
