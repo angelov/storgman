@@ -29,12 +29,16 @@ $(function(){
         var confirmed = confirm('Are you sure?');
         var btn = $(this);
         var member = btn.data('member');
+        var token = $("#csrf-token").val();
 
         if (confirmed) {
 
             $.ajax({
                 type: 'delete',
                 url: btn.attr('href'),
+                data: {
+                    '_token': token
+                },
                 dataType: "json",
                 success:function(data){
 
@@ -63,11 +67,15 @@ $(function(){
     $(document).on('click', '.btn-approve-member', function() {
         var btn = $(this);
         var member = btn.data('member');
+        var token = $("#csrf-token").val();
+
+        console.log(token);
 
         $.ajax({
             type: 'post',
             url: btn.attr('href'),
             dataType: "json",
+            data: { _token: token },
             success:function(data){
 
                 $("#action-message").html(data.message);
@@ -93,11 +101,13 @@ $(function(){
     $(document).on('click', '.btn-decline-member', function() {
         var btn = $(this);
         var member = btn.data('member');
+        var token = $("#csrf-token").val();
 
         $.ajax({
             type: 'post',
             url: btn.attr('href'),
             dataType: "json",
+            data: { _token: token },
             success:function(data){
 
                 $("#action-message").html(data.message);
@@ -182,7 +192,6 @@ $(function(){
             url: btn.attr('href'),
             success:function(data){
                 $("#modal-renew-membership").html(data);
-                console.log(btn.attr('href'));
                 $('#renew-status').hide();
             }
         });
@@ -199,6 +208,7 @@ $(function(){
     $(document).on('click', '#btn-proceed-fee', function() {
         var btn = $(this);
         console.log("clicked");
+        var token = $("#csrf-token").val();
 
         $.ajax({
             type: 'post',
@@ -206,7 +216,8 @@ $(function(){
             data: {
                 'from': $('#fee-from').val(),
                 'to': $('#fee-to').val(),
-                'member_id': $('#fee-member-id').val()
+                'member_id': $('#fee-member-id').val(),
+                '_token': token
             },
             dataType: "json",
             success:function(data){
@@ -237,6 +248,7 @@ $(function(){
         var confirmed = confirm('Are you sure?');
         var btn = $(this);
         var fee = btn.data('fee');
+        var token = $("#csrf-token").val();
 
         if (confirmed) {
 
@@ -244,6 +256,9 @@ $(function(){
                 type: 'delete',
                 url: btn.attr('href'),
                 dataType: "json",
+                data: {
+                    '_token': token
+                },
                 success:function(data){
 
                     $("#action-message").html(data.message);
@@ -269,8 +284,6 @@ $(function(){
 
     $("#member-photo").on("change", function()
     {
-        console.log("changed.");
-
         var files = !!this.files ? this.files : [];
         if (!files.length || !window.FileReader) { // no file selected, or no FileReader support
             return;
@@ -378,6 +391,7 @@ $(function(){
         var confirmed = confirm('Are you sure?');
         var btn = $(this);
         var member = btn.data('meeting');
+        var token = $("#csrf-token").val();
 
         if (confirmed) {
 
@@ -385,6 +399,9 @@ $(function(){
                 type: 'delete',
                 url: btn.attr('href'),
                 dataType: "json",
+                data: {
+                    '_token': token
+                },
                 success:function(data){
 
                     $("#action-message").html(data.message);

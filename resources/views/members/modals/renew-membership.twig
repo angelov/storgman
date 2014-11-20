@@ -23,6 +23,7 @@
             <legend>Add new paid membership fee:</legend>
 
             <input type="hidden" id="fee-member-id" value="{{ member.id }}">
+            <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
 
             <div class="row">
                 <div class="col-md-6">
