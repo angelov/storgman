@@ -49,6 +49,10 @@ class ServicesServiceProvider extends ServiceProvider
         $this->container->bind('MeetingsService', function () use ($container) {
             return $container->make('Angelov\Eestec\Platform\Service\MeetingsService');
         });
+
+        $this->container->bind('MembersPopulator', function () use ($container) {
+            return $container->make('Angelov\Eestec\Platform\Populator\MembersPopulator');
+        });
     }
 }
  
