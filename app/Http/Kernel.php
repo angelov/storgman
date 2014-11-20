@@ -1,6 +1,5 @@
 <?php namespace Angelov\Eestec\Platform\Http;
 
-use Exception;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel {
@@ -19,24 +18,17 @@ class Kernel extends HttpKernel {
 		'Illuminate\Foundation\Http\Middleware\VerifyCsrfToken',
 	];
 
-	/**
-	 * Handle an incoming HTTP request.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function handle($request)
-	{
-		try
-		{
-			return parent::handle($request);
-		}
-		catch (Exception $e)
-		{
-			$this->reportException($e);
-
-			return $this->renderException($request, $e);
-		}
-	}
+    /**
+     * The application's route middleware.
+     *
+     * @var array
+     */
+    protected $routeMiddleware = [
+        'auth' => 'Angelov\Eestec\Platform\Http\Middleware\Authenticate',
+        'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+        'guest' => 'Angelov\Eestec\Platform\Http\Middleware\RedirectIfAuthenticated',
+        'boardMember' => 'Angelov\Eestec\Platform\Http\Middleware\BoardMembersOnlyMiddleware',
+        'ajax' => 'Angelov\Eestec\Platform\Http\Middleware\AjaxOnlyMiddleware',
+    ];
 
 }

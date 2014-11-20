@@ -25,44 +25,36 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Providers;
+namespace Angelov\Eestec\Platform\Exceptions;
 
-use Illuminate\Routing\Router;
-use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Exception;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-class RouteServiceProvider extends ServiceProvider {
-
-    /**
-     * This namespace is applied to the controller routes in your routes file.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $namespace = 'Angelov\Eestec\Platform\Http\Controllers';
+class Handler extends ExceptionHandler {
 
     /**
-     * Define your route model bindings, pattern filters, etc.
+     * Report or log an exception.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
+     *
+     * @param  \Exception  $e
      * @return void
      */
-    public function boot(Router $router)
+    public function report(Exception $e)
     {
-        parent::boot($router);
-
-        //
+        return parent::report($e);
     }
 
     /**
-     * Define the routes for the application.
+     * Render an exception into a response.
      *
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $e
+     * @return \Illuminate\Http\Response
      */
-    public function map()
+    public function render($request, Exception $e)
     {
-        $this->loadRoutesFrom(app_path('Http/routes.php'));
+        return parent::render($request, $e);
     }
 
 }

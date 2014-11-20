@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Console;
 
-use Exception;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel {
@@ -42,26 +42,15 @@ class Kernel extends ConsoleKernel {
     ];
 
     /**
-     * Run the console application.
+     * Define the application's command schedule.
      *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
-     * @return int
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @return void
      */
-    public function handle($input, $output = null)
+    protected function schedule(Schedule $schedule)
     {
-        try
-        {
-            return parent::handle($input, $output);
-        }
-        catch (Exception $e)
-        {
-            $this->reportException($e);
-
-            $this->renderException($output, $e);
-
-            return 1;
-        }
+//        $schedule->command('foo')
+//            ->hourly();
     }
 
 }
