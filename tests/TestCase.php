@@ -7,17 +7,17 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     use ModelHelpers;
 
     /**
-	 * Creates the application.
-	 *
-	 * @return \Symfony\Component\HttpKernel\HttpKernelInterface
-	 */
+     * Creates the application.
+     *
+     * @return \Illuminate\Foundation\Application
+     */
     public function createApplication()
     {
-        $unitTesting = true;
+        $app = require __DIR__.'/../bootstrap/app.php';
 
-        $testEnvironment = 'testing';
+        $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
-        return require __DIR__.'/../../bootstrap/start.php';
+        return $app;
     }
 
     public function tearDown()
