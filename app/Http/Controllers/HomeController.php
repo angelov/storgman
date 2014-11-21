@@ -27,23 +27,25 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\DateTime as Date;
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Service\MembersStatisticsService;
-use View;
-use Auth;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\View\Factory;
 
 class HomeController extends BaseController
 {
-
     protected $members;
     protected $meetings;
     protected $membersStats;
     protected $authenticator;
+    protected $view;
 
     public function __construct(
+        Guard $authenticator,
+        Factory $view,
         MembersRepositoryInterface $members,
         MeetingsRepositoryInterface $meetings,
         MembersStatisticsService $membersStats
@@ -51,12 +53,16 @@ class HomeController extends BaseController
         $this->members = $members;
         $this->meetings = $meetings;
         $this->membersStats = $membersStats;
+        $this->authenticator = $authenticator;
+        $this->view = $view;
     }
 
     public function showHomepage()
     {
-        $today = new Date();
-        $logged = Auth::user();
+        $today = new DateTime();
+
+        /** @var Member $logged */
+        $logged = $this->authenticator->user();
         $boardMember = $logged->isBoardMember();
 
         $withBirthday = $this->members->getByBirthdayDate($today);
@@ -68,7 +74,7 @@ class HomeController extends BaseController
         $perMonth['months'] = json_encode($perMonthAll->getMonthsTitles());
         $perMonth['values'] = json_encode($perMonthAll->getMonthsValues());
 
-        return \View::make(
+        return $this->view->make(
             'homepage.index',
             compact('withBirthday', 'attendance', 'byMembershipStatus',
                     'perFaculty', 'perMonth', 'boardMember')

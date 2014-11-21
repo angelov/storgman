@@ -27,26 +27,39 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
+use Angelov\Eestec\Platform\Entity\Member;
 use Angelov\Eestec\Platform\Service\MembershipService;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Validation\LoginCredentialsValidator;
-use App;
-use Auth;
-use Redirect;
-use Session;
-use View;
+use Illuminate\Routing\Redirector;
+use Illuminate\Session\Store;
 
 class AuthController extends BaseController
 {
-
     protected $request;
     protected $validator;
+    protected $view;
+    protected $session;
+    protected $authenticator;
+    protected $redirector;
 
-    public function __construct(Request $request, LoginCredentialsValidator $validator)
-    {
+    public function __construct(
+        Factory $view,
+        Store $session,
+        Request $request,
+        Guard $authenticator,
+        Redirector $redirector,
+        LoginCredentialsValidator $validator
+    ) {
         $this->request = $request;
         $this->validator = $validator;
+        $this->view = $view;
+        $this->session = $session;
+        $this->authenticator = $authenticator;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -56,52 +69,52 @@ class AuthController extends BaseController
      */
     public function index()
     {
-        return View::make('auth.index');
+        return $this->view->make('auth.index');
     }
 
     /**
      * Check the login data and authenticate the member.
      * Thanks to reddit.com/user/baileylo for the suggestions.
      *
+     * @param MembershipService $membershipService
      * @return Response
      */
-    public function login()
+    public function login(MembershipService $membershipService)
     {
 
         if (!$this->validator->validate($this->request->all())) {
-            Session::flash('auth-error', 'Please insert valid information.');
+            $this->session->flash('auth-error', 'Please insert valid information.');
 
-            return Redirect::back()->withInput();
+            return $this->redirector->back()->withInput();
         }
 
         $credentials = $this->request->only('email', 'password');
         $remember = ($this->request->get('remember') == 'yes');
 
-        if (!Auth::attempt($credentials, $remember)) {
-            Session::flash('auth-error', 'Wrong email or password.');
+        if (!$this->authenticator->attempt($credentials, $remember)) {
+            $this->session->flash('auth-error', 'Wrong email or password.');
 
-            return Redirect::back()->withInput();
+            return $this->redirector->back()->withInput();
         }
 
-        /** @var MembershipService $membershipService */
-        $membershipService = App::make('MembershipService');
-        $member = Auth::user();
+        /** @var Member $member */
+        $member = $this->authenticator->user();
 
         if (!$member->approved) {
-            Auth::logout();
-            Session::flash('auth-error', 'Your account is not approved yet.');
+            $this->authenticator->logout();
+            $this->session->flash('auth-error', 'Your account is not approved yet.');
 
-            return Redirect::back()->withInput();
+            return $this->redirector->back()->withInput();
         }
 
         if (!$membershipService->isMemberActive($member)) {
-            Auth::logout();
-            Session::flash('auth-error', 'Your membership needs to be reactivated. Have you paid the fees?');
+            $this->authenticator->logout();
+            $this->session->flash('auth-error', 'Your membership needs to be reactivated. Have you paid the fees?');
 
-            return Redirect::back();
+            return $this->redirector->back();
         }
 
-        return Redirect::to('/');
+        return $this->redirector->to('/');
 
     }
 
@@ -112,9 +125,9 @@ class AuthController extends BaseController
      */
     public function logout()
     {
-        Auth::logout();
+        $this->authenticator->logout();
 
-        return Redirect::to('/');
+        return $this->redirector->to('/');
     }
 
 }
