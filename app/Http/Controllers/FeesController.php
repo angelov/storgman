@@ -37,8 +37,7 @@ use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Entity\Fee;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
-use View;
-use App;
+use Illuminate\View\Factory;
 
 class FeesController extends BaseController
 {
@@ -48,9 +47,11 @@ class FeesController extends BaseController
     protected $validator;
     protected $paginator;
     protected $membership;
+    protected $view;
 
     public function __construct(
         Request $request,
+        Factory $view,
         FeesRepositoryInterface $fees,
         MembersRepositoryInterface $members,
         FeesValidator $validator,
@@ -63,6 +64,7 @@ class FeesController extends BaseController
         $this->validator = $validator;
         $this->paginator = $paginator;
         $this->membership = $membership;
+        $this->view = $view;
     }
 
     /**
@@ -76,7 +78,7 @@ class FeesController extends BaseController
         $toExpire = $this->fees->getSoonToExpire(5);
         $fees = json_encode($this->membership->getExpectedAndPaidFeesPerMonthLastYear());
 
-        return View::make('fees.index', compact('latest', 'toExpire', 'fees'));
+        return $this->view->make('fees.index', compact('latest', 'toExpire', 'fees'));
     }
 
     /**
@@ -89,22 +91,20 @@ class FeesController extends BaseController
         $page = $this->request->get('page', 1);
         $fees = $this->paginator->get($page, ['member']);
 
-        return View::make('fees.archive', compact('fees'));
+        return $this->view->make('fees.archive', compact('fees'));
     }
 
     /**
      * Show the form for creating a new fee.
      * Method available only via ajax.
      *
+     * @param MembershipService $membershipService
      * @return Response
      */
-    public function create()
+    public function create(MembershipService $membershipService)
     {
         $member_id = $this->request->get('member_id');
         $member = $this->members->get($member_id);
-
-        /** @var MembershipService $membershipService */
-        $membershipService = App::make('MembershipService');
 
         $exp = $membershipService->getExpirationDate($member);
 
@@ -131,7 +131,7 @@ class FeesController extends BaseController
         $fees = $this->fees->getFeesForMember($member);
 
         $response = new Response();
-        $data = View::make('members.modals.renew-membership', compact('member', 'suggestDates', 'fees'))->render();
+        $data = $this->view->make('members.modals.renew-membership', compact('member', 'suggestDates', 'fees'))->render();
         $response->setContent($data);
 
         return $response;

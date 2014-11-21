@@ -35,16 +35,16 @@ use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface;
 use Angelov\Eestec\Platform\Service\MeetingsService;
 use Angelov\Eestec\Platform\Service\MembershipService;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Validation\MembersValidator;
-use App;
-use Redirect;
-use Session;
-use View;
-use URL;
+use Illuminate\Routing\Redirector;
+use Illuminate\Session\Store;
 
 class MembersController extends BaseController
 {
@@ -53,9 +53,17 @@ class MembersController extends BaseController
     protected $validator;
     protected $paginator;
     protected $fees;
+    protected $view;
+    protected $authenticator;
+    protected $session;
+    protected $redirector;
 
     public function __construct(
         Request $request,
+        Factory $view,
+        Guard $authenticator,
+        Store $session,
+        Redirector $redirector,
         MembersRepositoryInterface $members,
         FeesRepositoryInterface $fees,
         MembersPaginator $paginator,
@@ -66,6 +74,10 @@ class MembersController extends BaseController
         $this->fees = $fees;
         $this->validator = $validator;
         $this->paginator = $paginator;
+        $this->view = $view;
+        $this->authenticator = $authenticator;
+        $this->session = $session;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -81,7 +93,7 @@ class MembersController extends BaseController
         /** @todo This can get a little optimized */
         $pending = count($this->members->getUnapprovedMembers());
 
-        return View::make('members.index', compact('members', 'pending'));
+        return $this->view->make('members.index', compact('members', 'pending'));
     }
 
     /**
@@ -89,7 +101,7 @@ class MembersController extends BaseController
      *
      * @return JsonResponse
      */
-    public function prefetch()
+    public function prefetch(UrlGenerator $url)
     {
         $members = $this->members->all();
         $result = [];
@@ -97,7 +109,7 @@ class MembersController extends BaseController
         foreach ($members as $member) {
             $tmp = [];
             $tmp['value'] = $member->full_name;
-            $tmp['image'] = URL::route('imagecache', ['xsmall', $member->photo]);
+            $tmp['image'] = $url->route('imagecache', ['xsmall', $member->photo]);
             $tmp['id'] = $member->id;
 
             $result[] = $tmp;
@@ -114,7 +126,7 @@ class MembersController extends BaseController
     public function board()
     {
         $members = $this->members->getBoardMembers();
-        return View::make('members.board', compact('members'));
+        return $this->view->make('members.board', compact('members'));
     }
 
     /**
@@ -125,7 +137,7 @@ class MembersController extends BaseController
     public function unapproved()
     {
         $members = $this->members->getUnapprovedMembers();
-        return View::make('members.unapproved', compact('members'));
+        return $this->view->make('members.unapproved', compact('members'));
     }
 
     /**
@@ -135,7 +147,7 @@ class MembersController extends BaseController
      */
     public function create()
     {
-        return View::make('members.create');
+        return $this->view->make('members.create');
     }
 
     /**
@@ -147,9 +159,9 @@ class MembersController extends BaseController
     {
         if (!$this->validator->validate($this->request->all())) {
             $errorMessages = $this->validator->getMessages();
-            Session::flash('errorMessages', $errorMessages);
+            $this->session->flash('errorMessages', $errorMessages);
 
-            return Redirect::back()->withInput();
+            return $this->redirector->back()->withInput();
         }
 
         $member = MembersFactory::createFromRequest($this->request);
@@ -162,30 +174,24 @@ class MembersController extends BaseController
 
         $this->members->store($member);
 
-        Session::flash('action-message', "Member added successfully.");
+        $this->session->flash('action-message', "Member added successfully.");
 
-        return Redirect::route('members.index');
+        return $this->redirector->route('members.index');
     }
 
     /**
      * Display the specified member.
      *
-     * @param  int      $id
+     * @param MembershipService $membershipService
+     * @param MeetingsService $meetingsService
+     * @param int $id
      * @return Response
      *
      * @todo Information separated in tabs (in the view) should be separated in few methods
      */
-    public function show($id)
+    public function show(MembershipService $membershipService, MeetingsService $meetingsService, $id)
     {
         $member = $this->members->get($id);
-
-        /** Method dependency injection is coming soon \m/ */
-
-        /** @var MembershipService $membershipService */
-        $membershipService = App::make('MembershipService');
-
-        /** @var MeetingsService $meetingsService */
-        $meetingsService = App::make('MeetingsService');
 
         $fees = $this->fees->getFeesForMember($member);
 
@@ -200,7 +206,7 @@ class MembersController extends BaseController
 
         $monthly = json_encode($meetingsService->calculateMonthlyAttendanceDetailsForMember($member));
 
-        return View::make('members.show', compact('member', 'attendance', 'fees',
+        return $this->view->make('members.show', compact('member', 'attendance', 'fees',
                           'joinedDate', 'latestMeetings', 'monthly'));
     }
 
@@ -208,22 +214,21 @@ class MembersController extends BaseController
      * Returns html component with short member info
      * (focused on the membership)
      *
+     * @param MembershipService $membershipService
      * @param int $id
      * @return Response
      */
-    public function quickMemberInfo($id)
+    public function quickMemberInfo(MembershipService $membershipService, $id)
     {
         $member = $this->members->get($id);
 
-        /** @var MembershipService $membershipService */
-        $membershipService = App::make('MembershipService');
         $member->membership_status = $membershipService->isMemberActive($member);
 
         $membershipStatus = $member->membership_status;
         $joinedDate = $membershipService->getJoinedDate($member)->toDateString();
         $expirationDate = $membershipService->getExpirationDate($member)->toDateString();
 
-        return View::make('members.components.quick-info',
+        return $this->view->make('members.components.quick-info',
             compact('member', 'membershipStatus', 'joinedDate', 'expirationDate'));
     }
 
@@ -237,16 +242,17 @@ class MembersController extends BaseController
     {
         $member = $this->members->get($id);
 
-        return View::make('members.edit', compact('member'));
+        return $this->view->make('members.edit', compact('member'));
     }
 
     /**
      * Update the specified member in storage.
      *
-     * @param  int      $id
+     * @param MembersPopulator $populator
+     * @param  int $id
      * @return Response
      */
-    public function update($id)
+    public function update(MembersPopulator $populator, $id)
     {
         $member = $this->members->get($id);
 
@@ -274,30 +280,29 @@ class MembersController extends BaseController
 
         if (!$this->validator->validate($this->request->all())) {
             $errorMessages = $this->validator->getMessages();
-            Session::flash('errorMessages', $errorMessages);
+            $this->session->flash('errorMessages', $errorMessages);
 
-            return Redirect::back()->withInput();
+            return $this->redirector->back()->withInput();
         }
 
-        /** @var MembersPopulator $filler */
-        $populator = App::make('MembersPopulator');
         $populator->populateFromRequest($member, $this->request);
 
         $this->members->store($member);
 
-        Session::flash('action-message', "Member updated successfully.");
+        $this->session->flash('action-message', "Member updated successfully.");
 
-        return Redirect::route('members.index');
+        return $this->redirector->route('members.index');
     }
 
     /**
      * Remove the specified members from storage.
      * Method available only via AJAX requests
      *
-     * @param  int      $id
+     * @param PhotosRepositoryInterface $photos
+     * @param  int $id
      * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(PhotosRepositoryInterface $photos, $id)
     {
         $data = [];
 
@@ -305,9 +310,6 @@ class MembersController extends BaseController
             $member = $this->members->get($id);
 
             if (isset($member->photo)) {
-                /** @var PhotosRepositoryInterface $photos */
-                $photos = App::make('PhotosRepository');
-
                 $photos->destroy($member->photo, 'members');
             }
 
@@ -382,7 +384,7 @@ class MembersController extends BaseController
      */
     public function register()
     {
-        return View::make('members.register');
+        return $this->view->make('members.register');
     }
 
     /**
@@ -395,18 +397,18 @@ class MembersController extends BaseController
         /** @todo Duplicated code */
         if (!$this->validator->validate($this->request->all())) {
             $errorMessages = $this->validator->getMessages();
-            Session::flash('errorMessages', $errorMessages);
+            $this->session->flash('errorMessages', $errorMessages);
 
-            return Redirect::back()->withInput();
+            return $this->redirector->back()->withInput();
         }
 
         $member = MembersFactory::createFromRequest($this->request);
 
         $this->members->store($member);
 
-        Session::flash('action-message',
+        $this->session->flash('action-message',
             "Your account was created successfully. You will be notified when the board members approve it.");
 
-        return Redirect::route('members.register');
+        return $this->redirector->route('members.register');
     }
 }

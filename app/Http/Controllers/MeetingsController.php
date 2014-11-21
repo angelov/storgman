@@ -31,28 +31,36 @@ use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Paginator\MeetingsPaginator;
 use Angelov\Eestec\Platform\Service\MeetingsService;
 use Angelov\Eestec\Platform\Validation\MeetingsValidator;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Angelov\Eestec\Platform\Entity\Meeting;
 use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
-use Auth;
-use Redirect;
-use Session;
-use View;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\Session\Store;
 
 class MeetingsController extends BaseController
 {
-
     protected $request;
     protected $meetings;
     protected $members;
     protected $validator;
     protected $paginator;
     protected $meetingsService;
+    protected $view;
+    protected $authenticator;
+    protected $session;
+    protected $redirector;
 
     public function __construct(
         Request $request,
+        Factory $view,
+        Guard $authenticator,
+        Store $session,
+        Redirector $redirector,
         MeetingsRepositoryInterface $meetings,
         MembersRepositoryInterface $members,
         MeetingsPaginator $paginator,
@@ -65,6 +73,10 @@ class MeetingsController extends BaseController
         $this->paginator = $paginator;
         $this->validator = $validator;
         $this->meetingsService = $meetingsService;
+        $this->view = $view;
+        $this->authenticator = $authenticator;
+        $this->session = $session;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -78,7 +90,7 @@ class MeetingsController extends BaseController
         $page = $this->request->get('page', 1);
         $meetings = $this->paginator->get($page, ['attendants']);
 
-        return View::make('meetings.index', compact('meetings'));
+        return $this->view->make('meetings.index', compact('meetings'));
     }
 
     /**
@@ -89,7 +101,7 @@ class MeetingsController extends BaseController
      */
     public function create()
     {
-        return View::make('meetings.create');
+        return $this->view->make('meetings.create');
     }
 
     /**
@@ -103,9 +115,9 @@ class MeetingsController extends BaseController
 
         if (!$this->validator->validate($this->request->all())) {
             $errorMessages = $this->validator->getMessages();
-            Session::flash('errorMessages', $errorMessages);
+            $this->session->flash('errorMessages', $errorMessages);
 
-            return Redirect::back()->withInput();
+            return $this->redirector->back()->withInput();
         }
 
         $meeting = new Meeting();
@@ -122,11 +134,11 @@ class MeetingsController extends BaseController
             $attendants = $this->members->getByIds($parsedIds);
         }
 
-        $creator = Auth::user();
+        $creator = $this->authenticator->user();
 
         $this->meetings->store($meeting, $creator, $attendants);
 
-        return Redirect::route('meetings.index');
+        return $this->redirector->route('meetings.index');
 
     }
 
@@ -141,7 +153,7 @@ class MeetingsController extends BaseController
     {
         $meeting = $this->meetings->get($id);
 
-        return View::make('meetings.show', compact('meeting'));
+        return $this->view->make('meetings.show', compact('meeting'));
     }
 
     /**
