@@ -28,9 +28,9 @@
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Paginator\MeetingsPaginator;
 use Angelov\Eestec\Platform\Service\MeetingsService;
-use Angelov\Eestec\Platform\Validation\MeetingsValidator;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -47,7 +47,6 @@ class MeetingsController extends BaseController
     protected $request;
     protected $meetings;
     protected $members;
-    protected $validator;
     protected $paginator;
     protected $meetingsService;
     protected $view;
@@ -64,14 +63,12 @@ class MeetingsController extends BaseController
         MeetingsRepositoryInterface $meetings,
         MembersRepositoryInterface $members,
         MeetingsPaginator $paginator,
-        MeetingsService $meetingsService,
-        MeetingsValidator $validator
+        MeetingsService $meetingsService
     ) {
         $this->request = $request;
         $this->meetings = $meetings;
         $this->members = $members;
         $this->paginator = $paginator;
-        $this->validator = $validator;
         $this->meetingsService = $meetingsService;
         $this->view = $view;
         $this->authenticator = $authenticator;
@@ -108,24 +105,17 @@ class MeetingsController extends BaseController
      * Store a newly created meeting report in storage.
      * POST /meetings
      *
+     * @param StoreMeetingRequest $request
      * @return Response
      */
-    public function store()
+    public function store(StoreMeetingRequest $request)
     {
-
-        if (!$this->validator->validate($this->request->all())) {
-            $errorMessages = $this->validator->getMessages();
-            $this->session->flash('errorMessages', $errorMessages);
-
-            return $this->redirector->back()->withInput();
-        }
-
         $meeting = new Meeting();
-        $meeting->date = $this->request->get('date');
-        $meeting->location = $this->request->get('location');
-        $meeting->info = $this->request->get('details');
+        $meeting->date = $request->get('date');
+        $meeting->location = $request->get('location');
+        $meeting->info = $request->get('details');
 
-        $ids = $this->request->get('attendants');
+        $ids = $request->get('attendants');
         $attendants = [];
 
         $parsedIds = $this->meetingsService->parseAttendantsIds($ids);

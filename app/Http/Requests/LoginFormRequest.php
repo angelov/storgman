@@ -25,12 +25,19 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Controllers;
+namespace Angelov\Eestec\Platform\Http\Requests;
 
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller;
-
-class BaseController extends Controller
+class LoginFormRequest extends Request
 {
-    use ValidatesRequests;
+    protected $rules = [
+        'email' => 'required|email',
+        'password' => 'required|min:6'
+    ];
+
+    public function response(array $errors)
+    {
+        $this->session->flash('auth-error', 'Please insert valid information.');
+        return $this->redirector->back()->withInput();
+    }
 }
+ 

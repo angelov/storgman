@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Validation;
+namespace Angelov\Eestec\Platform\Http\Requests;
 
-class MembersValidator extends Validator
+class StoreMemberRequest extends Request
 {
     protected $rules = [
         'first_name' => 'required',
@@ -41,3 +41,4 @@ class MembersValidator extends Validator
         'member_photo' => 'image|max:3000'
     ];
 }
+ 

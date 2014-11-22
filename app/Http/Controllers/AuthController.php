@@ -28,19 +28,18 @@
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\Entity\Member;
+use Angelov\Eestec\Platform\Http\Requests\LoginFormRequest;
 use Angelov\Eestec\Platform\Service\MembershipService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Angelov\Eestec\Platform\Validation\LoginCredentialsValidator;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
 
 class AuthController extends BaseController
 {
     protected $request;
-    protected $validator;
     protected $view;
     protected $session;
     protected $authenticator;
@@ -51,11 +50,9 @@ class AuthController extends BaseController
         Store $session,
         Request $request,
         Guard $authenticator,
-        Redirector $redirector,
-        LoginCredentialsValidator $validator
+        Redirector $redirector
     ) {
         $this->request = $request;
-        $this->validator = $validator;
         $this->view = $view;
         $this->session = $session;
         $this->authenticator = $authenticator;
@@ -76,20 +73,14 @@ class AuthController extends BaseController
      * Check the login data and authenticate the member.
      * Thanks to reddit.com/user/baileylo for the suggestions.
      *
+     * @param LoginFormRequest $request
      * @param MembershipService $membershipService
      * @return Response
      */
-    public function login(MembershipService $membershipService)
+    public function login(LoginFormRequest $request, MembershipService $membershipService)
     {
-
-        if (!$this->validator->validate($this->request->all())) {
-            $this->session->flash('auth-error', 'Please insert valid information.');
-
-            return $this->redirector->back()->withInput();
-        }
-
-        $credentials = $this->request->only('email', 'password');
-        $remember = ($this->request->get('remember') == 'yes');
+        $credentials = $request->only('email', 'password');
+        $remember = ($request->get('remember') == 'yes');
 
         if (!$this->authenticator->attempt($credentials, $remember)) {
             $this->session->flash('auth-error', 'Wrong email or password.');

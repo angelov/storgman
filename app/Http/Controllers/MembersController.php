@@ -29,6 +29,8 @@ namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Factory\MembersFactory;
+use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
+use Angelov\Eestec\Platform\Http\Requests\UpdateMemberRequest;
 use Angelov\Eestec\Platform\Paginator\MembersPaginator;
 use Angelov\Eestec\Platform\Populator\MembersPopulator;
 use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
@@ -42,7 +44,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Validation\MembersValidator;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
 
@@ -50,7 +51,6 @@ class MembersController extends BaseController
 {
     protected $request;
     protected $members;
-    protected $validator;
     protected $paginator;
     protected $fees;
     protected $view;
@@ -66,13 +66,11 @@ class MembersController extends BaseController
         Redirector $redirector,
         MembersRepositoryInterface $members,
         FeesRepositoryInterface $fees,
-        MembersPaginator $paginator,
-        MembersValidator $validator
+        MembersPaginator $paginator
     ) {
         $this->request = $request;
         $this->members = $members;
         $this->fees = $fees;
-        $this->validator = $validator;
         $this->paginator = $paginator;
         $this->view = $view;
         $this->authenticator = $authenticator;
@@ -99,6 +97,7 @@ class MembersController extends BaseController
     /**
      * Returns the list of members to be used for autocompletion
      *
+     * @param UrlGenerator $url
      * @return JsonResponse
      */
     public function prefetch(UrlGenerator $url)
@@ -153,18 +152,12 @@ class MembersController extends BaseController
     /**
      * Store a newly created member in storage.
      *
+     * @param StoreMemberRequest $request
      * @return Response
      */
-    public function store()
+    public function store(StoreMemberRequest $request)
     {
-        if (!$this->validator->validate($this->request->all())) {
-            $errorMessages = $this->validator->getMessages();
-            $this->session->flash('errorMessages', $errorMessages);
-
-            return $this->redirector->back()->withInput();
-        }
-
-        $member = MembersFactory::createFromRequest($this->request);
+        $member = MembersFactory::createFromRequest($request);
 
         /**
          * Automatically approve the member's account when
@@ -249,43 +242,15 @@ class MembersController extends BaseController
      * Update the specified member in storage.
      *
      * @param MembersPopulator $populator
+     * @param UpdateMemberRequest $request
      * @param  int $id
      * @return Response
      */
-    public function update(MembersPopulator $populator, $id)
+    public function update(MembersPopulator $populator, UpdateMemberRequest $request, $id)
     {
         $member = $this->members->get($id);
 
-        /**
-         * If the unique email rule is set and the member's email
-         * is not changed, the system will consider the email as
-         * already taken and will throw an error.
-         *
-         * @todo There is probably better way to do this
-         */
-        if ($member->email == $this->request->get('email')) {
-            $this->validator->removeRule('email', 'unique');
-        }
-
-        /**
-         * We don't want to change the member's password if there's
-         * no new password inserted.
-         *
-         * @todo There is probably better way to do this
-         */
-        if ($this->request->get('password') == '') {
-            $this->validator->removeRule('password', 'required');
-            $this->validator->removeRule('password', 'min');
-        }
-
-        if (!$this->validator->validate($this->request->all())) {
-            $errorMessages = $this->validator->getMessages();
-            $this->session->flash('errorMessages', $errorMessages);
-
-            return $this->redirector->back()->withInput();
-        }
-
-        $populator->populateFromRequest($member, $this->request);
+        $populator->populateFromRequest($member, $request);
 
         $this->members->store($member);
 
@@ -390,19 +355,12 @@ class MembersController extends BaseController
     /**
      * Proceed the information submitted via the registration form
      *
+     * @param StoreMemberRequest $request
      * @return Response
      */
-    public function postRegister()
+    public function postRegister(StoreMemberRequest $request)
     {
-        /** @todo Duplicated code */
-        if (!$this->validator->validate($this->request->all())) {
-            $errorMessages = $this->validator->getMessages();
-            $this->session->flash('errorMessages', $errorMessages);
-
-            return $this->redirector->back()->withInput();
-        }
-
-        $member = MembersFactory::createFromRequest($this->request);
+        $member = MembersFactory::createFromRequest($request);
 
         $this->members->store($member);
 

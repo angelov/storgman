@@ -25,17 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Validation;
+namespace Angelov\Eestec\Platform\Http\Requests;
 
-class FeesValidator extends Validator
+class StoreMeetingRequest extends Request
 {
-
-    /** @todo The date in the "to" field must be after the date in the "from" field */
-
     protected $rules = [
-        'from' => 'required|date_format:Y-m-d',
-        'to' => 'required|date_format:Y-m-d',
-        'member_id' => 'required|exists:members,id'
+        'date' => 'required|date_format:Y-m-d',
+        'location' => 'required',
+        'created_by' => 'required|exists:members,id'
     ];
-
 }
+ 

@@ -28,9 +28,9 @@
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;
 use Angelov\Eestec\Platform\Paginator\FeesPaginator;
 use Angelov\Eestec\Platform\Service\MembershipService;
-use Angelov\Eestec\Platform\Validation\FeesValidator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -44,7 +44,6 @@ class FeesController extends BaseController
     protected $request;
     protected $fees;
     protected $members;
-    protected $validator;
     protected $paginator;
     protected $membership;
     protected $view;
@@ -54,14 +53,12 @@ class FeesController extends BaseController
         Factory $view,
         FeesRepositoryInterface $fees,
         MembersRepositoryInterface $members,
-        FeesValidator $validator,
         MembershipService $membership,
         FeesPaginator $paginator
     ) {
         $this->request = $request;
         $this->fees = $fees;
         $this->members = $members;
-        $this->validator = $validator;
         $this->paginator = $paginator;
         $this->membership = $membership;
         $this->view = $view;
@@ -141,25 +138,17 @@ class FeesController extends BaseController
     /**
      * Store a newly created fee.
      *
+     * @param StoreFeeRequest $request
      * @return JsonResponse
      */
-    public function store()
+    public function store(StoreFeeRequest $request)
     {
-        $data = [];
-
-        if (!$this->validator->validate($this->request->all())) {
-            $data['status'] = 'danger';
-            $data['message'] = 'The data you entered is invalid.';
-
-            return new JsonResponse($data);
-        }
-
         $fee = new Fee();
 
-        $fee->from_date = $this->request->get('from');
-        $fee->to_date = $this->request->get('to');
+        $fee->from_date = $request->get('from');
+        $fee->to_date = $request->get('to');
 
-        $member = $this->members->get($this->request->get('member_id'));
+        $member = $this->members->get($request->get('member_id'));
 
         $this->fees->store($fee, $member);
 

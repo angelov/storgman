@@ -25,43 +25,57 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Validation;
+namespace Angelov\Eestec\Platform\Http\Requests;
 
-use Illuminate\Validation\Factory;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Routing\Redirector;
+use Illuminate\Session\Store;
 
-abstract class Validator
+abstract class Request extends FormRequest
 {
+    protected $session;
+    protected $redirector;
+    protected $rules = [];
 
-    protected $validatorFactory;
-    protected $messages = [];
-    protected $rules;
-
-    public function __construct(Factory $validatorFactory)
+    public function rules()
     {
-        $this->validatorFactory = $validatorFactory;
+        return $this->rules;
     }
 
-    public function validate(array $data)
+    public function __construct(Store $session, Redirector $redirector)
     {
-        $validator = $this->validatorFactory->make($data, $this->rules);
+        $this->session = $session;
+        $this->redirector = $redirector;
+    }
 
-        if ($validator->fails()) {
-            $this->messages = $validator->messages()->all();
-
-            return false;
-        }
-
+    public function authorize()
+    {
         return true;
     }
 
-    public function getMessages()
+    public function response(array $errors)
     {
-        return $this->messages;
+        $messages = $this->parseErrors($errors);
+
+        $this->session->flash('errorMessages', $messages);
+        return $this->redirector->back()->withInput();
     }
 
-    public function getRules()
+    /**
+     * @param array $errors
+     * @return array
+     */
+    protected function parseErrors(array $errors)
     {
-        return $this->rules;
+        $messages = [];
+
+        if (count($errors) > 0) {
+            foreach ($errors as $field => $msgs) {
+                $messages = array_merge($messages, $msgs);
+            }
+        }
+
+        return $messages;
     }
 
     public function removeRule($field, $rule)
@@ -76,5 +90,4 @@ abstract class Validator
     {
         $this->rules[$field] = $this->rules[$field] . "|" . $rule;
     }
-
 }

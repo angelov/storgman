@@ -25,15 +25,37 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Validation;
+namespace Angelov\Eestec\Platform\Http\Requests;
 
-class MeetingsValidator extends Validator
+class UpdateMemberRequest extends StoreMemberRequest
 {
+    public function validate()
+    {
+        /**
+         * If the unique email rule is set and the member's email
+         * is not changed, the system will consider the email as
+         * already taken and will throw an error.
+         */
+//        if ($req == $this->request->get('email')) {
+//            $this->validator->removeRule('email', 'unique');
+//        }
+        $this->removeRule('email', 'unique'); // @todo TEMPORARY
 
-    protected $rules = [
-        'date' => 'required|date_format:Y-m-d',
-        'location' => 'required',
-        'created_by' => 'required|exists:members,id'
-    ];
+        /**
+         * We don't want to change the member's password if there's
+         * no new password inserted.
+         */
+        if ($this->get('password') == '') {
+            $this->removePasswordRules();
+        }
 
+        parent::validate();
+    }
+
+    protected function removePasswordRules()
+    {
+        $this->removeRule('password', 'required');
+        $this->removeRule('password', 'min');
+    }
 }
+ 
