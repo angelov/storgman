@@ -9,9 +9,9 @@ etc. in one place.
 organization ofand for Electrical Engineering and Computer Science (EECS) students of universities, institutes and
 technical schools in Europe.
 
-You can read the detailed description of the project [here](http://angelovdejan.wordpress.com/2014/08/05/introducing-eestec-platform-for-local-committees/).
+You can read the detailed description of the project [here](http://angelovdejan.me/2014/08/05/introducing-eestec-platform-for-local-committees.html).
 
-Under development by [Angelov Dejan](http://ultim8.info).
+Under development by [Angelov Dejan](http://angelov.me).
 The application is not production ready yet!
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/?branch=master)
@@ -30,7 +30,7 @@ Here is a list of some planned things that still need to be finished:
 * The configuration files can be cleaned from some unnecessary stuff
 * Provide option to store the static files (like members' photos) on AWS (or something similar)
 
-I also plan to upgrade this application to use Laravel 5 Framework (scheduled to be released in late november/early december) before releasing the first version.
+I also plan to upgrade this application to use Laravel 5 Framework (scheduled to be released in late ~~november/early december~~ late january) before releasing the first version.
 
 ##### Version 2
 
