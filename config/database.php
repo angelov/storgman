@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -14,6 +14,7 @@ return array(
     */
 
     'fetch' => PDO::FETCH_CLASS,
+
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -26,6 +27,7 @@ return array(
     */
 
     'default' => 'mysql',
+
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -42,14 +44,15 @@ return array(
     |
     */
 
-    'connections' => array(
+    'connections' => [
 
-        'sqlite' => array(
+        'sqlite' => [
             'driver' => 'sqlite',
             'database' => __DIR__ . '/../database/production.sqlite',
             'prefix' => '',
-        ),
-        'mysql' => array(
+        ],
+
+        'mysql' => [
             'driver' => 'mysql',
             'host' => 'localhost',
             'database' => '',
@@ -59,8 +62,9 @@ return array(
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'unix_socket' => '/var/run/mysqld/mysqld.sock',
-        ),
-        'pgsql' => array(
+        ],
+
+        'pgsql' => [
             'driver' => 'pgsql',
             'host' => 'localhost',
             'database' => 'database',
@@ -69,17 +73,19 @@ return array(
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
-        ),
-        'sqlsrv' => array(
+        ],
+
+        'sqlsrv' => [
             'driver' => 'sqlsrv',
             'host' => 'localhost',
             'database' => 'database',
             'username' => 'root',
             'password' => '',
             'prefix' => '',
-        ),
+        ],
 
-    ),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Migration Repository Table
@@ -92,6 +98,7 @@ return array(
     */
 
     'migrations' => 'migrations',
+
     /*
     |--------------------------------------------------------------------------
     | Redis Databases
@@ -103,15 +110,14 @@ return array(
     |
     */
 
-    'redis' => array(
-
+    'redis' => [
         'cluster' => false,
-        'default' => array(
+
+        'default' => [
             'host' => '127.0.0.1',
             'port' => 6379,
             'database' => 0,
-        ),
+        ],
+    ],
 
-    ),
-
-);
+];

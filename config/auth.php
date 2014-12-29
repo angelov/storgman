@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -16,6 +16,7 @@ return array(
     */
 
     'driver' => 'eloquent',
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Model
@@ -28,6 +29,7 @@ return array(
     */
 
     'model' => 'Angelov\Eestec\Platform\Entity\Member',
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Table
@@ -40,6 +42,7 @@ return array(
     */
 
     'table' => 'members',
+
     /*
     |--------------------------------------------------------------------------
     | Password Reminder Settings
@@ -55,12 +58,12 @@ return array(
     |
     */
 
-    'reminder' => array(
+    'reminder' => [
 
         'email' => 'emails.auth.reminder',
         'table' => 'password_reminders',
         'expire' => 60,
 
-    ),
+    ],
 
-);
+];

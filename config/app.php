@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -14,6 +14,7 @@ return array(
     */
 
     'debug' => true,
+
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -26,6 +27,7 @@ return array(
     */
 
     'url' => '',
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -38,6 +40,7 @@ return array(
     */
 
     'timezone' => 'Europe/Skopje',
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -50,6 +53,7 @@ return array(
     */
 
     'locale' => 'en',
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -62,6 +66,7 @@ return array(
     */
 
     'fallback_locale' => 'en',
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
@@ -87,6 +92,7 @@ return array(
     | Available Settings: "single", "daily", "syslog"
     |
     */
+
     'log' => 'daily',
 
     /*
@@ -100,7 +106,7 @@ return array(
     |
     */
 
-    'providers' => array(
+    'providers' => [
 
         /*
 		 * Application Service Providers...
@@ -143,11 +149,11 @@ return array(
         /*
          * Other vendor providers
          */
-        //'TwigBridge\ServiceProvider',
-        //'Way\Generators\GeneratorsServiceProvider',
-        //'Intervention\Image\ImageServiceProvider',
+        'TwigBridge\ServiceProvider',
+        'Way\Generators\GeneratorsServiceProvider',
+        'Intervention\Image\ImageServiceProvider',
 
-    ),
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -160,7 +166,7 @@ return array(
     |
     */
 
-    'aliases' => array(
+    'aliases' => [
 
         'App'       => 'Illuminate\Support\Facades\App',
         'Artisan'   => 'Illuminate\Support\Facades\Artisan',
@@ -194,7 +200,8 @@ return array(
         'Form'      => 'Illuminate\Html\FormFacade',
         'HTML'      => 'Illuminate\Html\HtmlFacade',
 
-    ),
+    ],
+
     'cipher' => MCRYPT_RIJNDAEL_256
 
-);
+];
