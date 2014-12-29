@@ -22,12 +22,16 @@
     },
     "autoload": {
         "classmap": [
-            "database",
-            "tests/TestCase.php"
+            "database"
         ],
         "psr-4": {
             "Angelov\\Eestec\\Platform\\": "app/"
         }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
     },
     "scripts": {
         "post-install-cmd": [

@@ -14,7 +14,6 @@ return array(
     */
 
     'debug' => true,
-
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -144,9 +143,9 @@ return array(
         /*
          * Other vendor providers
          */
-        'TwigBridge\ServiceProvider',
-        'Way\Generators\GeneratorsServiceProvider',
-        'Intervention\Image\ImageServiceProvider',
+        //'TwigBridge\ServiceProvider',
+        //'Way\Generators\GeneratorsServiceProvider',
+        //'Intervention\Image\ImageServiceProvider',
 
     ),
 
