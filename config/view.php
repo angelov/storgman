@@ -8,12 +8,14 @@ return [
     |--------------------------------------------------------------------------
     |
     | Most templating systems load templates from disk. Here you may specify
-    | an array of paths that should be checked for your views. Of course
+    | an array of paths that should be checked for your templates. Of course
     | the usual Laravel view path has already been registered for you.
     |
     */
 
-    'paths' => [base_path().'/resources/views'],
+    'paths' => [
+        realpath(base_path('resources/templates'))
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -26,6 +28,6 @@ return [
     |
     */
 
-    'compiled' => storage_path().'/framework/views',
+    'compiled' => realpath(storage_path().'/framework/views'),
 
 ];

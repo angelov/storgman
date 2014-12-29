@@ -14,6 +14,7 @@ return array(
     */
 
     'debug' => true,
+
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -110,6 +111,7 @@ return array(
         'Angelov\Eestec\Platform\Providers\RouteServiceProvider',
         'Angelov\Eestec\Platform\Providers\RepositoriesServiceProvider',
         'Angelov\Eestec\Platform\Providers\ServicesServiceProvider',
+        'Angelov\Eestec\Platform\Providers\BusServiceProvider',
         //'Angelov\Eestec\Platform\Eventing\EventingServiceProvider',
 
         /*
@@ -117,6 +119,7 @@ return array(
 		 */
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
+        'Illuminate\Bus\BusServiceProvider',
         'Illuminate\Cache\CacheServiceProvider',
         'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
         'Illuminate\Routing\ControllerServiceProvider',
@@ -128,6 +131,7 @@ return array(
         'Illuminate\Hashing\HashServiceProvider',
         'Illuminate\Mail\MailServiceProvider',
         'Illuminate\Pagination\PaginationServiceProvider',
+        'Illuminate\Pipeline\PipelineServiceProvider',
         'Illuminate\Queue\QueueServiceProvider',
         'Illuminate\Redis\RedisServiceProvider',
         'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
@@ -145,18 +149,7 @@ return array(
         'Intervention\Image\ImageServiceProvider',
 
     ),
-    /*
-    |--------------------------------------------------------------------------
-    | Service Provider Manifest
-    |--------------------------------------------------------------------------
-    |
-    | The service provider manifest is used by Laravel to lazy load service
-    | providers which are not needed for each request, as well to keep a
-    | list of all of the services. Here, you may set its storage spot.
-    |
-    */
 
-    'manifest' => storage_path() . '/framework',
     /*
     |--------------------------------------------------------------------------
     | Class Aliases

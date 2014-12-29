@@ -25,49 +25,37 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Exceptions;
+namespace Angelov\Eestec\Platform\Providers;
 
-use Exception;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Bus\Dispatcher;
+use Illuminate\Support\ServiceProvider;
 
-class Handler extends ExceptionHandler {
-
-    /**
-     * A list of the exception types that should not be reported.
-     *
-     * @var array
-     */
-    protected $dontReport = [
-        'Symfony\Component\HttpKernel\Exception\HttpException'
-    ];
+class BusServiceProvider extends ServiceProvider {
 
     /**
-     * Report or log an exception.
+     * Bootstrap any application services.
      *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Exception  $e
+     * @param  \Illuminate\Bus\Dispatcher  $dispatcher
      * @return void
      */
-    public function report(Exception $e)
+    public function boot(Dispatcher $dispatcher)
     {
-        return parent::report($e);
+        $dispatcher->mapUsing(function($command)
+        {
+            return Dispatcher::simpleMapping(
+                $command, 'Angelov\Eestec\Platform\Commands', 'Angelov\Eestec\Platform\Handlers\Commands'
+            );
+        });
     }
 
     /**
-     * Render an exception into an HTTP response.
+     * Register any application services.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function render($request, Exception $e)
+    public function register()
     {
-        if ($this->isHttpException($e))
-        {
-            return $this->renderHttpException($e);
-        }
-        return parent::render($request, $e);
+        //
     }
 
 }

@@ -11,7 +11,7 @@ return array(
     | API, giving you convenient access to each back-end using the same
     | syntax for each one. Here you may set the default queue driver.
     |
-    | Supported: "sync", "beanstalkd", "sqs", "iron", "redis"
+    | Supported: "null", "sync", "beanstalkd", "sqs", "iron", "redis"
     |
     */
 
@@ -32,6 +32,12 @@ return array(
         'sync' => array(
             'driver' => 'sync',
         ),
+        'database' => [
+            'driver' => 'database',
+            'table' => 'jobs',
+            'queue' => 'default',
+            'expire' => 60,
+        ],
         'beanstalkd' => array(
             'driver' => 'beanstalkd',
             'host' => 'localhost',
@@ -55,6 +61,7 @@ return array(
         'redis' => array(
             'driver' => 'redis',
             'queue' => 'default',
+            'expire' => 60,
         ),
 
     ),
