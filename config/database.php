@@ -62,6 +62,7 @@ return [
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'unix_socket' => '/var/run/mysqld/mysqld.sock',
+            'strict' => false,
         ],
 
         'pgsql' => [

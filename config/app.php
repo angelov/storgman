@@ -109,19 +109,9 @@ return [
     'providers' => [
 
         /*
-		 * Application Service Providers...
-		 */
-        'Angelov\Eestec\Platform\Providers\AppServiceProvider',
-        'Angelov\Eestec\Platform\Providers\EventServiceProvider',
-        'Angelov\Eestec\Platform\Providers\RouteServiceProvider',
-        'Angelov\Eestec\Platform\Providers\RepositoriesServiceProvider',
-        'Angelov\Eestec\Platform\Providers\ServicesServiceProvider',
-        'Angelov\Eestec\Platform\Providers\BusServiceProvider',
-        //'Angelov\Eestec\Platform\Eventing\EventingServiceProvider',
-
-        /*
 		 * Laravel Framework Service Providers...
 		 */
+
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
         'Illuminate\Bus\BusServiceProvider',
@@ -149,9 +139,23 @@ return [
         /*
          * Other vendor providers
          */
+
         'TwigBridge\ServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
         'Intervention\Image\ImageServiceProvider',
+
+        /*
+		 * Application Service Providers...
+		 */
+
+        'Angelov\Eestec\Platform\Providers\AppServiceProvider',
+        'Angelov\Eestec\Platform\Providers\BusServiceProvider',
+        'Angelov\Eestec\Platform\Providers\ConfigServiceProvider',
+        'Angelov\Eestec\Platform\Providers\EventServiceProvider',
+        'Angelov\Eestec\Platform\Providers\RouteServiceProvider',
+        'Angelov\Eestec\Platform\Providers\RepositoriesServiceProvider',
+        'Angelov\Eestec\Platform\Providers\ServicesServiceProvider',
+        //'Angelov\Eestec\Platform\Eventing\EventingServiceProvider',
 
     ],
 
