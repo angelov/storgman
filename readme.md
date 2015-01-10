@@ -14,6 +14,8 @@ You can read the detailed description of the project [here](http://angelovdejan.
 Under development by [Angelov Dejan](http://angelov.me).
 The application is not production ready yet!
 
+**Warning:** I'm upgrading the application to use Laravel 5, so these days it is kinda messy and probably doesn't work properly. Everything is [gonna be alright](https://www.youtube.com/watch?v=PGYAAsHT4QE) soon.
+
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/build.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/build-status/master)
 
