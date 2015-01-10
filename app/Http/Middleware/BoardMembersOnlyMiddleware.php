@@ -3,9 +3,8 @@
 use Angelov\Eestec\Platform\Entity\Member;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Routing\Middleware;
 
-class BoardMembersOnlyMiddleware implements Middleware
+class BoardMembersOnlyMiddleware
 {
     protected $guard;
 
