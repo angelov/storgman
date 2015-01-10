@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'debug' => true,
+    'debug' => env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => '',
+    'url' => env('APP_URL', 'http://localhost/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'Europe/Skopje',
+    'timezone' => env('APP_TIMEZONE', 'Europe/Skopje'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,9 @@ return [
     |
     */
 
-    'key' => 'generate-the-key',
+    'key' => env('APP_KEY', 'generate-the-key'),
+
+    'cipher' => MCRYPT_RIJNDAEL_256,
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +95,7 @@ return [
     |
     */
 
-    'log' => 'daily',
+    'log' => env('APP_LOGGING', 'daily'),
 
     /*
     |--------------------------------------------------------------------------
@@ -141,8 +143,8 @@ return [
          */
 
         'TwigBridge\ServiceProvider',
-        'Way\Generators\GeneratorsServiceProvider',
-        'Intervention\Image\ImageServiceProvider',
+        //'Way\Generators\GeneratorsServiceProvider',
+        //'Intervention\Image\ImageServiceProvider',
 
         /*
 		 * Application Service Providers...
@@ -204,8 +206,6 @@ return [
         'Form'      => 'Illuminate\Html\FormFacade',
         'HTML'      => 'Illuminate\Html\HtmlFacade',
 
-    ],
-
-    'cipher' => MCRYPT_RIJNDAEL_256
+    ]
 
 ];

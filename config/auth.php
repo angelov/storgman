@@ -58,7 +58,7 @@ return [
     |
     */
 
-    'reminder' => [
+    'password' => [
 
         'email' => 'emails.auth.reminder',
         'table' => 'password_reminders',
