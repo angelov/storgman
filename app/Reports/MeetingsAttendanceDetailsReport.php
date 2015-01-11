@@ -25,37 +25,59 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Reports;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+class MeetingsAttendanceDetailsReport
 {
-    /** @var $entity Meeting */
-    protected $entity;
+    protected $meetings = 0;
+    protected $attendants = 0;
+    protected $average = 0;
 
-    public function setUp()
+    /**
+     * @param integer $attendants
+     */
+    public function setAttendants($attendants)
     {
-        $this->entity = new Meeting();
+        $this->attendants = $attendants;
     }
 
-    public function testHasManyAttendants()
+    /**
+     * @return integer
+     */
+    public function getAttendants()
     {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
+        return $this->attendants;
     }
 
-    public function testHasOneCreator()
+    /**
+     * @param integer $average
+     */
+    public function setAverage($average)
     {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
+        $this->average = $average;
     }
 
-    public function testReturnsFormattedDate()
+    /**
+     * @return integer
+     */
+    public function getAverage()
     {
-        $this->entity->date = '2014-09-07 00:00:00';
+        return $this->average;
+    }
 
-        $this->assertEquals('2014-09-07', $this->entity->date);
+    /**
+     * @param integer $meetings
+     */
+    public function setMeetings($meetings)
+    {
+        $this->meetings = $meetings;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getMeetings()
+    {
+        return $this->meetings;
     }
 }

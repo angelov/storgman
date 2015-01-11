@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entity\Member;
+use Angelov\Eestec\Platform\Entities\Member;
 
 /**
  * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
  */
 class MemberTest extends TestCase
 {
-    /** @var $entity \Angelov\Eestec\Platform\Entity\Member */
+    /** @var $entity \Angelov\Eestec\Platform\Entities\Member */
     protected $entity;
 
     public function setUp()

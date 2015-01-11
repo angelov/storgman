@@ -1,6 +1,6 @@
 <?php namespace Angelov\Eestec\Platform\Http\Middleware;
 
-use Angelov\Eestec\Platform\Exception\NotAllowedException;
+use Angelov\Eestec\Platform\Exceptions\NotAllowedException;
 use Closure;
 
 class AjaxOnlyMiddleware

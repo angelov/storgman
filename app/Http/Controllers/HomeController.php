@@ -28,10 +28,10 @@
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Entity\Member;
-use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Service\MembersStatisticsService;
+use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Services\MembersStatisticsService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\Factory;
 

@@ -25,37 +25,58 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Reports;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+use JsonSerializable;
+
+class MembershipStatusReport implements JsonSerializable
 {
-    /** @var $entity Meeting */
-    protected $entity;
+    protected $total = 0;
+    protected $active = 0;
 
-    public function setUp()
+    /**
+     * @param integer $total Total number of members
+     * @param integer $active The number of active members
+     */
+    function __construct($total, $active)
     {
-        $this->entity = new Meeting();
+        $this->active = $active;
+        $this->total = $total;
     }
 
-    public function testHasManyAttendants()
+    public function setActive($active)
     {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
+        $this->active = $active;
     }
 
-    public function testHasOneCreator()
+    public function getActive()
     {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
+        return $this->active;
     }
 
-    public function testReturnsFormattedDate()
+    public function setTotal($total)
     {
-        $this->entity->date = '2014-09-07 00:00:00';
+        $this->total = $total;
+    }
 
-        $this->assertEquals('2014-09-07', $this->entity->date);
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    public function getInactive()
+    {
+        return $this->total - $this->active;
+    }
+
+    public function jsonSerialize()
+    {
+        $data = [
+            "total" => $this->getTotal(),
+            "active" => $this->getActive(),
+            "inactive" => $this->getInactive()
+        ];
+
+        return $data;
     }
 }

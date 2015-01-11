@@ -25,37 +25,43 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Entities;
+
+use Angelov\Eestec\Platform\DateTime;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
+ * @property int $id
+ * @property string $date
+ * @property string $location
+ * @property string $info
+ * @property int $created_by
+ * @property string $created_at
+ * @property string $updated_at
+ * @property \Illuminate\Database\Eloquent\Collection $attendants
+ * @property \Angelov\Eestec\Platform\Entities\Member $creator
  */
-class MeetingTest extends TestCase
+class Meeting extends Model
 {
-    /** @var $entity Meeting */
-    protected $entity;
 
-    public function setUp()
+    protected $fillable = [];
+    protected $table = 'meetings';
+
+    public function attendants()
     {
-        $this->entity = new Meeting();
+        return $this->belongsToMany('Angelov\Eestec\Platform\Entities\Member');
     }
 
-    public function testHasManyAttendants()
+    public function creator()
     {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
+        return $this->belongsTo('Angelov\Eestec\Platform\Entities\Member', 'created_by');
     }
 
-    public function testHasOneCreator()
+    public function getDateAttribute($date)
     {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
+        $date = new DateTime($date);
+
+        return $date->toDateString();
     }
 
-    public function testReturnsFormattedDate()
-    {
-        $this->entity->date = '2014-09-07 00:00:00';
-
-        $this->assertEquals('2014-09-07', $this->entity->date);
-    }
 }

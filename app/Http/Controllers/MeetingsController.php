@@ -27,17 +27,17 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Http\Requests\StoreMeetingRequest;
-use Angelov\Eestec\Platform\Paginator\MeetingsPaginator;
-use Angelov\Eestec\Platform\Service\MeetingsService;
+use Angelov\Eestec\Platform\Paginators\MeetingsPaginator;
+use Angelov\Eestec\Platform\Services\MeetingsService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Angelov\Eestec\Platform\Entity\Meeting;
-use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Entities\Meeting;
+use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;

@@ -25,37 +25,28 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Repositories;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+use Symfony\Component\HttpFoundation\File\UploadedFile as File;
+
+class LocalPhotosRepository implements PhotosRepositoryInterface
 {
-    /** @var $entity Meeting */
-    protected $entity;
-
-    public function setUp()
+    public function store(File $photo, $type, $fileName = null)
     {
-        $this->entity = new Meeting();
+        $fileName = $fileName ?: $photo->getClientOriginalName();
+        $fullPath = storage_path('photos/'. $type);
+
+        $photo->move($fullPath, $fileName);
     }
 
-    public function testHasManyAttendants()
+    public function destroy($filename, $type)
     {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
+        $fullPath = storage_path('photos/'. $type);
+        $imagePath = $fullPath . "/" . $filename;
+
+        if (file_exists($imagePath)) {
+            unlink($fullPath . "/" . $filename);
+        }
     }
 
-    public function testHasOneCreator()
-    {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
-    }
-
-    public function testReturnsFormattedDate()
-    {
-        $this->entity->date = '2014-09-07 00:00:00';
-
-        $this->assertEquals('2014-09-07', $this->entity->date);
-    }
 }

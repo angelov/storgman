@@ -27,9 +27,9 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Entity\Member;
+use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Http\Requests\LoginFormRequest;
-use Angelov\Eestec\Platform\Service\MembershipService;
+use Angelov\Eestec\Platform\Services\MembershipService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;

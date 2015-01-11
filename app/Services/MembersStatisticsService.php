@@ -25,37 +25,31 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Services;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+
+class MembersStatisticsService
 {
-    /** @var $entity Meeting */
-    protected $entity;
+    protected $members;
 
-    public function setUp()
+    public function __construct(MembersRepositoryInterface $members)
     {
-        $this->entity = new Meeting();
+        $this->members = $members;
     }
 
-    public function testHasManyAttendants()
+    /**
+     * Returns an array with num. of new members in
+     * each of the last 12 months.
+     */
+    public function newMembersMonthlyLastYear()
     {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
-    }
+        $from = DateTime::twelveMonthsAgo(true);
+        $to = new DateTime('now');
 
-    public function testHasOneCreator()
-    {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
-    }
+        $report = $this->members->countNewMembersPerMonth($from, $to);
 
-    public function testReturnsFormattedDate()
-    {
-        $this->entity->date = '2014-09-07 00:00:00';
-
-        $this->assertEquals('2014-09-07', $this->entity->date);
+        return $report;
     }
 }

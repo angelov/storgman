@@ -25,13 +25,13 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entity\Fee;
-use Angelov\Eestec\Platform\Entity\Meeting;
-use Angelov\Eestec\Platform\Entity\Member;
-use Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Entities\Fee;
+use Angelov\Eestec\Platform\Entities\Meeting;
+use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
 use Illuminate\Database\Seeder;
-use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 
 class FakeDataSeeder extends Seeder
 {

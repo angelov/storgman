@@ -27,16 +27,16 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;
-use Angelov\Eestec\Platform\Paginator\FeesPaginator;
-use Angelov\Eestec\Platform\Service\MembershipService;
+use Angelov\Eestec\Platform\Paginators\FeesPaginator;
+use Angelov\Eestec\Platform\Services\MembershipService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Angelov\Eestec\Platform\Entity\Fee;
-use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Entities\Fee;
+use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 use Illuminate\View\Factory;
 
 class FeesController extends BaseController
@@ -95,7 +95,7 @@ class FeesController extends BaseController
      * Show the form for creating a new fee.
      * Method available only via ajax.
      *
-     * @param MembershipService $membershipService
+     * @param \Angelov\Eestec\Platform\Services\MembershipService $membershipService
      * @return Response
      */
     public function create(MembershipService $membershipService)

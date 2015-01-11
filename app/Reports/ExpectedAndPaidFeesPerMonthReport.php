@@ -25,37 +25,44 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Reports;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+use JsonSerializable;
+
+class ExpectedAndPaidFeesPerMonthReport extends AbstractMonthlyReport implements JsonSerializable
 {
-    /** @var $entity Meeting */
-    protected $entity;
+    protected $paid;
+    protected $expected;
 
-    public function setUp()
+    public function setPaidFees(array $paid)
     {
-        $this->entity = new Meeting();
+        $this->paid = $paid;
     }
 
-    public function testHasManyAttendants()
+    public function getPaidFees()
     {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
+        return $this->paid;
     }
 
-    public function testHasOneCreator()
+    public function setExpectedFees(array $expected)
     {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
+        $this->expected = $expected;
     }
 
-    public function testReturnsFormattedDate()
+    public function getExpectedFees()
     {
-        $this->entity->date = '2014-09-07 00:00:00';
-
-        $this->assertEquals('2014-09-07', $this->entity->date);
+        return $this->expected;
     }
-}
+
+    public function jsonSerialize()
+    {
+        $data = [
+            'months' => $this->getMonthsTitles(),
+            'paid' => $this->getPaidFees(),
+            'expected' => $this->getExpectedFees()
+        ];
+
+        return $data;
+    }
+
+} 

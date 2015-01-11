@@ -45,22 +45,22 @@ class RepositoriesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->container->bind('Angelov\Eestec\Platform\Repository\MembersRepositoryInterface',
-            'Angelov\Eestec\Platform\Repository\EloquentMembersRepository');
+        $this->container->bind('Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface',
+            'Angelov\Eestec\Platform\Repositories\EloquentMembersRepository');
 
-        $this->container->bind('Angelov\Eestec\Platform\Repository\FeesRepositoryInterface',
-            'Angelov\Eestec\Platform\Repository\EloquentFeesRepository');
+        $this->container->bind('Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface',
+            'Angelov\Eestec\Platform\Repositories\EloquentFeesRepository');
 
-        $this->container->bind('Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface',
-            'Angelov\Eestec\Platform\Repository\LocalPhotosRepository');
+        $this->container->bind('Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface',
+            'Angelov\Eestec\Platform\Repositories\LocalPhotosRepository');
 
-        $this->container->bind('Angelov\Eestec\Platform\Repository\MeetingsRepositoryInterface',
-            'Angelov\Eestec\Platform\Repository\EloquentMeetingsRepository');
+        $this->container->bind('Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface',
+            'Angelov\Eestec\Platform\Repositories\EloquentMeetingsRepository');
 
 
 
         $this->container->bind('PhotosRepository', function () {
-            return App::make('Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface');
+            return App::make('Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface');
         });
 
     }

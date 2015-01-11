@@ -25,37 +25,24 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Factories;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Populators\MembersPopulator;
+use \App;
+use Illuminate\Http\Request;
+
+class MembersFactory
 {
-    /** @var $entity Meeting */
-    protected $entity;
-
-    public function setUp()
+    public static function createFromRequest(Request $request)
     {
-        $this->entity = new Meeting();
-    }
+        $member = new Member();
 
-    public function testHasManyAttendants()
-    {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
-    }
+        /** @var MembersPopulator $populator */
+        $populator = App::make('MembersPopulator');
 
-    public function testHasOneCreator()
-    {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
-    }
+        $populator->populateFromRequest($member, $request);
 
-    public function testReturnsFormattedDate()
-    {
-        $this->entity->date = '2014-09-07 00:00:00';
-
-        $this->assertEquals('2014-09-07', $this->entity->date);
+        return $member;
     }
 }

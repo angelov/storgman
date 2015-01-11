@@ -25,37 +25,43 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Reports;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+class MeetingsAttendanceDetailsForMemberReport
 {
-    /** @var $entity Meeting */
-    protected $entity;
+    protected $attended;
+    protected $missed;
 
-    public function setUp()
+    public function __construct($attended, $missed)
     {
-        $this->entity = new Meeting();
+        $this->attended = $attended;
+        $this->missed = $missed;
     }
 
-    public function testHasManyAttendants()
+    public function getAttended()
     {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
+        return $this->attended;
     }
 
-    public function testHasOneCreator()
+    public function getMissed()
     {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
+        return $this->missed;
     }
 
-    public function testReturnsFormattedDate()
+    public function getTotal()
     {
-        $this->entity->date = '2014-09-07 00:00:00';
-
-        $this->assertEquals('2014-09-07', $this->entity->date);
+        return $this->missed + $this->attended;
     }
+
+    public function getRate()
+    {
+        if ($this->getTotal() == 0) {
+            return 100;
+        }
+
+        $rate = ($this->getAttended() / $this->getTotal()) * 100;
+
+        return (int)round($rate, 0);
+    }
+
 }

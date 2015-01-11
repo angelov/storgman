@@ -25,37 +25,21 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Paginators;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+
+class Factory
 {
-    /** @var $entity Meeting */
-    protected $entity;
+    public static function make(array $items, $totalItems, $itemsPerPage) {
 
-    public function setUp()
-    {
-        $this->entity = new Meeting();
+        $page = Paginator::resolveCurrentPage();
+
+        return new LengthAwarePaginator($items, $totalItems, $itemsPerPage, $page, [
+            'path' => Paginator::resolveCurrentPath()
+        ]);
     }
 
-    public function testHasManyAttendants()
-    {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
-    }
-
-    public function testHasOneCreator()
-    {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
-    }
-
-    public function testReturnsFormattedDate()
-    {
-        $this->entity->date = '2014-09-07 00:00:00';
-
-        $this->assertEquals('2014-09-07', $this->entity->date);
-    }
 }
+ 

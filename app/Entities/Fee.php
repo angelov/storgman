@@ -25,37 +25,37 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Entities;
+
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
+ * @property int $id
+ * @property int $from_date
+ * @property int $to_date
+ * @property int $member_id
+ * @property string $created_at
+ * @property string $updated_at
+ * @property \Angelov\Eestec\Platform\Entities\Member $member
  */
-class MeetingTest extends TestCase
+class Fee extends Model
 {
-    /** @var $entity Meeting */
-    protected $entity;
 
-    public function setUp()
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'fees';
+
+    /**
+     * The member who paid the fee
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function member()
     {
-        $this->entity = new Meeting();
+        return $this->belongsTo('Angelov\Eestec\Platform\Entities\Member');
     }
 
-    public function testHasManyAttendants()
-    {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
-    }
-
-    public function testHasOneCreator()
-    {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
-    }
-
-    public function testReturnsFormattedDate()
-    {
-        $this->entity->date = '2014-09-07 00:00:00';
-
-        $this->assertEquals('2014-09-07', $this->entity->date);
-    }
 }

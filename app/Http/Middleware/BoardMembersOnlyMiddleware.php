@@ -1,6 +1,6 @@
 <?php namespace Angelov\Eestec\Platform\Http\Middleware;
 
-use Angelov\Eestec\Platform\Entity\Member;
+use Angelov\Eestec\Platform\Entities\Member;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 

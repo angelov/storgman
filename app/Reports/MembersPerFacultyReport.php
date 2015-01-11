@@ -25,37 +25,36 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Reports;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+use JsonSerializable;
+
+class MembersPerFacultyReport implements JsonSerializable
 {
-    /** @var $entity Meeting */
-    protected $entity;
+    protected $faculties = [];
 
-    public function setUp()
+    /**
+     * @param string $faculty The faculty's name
+     * @param integer $countMembers Number of members who go to the specific faculty
+     */
+    public function addFaculty($faculty, $countMembers)
     {
-        $this->entity = new Meeting();
+        $this->faculties[$faculty] = $countMembers;
     }
 
-    public function testHasManyAttendants()
+    public function getFaculties()
     {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
+        return $this->faculties;
     }
 
-    public function testHasOneCreator()
+    public function jsonSerialize()
     {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
-    }
+        $faculties = [];
 
-    public function testReturnsFormattedDate()
-    {
-        $this->entity->date = '2014-09-07 00:00:00';
+        foreach ($this->faculties as $faculty => $count) {
+            $faculties[] = [$faculty, (int)$count];
+        }
 
-        $this->assertEquals('2014-09-07', $this->entity->date);
+        return $faculties;
     }
 }

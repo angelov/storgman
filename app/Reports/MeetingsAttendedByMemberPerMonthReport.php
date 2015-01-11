@@ -25,37 +25,55 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Reports;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+use JsonSerializable;
+
+class MeetingsAttendedByMemberPerMonthReport implements JsonSerializable
 {
-    /** @var $entity Meeting */
-    protected $entity;
+    protected $total = [];
+    protected $attended = [];
+    protected $months = [];
 
-    public function setUp()
+    function __construct(array $months, array $total, array $attended)
     {
-        $this->entity = new Meeting();
+        $this->attended = $attended;
+        $this->months = $months;
+        $this->total = $total;
     }
 
-    public function testHasManyAttendants()
+    /**
+     * @return array
+     */
+    public function getAttended()
     {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
+        return $this->attended;
     }
 
-    public function testHasOneCreator()
+    /**
+     * @return array
+     */
+    public function getMonths()
     {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
+        return $this->months;
     }
 
-    public function testReturnsFormattedDate()
+    /**
+     * @return array
+     */
+    public function getTotal()
     {
-        $this->entity->date = '2014-09-07 00:00:00';
+        return $this->total;
+    }
 
-        $this->assertEquals('2014-09-07', $this->entity->date);
+    public function jsonSerialize()
+    {
+        $data = [
+            "months" => $this->getMonths(),
+            "total" => $this->getTotal(),
+            "attended" => $this->getAttended()
+        ];
+
+        return $data;
     }
 }

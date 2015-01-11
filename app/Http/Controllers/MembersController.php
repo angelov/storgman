@@ -27,23 +27,23 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Exception\ResourceNotFoundException;
-use Angelov\Eestec\Platform\Factory\MembersFactory;
+use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Factories\MembersFactory;
 use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
 use Angelov\Eestec\Platform\Http\Requests\UpdateMemberRequest;
-use Angelov\Eestec\Platform\Paginator\MembersPaginator;
-use Angelov\Eestec\Platform\Populator\MembersPopulator;
-use Angelov\Eestec\Platform\Repository\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Repository\PhotosRepositoryInterface;
-use Angelov\Eestec\Platform\Service\MeetingsService;
-use Angelov\Eestec\Platform\Service\MembershipService;
+use Angelov\Eestec\Platform\Paginators\MembersPaginator;
+use Angelov\Eestec\Platform\Populators\MembersPopulator;
+use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
+use Angelov\Eestec\Platform\Services\MeetingsService;
+use Angelov\Eestec\Platform\Services\MembershipService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Angelov\Eestec\Platform\Repository\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
 
@@ -176,7 +176,7 @@ class MembersController extends BaseController
      * Display the specified member.
      *
      * @param MembershipService $membershipService
-     * @param MeetingsService $meetingsService
+     * @param \Angelov\Eestec\Platform\Services\MeetingsService $meetingsService
      * @param int $id
      * @return Response
      *
@@ -207,7 +207,7 @@ class MembersController extends BaseController
      * Returns html component with short member info
      * (focused on the membership)
      *
-     * @param MembershipService $membershipService
+     * @param \Angelov\Eestec\Platform\Services\MembershipService $membershipService
      * @param int $id
      * @return Response
      */
@@ -263,7 +263,7 @@ class MembersController extends BaseController
      * Remove the specified members from storage.
      * Method available only via AJAX requests
      *
-     * @param PhotosRepositoryInterface $photos
+     * @param \Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface $photos
      * @param  int $id
      * @return JsonResponse
      */

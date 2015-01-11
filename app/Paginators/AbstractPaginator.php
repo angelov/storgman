@@ -25,37 +25,40 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Meeting;
+namespace Angelov\Eestec\Platform\Paginators;
 
-/**
- * @see https://github.com/JeffreyWay/Laravel-Test-Helpers/issues/6
- */
-class MeetingTest extends TestCase
+use Angelov\Eestec\Platform\Repositories\RepositoryInterface;
+
+abstract class AbstractPaginator
 {
-    /** @var $entity Meeting */
-    protected $entity;
+    /** @var Factory $paginator */
+    protected $paginator;
 
-    public function setUp()
+    /** @var RepositoryInterface */
+    protected $repository;
+
+    protected $itemsPerPage = 15;
+    protected $totalItems = 0;
+
+    public function get($page, $with = [])
     {
-        $this->entity = new Meeting();
+        $data = $this->repository->getByPage($page, $this->itemsPerPage, $with);
+        $paginator = $this->paginator;
+        $paginated = $paginator::make($data->items, $data->totalItems, $this->itemsPerPage);
+
+        $this->totalItems = $data->totalItems;
+
+        return $paginated;
     }
 
-    public function testHasManyAttendants()
+    public function setItemsPerPage($num)
     {
-        /** @todo Test this. */
-        //$this->assertBelongsToMany('attendants', get_class($this->entity));
+        $this->itemsPerPage = $num;
     }
 
-    public function testHasOneCreator()
+    public function countItems()
     {
-        /** @todo Test this. */
-        //$this->assertHasOne('creator', get_class($this->entity));
+        return $this->totalItems;
     }
 
-    public function testReturnsFormattedDate()
-    {
-        $this->entity->date = '2014-09-07 00:00:00';
-
-        $this->assertEquals('2014-09-07', $this->entity->date);
-    }
 }
