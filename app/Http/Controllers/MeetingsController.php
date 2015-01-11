@@ -155,7 +155,9 @@ class MeetingsController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $meeting = $this->meetings->get($id);
+
+        return $this->view->make('meetings.edit', compact('meeting'));
     }
 
     /**
