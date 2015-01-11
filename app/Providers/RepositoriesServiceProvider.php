@@ -57,10 +57,10 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->container->bind('Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface',
             'Angelov\Eestec\Platform\Repositories\EloquentMeetingsRepository');
 
+        $container = $this->container;
 
-
-        $this->container->bind('PhotosRepository', function () {
-            return App::make('Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface');
+        $this->container->bind('PhotosRepository', function () use ($container) {
+            return $container->make('Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface');
         });
 
     }
