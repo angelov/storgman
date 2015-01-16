@@ -65,6 +65,10 @@ class HomeController extends BaseController
         $logged = $this->authenticator->user();
         $boardMember = $logged->isBoardMember();
 
+        if (!$boardMember) {
+            return \Redirect::route('members.show', $logged->id);
+        }
+
         $withBirthday = $this->members->getByBirthdayDate($today);
         $attendance = $this->meetings->calculateAttendanceDetails();
         $byMembershipStatus = $this->members->countByMembershipStatus();

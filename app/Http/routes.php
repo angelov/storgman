@@ -75,6 +75,12 @@ $router->group(['prefix' => 'auth'], function (Router $router) {
 
 $router->group(['prefix' => 'members'], function (Router $router) {
 
+    $router->group(['middleware' => ['auth', 'boardMemberOrSelf']], function(Router $router) {
+        $router->get('/{id}',      ['as' => 'members.show',   'uses' => 'MembersController@show']);
+        $router->get('/{id}/edit', ['as' => 'members.edit',   'uses' => 'MembersController@edit']);
+        $router->put('/{id}',      ['as' => 'members.update', 'uses' => 'MembersController@update']);
+    });
+
     $router->group(['middleware' => 'guest'], function(Router $router) {
         $router->get('/register',
             ['as' => 'members.register',
@@ -90,9 +96,6 @@ $router->group(['prefix' => 'members'], function (Router $router) {
         $router->get('/',          ['as' => 'members.index',  'uses' => 'MembersController@index']);
         $router->get('/create',    ['as' => 'members.create', 'uses' => 'MembersController@create']);
         $router->post('/',         ['as' => 'members.store',  'uses' => 'MembersController@store']);
-        $router->get('/{id}',      ['as' => 'members.show',   'uses' => 'MembersController@show']);
-        $router->get('/{id}/edit', ['as' => 'members.edit',   'uses' => 'MembersController@edit']);
-        $router->put('/{id}',      ['as' => 'members.update', 'uses' => 'MembersController@update']);
         $router->delete('/{id}',
             ['as' => 'members.destroy',
              'uses' => 'MembersController@destroy',
@@ -158,8 +161,6 @@ $router->group(['prefix' => 'fees', 'middleware' => ['auth', 'boardMember']], fu
 
 /**
  * Meetings management
- *
- * @todo Regular members should be able to view limited details
  */
 
 $router->group(['prefix' => 'meetings', ['auth', 'boardMember']], function (Router $router) {
