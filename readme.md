@@ -26,13 +26,12 @@ I'm a student and I work full time on some other stuff, so, unfortunately, I can
 
 Here is a list of some planned things that still need to be finished:
 * Editing meeting reports
-* The results from some dabatabase queries can be cached
+* The results from some database queries can be cached
 * Sending emails to the members when some events occur (eg. their account is approved)
-* Members should be able to edit their profiles
+* ~~Members should be able to edit their profiles~~ (done)
 * The configuration files can be cleaned from some unnecessary stuff
-* Provide option to store the static files (like members' photos) on AWS (or something similar)
-
-I also plan to upgrade this application to use Laravel 5 Framework (scheduled to be released in late ~~november/early december~~ late january) before releasing the first version.
+* ~~Provide option to store the static files (like members' photos) on AWS (or something similar)~~ (rescheduled for v2)
+* Upgrade to Laravel 5 (almost finished)
 
 ##### Version 2
 
