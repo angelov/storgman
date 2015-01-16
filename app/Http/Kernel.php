@@ -29,6 +29,7 @@ class Kernel extends HttpKernel {
         'guest' => 'Angelov\Eestec\Platform\Http\Middleware\RedirectIfAuthenticated',
         'boardMember' => 'Angelov\Eestec\Platform\Http\Middleware\BoardMembersOnlyMiddleware',
         'ajax' => 'Angelov\Eestec\Platform\Http\Middleware\AjaxOnlyMiddleware',
+        'boardMemberOrSelf' => 'Angelov\Eestec\Platform\Http\Middleware\BoardMembersOrSelfMiddleware',
     ];
 
 }
