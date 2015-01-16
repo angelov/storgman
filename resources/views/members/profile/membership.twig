@@ -4,11 +4,11 @@
         <ul class="list-group" style="margin-top: 20px;">
             <li class="list-group-item text-muted text-left">
                 Membership
-                <span class="pull-right">
-                    <button type="button" class="btn btn-default btn-xs">
-                        Renew membership
-                    </button>
-                </span>
+                {#<span class="pull-right">#}
+                    {#<button type="button" class="btn btn-default btn-xs">#}
+                        {#Renew membership#}
+                    {#</button>#}
+                {#</span>#}
             </li>
             <li class="list-group-item text-center" style="height: 100px;">
                 <div class="row"  style="margin-top: 10px">
@@ -69,10 +69,12 @@
                                 <td class="date-to-format">{{ fee.to_date }}</td>
                                 <td>{{ fee.created_at }}</td>
                                 <td class="text-right">
-                                    <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"
-                                       class="has-tooltip btn-delete-fee" data-fee="{{ fee.id }}" title="Delete">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </a>
+                                    {% if Auth.user().isBoardMember() %}
+                                        <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"
+                                           class="has-tooltip btn-delete-fee" data-fee="{{ fee.id }}" title="Delete">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </a>
+                                    {% endif %}
                                 </td>
                             </tr>
 

@@ -68,25 +68,29 @@
                         <input type="password" class="form-control" id="password" name="password" />
                     </div>
 
-                    <legend>Organization details:</legend>
+                    {% if Auth.user().isBoardMember() %}
 
-                    {% set board_member = "" %}
-                    {% if member.board_member %}
-                        {% set board_member = "checked" %}
+                        <legend>Organization details:</legend>
+
+                        {% set board_member = "" %}
+                        {% if member.board_member %}
+                            {% set board_member = "checked" %}
+                        {% endif %}
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="board_member" value="1" {{ board_member }}> Board member
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="position_title">Position title:</label>
+                            <input type="text" class="form-control" id="position_title" name="position_title"
+                                   placeholder="eg. President" value="{{ member.position_title }}">
+                            <p class="help-block small">Fill only if the member is part of the organization's board</p>
+                        </div>
+
                     {% endif %}
-
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="board_member" value="1" {{ board_member }}> Board member
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="position_title">Position title:</label>
-                        <input type="text" class="form-control" id="position_title" name="position_title"
-                               placeholder="eg. President" value="{{ member.position_title }}">
-                        <p class="help-block small">Fill only if the member is part of the organization's board</p>
-                    </div>
 
                     <legend>Education:</legend>
 
