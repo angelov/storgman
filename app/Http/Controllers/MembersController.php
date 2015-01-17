@@ -38,12 +38,14 @@ use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
 use Angelov\Eestec\Platform\Services\MeetingsService;
 use Angelov\Eestec\Platform\Services\MembershipService;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Illuminate\Mail\Message;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
 
@@ -294,10 +296,11 @@ class MembersController extends BaseController
      * Approve a pending member account
      * Method available only via AJAX requests
      *
-     * @param int   $id
+     * @param Mailer $mailer
+     * @param int $id
      * @return JsonResponse
      */
-    public function approve($id)
+    public function approve(Mailer $mailer, $id)
     {
         /** @todo Duplicated code, create ResourceNotFound error handler  */
 
@@ -305,6 +308,11 @@ class MembersController extends BaseController
             $member = $this->members->get($id);
             $member->approved = true;
             $this->members->store($member);
+
+            $mailer->send('emails.members.approved', compact('member'), function(Message $message) use ($member)
+            {
+                $message->to($member->email)->subject('Your account was approved!');
+            });
 
             $data['status'] = 'success';
             $data['message'] = 'Member approved successfully.';
