@@ -31,12 +31,14 @@ use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;
 use Angelov\Eestec\Platform\Paginators\FeesPaginator;
 use Angelov\Eestec\Platform\Services\MembershipService;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Entities\Fee;
 use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Illuminate\Mail\Message;
 use Illuminate\View\Factory;
 
 class FeesController extends BaseController
@@ -139,16 +141,23 @@ class FeesController extends BaseController
      * Store a newly created fee.
      *
      * @param StoreFeeRequest $request
+     * @param Mailer $mailer
      * @return JsonResponse
      */
-    public function store(StoreFeeRequest $request)
+    public function store(StoreFeeRequest $request, Mailer $mailer)
     {
         $fee = new Fee();
 
         $fee->from_date = $request->get('from');
         $fee->to_date = $request->get('to');
 
-        $member = $this->members->get($request->get('member_id'));
+        $id = $request->get('member_id');
+        $member = $this->members->get($id);
+
+        $mailer->send('emails.fees.proceeded', compact('member', 'fee'), function(Message $message) use ($member)
+        {
+            $message->to($member->email)->subject('Membership fee proceeded');
+        });
 
         $this->fees->store($fee, $member);
 

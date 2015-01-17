@@ -328,17 +328,23 @@ class MembersController extends BaseController
      * Decline a pending member account
      * Method available only via AJAX requests
      *
-     * @param int   $id
+     * @param Mailer $mailer
+     * @param int $id
      * @return JsonResponse
      */
-    public function decline($id)
+    public function decline(Mailer $mailer, $id)
     {
         /** @todo Duplicated code, create ResourceNotFound error handler  */
 
         try {
-            $this->members->destroy($id);
+            $member = $this->members->get($id);
 
-            /** @todo Send an email saying that the account was declined */
+            $mailer->send('emails.members.declined', compact('member'), function(Message $message) use ($member)
+            {
+                $message->to($member->email)->subject('We are sorry...');
+            });
+
+            $this->members->destroy($id);
 
             $data['status'] = 'success';
             $data['message'] = 'Member declined successfully.';
@@ -364,13 +370,19 @@ class MembersController extends BaseController
      * Proceed the information submitted via the registration form
      *
      * @param StoreMemberRequest $request
+     * @param Mailer $mailer
      * @return Response
      */
-    public function postRegister(StoreMemberRequest $request)
+    public function postRegister(StoreMemberRequest $request, Mailer $mailer)
     {
         $member = MembersFactory::createFromRequest($request);
 
         $this->members->store($member);
+
+        $mailer->send('emails.members.registered', compact('member'), function(Message $message) use ($member)
+        {
+            $message->to($member->email)->subject('Thank you for joining us!');
+        });
 
         $this->session->flash('action-message',
             "Your account was created successfully. You will be notified when the board members approve it.");

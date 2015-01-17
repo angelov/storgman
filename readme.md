@@ -27,7 +27,7 @@ I'm a student and I work full time on some other stuff, so, unfortunately, I can
 Here is a list of some planned things that still need to be finished:
 * Editing meeting reports
 * The results from some database queries can be cached
-* Sending emails to the members when some events occur (eg. their account is approved)
+* ~~Sending emails to the members when some events occur (eg. their account is approved)~~ (done)
 * ~~Members should be able to edit their profiles~~ (done)
 * The configuration files can be cleaned from some unnecessary stuff
 * ~~Provide option to store the static files (like members' photos) on AWS (or something similar)~~ (rescheduled for v2)

@@ -1,0 +1,15 @@
+<h1>Hello {{ member.full_name }},</h1>
+
+<p>Your membership fee was proceeded by the board members.</p>
+
+<p>Here are some details:</p>
+
+<p>
+    <strong>From:</strong> {{ fee.from_date }}<br />
+    <strong>To:</strong> {{ fee.to_date }}<br />
+</p>
+
+<p>To continue using the service log in <a href="{{ Config.get('app.url') }}" target="_blank">here</a>.</p>
+
+<p>Thank you for being part of the family,<br />
+    <strong>{{ Config.get('main.title') }}</strong></p>
