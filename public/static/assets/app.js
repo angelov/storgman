@@ -308,7 +308,7 @@ $(function(){
     // load the members only if needed
     if ($("#new-attendant").length) {
 
-        var countAttendants = 0;
+        var countAttendants = parseInt($('#count-attendants').text());
 
         var engine = new Bloodhound({
             name: 'members',
@@ -348,7 +348,6 @@ $(function(){
 
                 var inp = $("#attendants");
                 inp.val(inp.val() + member.id + "|");
-                //console.log($("#attendants").val());
 
                 $('#new-attendant').val('');
 
@@ -358,6 +357,8 @@ $(function(){
 
         // delete the attendant from the meeting
         $(document).on('click', '.delete-attendant a', function() {
+
+
 
             var inp = $("#attendants");
             var str = inp.val();

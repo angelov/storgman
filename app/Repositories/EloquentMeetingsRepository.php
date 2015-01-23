@@ -41,11 +41,14 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
         $this->entity = $meeting;
     }
 
-    public function store(Meeting $meeting, Member $creator, array $attendants)
+    public function store(Meeting $meeting, Member $creator, array $attendants = [])
     {
         $meeting->created_by = $creator->id;
         $meeting->save();
-        $meeting->attendants()->saveMany($attendants);
+
+        if (count($attendants)) {
+            $meeting->attendants()->saveMany($attendants);
+        }
     }
 
     public function countMeetingsInPeriod(DateTime $from, DateTime $to) {
@@ -184,5 +187,17 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
         };
 
         return $report;
+    }
+
+    /**
+     * Updates the meeting's attendants list
+     *
+     * @param Meeting $meeting
+     * @param Member[] $attendants
+     * @return void
+     */
+    public function updateAttendantsList(Meeting $meeting, array $attendants)
+    {
+        $meeting->attendants()->sync($attendants);
     }
 }

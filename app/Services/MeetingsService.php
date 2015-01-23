@@ -126,7 +126,8 @@ class MeetingsService
      * @param $attendants
      * @return array
      */
-    public function parseAttendantsIds($attendants) {
+    public function parseAttendantsIds($attendants)
+    {
         $ids = explode("|", $attendants);
         $ids = array_filter(
             $ids,
@@ -136,5 +137,22 @@ class MeetingsService
         );
 
         return $ids;
+    }
+
+    /**
+     * Serialize the attendants' IDs in one string
+     *
+     * @param Member[] $attendants
+     * @return string
+     */
+    public function prepareAttendantsIds(array $attendants)
+    {
+        $list = '|';
+
+        foreach ($attendants as $member) {
+            $list .= $member->id ."|";
+        }
+
+        return $list;
     }
 }

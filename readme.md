@@ -25,7 +25,7 @@ The application is not production ready yet!
 I'm a student and I work full time on some other stuff, so, unfortunately, I can't provide the full attention this project needs. Because of that, I can't tell a concrete release date of the application. However, the first version is almost finished and only some smaller pieces are missing for it to be completed.
 
 Here is a list of some planned things that still need to be finished:
-* Editing meeting reports
+* ~~Editing meeting reports~~ (done)
 * The results from some database queries can be cached
 * ~~Sending emails to the members when some events occur (eg. their account is approved)~~ (done)
 * ~~Members should be able to edit their profiles~~ (done)

@@ -1,4 +1,4 @@
-{% set page_title =  meeting.date ~ ', Edit meeting report' %}
+{% set page_title = 'Create new meeting report' %}
 {% include 'header.twig' %}
 
 <h1>Edit meeting report:</h1>
@@ -7,8 +7,10 @@
     <div class="col-md-12">
 
         <form role="form" method="post" action="{{ route('meetings.update', meeting.id) }}">
-            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="_method" value="put" />
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+            <input type="hidden" name="created_by" value="{{ meeting.created_by }}">
 
             {% if Session.has('errorMessages') %}
                 <div class="alert alert-danger">
@@ -39,8 +41,7 @@
                             <div class="form-group">
                                 <label for="date">Date:</label>
                                 <div class="input-group date">
-                                    <input type="text" class="form-control" id="date" name="date"
-                                            value="{{ meeting.date }}">
+                                    <input type="text" class="form-control" id="date" name="date" value="{{ meeting.date }}">
                                     <span class="input-group-addon">
                                         <i class="glyphicon glyphicon-calendar"></i>
                                     </span>
@@ -55,8 +56,6 @@
                         <textarea class="form-control" name="details" id="txt-meeting-details">{{ meeting.info|raw }}</textarea>
                     </div>
 
-                    <input type="hidden" name="created_by" value="{{ Auth.user().id }}">
-
                 </div>
 
                 <div class="col-md-5">
@@ -65,7 +64,7 @@
                     <div class="form-group">
                         <label for="new-attendant">Enter member:</label>
                         <input type="text" id="new-attendant" class="form-control" placeholder="Start typing member's name..." />
-                        <input type="hidden" id="attendants" value="|" name="attendants" />
+                        <input type="hidden" id="attendants" value="{{ attendantsIds }}" name="attendants" />
                     </div>
 
                     <div id="attendants-list">
@@ -81,18 +80,16 @@
                             <img class="img-attendant" />
                         </div>
 
-                        {% for member in meeting.attendants %}
-
-                            <div id="" class="attendant has-tooltip" title="{{ member.full_name }}"
-                                 data-toggle="tooltip" data-id="{{ member.id }}">
+                        {% for attendant in meeting.attendants %}
+                            <div class="attendant has-tooltip"
+                                 data-toggle="tooltip" title="{{ attendant.full_name }}" data-id="{{ attendant.id }}">
                                 <div class="delete-attendant">
                                     <div class="caption-content">
                                         <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
                                     </div>
                                 </div>
-                                <img class="img-attendant" src="{{ route('imagecache', ['xsmall', member.photo]) }}" />
+                                <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.photo]) }}" />
                             </div>
-
                         {% endfor %}
 
                     </div>
@@ -103,7 +100,7 @@
 
             <div class="row pull-right">
                 <div class="col-md-12 ">
-                    <button type="submit" class="btn btn-info" id="btn-create-meeting">Update report</button>
+                    <button type="submit" class="btn btn-info" id="btn-create-meeting">Add the report</button>
                 </div>
             </div>
 
@@ -111,5 +108,7 @@
 
     </div>
 </div>
+
+
 
 {% include 'footer.twig' %}

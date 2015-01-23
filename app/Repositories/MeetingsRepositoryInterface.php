@@ -43,7 +43,16 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
      * @param  array    $attendants
      * @return void
      */
-    public function store(Meeting $meeting, Member $creator, array $attendants);
+    public function store(Meeting $meeting, Member $creator, array $attendants = []);
+
+    /**
+     * Updates the meeting's attendants list
+     *
+     * @param Meeting $meeting
+     * @param array $attendants
+     * @return void
+     */
+    public function updateAttendantsList(Meeting $meeting, array $attendants);
 
     /**
      * Counts the meetings in a given date range

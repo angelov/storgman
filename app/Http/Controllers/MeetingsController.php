@@ -156,20 +156,38 @@ class MeetingsController extends BaseController
     public function edit($id)
     {
         $meeting = $this->meetings->get($id);
+        $attendantsIds = $this->meetingsService->prepareAttendantsIds($meeting->attendants->all());
 
-        return $this->view->make('meetings.edit', compact('meeting'));
+        return $this->view->make('meetings.edit', compact('meeting', 'attendantsIds'));
     }
 
     /**
      * Update the specified resource in storage.
      * PUT /meetings/{id}
      *
-     * @param  int      $id
+     * @param StoreMeetingRequest $request
+     * @param  int $id
      * @return Response
      */
-    public function update($id)
+    public function update(StoreMeetingRequest $request, $id)
     {
-        //
+        $attendants = $request->get('attendants');
+        $attendants = $this->meetingsService->parseAttendantsIds($attendants);
+
+        $meeting = $this->meetings->get($id);
+
+        $meeting->date = $request->get('date');
+        $meeting->location = $request->get('location');
+        $meeting->info = $request->get('details');
+
+        $creator = $request->get('created_by');
+        $creator = $this->members->get($creator);
+
+        $this->meetings->store($meeting, $creator);
+        $this->meetings->updateAttendantsList($meeting, $attendants);
+
+        return $this->redirector->route('meetings.index');
+
     }
 
     /**
