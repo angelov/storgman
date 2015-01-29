@@ -25,47 +25,23 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Providers;
+namespace Angelov\Eestec\Platform\Http\Middleware;
 
-use Illuminate\Routing\Router;
-use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Closure;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 
-class RouteServiceProvider extends ServiceProvider {
-
-    /**
-     * This namespace is applied to the controller routes in your routes file.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $namespace = 'Angelov\Eestec\Platform\Http\Controllers';
+class VerifyCsrfToken extends BaseVerifier {
 
     /**
-     * Define your route model bindings, pattern filters, etc.
+     * Handle an incoming request.
      *
-     * @param  \Illuminate\Routing\Router  $router
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
      */
-    public function boot(Router $router)
+    public function handle($request, Closure $next)
     {
-        parent::boot($router);
-
-        //
-    }
-
-    /**
-     * Define the routes for the application.
-     *
-     * @return void
-     */
-    public function map(Router $router)
-    {
-        $router->group(['namespace' => $this->namespace], function($router)
-		{
-			require app_path('Http/routes.php');
-		});
+        return parent::handle($request, $next);
     }
 
 }
