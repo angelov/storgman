@@ -144,7 +144,7 @@ return [
 
         'TwigBridge\ServiceProvider',
         //'Way\Generators\GeneratorsServiceProvider',
-        //'Intervention\Image\ImageServiceProvider',
+        'Intervention\Image\ImageServiceProviderLaravel5',
 
         /*
 		 * Application Service Providers...

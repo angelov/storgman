@@ -31,7 +31,7 @@ use Illuminate\Routing\Router;
 
 // TEMPORARY WORKAROUND!
 // @todo remove when the "intervention/image*" packages are fixed for laravel 5
-$router->get('/imgtmp', ['as' => 'imagecache', function() { return; }]);
+//$router->get('/imgtmp', ['as' => 'imagecache', function() { return; }]);
 
 /**
  * Global patterns

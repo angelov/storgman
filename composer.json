@@ -5,8 +5,8 @@
     "require": {
         "php": ">=5.4.0",
         "laravel/framework": "~5.0",
-        "twig/twig": "1.16.*@dev",
-        "rcrowe/twigbridge": "0.6.*",
+        "twig/twig": "1.18.*",
+        "rcrowe/twigbridge": "0.7.*@dev",
         "ext-gd": "*",
         "way/generators": "~3.0",
         "intervention/image": "2.*",

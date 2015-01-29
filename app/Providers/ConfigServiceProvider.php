@@ -44,7 +44,11 @@ class ConfigServiceProvider extends ServiceProvider
     public function register()
     {
         config([
-            //
+            'twigbridge' => [
+                "extensions" => [
+                    "facades" => ["Config", "Auth", "Session", "Input"],
+                ],
+            ]
         ]);
     }
 
