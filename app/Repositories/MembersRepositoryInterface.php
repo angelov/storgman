@@ -29,12 +29,22 @@ namespace Angelov\Eestec\Platform\Repositories;
 
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Reports\MembershipStatusReport;
 use Angelov\Eestec\Platform\Reports\MembersPerFacultyReport;
 use Angelov\Eestec\Platform\Reports\NewMembersPerMonthReport;
 
 interface MembersRepositoryInterface extends RepositoryInterface
 {
+    /**
+     * Returns the member with the given ID
+     *
+     * @param int $id
+     * @return Member
+     * @throws ResourceNotFoundException
+     */
+    public function get($id);
+
     /**
      * Stores the given member
      *

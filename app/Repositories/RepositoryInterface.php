@@ -69,15 +69,6 @@ interface RepositoryInterface
     public function destroy($id);
 
     /**
-     * Returns the member with the given ID
-     *
-     * @param int $id
-     * @return Fee|Meeting|Member
-     * @throws ResourceNotFoundException
-     */
-    public function get($id);
-
-    /**
      * Returns the member with the specific IDs
      *
      * @param array $ids
