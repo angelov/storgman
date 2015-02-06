@@ -31,21 +31,11 @@ use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Exceptions\NoFeesException;
 use Angelov\Eestec\Platform\Entities\Fee;
 use Angelov\Eestec\Platform\Entities\Member;
-use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Reports\ExpectedFeesPerMonthReport;
 use Angelov\Eestec\Platform\Reports\PaidFeesPerMonthReport;
 
 interface FeesRepositoryInterface extends RepositoryInterface
 {
-    /**
-     * Returns the member with the given ID
-     *
-     * @param int $id
-     * @return Fee
-     * @throws ResourceNotFoundException
-     */
-    public function get($id);
-
     /**
      * Stores a fee and relate it to a specific member
      *
