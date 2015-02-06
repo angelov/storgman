@@ -68,7 +68,10 @@ abstract class AbstractEloquentRepository implements RepositoryInterface
     public function destroy($id)
     {
         $resource = $this->get($id);
-        $resource->delete();
+
+        if ($resource instanceof Model) {
+            $resource->delete();
+        }
     }
 
     public function getByPage($page = 1, $limit = 20, array $withRelationships = [])

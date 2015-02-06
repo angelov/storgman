@@ -33,7 +33,9 @@ use Angelov\Eestec\Platform\Paginators\MeetingsPaginator;
 use Angelov\Eestec\Platform\Services\MeetingsService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
@@ -80,7 +82,7 @@ class MeetingsController extends BaseController
      * Display a listing of the meetings.
      * GET /meetings
      *
-     * @return Response
+     * @return View
      */
     public function index()
     {
@@ -94,7 +96,7 @@ class MeetingsController extends BaseController
      * Show the form for creating a new meeting report.
      * GET /meetings/create
      *
-     * @return Response
+     * @return View
      */
     public function create()
     {
@@ -106,7 +108,7 @@ class MeetingsController extends BaseController
      * POST /meetings
      *
      * @param StoreMeetingRequest $request
-     * @return Response
+     * @return RedirectResponse
      */
     public function store(StoreMeetingRequest $request)
     {
@@ -137,7 +139,7 @@ class MeetingsController extends BaseController
      * GET /meetings/{id}
      *
      * @param  int      $id
-     * @return Response
+     * @return View
      */
     public function show($id)
     {
@@ -151,7 +153,7 @@ class MeetingsController extends BaseController
      * GET /meetings/{id}/edit
      *
      * @param  int      $id
-     * @return Response
+     * @return View
      */
     public function edit($id)
     {
@@ -167,7 +169,7 @@ class MeetingsController extends BaseController
      *
      * @param StoreMeetingRequest $request
      * @param  int $id
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(StoreMeetingRequest $request, $id)
     {

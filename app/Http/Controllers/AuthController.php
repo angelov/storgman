@@ -32,8 +32,9 @@ use Angelov\Eestec\Platform\Http\Requests\LoginFormRequest;
 use Angelov\Eestec\Platform\Services\MembershipService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
 
@@ -62,7 +63,7 @@ class AuthController extends BaseController
     /**
      * Display the login form
      *
-     * @return Response
+     * @return View
      */
     public function index()
     {
@@ -75,7 +76,7 @@ class AuthController extends BaseController
      *
      * @param LoginFormRequest $request
      * @param MembershipService $membershipService
-     * @return Response
+     * @return RedirectResponse
      */
     public function login(LoginFormRequest $request, MembershipService $membershipService)
     {
@@ -83,36 +84,44 @@ class AuthController extends BaseController
         $remember = ($request->get('remember') == 'yes');
 
         if (!$this->authenticator->attempt($credentials, $remember)) {
-            $this->session->flash('auth-error', 'Wrong email or password.');
-
-            return $this->redirector->back()->withInput();
+            return $this->redirectBackWithError('Wrong email or password.');
         }
 
         /** @var Member $member */
         $member = $this->authenticator->user();
 
         if (!$member->approved) {
-            $this->authenticator->logout();
-            $this->session->flash('auth-error', 'Your account is not approved yet.');
-
-            return $this->redirector->back()->withInput();
+            return $this->redirectBackWithError('Your account is not approved yet.');
         }
 
         if (!$membershipService->isMemberActive($member)) {
-            $this->authenticator->logout();
-            $this->session->flash('auth-error', 'Your membership needs to be reactivated. Have you paid the fees?');
-
-            return $this->redirector->back();
+            return $this->redirectBackWithError('Your membership needs to be reactivated. Have you paid the fees?');
         }
 
         return $this->redirector->to('/');
+    }
 
+    /**
+     * Return the user to the previous page and show an error
+     *
+     * @param string $error
+     * @return RedirectResponse
+     */
+    protected function redirectBackWithError($error)
+    {
+        if ($this->authenticator->check()) {
+            $this->authenticator->logout();
+        }
+
+        $this->session->flash('auth-error', $error);
+
+        return $this->redirector->back()->withInput();
     }
 
     /**
      * Logout the member
      *
-     * @return Response
+     * @return RedirectResponse
      */
     public function logout()
     {

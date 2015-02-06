@@ -56,6 +56,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $google_plus
  * @property string $phone
  * @property string $website
+ * @property bool $approved
  * @property int $year_of_graduation
  * @property int $age
  * @property string $membership_status

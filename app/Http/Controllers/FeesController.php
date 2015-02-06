@@ -32,6 +32,7 @@ use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;
 use Angelov\Eestec\Platform\Paginators\FeesPaginator;
 use Angelov\Eestec\Platform\Services\MembershipService;
 use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -69,7 +70,7 @@ class FeesController extends BaseController
     /**
      * Display the main page for managing the fees
      *
-     * @return Response
+     * @return View
      */
     public function index()
     {
@@ -83,7 +84,7 @@ class FeesController extends BaseController
     /**
      * List all paid fees
      *
-     * @return Response
+     * @return View
      */
     public function archive()
     {
@@ -97,7 +98,7 @@ class FeesController extends BaseController
      * Show the form for creating a new fee.
      * Method available only via ajax.
      *
-     * @param \Angelov\Eestec\Platform\Services\MembershipService $membershipService
+     * @param MembershipService $membershipService
      * @return Response
      */
     public function create(MembershipService $membershipService)
