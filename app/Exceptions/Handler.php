@@ -29,6 +29,7 @@ namespace Angelov\Eestec\Platform\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 
 class Handler extends ExceptionHandler {
 
@@ -63,10 +64,18 @@ class Handler extends ExceptionHandler {
      */
     public function render($request, Exception $e)
     {
-        if ($this->isHttpException($e))
-        {
+        if ($this->isHttpException($e)) {
             return $this->renderHttpException($e);
         }
+
+        if ($e instanceof ResourceNotFoundException) {
+            $data = [];
+            $data['status'] = 'warning';
+            $data['message'] = 'There was something wrong with your request.';
+
+            return new JsonResponse($data);
+        }
+
         return parent::render($request, $e);
     }
 

@@ -27,7 +27,6 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;
 use Angelov\Eestec\Platform\Paginators\FeesPaginator;
 use Angelov\Eestec\Platform\Services\MembershipService;
@@ -180,15 +179,10 @@ class FeesController extends BaseController
     {
         $data = [];
 
-        try {
-            $this->fees->destroy($id);
+        $this->fees->destroy($id);
 
-            $data['status'] = 'success';
-            $data['message'] = 'Fee deleted successfully.';
-        } catch (ResourceNotFoundException $e) {
-            $data['status'] = 'warning';
-            $data['message'] = 'There was something wrong with your request.';
-        }
+        $data['status'] = 'success';
+        $data['message'] = 'Fee deleted successfully.';
 
         return new JsonResponse($data);
 

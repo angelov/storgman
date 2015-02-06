@@ -27,7 +27,6 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Factories\MembersFactory;
 use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
 use Angelov\Eestec\Platform\Http\Requests\UpdateMemberRequest;
@@ -273,21 +272,16 @@ class MembersController extends BaseController
     {
         $data = [];
 
-        try {
-            $member = $this->members->get($id);
+        $member = $this->members->get($id);
 
-            if (isset($member->photo)) {
-                $photos->destroy($member->photo, 'members');
-            }
-
-            $this->members->destroy($id);
-
-            $data['status'] = 'success';
-            $data['message'] = 'Member deleted successfully.';
-        } catch (ResourceNotFoundException $e) {
-            $data['status'] = 'warning';
-            $data['message'] = 'There was something wrong with your request.';
+        if (isset($member->photo)) {
+            $photos->destroy($member->photo, 'members');
         }
+
+        $this->members->destroy($id);
+
+        $data['status'] = 'success';
+        $data['message'] = 'Member deleted successfully.';
 
         return new JsonResponse($data);
     }
@@ -302,24 +296,17 @@ class MembersController extends BaseController
      */
     public function approve(Mailer $mailer, $id)
     {
-        /** @todo Duplicated code, create ResourceNotFound error handler  */
+        $member = $this->members->get($id);
+        $member->approved = true;
+        $this->members->store($member);
 
-        try {
-            $member = $this->members->get($id);
-            $member->approved = true;
-            $this->members->store($member);
+        $mailer->send('emails.members.approved', compact('member'), function(Message $message) use ($member)
+        {
+            $message->to($member->email)->subject('Your account was approved!');
+        });
 
-            $mailer->send('emails.members.approved', compact('member'), function(Message $message) use ($member)
-            {
-                $message->to($member->email)->subject('Your account was approved!');
-            });
-
-            $data['status'] = 'success';
-            $data['message'] = 'Member approved successfully.';
-        } catch (ResourceNotFoundException $e) {
-            $data['status'] = 'warning';
-            $data['message'] = 'There was something wrong with your request.';
-        }
+        $data['status'] = 'success';
+        $data['message'] = 'Member approved successfully.';
 
         return new JsonResponse($data);
     }
@@ -334,24 +321,17 @@ class MembersController extends BaseController
      */
     public function decline(Mailer $mailer, $id)
     {
-        /** @todo Duplicated code, create ResourceNotFound error handler  */
+        $member = $this->members->get($id);
 
-        try {
-            $member = $this->members->get($id);
+        $mailer->send('emails.members.declined', compact('member'), function(Message $message) use ($member)
+        {
+            $message->to($member->email)->subject('We are sorry...');
+        });
 
-            $mailer->send('emails.members.declined', compact('member'), function(Message $message) use ($member)
-            {
-                $message->to($member->email)->subject('We are sorry...');
-            });
+        $this->members->destroy($id);
 
-            $this->members->destroy($id);
-
-            $data['status'] = 'success';
-            $data['message'] = 'Member declined successfully.';
-        } catch (ResourceNotFoundException $e) {
-            $data['status'] = 'warning';
-            $data['message'] = 'There was something wrong with your request.';
-        }
+        $data['status'] = 'success';
+        $data['message'] = 'Member declined successfully.';
 
         return new JsonResponse($data);
     }

@@ -27,7 +27,6 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Paginators\MeetingsPaginator;
 use Angelov\Eestec\Platform\Services\MeetingsService;
@@ -40,7 +39,6 @@ use Illuminate\Http\Request;
 use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
 
@@ -203,15 +201,10 @@ class MeetingsController extends BaseController
     {
         $data = [];
 
-        try {
-            $this->meetings->destroy($id);
+        $this->meetings->destroy($id);
 
-            $data['status'] = 'success';
-            $data['message'] = 'Meeting deleted successfully.';
-        } catch (ResourceNotFoundException $e) {
-            $data['status'] = 'warning';
-            $data['message'] = 'There was something wrong with your request.';
-        }
+        $data['status'] = 'success';
+        $data['message'] = 'Meeting deleted successfully.';
 
         return new JsonResponse($data);
     }
