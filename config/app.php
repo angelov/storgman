@@ -136,14 +136,12 @@ return [
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
-        'Illuminate\Html\HtmlServiceProvider',
 
         /*
          * Other vendor providers
          */
 
         'TwigBridge\ServiceProvider',
-        //'Way\Generators\GeneratorsServiceProvider',
         'Intervention\Image\ImageServiceProviderLaravel5',
 
         /*
@@ -205,8 +203,7 @@ return [
         'URL'       => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View'      => 'Illuminate\Support\Facades\View',
-        'Form'      => 'Illuminate\Html\FormFacade',
-        'HTML'      => 'Illuminate\Html\HtmlFacade',
+        'Form'      => 'Illuminate\Html\FormFacade'
 
     ]
 
