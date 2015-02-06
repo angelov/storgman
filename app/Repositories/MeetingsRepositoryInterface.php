@@ -30,11 +30,21 @@ namespace Angelov\Eestec\Platform\Repositories;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendanceDetailsReport;
 use Angelov\Eestec\Platform\Reports\MeetingsPerMonthReport;
 
 interface MeetingsRepositoryInterface extends RepositoryInterface
 {
+    /**
+     * Returns the member with the given ID
+     *
+     * @param int $id
+     * @return Meeting
+     * @throws ResourceNotFoundException
+     */
+    public function get($id);
+
     /**
      * Stores the meeting and creates a list of attendants
      *
