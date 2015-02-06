@@ -205,6 +205,8 @@ return [
         'View'      => 'Illuminate\Support\Facades\View',
         'Form'      => 'Illuminate\Html\FormFacade'
 
-    ]
+    ],
+
+    'version' => 'v1.0-beta'
 
 ];
