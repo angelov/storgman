@@ -61,7 +61,7 @@ return [
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
-            'unix_socket' => '/var/run/mysqld/mysqld.sock',
+            'unix_socket' => env('DB_UNIX_SOCKET', ''), // /var/run/mysqld/mysqld.sock
             'strict' => false,
         ],
 
