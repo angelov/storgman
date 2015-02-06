@@ -29,10 +29,6 @@ use Illuminate\Routing\Router;
 
 /** @var Router $router */
 
-// TEMPORARY WORKAROUND!
-// @todo remove when the "intervention/image*" packages are fixed for laravel 5
-//$router->get('/imgtmp', ['as' => 'imagecache', function() { return; }]);
-
 /**
  * Global patterns
  */
@@ -163,7 +159,7 @@ $router->group(['prefix' => 'fees', 'middleware' => ['auth', 'boardMember']], fu
  * Meetings management
  */
 
-$router->group(['prefix' => 'meetings', ['auth', 'boardMember']], function (Router $router) {
+$router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember']], function (Router $router) {
 
     $router->get('/',          ['as' => 'meetings.index',   'uses' => 'MeetingsController@index']);
     $router->get('/create',    ['as' => 'meetings.create',  'uses' => 'MeetingsController@create']);
