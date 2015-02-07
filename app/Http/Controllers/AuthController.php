@@ -94,10 +94,6 @@ class AuthController extends BaseController
             return $this->redirectBackWithError('Your account is not approved yet.');
         }
 
-        if (!$membershipService->isMemberActive($member)) {
-            return $this->redirectBackWithError('Your membership needs to be reactivated. Have you paid the fees?');
-        }
-
         return $this->redirector->to('/');
     }
 
