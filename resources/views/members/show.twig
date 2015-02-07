@@ -31,15 +31,28 @@
                                 </td>
                             </tr>
                         {% endif %}
-                        <tr>
-                            <td>
-                                {% if member.membership_status == 'Active' %}
-                                    <i class="fa fa-check" style="margin-right: 5px;"></i> Active
-                                {% else %}
-                                    <i class="fa fa-times" style="margin-right: 5px;"></i> Inactive
-                                {% endif %}
-                            </td>
-                        </tr>
+
+
+                        {% if (member.alumni) %}
+                            <tr>
+                                <td>
+                                    <i class="glyphicon glyphicon-credit-card" style="margin-right: 5px;"></i> Alumni member
+                                </td>
+                            </tr>
+                        {% else %}
+
+                            <tr>
+                                <td>
+                                    {% if member.membership_status == 'Active' %}
+                                        <i class="fa fa-check" style="margin-right: 5px;"></i> Active
+                                    {% else %}
+                                        <i class="fa fa-times" style="margin-right: 5px;"></i> Inactive
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                        {% endif %}
+
                         <tr>
                             <td>
                                 <i class="glyphicon glyphicon-heart" style="margin-right: 5px"></i>
@@ -51,13 +64,13 @@
                             <td>
                                 {% if (member.board_member) %}
                                     <i class="glyphicon glyphicon-tower" style="margin-right: 5px;"></i> Board member
-                                {% else %}
+                                {% elseif (member.alumni is not defined) %}
                                     <i class="glyphicon glyphicon-user" style="margin-right: 5px;"></i> Regular member
                                 {% endif %}
                             </td>
                         </tr>
 
-                        {% if (member.position_title is defined) %}
+                        {% if (member.position_title != "") %}
                             <tr>
                                 <td>
                                     <i class="glyphicon glyphicon-briefcase" style="margin-right: 5px;"></i> {{ member.position_title }}

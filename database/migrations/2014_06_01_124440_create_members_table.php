@@ -34,6 +34,7 @@ class CreateMembersTable extends Migration
                 $table->boolean('board_member')->default(false);
                 $table->string('position_title')->nullable();
                 $table->boolean('approved')->default(false);
+                $table->boolean('alumni')->default(false);
                 $table->string('remember_token')->nullable();
                 $table->timestamps();
 

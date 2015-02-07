@@ -51,6 +51,7 @@ class MembersPopulator
         $member->year_of_graduation = $request->get('year_of_graduation');
         $member->board_member = ($request->get('board_member') == 1);
         $member->position_title = $request->get('position_title');
+        $member->alumni = ($request->get('alumni_member') == 1);
 
         $member->facebook = $request->get('facebook');
         $member->twitter = $request->get('twitter');

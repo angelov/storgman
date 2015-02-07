@@ -77,6 +77,11 @@
                             {% set board_member = "checked" %}
                         {% endif %}
 
+                        {% set alumni_member = "" %}
+                        {% if member.alumni %}
+                            {% set alumni_member = "checked" %}
+                        {% endif %}
+
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="board_member" value="1" {{ board_member }}> Board member
@@ -88,6 +93,12 @@
                             <input type="text" class="form-control" id="position_title" name="position_title"
                                    placeholder="eg. President" value="{{ member.position_title }}">
                             <p class="help-block small">Fill only if the member is part of the organization's board</p>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="alumni_member" value="1" {{ alumni_member }}> Alumni member
+                            </label>
                         </div>
 
                     {% endif %}

@@ -64,6 +64,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Database\Eloquent\Collection $fees
  * @property \Illuminate\Database\Eloquent\Collection $meetingsAttended
  * @property \Illuminate\Database\Eloquent\Collection $meetingsCreated
+ * @property bool alumni
  */
 class Member extends Model implements AuthenticatableInterface, CanResetPasswordInterface
 {
@@ -147,6 +148,11 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
     public function isBoardMember()
     {
         return $this->board_member;
+    }
+
+    public function isAlumniMember()
+    {
+        return $this->alumni;
     }
 
     public function getAgeAttribute()
