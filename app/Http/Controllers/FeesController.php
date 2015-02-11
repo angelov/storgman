@@ -167,10 +167,7 @@ class FeesController extends BaseController
         $data['status'] = 'success';
         $data['message'] = 'The membership was renewed successfully.';
 
-        \Log::info(\DB::getQueryLog());
-
         return new JsonResponse($data);
-
     }
 
     /**

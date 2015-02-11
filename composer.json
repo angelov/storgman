@@ -10,7 +10,8 @@
         "ext-gd": "*",
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*",
-        "nesbot/carbon": "1.*"
+        "nesbot/carbon": "1.*",
+        "barryvdh/laravel-debugbar": "~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~3.7",

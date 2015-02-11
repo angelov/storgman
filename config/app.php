@@ -143,6 +143,7 @@ return [
 
         'TwigBridge\ServiceProvider',
         'Intervention\Image\ImageServiceProviderLaravel5',
+        'Barryvdh\Debugbar\ServiceProvider',
 
         /*
 		 * Application Service Providers...
