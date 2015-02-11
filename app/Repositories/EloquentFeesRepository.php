@@ -42,9 +42,9 @@ class EloquentFeesRepository extends AbstractEloquentRepository implements FeesR
         $this->entity = $entity;
     }
 
-    public function store(Fee $fee, Member $member)
+    public function store(Fee $fee)
     {
-        $member->fees()->save($fee);
+        $fee->save();
     }
 
     public function getFeesForMember(Member $member)

@@ -47,13 +47,12 @@ interface FeesRepositoryInterface extends RepositoryInterface
     public function get($id);
 
     /**
-     * Stores a fee and relate it to a specific member
+     * Stores a fee
      *
      * @param  Fee $fee
-     * @param  Member $member
      * @return void
      */
-    public function store(Fee $fee, Member $member);
+    public function store(Fee $fee);
 
     /**
      * Returns all fees paid by a member

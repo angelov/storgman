@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
+use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;
 use Angelov\Eestec\Platform\Paginators\FeesPaginator;
 use Angelov\Eestec\Platform\Services\MembershipService;
@@ -148,21 +149,25 @@ class FeesController extends BaseController
     {
         $fee = new Fee();
 
-        $fee->from_date = $request->get('from');
-        $fee->to_date = $request->get('to');
+        $fee->setFromDate(new DateTime($request->get('from')));
+        $fee->setToDate(new DateTime($request->get('to')));
 
-        $id = $request->get('member_id');
-        $member = $this->members->get($id);
+        $memberId = $request->get('member_id');
+        $member = $this->members->get($memberId);
+
+        $fee->setMember($member);
 
         $mailer->send('emails.fees.proceeded', compact('member', 'fee'), function(Message $message) use ($member)
         {
             $message->to($member->email)->subject('Membership fee proceeded');
         });
 
-        $this->fees->store($fee, $member);
+        $this->fees->store($fee);
 
         $data['status'] = 'success';
         $data['message'] = 'The membership was renewed successfully.';
+
+        \Log::info(\DB::getQueryLog());
 
         return new JsonResponse($data);
 

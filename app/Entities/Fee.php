@@ -27,20 +27,11 @@
 
 namespace Angelov\Eestec\Platform\Entities;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property int $id
- * @property int $from_date
- * @property int $to_date
- * @property int $member_id
- * @property string $created_at
- * @property string $updated_at
- * @property \Angelov\Eestec\Platform\Entities\Member $member
- */
 class Fee extends Model
 {
-
     /**
      * The database table used by the model.
      *
@@ -58,4 +49,50 @@ class Fee extends Model
         return $this->belongsTo('Angelov\Eestec\Platform\Entities\Member');
     }
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->getAttribute('id');
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getFromDate()
+    {
+        return $this->getAttribute('from_date');
+    }
+
+    public function setFromDate(DateTime $date)
+    {
+        $this->setAttribute('from_date', $date);
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getToDate()
+    {
+        return $this->getAttribute('to_date');
+    }
+
+    public function setToDate(DateTime $date)
+    {
+        $this->setAttribute('to_date', $date);
+    }
+
+    public function setMember(Member $member)
+    {
+        $this->member()->associate($member);
+    }
+
+    /**
+     * @return Member
+     */
+    public function getMember()
+    {
+        return $this->getAttribute('member');
+    }
 }
