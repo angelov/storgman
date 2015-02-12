@@ -46,14 +46,12 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
     public function get($id);
 
     /**
-     * Stores the meeting and creates a list of attendants
+     * Stores a meeting
      *
      * @param  Meeting $meeting
-     * @param  Member $creator
-     * @param  array    $attendants
      * @return void
      */
-    public function store(Meeting $meeting, Member $creator, array $attendants = []);
+    public function store(Meeting $meeting);
 
     /**
      * Updates the meeting's attendants list

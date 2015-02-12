@@ -27,25 +27,111 @@
 
 namespace Angelov\Eestec\Platform\Entities;
 
-use Angelov\Eestec\Platform\DateTime;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property int $id
- * @property string $date
- * @property string $location
- * @property string $info
- * @property int $created_by
- * @property string $created_at
- * @property string $updated_at
- * @property \Illuminate\Database\Eloquent\Collection $attendants
- * @property \Angelov\Eestec\Platform\Entities\Member $creator
- */
 class Meeting extends Model
 {
-
-    protected $fillable = [];
     protected $table = 'meetings';
+
+    /**
+     * List of members who attended the meeting
+     *
+     * @var Member[] $attendants
+     */
+    protected $attendants = [];
+
+    public function getId()
+    {
+        return $this->getAttribute('id');
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->getAttribute('date');
+    }
+
+    public function setDate(\DateTime $date)
+    {
+        $this->setAttribute('date', $date);
+    }
+
+    public function getLocation()
+    {
+        return $this->getAttribute('location');
+    }
+
+    public function setLocation($location)
+    {
+        $this->setAttribute('location', $location);
+    }
+
+    public function getInfo()
+    {
+        return $this->getAttribute('info');
+    }
+
+    public function setInfo($info)
+    {
+        $this->setAttribute('info', $info);
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->getAttribute('created_at');
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->getAttribute('updated_at');
+    }
+
+    /**
+     * @return Member[]
+     */
+    public function getAttendants()
+    {
+        return $this->getAttribute('attendants')->all();
+    }
+
+    /**
+     * @param Member[] $attendants
+     */
+    public function addAttendants(array $attendants)
+    {
+        $this->attendants = array_merge($this->attendants, $attendants);
+    }
+
+    /**
+     * @param Member[]|int[] $attendants
+     */
+    public function syncAttendants(array $attendants)
+    {
+        $ids = [];
+
+        foreach ($attendants as $attendant) {
+            if ($attendant instanceof Member) {
+                $ids[] = $attendant->getId();
+            } elseif (is_int($attendant)) {
+                $ids[] = $attendant;
+            }
+        }
+
+        $this->attendants()->sync($ids);
+    }
+
+    public function setCreator(Member $creator)
+    {
+        $this->creator()->associate($creator);
+    }
 
     public function attendants()
     {
@@ -57,11 +143,12 @@ class Meeting extends Model
         return $this->belongsTo('Angelov\Eestec\Platform\Entities\Member', 'created_by');
     }
 
-    public function getDateAttribute($date)
+    public function save(array $options = [])
     {
-        $date = new DateTime($date);
+        parent::save($options);
 
-        return $date->toDateString();
+        if (count($this->attendants) > 0) {
+            $this->syncAttendants($this->attendants);
+        }
     }
-
 }

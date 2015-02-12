@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
+use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Paginators\MeetingsPaginator;
 use Angelov\Eestec\Platform\Services\MeetingsService;
@@ -111,25 +112,24 @@ class MeetingsController extends BaseController
     public function store(StoreMeetingRequest $request)
     {
         $meeting = new Meeting();
-        $meeting->date = $request->get('date');
-        $meeting->location = $request->get('location');
-        $meeting->info = $request->get('details');
 
-        $ids = $request->get('attendants');
-        $attendants = [];
+        $meeting->setDate(new \DateTime($request->get('date')));
+        $meeting->setLocation($request->get('location'));
+        $meeting->setInfo($request->get('details'));
 
-        $parsedIds = $this->meetingsService->parseAttendantsIds($ids);
-
-        if (count($parsedIds) > 0) {
-            $attendants = $this->members->getByIds($parsedIds);
-        }
-
+        /** @var Member $creator */
         $creator = $this->authenticator->user();
+        $meeting->setCreator($creator);
 
-        $this->meetings->store($meeting, $creator, $attendants);
+        /** @todo Extract to separate method */
+        $ids = $request->get('attendants');
+        $parsedIds = $this->meetingsService->parseAttendantsIds($ids);
+        $attendants = $this->members->getByIds($parsedIds);
+        $meeting->addAttendants($attendants);
+
+        $this->meetings->store($meeting);
 
         return $this->redirector->route('meetings.index');
-
     }
 
     /**
@@ -156,7 +156,7 @@ class MeetingsController extends BaseController
     public function edit($id)
     {
         $meeting = $this->meetings->get($id);
-        $attendantsIds = $this->meetingsService->prepareAttendantsIds($meeting->attendants->all());
+        $attendantsIds = $this->meetingsService->prepareAttendantsIds($meeting->getAttendants());
 
         return $this->view->make('meetings.edit', compact('meeting', 'attendantsIds'));
     }
@@ -171,23 +171,23 @@ class MeetingsController extends BaseController
      */
     public function update(StoreMeetingRequest $request, $id)
     {
-        $attendants = $request->get('attendants');
-        $attendants = $this->meetingsService->parseAttendantsIds($attendants);
-
         $meeting = $this->meetings->get($id);
 
-        $meeting->date = $request->get('date');
-        $meeting->location = $request->get('location');
-        $meeting->info = $request->get('details');
+        $meeting->setDate(new \DateTime($request->get('date')));
+        $meeting->setLocation($request->get('location'));
+        $meeting->setInfo($request->get('details'));
 
         $creator = $request->get('created_by');
         $creator = $this->members->get($creator);
+        $meeting->setCreator($creator);
 
-        $this->meetings->store($meeting, $creator);
-        $this->meetings->updateAttendantsList($meeting, $attendants);
+        $attendants = $request->get('attendants');
+        $attendants = $this->meetingsService->parseAttendantsIds($attendants);
+        $meeting->syncAttendants($attendants);
+
+        $this->meetings->store($meeting);
 
         return $this->redirector->route('meetings.index');
-
     }
 
     /**

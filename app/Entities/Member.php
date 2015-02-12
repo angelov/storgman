@@ -99,6 +99,11 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->hasMany('Angelov\Eestec\Platform\Entities\Fee');
     }
 
+    public function getId()
+    {
+        return $this->getAttribute('id');
+    }
+
     /**
      * Concatenate and return the first and last name of the member
      *

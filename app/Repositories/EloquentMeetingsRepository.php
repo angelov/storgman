@@ -41,14 +41,9 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
         $this->entity = $meeting;
     }
 
-    public function store(Meeting $meeting, Member $creator, array $attendants = [])
+    public function store(Meeting $meeting)
     {
-        $meeting->created_by = $creator->id;
         $meeting->save();
-
-        if (count($attendants)) {
-            $meeting->attendants()->saveMany($attendants);
-        }
     }
 
     public function countMeetingsInPeriod(DateTime $from, DateTime $to) {

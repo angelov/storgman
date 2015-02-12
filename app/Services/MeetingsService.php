@@ -136,6 +136,10 @@ class MeetingsService
             }
         );
 
+        foreach ($ids as &$id) {
+            $id = intval($id);
+        }
+
         return $ids;
     }
 
