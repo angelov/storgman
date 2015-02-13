@@ -34,15 +34,19 @@ use Angelov\Eestec\Platform\Reports\MeetingAttendedReport;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendanceDetailsForMemberReport;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendedByMemberPerMonthReport;
 use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Illuminate\Http\Request;
 
 class MeetingsService
 {
     protected $meetings;
+    protected $members;
     protected $membership;
 
-    public function __construct(MeetingsRepositoryInterface $meetings, MembershipService $membership)
+    public function __construct(MeetingsRepositoryInterface $meetings, MembersRepositoryInterface $members, MembershipService $membership)
     {
         $this->meetings = $meetings;
+        $this->members = $members;
         $this->membership = $membership;
     }
 
@@ -158,5 +162,18 @@ class MeetingsService
         }
 
         return $list;
+    }
+
+    /**
+     * @param Request $request
+     * @return Member[]
+     */
+    public function extractAttendantsFromRequest(Request $request)
+    {
+        $ids = $request->get('attendants');
+        $parsedIds = $this->parseAttendantsIds($ids);
+        $attendants = $this->members->getByIds($parsedIds);
+
+        return $attendants;
     }
 }

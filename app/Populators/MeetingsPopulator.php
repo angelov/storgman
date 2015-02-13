@@ -60,10 +60,7 @@ class MeetingsPopulator
         $creator = $this->authenticator->user();
         $meeting->setCreator($creator);
 
-        /** @todo Extract to separate method */
-        $ids = $request->get('attendants');
-        $parsedIds = $this->meetingsService->parseAttendantsIds($ids);
-        $attendants = $this->members->getByIds($parsedIds);
+        $attendants = $this->meetingsService->extractAttendantsFromRequest($request);
 
         if ($meeting->hasAttendants()) {
             $meeting->syncAttendants($attendants);
