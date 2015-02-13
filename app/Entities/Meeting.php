@@ -128,6 +128,11 @@ class Meeting extends Model
         $this->attendants()->sync($ids);
     }
 
+    public function hasAttendants()
+    {
+        return count($this->attendants) > 0;
+    }
+
     public function setCreator(Member $creator)
     {
         $this->creator()->associate($creator);

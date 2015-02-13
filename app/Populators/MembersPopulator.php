@@ -28,14 +28,23 @@
 namespace Angelov\Eestec\Platform\Populators;
 
 use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Http\Requests\Request;
+use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
 use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
-use App;
-use Hash;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Hashing\Hasher;
 
 class MembersPopulator
 {
-    public function populateFromRequest(Member $member, Request $request)
+    protected $hasher;
+    protected $photos;
+
+    public function __construct(Hasher $hasher, PhotosRepositoryInterface $photos)
+    {
+        $this->hasher = $hasher;
+        $this->photos = $photos;
+    }
+
+    public function populateFromRequest(Member $member, StoreMemberRequest $request)
     {
         $member->first_name = $request->get('first_name');
         $member->last_name = $request->get('last_name');
@@ -43,7 +52,7 @@ class MembersPopulator
         $member->email = $request->get('email');
 
         if ($request->has('password')) {
-            $member->password = Hash::make($request->get('password'));
+            $member->password = $this->hasher->make($request->get('password'));
         }
 
         $member->faculty = $request->get('faculty');
@@ -61,19 +70,20 @@ class MembersPopulator
         $member->website = $request->get('website');
 
         if ($request->hasFile('member_photo')) {
-
             $photo = $request->file('member_photo');
 
             /** @todo This needs to be placed somewhere else */
-            /** @var PhotosRepositoryInterface $photos */
-            $photos = App::make('PhotosRepository');
             $photoFileName = md5($member->email) . "." . $photo->getClientOriginalExtension();
-            $photos->store($photo, 'members', $photoFileName);
+            $this->photos->store($photo, 'members', $photoFileName);
 
             $member->photo = $photoFileName;
-
         }
 
         return $member;
+    }
+
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
     }
 }

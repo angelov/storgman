@@ -27,9 +27,9 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Paginators\MeetingsPaginator;
+use Angelov\Eestec\Platform\Populators\MeetingsPopulator;
 use Angelov\Eestec\Platform\Services\MeetingsService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\Factory;
@@ -106,26 +106,15 @@ class MeetingsController extends BaseController
      * Store a newly created meeting report in storage.
      * POST /meetings
      *
+     * @param MeetingsPopulator $populator
      * @param StoreMeetingRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreMeetingRequest $request)
+    public function store(MeetingsPopulator $populator, StoreMeetingRequest $request)
     {
         $meeting = new Meeting();
 
-        $meeting->setDate(new \DateTime($request->get('date')));
-        $meeting->setLocation($request->get('location'));
-        $meeting->setInfo($request->get('details'));
-
-        /** @var Member $creator */
-        $creator = $this->authenticator->user();
-        $meeting->setCreator($creator);
-
-        /** @todo Extract to separate method */
-        $ids = $request->get('attendants');
-        $parsedIds = $this->meetingsService->parseAttendantsIds($ids);
-        $attendants = $this->members->getByIds($parsedIds);
-        $meeting->addAttendants($attendants);
+        $populator->populateFromRequest($meeting, $request);
 
         $this->meetings->store($meeting);
 
@@ -165,25 +154,16 @@ class MeetingsController extends BaseController
      * Update the specified resource in storage.
      * PUT /meetings/{id}
      *
+     * @param MeetingsPopulator $populator
      * @param StoreMeetingRequest $request
      * @param  int $id
      * @return RedirectResponse
      */
-    public function update(StoreMeetingRequest $request, $id)
+    public function update(MeetingsPopulator $populator, StoreMeetingRequest $request, $id)
     {
         $meeting = $this->meetings->get($id);
 
-        $meeting->setDate(new \DateTime($request->get('date')));
-        $meeting->setLocation($request->get('location'));
-        $meeting->setInfo($request->get('details'));
-
-        $creator = $request->get('created_by');
-        $creator = $this->members->get($creator);
-        $meeting->setCreator($creator);
-
-        $attendants = $request->get('attendants');
-        $attendants = $this->meetingsService->parseAttendantsIds($attendants);
-        $meeting->syncAttendants($attendants);
+        $populator->populateFromRequest($meeting, $request);
 
         $this->meetings->store($meeting);
 

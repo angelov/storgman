@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Factories\MembersFactory;
+use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
 use Angelov\Eestec\Platform\Http\Requests\UpdateMemberRequest;
 use Angelov\Eestec\Platform\Paginators\MembersPaginator;
@@ -153,12 +153,13 @@ class MembersController extends BaseController
     /**
      * Store a newly created member in storage.
      *
-     * @param StoreMemberRequest $request
+     * @param MembersPopulator $populator
      * @return Response
      */
-    public function store(StoreMemberRequest $request)
+    public function store(MembersPopulator $populator, StoreMemberRequest $request)
     {
-        $member = MembersFactory::createFromRequest($request);
+        $member = new Member();
+        $populator->populateFromRequest($member, $request);
 
         /**
          * Automatically approve the member's account when
@@ -208,7 +209,7 @@ class MembersController extends BaseController
      * Returns html component with short member info
      * (focused on the membership)
      *
-     * @param \Angelov\Eestec\Platform\Services\MembershipService $membershipService
+     * @param MembershipService $membershipService
      * @param int $id
      * @return Response
      */
@@ -250,7 +251,6 @@ class MembersController extends BaseController
     public function update(MembersPopulator $populator, UpdateMemberRequest $request, $id)
     {
         $member = $this->members->get($id);
-
         $populator->populateFromRequest($member, $request);
 
         $this->members->store($member);
@@ -264,7 +264,7 @@ class MembersController extends BaseController
      * Remove the specified members from storage.
      * Method available only via AJAX requests
      *
-     * @param \Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface $photos
+     * @param PhotosRepositoryInterface $photos
      * @param  int $id
      * @return JsonResponse
      */
@@ -349,13 +349,14 @@ class MembersController extends BaseController
     /**
      * Proceed the information submitted via the registration form
      *
-     * @param StoreMemberRequest $request
+     * @param MembersPopulator $populator
      * @param Mailer $mailer
      * @return Response
      */
-    public function postRegister(StoreMemberRequest $request, Mailer $mailer)
+    public function postRegister(MembersPopulator $populator, StoreMemberRequest $request, Mailer $mailer)
     {
-        $member = MembersFactory::createFromRequest($request);
+        $member = new Member();
+        $populator->populateFromRequest($member, $request);
 
         $this->members->store($member);
 
