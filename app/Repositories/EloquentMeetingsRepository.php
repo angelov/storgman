@@ -100,7 +100,7 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
                   AND member_id = ?
                   AND date BETWEEN ? AND ?
             ',
-            array($member->id, $from, $to)
+            array($member->getId(), $from, $to)
         )[0];
 
         return $result->attended;
@@ -168,7 +168,7 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
                 GROUP BY YEAR,
                          MONTH
             ',
-            [$member->id, $from, $to]
+            [$member->getId(), $from, $to]
         );
 
         foreach ($res as &$current) {
