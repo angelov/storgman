@@ -37,9 +37,10 @@ interface RepositoryInterface
     /**
      * Returns all items
      *
+     * @param array $withRelationships
      * @return array
      */
-    public function all();
+    public function all(array $withRelationships = []);
 
     /**
      * Returns array of items for a specific page

@@ -51,7 +51,7 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
      * @param array $withRelationships
      * @return Meeting[]
      */
-    public function all($withRelationships = []);
+    public function all(array $withRelationships = []);
 
     /**
      * Stores a meeting

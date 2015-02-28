@@ -51,7 +51,7 @@ interface MembersRepositoryInterface extends RepositoryInterface
      * @param array $withRelationships
      * @return Member[]
      */
-    public function all($withRelationships = []);
+    public function all(array $withRelationships = []);
 
     /**
      * Stores the given member
