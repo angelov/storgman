@@ -16,7 +16,7 @@
                         Joined:<br />
                         <h4 style="margin-top: 15px;">
                             <i class="fa fa-calendar"></i>
-                            <span class="date-to-format">{{ member.getJoiningDate() }}</span>
+                            <span class="date-to-format">{{ member.getJoiningDate()|date('Y-m-d') }}</span>
                         </h4>
                     </div>
                     <div class="col-md-4">
@@ -33,7 +33,7 @@
                         Expiration date:<br />
                         <h4 style="margin-top: 15px;">
                             <i class="fa fa-calendar"></i>
-                            <span class="date-to-format">{{ member.getExpirationDate() }}</span>
+                            <span class="date-to-format">{{ member.getExpirationDate()|date('Y-m-d') }}</span>
                         </h4>
                     </div>
                 </div>
@@ -62,11 +62,11 @@
                     </thead>
                     <tbody>
 
-                        {% for fee in fees %}
+                        {% for fee in member.getFees() %}
 
                             <tr>
-                                <td class="date-to-format">{{ fee.getFromDate() }}</td>
-                                <td class="date-to-format">{{ fee.getToDate() }}</td>
+                                <td class="date-to-format">{{ fee.getFromDate()|date('Y-m-d') }}</td>
+                                <td class="date-to-format">{{ fee.getToDate()|date('Y-m-d') }}</td>
                                 <td>{{ fee.getCreatedAt() }}</td>
                                 <td class="text-right">
                                     {% if Auth.user().isBoardMember() %}

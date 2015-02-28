@@ -56,7 +56,7 @@
                         <tr>
                             <td>
                                 <i class="glyphicon glyphicon-heart" style="margin-right: 5px"></i>
-                                Joined <span class="date-to-humanize">{{ member.getJoiningDate() }}</span>
+                                Joined <span class="date-to-humanize">{{ member.getJoiningDate()|date('Y-m-d') }}</span>
                             </td>
                         </tr>
 
