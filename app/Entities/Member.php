@@ -27,7 +27,6 @@
 
 namespace Angelov\Eestec\Platform\Entities;
 
-use Angelov\Eestec\Platform\DateTime;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -35,43 +34,12 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableInterface;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordInterface;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * @property int $id
- * @property string $email
- * @property string $password
- * @property string $first_name
- * @property string $last_name
- * @property string $faculty
- * @property string $field_of_study
- * @property string $photo
- * @property string $birthday
- * @property bool $board_member
- * @property string $position_title
- * @property string $remember_token
- * @property string $created_at
- * @property string $updated_at
- * @property string $full_name
- * @property string $twitter
- * @property string $facebook
- * @property string $google_plus
- * @property string $phone
- * @property string $website
- * @property bool $approved
- * @property int $year_of_graduation
- * @property int $age
- * @property string $membership_status
- * @property string $membership_expiration_date
- * @property \Illuminate\Database\Eloquent\Collection $fees
- * @property \Illuminate\Database\Eloquent\Collection $meetingsAttended
- * @property \Illuminate\Database\Eloquent\Collection $meetingsCreated
- * @property bool alumni
- */
 class Member extends Model implements AuthenticatableInterface, CanResetPasswordInterface
 {
     use Authenticatable, CanResetPassword;
 
-    protected $membershipStatus = null;
-    protected $membershipExpirationDate = null;
+    protected $membershipStatus = null; // those should be removed, probably
+    protected $membershipExpirationDate = null; // --- || ---
 
     /**
      * The database table used by the model.
@@ -85,9 +53,11 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
      *
      * @var array
      */
-    protected $hidden = array('password', 'remember_token');
+    protected $hidden = ['password', 'remember_token'];
 
-    protected $appends = array('full_name', 'membership_status', 'membership_expiration_date');
+    protected $appends = ['full_name', 'membership_status', 'membership_expiration_date'];
+
+    protected $dates = ['birthday'];
 
     /**
      * Membership fees paid by the member
@@ -104,14 +74,209 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('id');
     }
 
-    /**
-     * Concatenate and return the first and last name of the member
-     *
-     * @return string
-     */
-    public function getFullNameAttribute()
+    public function getEmail()
     {
-        return $this->first_name . " " . $this->last_name;
+        return $this->getAttribute('email');
+    }
+
+    public function setEmail($email)
+    {
+        $this->setAttribute('email', $email);
+    }
+
+    public function getPassword()
+    {
+        return $this->getAttribute('password');
+    }
+
+    public function setPassword($password)
+    {
+        $this->setAttribute('password', $password);
+    }
+
+    public function getFirstName()
+    {
+        return $this->getAttribute('first_name');
+    }
+
+    public function setFirstName($firstName)
+    {
+        $this->setAttribute('first_name', $firstName);
+    }
+
+    public function getLastName()
+    {
+        return $this->getAttribute('last_name');
+    }
+
+    public function setLastName($lastName)
+    {
+        $this->setAttribute('last_name', $lastName);
+    }
+
+    public function getFullName()
+    {
+        return $this->getFirstName() . " " . $this->getLastName();
+    }
+
+    public function getFaculty()
+    {
+        return $this->getAttribute('faculty');
+    }
+
+    public function setFaculty($faculty)
+    {
+        $this->setAttribute('faculty', $faculty);
+    }
+
+    public function getFieldOfStudy()
+    {
+        return $this->getAttribute('field_of_study');
+    }
+
+    public function setFieldOfStudy($field)
+    {
+        $this->setAttribute('field_of_study', $field);
+    }
+
+    public function getYearOfGraduation()
+    {
+        return $this->getAttribute('year_of_graduation');
+    }
+
+    public function setYearOfGraduation($year)
+    {
+        $this->setAttribute('year_of_graduation', $year);
+    }
+
+    public function getPhoto()
+    {
+        $photo = $this->getAttribute('photo');
+
+        return ($photo) ? $photo : "default-member-photo.png";
+    }
+
+    public function setPhoto($photoFileName)
+    {
+        $this->setAttribute('photo', $photoFileName);
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getBirthday()
+    {
+        return $this->getAttribute('birthday');
+    }
+
+    public function setBirthday(\DateTime $birthday)
+    {
+        $this->setAttribute('birthday', $birthday);
+    }
+
+    public function getAge()
+    {
+        return $this->getBirthday()->age;
+    }
+
+    public function isBoardMember()
+    {
+        return $this->getAttribute('board_member');
+    }
+
+    public function setBoardMember($isBoardMember)
+    {
+        $this->setAttribute('board_member', $isBoardMember);
+    }
+
+    public function getPositionTitle()
+    {
+        return $this->getAttribute('position_title');
+    }
+
+    public function setPositionTitle($title)
+    {
+        $this->setAttribute('position_title', $title);
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->getAttribute('created_at');
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->getAttribute('updated_at');
+    }
+
+    public function getFacebook()
+    {
+        return $this->getAttribute('facebook');
+    }
+
+    public function setFacebook($profile)
+    {
+        $this->setAttribute('facebook', $profile);
+    }
+
+    public function getTwitter()
+    {
+        return $this->getAttribute('twitter');
+    }
+
+    public function setTwitter($profile)
+    {
+        $this->setAttribute('twitter', $profile);
+    }
+
+    public function getGooglePlus()
+    {
+        return $this->getAttribute('google_plus');
+    }
+
+    public function setGooglePlus($profile)
+    {
+        $this->setAttribute('google_plus', $profile);
+    }
+
+    public function getPhoneNumber()
+    {
+        return $this->getAttribute('phone');
+    }
+
+    public function setPhoneNumber($number)
+    {
+        $this->setAttribute('phone', $number);
+    }
+
+    public function getWebsite()
+    {
+        return $this->getAttribute('website');
+    }
+
+    public function setWebsite($url)
+    {
+        $this->setAttribute('website', $url);
+    }
+
+    public function isAlumniMember()
+    {
+        return $this->getAttribute('alumni');
+    }
+
+    public function setAlumniMember($isAlumni)
+    {
+        $this->setAttribute('alumni', $isAlumni);
+    }
+
+    public function isApproved()
+    {
+        return $this->getAttribute('approved');
+    }
+
+    public function setApproved($isApproved)
+    {
+        $this->setAttribute('approved', $isApproved);
     }
 
     public function getMembershipStatusAttribute()
@@ -133,31 +298,12 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->membershipExpirationDate->toDateString();
     }
 
-    public function getPhotoAttribute($photo)
-    {
-        if (isset($photo)) {
-            return $photo;
-        }
-
-        return "default-member-photo.png";
-    }
-
     /**
      * @param DateTime|null $date
      */
     public function setMembershipExpirationDateAttribute(DateTime $date = null)
     {
         $this->membershipExpirationDate = $date;
-    }
-
-    public function isBoardMember()
-    {
-        return $this->board_member;
-    }
-
-    public function isAlumniMember()
-    {
-        return $this->alumni;
     }
 
     public function getAgeAttribute()

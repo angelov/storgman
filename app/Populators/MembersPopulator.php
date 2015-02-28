@@ -28,9 +28,9 @@
 namespace Angelov\Eestec\Platform\Populators;
 
 use Angelov\Eestec\Platform\Entities\Member;
-use Angelov\Eestec\Platform\Http\Requests\Request;
 use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
 use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
+use DateTime;
 use Illuminate\Contracts\Hashing\Hasher;
 
 class MembersPopulator
@@ -46,28 +46,28 @@ class MembersPopulator
 
     public function populateFromRequest(Member $member, StoreMemberRequest $request)
     {
-        $member->first_name = $request->get('first_name');
-        $member->last_name = $request->get('last_name');
-        $member->birthday = $request->get('birthday');
-        $member->email = $request->get('email');
+        $member->setFirstName($request->get('first_name'));
+        $member->setLastName($request->get('last_name'));
+        $member->setBirthday(new DateTime($request->get('birthday')));
+        $member->setEmail($request->get('email'));
 
         if ($request->has('password')) {
-            $member->password = $this->hasher->make($request->get('password'));
+            $member->setPassword($this->hasher->make($request->get('password')));
         }
 
-        $member->faculty = $request->get('faculty');
-        $member->field_of_study = $request->get('field_of_study');
-        $member->year_of_graduation = $request->get('year_of_graduation');
-        $member->board_member = ($request->get('board_member') == 1);
-        $member->position_title = $request->get('position_title');
-        $member->alumni = ($request->get('alumni_member') == 1);
+        $member->setFaculty($request->get('faculty'));
+        $member->setFieldOfStudy($request->get('field_of_study'));
+        $member->setYearOfGraduation($request->get('year_of_graduation'));
+        $member->setBoardMember($request->get('board_member') == 1);
+        $member->setPositionTitle($request->get('position_title'));
+        $member->setAlumniMember($request->get('alumni_member') == 1);
 
-        $member->facebook = $request->get('facebook');
-        $member->twitter = $request->get('twitter');
-        $member->google_plus = $request->get('google_plus');
+        $member->setFacebook($request->get('facebook'));
+        $member->setTwitter($request->get('twitter'));
+        $member->setGooglePlus($request->get('google_plus'));
 
-        $member->phone = $request->get('phone');
-        $member->website = $request->get('website');
+        $member->setPhoneNumber($request->get('phone'));
+        $member->setWebsite($request->get('website'));
 
         if ($request->hasFile('member_photo')) {
             $photo = $request->file('member_photo');
@@ -76,14 +76,9 @@ class MembersPopulator
             $photoFileName = md5($member->email) . "." . $photo->getClientOriginalExtension();
             $this->photos->store($photo, 'members', $photoFileName);
 
-            $member->photo = $photoFileName;
+            $member->setPhoto($photoFileName);
         }
 
         return $member;
-    }
-
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
     }
 }
