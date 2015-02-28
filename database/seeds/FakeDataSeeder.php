@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -56,7 +56,7 @@ class FakeDataSeeder extends Seeder
 
     public function run()
     {
-        $this->generateMembers(200);
+        $this->generateMembers(500);
         $this->generateFees();
         $this->generateMeetings(50);
     }
@@ -74,39 +74,37 @@ class FakeDataSeeder extends Seeder
 
             $member = new Member();
 
-            $member->email = $this->faker->email;
-            $member->password = Hash::make('123456');
-            $member->first_name = $this->faker->firstName;
-            $member->last_name = $this->faker->lastName;
-            $member->faculty = $this->faker->randomElement($faculties);
-            $member->field_of_study = $this->faker->randomElement($fieldOfStudies);
-            $member->year_of_graduation = $this->faker->numberBetween(2015, 2018);
+            $member->setEmail($this->faker->email);
+            $member->setPassword(Hash::make('123456'));
+            $member->setFirstName($this->faker->firstName);
+            $member->setLastName($this->faker->lastName);
+            $member->setFaculty($this->faker->randomElement($faculties));
+            $member->setFieldOfStudy($this->faker->randomElement($fieldOfStudies));
+            $member->setYearOfGraduation($this->faker->numberBetween(2015, 2018));
 
-            if ($this->faker->boolean(90)) {
-                $member->approved = true;
-            }
+            $member->setApproved($this->faker->boolean(90));
 
-            $social = strtolower($member->first_name . $member->last_name);
+            $social = strtolower($member->getFirstName() . $member->getLastName());
 
             if ($this->faker->boolean(60)) {
-                $member->facebook = $social;
+                $member->setFacebook($social);
             }
 
             if ($this->faker->boolean(60)) {
-                $member->twitter = $social;
+                $member->setTwitter($social);
             }
 
             if ($this->faker->boolean(60)) {
-                $member->google_plus = $social;
+                $member->setGooglePlus($social);
             }
 
-            $member->phone = $this->faker->phoneNumber;
-            $member->website = "http://". $social .".com";
+            $member->setPhoneNumber($this->faker->phoneNumber);
+            $member->setWebsite("http://". $social .".com");
 
             $birthday = $this->faker->dateTimeBetween($birthYearFrom, $birthYearTo);
 
-            $member->birthday = $birthday->format("Y-m-d");
-            $member->board_member = $this->faker->boolean(20);
+            $member->setBirthday($birthday);
+            $member->setBoardMember($this->faker->boolean(20));
 
             $this->generatedMembers[] = $member;
 
@@ -138,12 +136,15 @@ class FakeDataSeeder extends Seeder
             for ($i = 0; $i < 3; $i++) {
                 $fee = new Fee();
 
-                $fee->from_date = $from->format('Y-m-d');
+                $fee->setFromDate($from);
 
-                $to = $from->modify('+1 year');
-                $fee->to_date = $to->format('Y-m-d');
+                $to = clone $from;
+                $to->modify('+1 year');
+                $fee->setToDate($to);
 
-                $this->fees->store($fee, $member);
+                $fee->setMember($member);
+
+                $this->fees->store($fee);
                 $fees++;
 
                 $now = new \DateTime('now');
@@ -153,6 +154,7 @@ class FakeDataSeeder extends Seeder
                 }
 
                 $from->modify('+1 day');
+                $from->modify('+1 year');
             }
 
         }
@@ -178,15 +180,18 @@ class FakeDataSeeder extends Seeder
         for ($i = 0; $i < $count; $i++) {
             $meeting = new Meeting();
 
-            $meeting->date = $date;
-            $meeting->location = $this->faker->streetAddress;
-            $meeting->info = "<p>This is fake meeting report with randomly generated information.</p>";
+            $meeting->setDate($date);
+            $meeting->setLocation($this->faker->streetAddress);
+            $meeting->setInfo("<p>This is fake meeting report with randomly generated information.</p>");
 
             $creator = $this->generatedMembers[0];
             $attendants = $this->pickGeneratedMembers($this->calculateNeededAttendants());
             $attendings += count($attendants);
 
-            $this->meetings->store($meeting, $creator, $attendants);
+            $meeting->setCreator($creator);
+            $meeting->addAttendants($attendants);
+
+            $this->meetings->store($meeting);
 
             $date->modify('+1 week');
         }

@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -33,7 +33,6 @@ use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 
 class DefaultMemberSeeder extends Seeder
 {
-
     protected $members;
     protected $fees;
 
@@ -50,33 +49,34 @@ class DefaultMemberSeeder extends Seeder
         DB::table('members')->delete();
 
         $user = new Member();
-        $user->email = "admin@ultim8.info";
-        $user->password = Hash::make('123456');
-        $user->first_name = "Administrator";
-        $user->last_name = "DontNeedIt";
+        $user->setEmail("admin@ultim8.info");
+        $user->setPassword(Hash::make('123456'));
+        $user->setFirstName("Administrator");
+        $user->setLastName("DontNeedIt");
 
-        $user->faculty = "WillChangeIt";
-        $user->field_of_study = "Something";
-        $user->year_of_graduation = 2015;
+        $user->setFaculty("WillChangeIt");
+        $user->setFieldOfStudy("Something");
+        $user->setYearOfGraduation(2015);
 
-        $user->birthday = "1990-01-01";
+        $user->setBirthday(new \DateTime("1990-01-01"));
 
-        $user->board_member = true;
-        $user->position_title = "Administrator";
+        $user->setBoardMember(true);
+        $user->setPositionTitle("Administrator");
 
-        $user->phone = "38972000000";
-        $user->website = "http://ultim8.info";
+        $user->setPhoneNumber("+38972000000");
+        $user->setWebsite("http://angelovdejan.me");
 
-        $user->approved = true;
+        $user->setApproved(true);
 
         $this->members->store($user);
 
         $fee = new Fee();
         $today = new \DateTime('now');
-        $fee->from_date = $today->format('Y-m-d');
-        $fee->to_date = $today->modify("+1 year");
+        $fee->setFromDate($today);
+        $fee->setToDate($today->modify("+1 year"));
+        $fee->setMember($user);
 
-        $this->fees->store($fee, $user);
+        $this->fees->store($fee);
     }
 
 }
