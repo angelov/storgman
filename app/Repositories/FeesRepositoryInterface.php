@@ -28,9 +28,7 @@
 namespace Angelov\Eestec\Platform\Repositories;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Exceptions\NoFeesException;
 use Angelov\Eestec\Platform\Entities\Fee;
-use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Reports\ExpectedFeesPerMonthReport;
 use Angelov\Eestec\Platform\Reports\PaidFeesPerMonthReport;
@@ -54,20 +52,11 @@ interface FeesRepositoryInterface extends RepositoryInterface
      */
     public function store(Fee $fee);
 
-
-    /**
-     * Returns the member who paid the fee
-     *
-     * @param Fee $fee
-     * @return Member
-     */
-    public function getFeeMember(Fee $fee);
-
     /**
      * Return the N fees which will expire first
      *
      * @param int $count
-     * @return array
+     * @return Fee[]
      */
     public function getSoonToExpire($count = 10);
 

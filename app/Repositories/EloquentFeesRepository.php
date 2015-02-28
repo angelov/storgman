@@ -45,12 +45,6 @@ class EloquentFeesRepository extends AbstractEloquentRepository implements FeesR
         $fee->save();
     }
 
-
-    public function getFeeMember(Fee $fee)
-    {
-        return $fee->member;
-    }
-
     public function getSoonToExpire($count = 10)
     {
         $now = DateTime::nowAsDateString();
