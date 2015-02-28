@@ -28,6 +28,7 @@
 namespace Angelov\Eestec\Platform\Entities;
 
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableInterface;
@@ -37,9 +38,6 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model implements AuthenticatableInterface, CanResetPasswordInterface
 {
     use Authenticatable, CanResetPassword;
-
-    protected $membershipStatus = null; // those should be removed, probably
-    protected $membershipExpirationDate = null; // --- || ---
 
     /**
      * The database table used by the model.
@@ -58,16 +56,6 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
     protected $appends = ['full_name', 'membership_status', 'membership_expiration_date'];
 
     protected $dates = ['birthday'];
-
-    /**
-     * Membership fees paid by the member
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function fees()
-    {
-        return $this->hasMany('Angelov\Eestec\Platform\Entities\Fee');
-    }
 
     public function getId()
     {
@@ -169,7 +157,7 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('birthday');
     }
 
-    public function setBirthday(\DateTime $birthday)
+    public function setBirthday(DateTime $birthday)
     {
         $this->setAttribute('birthday', $birthday);
     }
@@ -199,11 +187,17 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         $this->setAttribute('position_title', $title);
     }
 
+    /**
+     * @return Carbon
+     */
     public function getCreatedAt()
     {
         return $this->getAttribute('created_at');
     }
 
+    /**
+     * @return Carbon
+     */
     public function getUpdatedAt()
     {
         return $this->getAttribute('updated_at');
@@ -279,39 +273,88 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         $this->setAttribute('approved', $isApproved);
     }
 
-    public function getMembershipStatusAttribute()
+    /**
+     * Membership fees paid by the member
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function fees()
     {
-        return ($this->membershipStatus) ? "Active" : "Inactive";
-    }
-
-    public function setMembershipStatusAttribute($status)
-    {
-        $this->membershipStatus = $status;
-    }
-
-    public function getMembershipExpirationDateAttribute()
-    {
-        if (!isset($this->membershipExpirationDate)) {
-            return "n/a";
-        }
-
-        return $this->membershipExpirationDate->toDateString();
+        return $this->hasMany('Angelov\Eestec\Platform\Entities\Fee');
     }
 
     /**
-     * @param DateTime|null $date
+     * @return Fee[]
      */
-    public function setMembershipExpirationDateAttribute(DateTime $date = null)
+    public function getFees()
     {
-        $this->membershipExpirationDate = $date;
+        return $this->fees;
     }
 
-    public function getAgeAttribute()
+    /**
+     * @return DateTime
+     */
+    public function getExpirationDate()
     {
-        $birthday = new Carbon($this->birthday);
+        $fee = $this->getLatestFee();
 
-        return $birthday->age;
+        return (!$fee) ? null : new DateTime($fee->getToDate());
     }
+
+    /**
+     * @return DateTime
+     */
+    public function getJoiningDate()
+    {
+        $fee = $this->getFirstFee();
+
+        return ($fee) ? new DateTime($fee->getFromDate()) : $this->getCreatedAt();
+    }
+
+    /**
+     * @param string $order ASC or DESC
+     * @return Fee
+     */
+    private function getFeeByOrder($order)
+    {
+        $fee = $this->fees()->orderBy('to_date', $order)->first();
+
+        return $fee;
+    }
+
+    public function getLatestFee()
+    {
+        return $this->getFeeByOrder("DESC");
+    }
+
+    public function getFirstFee()
+    {
+        return $this->getFeeByOrder("ASC");
+    }
+
+    public function isActive()
+    {
+        $expirationDate = $this->getExpirationDate();
+
+        if (!$expirationDate) {
+            return false;
+        }
+
+        $today = new DateTime();
+
+        return $today < $expirationDate;
+    }
+
+    public function getMembershipStatus()
+    {
+        return ($this->isActive()) ? "Active" : "Inactive";
+    }
+
+    // =================================
+    // =================================
+    // =================================
+
+
 
     public function meetingsAttended()
     {

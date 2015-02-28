@@ -28,9 +28,7 @@
 namespace Angelov\Eestec\Platform\Repositories;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Exceptions\NoFeesException;
 use Angelov\Eestec\Platform\Entities\Fee;
-use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Reports\ExpectedFeesPerMonthReport;
 use Angelov\Eestec\Platform\Reports\PaidFeesPerMonthReport;
 use DB;
@@ -47,33 +45,6 @@ class EloquentFeesRepository extends AbstractEloquentRepository implements FeesR
         $fee->save();
     }
 
-    public function getFeesForMember(Member $member)
-    {
-        $fees = $member->fees()->get()->all();
-
-        return $fees;
-    }
-
-    public function getLatestFeeForMember(Member $member)
-    {
-        return $this->getFeeByOrder($member, "DESC");
-    }
-
-    public function getFirstFeeForMember(Member $member)
-    {
-        return $this->getFeeByOrder($member, "ASC");
-    }
-
-    private function getFeeByOrder(Member $member, $order)
-    {
-        $fee = $member->fees()->orderBy('to_date', $order)->first();
-
-        if ($fee == null) {
-            throw new NoFeesException();
-        }
-
-        return $fee;
-    }
 
     public function getFeeMember(Fee $fee)
     {

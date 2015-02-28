@@ -28,8 +28,6 @@
 namespace Angelov\Eestec\Platform\Services;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Exceptions\NoFeesException;
-use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Reports\ExpectedAndPaidFeesPerMonthReport;
 use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
@@ -43,53 +41,6 @@ class MembershipService
     {
         $this->members = $members;
         $this->fees = $fees;
-    }
-
-    /**
-     * Check if the member is active/inactive
-     *
-     * @param  Member $member
-     * @return bool
-     */
-    public function isMemberActive(Member $member)
-    {
-        $expirationDate = $this->getExpirationDate($member);
-
-        if ($expirationDate == null) {
-            return false;
-        }
-
-        $today = new DateTime();
-
-        return $today < $expirationDate;
-    }
-
-    /**
-     * Get the membership expiration date for a given member
-     *
-     * @param  Member $member
-     * @return DateTime
-     */
-    public function getExpirationDate(Member $member)
-    {
-        try {
-            $fee = $this->fees->getLatestFeeForMember($member);
-
-            return new DateTime($fee->to_date);
-        } catch (NoFeesException $e) {
-            return null;
-        }
-    }
-
-    public function getJoinedDate(Member $member)
-    {
-        try {
-            $fee = $this->fees->getFirstFeeForMember($member);
-
-            return new DateTime($fee->from_date);
-        } catch (NoFeesException $e) {
-            return new DateTime($member->created_at);
-        }
     }
 
     public function getExpectedAndPaidFeesPerMonthLastYear()

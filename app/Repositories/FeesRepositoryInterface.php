@@ -54,32 +54,6 @@ interface FeesRepositoryInterface extends RepositoryInterface
      */
     public function store(Fee $fee);
 
-    /**
-     * Returns all fees paid by a member
-     *
-     * @param  Member $member
-     * @return array
-     * @throws NoFeesException
-     */
-    public function getFeesForMember(Member $member);
-
-    /**
-     * Returns the latest fee paid by a member
-     *
-     * @param  Member $member
-     * @return Fee
-     * @throws NoFeesException
-     */
-    public function getLatestFeeForMember(Member $member);
-
-    /**
-     * Returns the first fee paid by a member
-     *
-     * @param Member $member
-     * @return Fee
-     * @throws NoFeesException
-     */
-    public function getFirstFeeForMember(Member $member);
 
     /**
      * Returns the member who paid the fee
