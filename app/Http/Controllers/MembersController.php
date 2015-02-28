@@ -35,7 +35,7 @@ use Angelov\Eestec\Platform\Populators\MembersPopulator;
 use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
 use Angelov\Eestec\Platform\Services\MeetingsService;
-use Angelov\Eestec\Platform\Services\MembershipService;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -43,7 +43,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 use Illuminate\Mail\Message;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
@@ -108,9 +107,9 @@ class MembersController extends BaseController
 
         foreach ($members as $member) {
             $tmp = [];
-            $tmp['value'] = $member->full_name;
-            $tmp['image'] = $url->route('imagecache', ['xsmall', $member->photo]);
-            $tmp['id'] = $member->id;
+            $tmp['value'] = $member->getFullName();
+            $tmp['image'] = $url->route('imagecache', ['xsmall', $member->getPhoto()]);
+            $tmp['id'] = $member->getId();
 
             $result[] = $tmp;
         }
@@ -154,6 +153,7 @@ class MembersController extends BaseController
      * Store a newly created member in storage.
      *
      * @param MembersPopulator $populator
+     * @param StoreMemberRequest $request
      * @return Response
      */
     public function store(MembersPopulator $populator, StoreMemberRequest $request)
@@ -165,7 +165,7 @@ class MembersController extends BaseController
          * Automatically approve the member's account when
          * it is created by the board members
          */
-        $member->approved = true;
+        $member->setApproved(true);
 
         $this->members->store($member);
 
@@ -177,54 +177,37 @@ class MembersController extends BaseController
     /**
      * Display the specified member.
      *
-     * @param MembershipService $membershipService
      * @param \Angelov\Eestec\Platform\Services\MeetingsService $meetingsService
      * @param int $id
      * @return Response
      *
      * @todo Information separated in tabs (in the view) should be separated in few methods
      */
-    public function show(MembershipService $membershipService, MeetingsService $meetingsService, $id)
+    public function show(MeetingsService $meetingsService, $id)
     {
         $member = $this->members->get($id);
 
-        $fees = $this->fees->getFeesForMember($member);
-
-        /** @todo I don't like what i've done here. */
-        $member->membership_status = $membershipService->isMemberActive($member);
-        $member->membership_expiration_date = $membershipService->getExpirationDate($member);
-
         $attendance = $meetingsService->calculateAttendanceDetailsForMember($member);
-        $joinedDate = $membershipService->getJoinedDate($member);
 
         $latestMeetings = $meetingsService->latestMeetingsAttendanceStatusForMember($member);
 
         $monthly = json_encode($meetingsService->calculateMonthlyAttendanceDetailsForMember($member));
 
-        return $this->view->make('members.show', compact('member', 'attendance', 'fees',
-                          'joinedDate', 'latestMeetings', 'monthly'));
+        return $this->view->make('members.show', compact('member', 'attendance', 'latestMeetings', 'monthly'));
     }
 
     /**
      * Returns html component with short member info
      * (focused on the membership)
      *
-     * @param MembershipService $membershipService
      * @param int $id
      * @return Response
      */
-    public function quickMemberInfo(MembershipService $membershipService, $id)
+    public function quickMemberInfo($id)
     {
         $member = $this->members->get($id);
 
-        $member->membership_status = $membershipService->isMemberActive($member);
-
-        $membershipStatus = $member->membership_status;
-        $joinedDate = $membershipService->getJoinedDate($member)->toDateString();
-        $expirationDate = $membershipService->getExpirationDate($member)->toDateString();
-
-        return $this->view->make('members.components.quick-info',
-            compact('member', 'membershipStatus', 'joinedDate', 'expirationDate'));
+        return $this->view->make('members.components.quick-info', compact('member'));
     }
 
     /**
@@ -273,9 +256,10 @@ class MembersController extends BaseController
         $data = [];
 
         $member = $this->members->get($id);
+        $photo = $member->getPhoto();
 
-        if (isset($member->photo)) {
-            $photos->destroy($member->photo, 'members');
+        if (isset($photo)) {
+            $photos->destroy($photo, 'members');
         }
 
         $this->members->destroy($id);
@@ -297,12 +281,12 @@ class MembersController extends BaseController
     public function approve(Mailer $mailer, $id)
     {
         $member = $this->members->get($id);
-        $member->approved = true;
+        $member->setApproved(true);
         $this->members->store($member);
 
         $mailer->send('emails.members.approved', compact('member'), function(Message $message) use ($member)
         {
-            $message->to($member->email)->subject('Your account was approved!');
+            $message->to($member->getEmail())->subject('Your account was approved!');
         });
 
         $data['status'] = 'success';
@@ -325,7 +309,7 @@ class MembersController extends BaseController
 
         $mailer->send('emails.members.declined', compact('member'), function(Message $message) use ($member)
         {
-            $message->to($member->email)->subject('We are sorry...');
+            $message->to($member->getEmail())->subject('We are sorry...');
         });
 
         $this->members->destroy($id);
@@ -350,6 +334,7 @@ class MembersController extends BaseController
      * Proceed the information submitted via the registration form
      *
      * @param MembersPopulator $populator
+     * @param StoreMemberRequest $request
      * @param Mailer $mailer
      * @return Response
      */
@@ -362,7 +347,7 @@ class MembersController extends BaseController
 
         $mailer->send('emails.members.registered', compact('member'), function(Message $message) use ($member)
         {
-            $message->to($member->email)->subject('Thank you for joining us!');
+            $message->to($member->getEmail())->subject('Thank you for joining us!');
         });
 
         $this->session->flash('action-message',

@@ -46,6 +46,14 @@ interface MembersRepositoryInterface extends RepositoryInterface
     public function get($id);
 
     /**
+     * Returns all members
+     *
+     * @param array $withRelationships
+     * @return Member[]
+     */
+    public function all($withRelationships = []);
+
+    /**
      * Stores the given member
      *
      * @param  Member $member

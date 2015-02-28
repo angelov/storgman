@@ -350,20 +350,19 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return ($this->isActive()) ? "Active" : "Inactive";
     }
 
-    // =================================
-    // =================================
-    // =================================
-
-
-
-    public function meetingsAttended()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function attendedMeetings()
     {
         return $this->belongsToMany('Angelov\Eestec\Platform\Entities\Meeting');
     }
 
-    public function meetingsCreated()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function createdMeetings()
     {
         return $this->hasMany('Angelov\Eestec\Platform\Entities\Meeting');
     }
-
 }

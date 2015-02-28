@@ -106,10 +106,7 @@ class FeesController extends BaseController
         $member_id = $this->request->get('member_id');
         $member = $this->members->get($member_id);
 
-        $exp = $membershipService->getExpirationDate($member);
-
-        $member->membership_status = $membershipService->isMemberActive($member);
-        $member->membership_expiration_date = $exp;
+        $exp = $member->getExpirationDate();
 
         /** @todo Move the suggesting to separate place */
         $suggestDates = [];
@@ -128,10 +125,8 @@ class FeesController extends BaseController
 
         }
 
-        $fees = $this->fees->getFeesForMember($member);
-
         $response = new Response();
-        $data = $this->view->make('members.modals.renew-membership', compact('member', 'suggestDates', 'fees'))->render();
+        $data = $this->view->make('members.modals.renew-membership', compact('member', 'suggestDates'))->render();
         $response->setContent($data);
 
         return $response;

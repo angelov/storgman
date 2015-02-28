@@ -90,7 +90,7 @@ class AuthController extends BaseController
         /** @var Member $member */
         $member = $this->authenticator->user();
 
-        if (!$member->approved) {
+        if (!$member->isApproved()) {
             return $this->redirectBackWithError('Your account is not approved yet.');
         }
 
