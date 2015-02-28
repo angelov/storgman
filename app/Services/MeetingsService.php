@@ -28,7 +28,6 @@
 namespace Angelov\Eestec\Platform\Services;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Reports\MeetingAttendedReport;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendanceDetailsForMemberReport;
@@ -58,7 +57,7 @@ class MeetingsService
      */
     public function calculateAttendanceDetailsForMember(Member $member)
     {
-        $memberJoinedDate = $this->membership->getJoinedDate($member);
+        $memberJoinedDate = $member->getJoiningDate();
         $oneYearAgo = DateTime::oneYearAgo();
 
         if ($memberJoinedDate < $oneYearAgo) {
@@ -89,21 +88,11 @@ class MeetingsService
         $reports = [];
 
         foreach ($meetings as $meeting) {
-            $attendance = $this->memberHasAttendedMeeting($member, $meeting);
+            $attendance = $meeting->wasAttendedBy($member);
             $reports[] = new MeetingAttendedReport($member, $meeting, $attendance);
         }
 
         return $reports;
-    }
-
-    public function memberHasAttendedMeeting(Member $member, Meeting $meeting)
-    {
-        $ids = [];
-        foreach ($this->meetings->getMeetingAttendants($meeting) as $attendant) {
-            $ids[] = $attendant->id;
-        }
-
-        return in_array($member->id, $ids);
     }
 
     public function calculateMonthlyAttendanceDetailsForMember(Member $member)

@@ -107,11 +107,6 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
 
     }
 
-    public function getMeetingAttendants(Meeting $meeting)
-    {
-        return $meeting->attendants->all();
-    }
-
     public function countMeetingsPerMonth(DateTime $from, DateTime $to)
     {
         $report = new MeetingsPerMonthReport($from, $to);
@@ -182,17 +177,5 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
         };
 
         return $report;
-    }
-
-    /**
-     * Updates the meeting's attendants list
-     *
-     * @param Meeting $meeting
-     * @param Member[] $attendants
-     * @return void
-     */
-    public function updateAttendantsList(Meeting $meeting, array $attendants)
-    {
-        $meeting->attendants()->sync($attendants);
     }
 }

@@ -37,7 +37,7 @@ use Angelov\Eestec\Platform\Reports\MeetingsPerMonthReport;
 interface MeetingsRepositoryInterface extends RepositoryInterface
 {
     /**
-     * Returns the member with the given ID
+     * Returns the meeting with the given ID
      *
      * @param int $id
      * @return Meeting
@@ -46,21 +46,20 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
     public function get($id);
 
     /**
+     * Returns all meetings
+     *
+     * @param array $withRelationships
+     * @return Meeting[]
+     */
+    public function all($withRelationships = []);
+
+    /**
      * Stores a meeting
      *
      * @param  Meeting $meeting
      * @return void
      */
     public function store(Meeting $meeting);
-
-    /**
-     * Updates the meeting's attendants list
-     *
-     * @param Meeting $meeting
-     * @param array $attendants
-     * @return void
-     */
-    public function updateAttendantsList(Meeting $meeting, array $attendants);
 
     /**
      * Counts the meetings in a given date range
@@ -78,14 +77,6 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
      * @return MeetingsAttendanceDetailsReport
      */
     public function calculateAttendanceDetails();
-
-    /**
-     * Returns array of members who attended the meeting
-     *
-     * @param Meeting $meeting
-     * @return array
-     */
-    public function getMeetingAttendants(Meeting $meeting);
 
     /**
      * Count the meetings in a given period, attended by the member
@@ -115,4 +106,13 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
      * @return MeetingsPerMonthReport
      */
     public function countAttendedMeetingsByMemberPerMonth(Member $member, DateTime $from, DateTime $to);
+
+    /**
+     * Returns the latest N meetings
+     *
+     * @param $count
+     * @param array $withRelationships
+     * @return Meeting[]
+     */
+    public function latest($count, array $withRelationships = []);
 }

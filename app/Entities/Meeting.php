@@ -133,6 +133,17 @@ class Meeting extends Model
         return count($this->attendants) > 0;
     }
 
+    public function wasAttendedBy(Member $member)
+    {
+        foreach ($this->getAttendants() as $attendant) {
+            if ($attendant->getId() == $member->getId()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function setCreator(Member $creator)
     {
         $this->creator()->associate($creator);
