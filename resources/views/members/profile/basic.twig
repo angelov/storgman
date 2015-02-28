@@ -13,15 +13,15 @@
             <li class="list-group-item text-muted text-left">Personal information</li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>First name:</strong></span>
-                {{ member.first_name }}
+                {{ member.getFirstName() }}
             </li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>Last name:</strong></span>
-                {{ member.last_name }}
+                {{ member.getLastName() }}
             </li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>Birthday:</strong></span>
-                <span class="date-to-format">{{ member.birthday }}</span>
+                <span class="date-to-format">{{ member.getBirthday() }}</span>
             </li>
         </ul>
     </div>
@@ -31,15 +31,15 @@
             <li class="list-group-item text-muted text-left">Education</li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>Faculty:</strong></span>
-                {{ member.faculty }}
+                {{ member.getFaculty() }}
             </li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>Field of study:</strong></span>
-                {{ member.field_of_study }}
+                {{ member.getFieldOfStudy() }}
             </li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>(Expected) year of graduation:</strong></span>
-                {{ member.year_of_graduation }}
+                {{ member.getYearOfGraduation() }}
             </li>
         </ul>
     </div>
@@ -52,19 +52,19 @@
             <li class="list-group-item text-muted text-left">Contact</li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>Email:</strong></span>
-                <a href="mailto:{{ member.email }}" target="_blank">
-                    {{ member.email }}
+                <a href="mailto:{{ member.getEmail() }}" target="_blank">
+                    {{ member.getEmail() }}
                 </a>
             </li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>Web site:</strong></span>
-                <a href="{{ member.website }}" target="_blank">
-                    {{ member.website }}
+                <a href="{{ member.getWebsite() }}" target="_blank">
+                    {{ member.getWebsite() }}
                 </a>
             </li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>Phone:</strong></span>
-                {{ member.phone }}
+                {{ member.getPhoneNumber() }}
             </li>
         </ul>
     </div>
@@ -74,20 +74,20 @@
             <li class="list-group-item text-muted text-left">Social networks</li>
             <li class="list-group-item">
 
-                {% if member.facebook is defined %}
-                <a href="https://facebook.com/{{ member.facebook }}" target="_blank">
+                {% if member.getFacebook() is defined %}
+                <a href="https://facebook.com/{{ member.getFacebook() }}" target="_blank">
                     <i class="fa fa-facebook-square fa-2x" style="display: inline;"></i>
                 </a>
                 {% endif %}
 
-                {% if member.twitter is defined %}
-                <a href="https://twitter.com/{{ member.twitter }}" target="_blank">
+                {% if member.getTwitter() is defined %}
+                <a href="https://twitter.com/{{ member.getTwitter() }}" target="_blank">
                     <i class="fa fa-twitter-square fa-2x"></i>
                 </a>
                 {% endif %}
 
-                {% if member.google_plus is defined %}
-                <a href="https://plus.google.com/{{ member.google_plus }}" target="_blank">
+                {% if member.getGooglePlus() is defined %}
+                <a href="https://plus.google.com/{{ member.getGooglePlus() }}" target="_blank">
                     <i class="fa fa-google-plus-square fa-2x"></i>
                 </a>
                 {% endif %}

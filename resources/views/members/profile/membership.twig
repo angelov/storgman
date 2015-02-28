@@ -16,13 +16,13 @@
                         Joined:<br />
                         <h4 style="margin-top: 15px;">
                             <i class="fa fa-calendar"></i>
-                            <span class="date-to-format">{{ joinedDate }}</span>
+                            <span class="date-to-format">{{ member.getJoiningDate() }}</span>
                         </h4>
                     </div>
                     <div class="col-md-4">
                         Membership status:<br />
                         <h4 style="margin-top: 15px;">
-                            {% if member.membership_status == 'Active' %}
+                            {% if member.isActive() %}
                                 <i class="fa fa-check"></i> Active
                             {% else %}
                                 <i class="fa fa-times"></i> Inactive
@@ -33,7 +33,7 @@
                         Expiration date:<br />
                         <h4 style="margin-top: 15px;">
                             <i class="fa fa-calendar"></i>
-                            <span class="date-to-format">{{ member.membership_expiration_date }}</span>
+                            <span class="date-to-format">{{ member.getExpirationDate() }}</span>
                         </h4>
                     </div>
                 </div>
@@ -65,13 +65,13 @@
                         {% for fee in fees %}
 
                             <tr>
-                                <td class="date-to-format">{{ fee.from_date }}</td>
-                                <td class="date-to-format">{{ fee.to_date }}</td>
-                                <td>{{ fee.created_at }}</td>
+                                <td class="date-to-format">{{ fee.getFromDate() }}</td>
+                                <td class="date-to-format">{{ fee.getToDate() }}</td>
+                                <td>{{ fee.getCreatedAt() }}</td>
                                 <td class="text-right">
                                     {% if Auth.user().isBoardMember() %}
-                                        <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"
-                                           class="has-tooltip btn-delete-fee" data-fee="{{ fee.id }}" title="Delete">
+                                        <a href="{{ route('fees.destroy', fee.getId()) }}" data-toggle="tooltip" data-placement="top"
+                                           class="has-tooltip btn-delete-fee" data-fee="{{ fee.getId() }}" title="Delete">
                                             <i class="glyphicon glyphicon-trash"></i>
                                         </a>
                                     {% endif %}

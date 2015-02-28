@@ -149,6 +149,11 @@ class Meeting extends Model
         $this->creator()->associate($creator);
     }
 
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
     public function attendants()
     {
         return $this->belongsToMany('Angelov\Eestec\Platform\Entities\Member');

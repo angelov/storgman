@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">{{ member.full_name }} <small>Renew membership</small></h4>
+            <h4 class="modal-title">{{ member.getFullName() }} <small>Renew membership</small></h4>
         </div>
         <div class="modal-body">
 
@@ -14,15 +14,15 @@
 
             <dl class="dl-horizontal">
                 <dt>Membership status:</dt>
-                <dd>{{ member.membership_status }}</dd>
+                <dd>{{ member.getMembershipStatus() }}</dd>
 
                 <dt>Expiration date:</dt>
-                <dd>{{ member.membership_expiration_date }}</dd>
+                <dd>{{ member.getExpirationDate() }}</dd>
             </dl>
 
             <legend>Add new paid membership fee:</legend>
 
-            <input type="hidden" id="fee-member-id" value="{{ member.id }}">
+            <input type="hidden" id="fee-member-id" value="{{ member.getId() }}">
             <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
 
             <div class="row">

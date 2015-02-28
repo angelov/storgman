@@ -22,19 +22,19 @@
                 <div class="row" style="margin-top: 10px">
                     <div class="col-md-3 text-center">
                         Total:<br />
-                        <h3>{{ attendance.getTotal }}</h3>
+                        <h3>{{ attendance.getTotal() }}</h3>
                     </div>
                     <div class="col-md-3 text-center">
                         Attended:<br />
-                        <h3>{{ attendance.getAttended }}</h3>
+                        <h3>{{ attendance.getAttended() }}</h3>
                     </div>
                     <div class="col-md-3 text-center">
                         Missed:<br />
-                        <h3>{{ attendance.getMissed }}</h3>
+                        <h3>{{ attendance.getMissed() }}</h3>
                     </div>
                     <div class="col-md-3 text-center">
                         Rate:<br />
-                        <h3>{{ attendance.getRate }}%</h3>
+                        <h3>{{ attendance.getRate() }}%</h3>
                     </div>
                 </div>
             </li>
@@ -56,9 +56,9 @@
 
                         {% for report in latestMeetings %}
                             <tr class="member-meeting-status">
-                                <td class="date-to-format">{{ report.getMeeting.date }}</td>
+                                <td class="date-to-format">{{ report.getMeeting().getDate() }}</td>
                                 <td>
-                                    {% if report.getAttended %}
+                                    {% if report.getAttended() %}
                                         <strong>Attended</strong>
                                     {% else %}
                                         <strong>Missed</strong>

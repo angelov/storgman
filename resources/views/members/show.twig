@@ -1,7 +1,7 @@
 {% set page_title = member.full_name %}
 {% include 'header.twig' %}
 
-<h1>{{ member.full_name }}</h1>
+<h1>{{ member.getFullName() }}</h1>
 
 <div class="modal fade" id="modal-renew-membership"></div>
 
@@ -10,7 +10,7 @@
     <div class="col-md-3">
         <div class="row">
             <div class="col-md-12">
-                <img src="{{ route('imagecache', ['medium', member.photo]) }}" alt="..."
+                <img src="{{ route('imagecache', ['medium', member.getPhoto()]) }}" alt="..."
                      class="img-thumbnail" style="width: 100%">
             </div>
         </div>
@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% if member.approved == false %}
+                        {% if member.isApproved() == false %}
                             <tr>
                                 <td>
                                     <i class="fa fa-times" style="margin-right: 5px;"></i> Unapproved
@@ -33,7 +33,7 @@
                         {% endif %}
 
 
-                        {% if (member.alumni) %}
+                        {% if (member.isAlumniMember()) %}
                             <tr>
                                 <td>
                                     <i class="glyphicon glyphicon-credit-card" style="margin-right: 5px;"></i> Alumni member
@@ -43,7 +43,7 @@
 
                             <tr>
                                 <td>
-                                    {% if member.membership_status == 'Active' %}
+                                    {% if member.isActive() %}
                                         <i class="fa fa-check" style="margin-right: 5px;"></i> Active
                                     {% else %}
                                         <i class="fa fa-times" style="margin-right: 5px;"></i> Inactive
@@ -56,24 +56,24 @@
                         <tr>
                             <td>
                                 <i class="glyphicon glyphicon-heart" style="margin-right: 5px"></i>
-                                Joined <span class="date-to-humanize">{{ joinedDate }}</span>
+                                Joined <span class="date-to-humanize">{{ member.getJoiningDate() }}</span>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                {% if (member.board_member) %}
+                                {% if (member.isBoardMember()) %}
                                     <i class="glyphicon glyphicon-tower" style="margin-right: 5px;"></i> Board member
-                                {% elseif (member.alumni is not defined) %}
+                                {% elseif (member.isAlumniMember() is not defined) %}
                                     <i class="glyphicon glyphicon-user" style="margin-right: 5px;"></i> Regular member
                                 {% endif %}
                             </td>
                         </tr>
 
-                        {% if (member.position_title != "") %}
+                        {% if (member.getPositionTitle() != "") %}
                             <tr>
                                 <td>
-                                    <i class="glyphicon glyphicon-briefcase" style="margin-right: 5px;"></i> {{ member.position_title }}
+                                    <i class="glyphicon glyphicon-briefcase" style="margin-right: 5px;"></i> {{ member.getPositionTitle() }}
                                 </td>
                             </tr>
                         {% endif %}

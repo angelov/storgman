@@ -31,10 +31,10 @@
             {% for fee in fees %}
 
                 <tr class="row-fee">
-                    <td>{{ fee.created_at }}</td>
+                    <td>{{ fee.getCreatedAt() }}</td>
                     <td>
-                        <a href="{{ route('members.show', fee.member.id) }}">
-                            {{ fee.member.full_name }}
+                        <a href="{{ route('members.show', fee.getMember().getId()) }}">
+                            {{ fee.getMember().getFullName() }}
                         </a>
                         <a href=""
                            class="small pull-right link-all-fees-member btn btn-xs btn-default"
@@ -42,11 +42,11 @@
                             All fees
                         </a>
                     </td>
-                    <td class="date-to-format">{{ fee.from_date }}</td>
-                    <td class="date-to-format">{{ fee.to_date }}</td>
+                    <td class="date-to-format">{{ fee.getFromDate() }}</td>
+                    <td class="date-to-format">{{ fee.getToDate() }}</td>
                     <td class="text-right">
-                        <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"
-                           class="has-tooltip btn-delete-fee" data-fee="{{ fee.id }}" title="Delete">
+                        <a href="{{ route('fees.destroy', fee.getId()) }}" data-toggle="tooltip" data-placement="top"
+                           class="has-tooltip btn-delete-fee" data-fee="{{ fee.getId() }}" title="Delete">
                             <i class="glyphicon glyphicon-trash"></i>
                         </a>
                     </td>

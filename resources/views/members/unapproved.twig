@@ -22,25 +22,25 @@
     {% for member in members %}
         <tr>
             <td>
-                {{ member.full_name }}
+                {{ member.getFullName() }}
             </td>
-            <td>{{ member.faculty }}</td>
-            <td>{{ member.field_of_study }}</td>
+            <td>{{ member.getFaculty() }}</td>
+            <td>{{ member.getFieldOfStudy() }}</td>
             <td class="text-right">
                 {# view member details #}
-                <a href="{{ route('members.show', member.id) }}" data-toggle="tooltip"
+                <a href="{{ route('members.show', member.getId()) }}" data-toggle="tooltip"
                    data-placement="top" title="Details" class="has-tooltip">
                     <i class="glyphicon glyphicon-user"></i>
                 </a>
 
                 {# approve #}
-                <a href="{{ route('members.approve', member.id) }}" data-toggle="tooltip" data-member="{{ member.id }}"
+                <a href="{{ route('members.approve', member.getId()) }}" data-toggle="tooltip" data-member="{{ member.getId() }}"
                    data-placement="top" title="Approve" class="has-tooltip btn-approve-member">
                     <i class="fa fa-check"></i>
                 </a>
 
                 {# decline #}
-                <a href="{{ route('members.decline', member.id) }}" data-toggle="tooltip" data-member="{{ member.id }}"
+                <a href="{{ route('members.decline', member.getId()) }}" data-toggle="tooltip" data-member="{{ member.getId() }}"
                    data-placement="top" title="Decline" class="has-tooltip btn-approve-member">
                     <i class="fa fa-times"></i>
                 </a>

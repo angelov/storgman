@@ -3,8 +3,6 @@
 
 <h1><span class="date-to-format">{{ meeting.date }}</span> <small>Meeting details</small></h1>
 
-{% set attendants = meeting.attendants %}
-
 <div class="row" style="margin-top: 30px;">
     <div class="col-md-5">
 
@@ -12,26 +10,26 @@
             <li class="list-group-item text-muted text-left">Basic information</li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>Date:</strong></span>
-                <span class="date-to-format">{{ meeting.date }}</span>
+                <span class="date-to-format">{{ meeting.getDate() }}</span>
             </li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>Location:</strong></span>
-                {{ meeting.location }}
+                {{ meeting.getLocation() }}
             </li>
             <li class="list-group-item">
                 <span class="pull-left"><strong># of attendants</strong></span>
-                {{ attendants|length }}
+                {{ meeting.getAttendants()|length }}
             </li>
             <li class="list-group-item">
                 <span class="pull-left"><strong>Created by:</strong></span>
-                {{ meeting.creator.full_name }}
+                {{ meeting.getCreator().getFullName() }}
             </li>
         </ul>
 
         <ul class="list-group">
             <li class="list-group-item text-muted text-left">Details</li>
             <li class="list-group-item">
-                <p>{{ meeting.info|raw }}</p>
+                <p>{{ meeting.getInfo()|raw }}</p>
             </li>
         </ul>
 
@@ -94,11 +92,11 @@
             <li class="list-group-item text-muted text-left">Attendants</li>
             <li class="list-group-item">
 
-                {% for attendant in attendants %}
+                {% for attendant in meeting.getAttendants() %}
 
-                    <a href="{{ route('members.show', attendant.id) }}" class="attendant has-tooltip"
-                       data-toggle="tooltip" title="{{ attendant.full_name }}">
-                        <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.photo]) }}" />
+                    <a href="{{ route('members.show', attendant.getId()) }}" class="attendant has-tooltip"
+                       data-toggle="tooltip" title="{{ attendant.getFullName() }}">
+                        <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.getPhoto()]) }}" />
                     </a>
 
                 {% endfor %}

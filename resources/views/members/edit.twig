@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-12">
 
-        <form role="form" action="{{ route('members.update', member.id) }}" method="post" enctype="multipart/form-data">
+        <form role="form" action="{{ route('members.update', member.getId()) }}" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="PUT">
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -28,14 +28,14 @@
                         <label for="first_name">First name:
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="first_name" name="first_name"
-                               value="{{ member.first_name }}">
+                               value="{{ member.getFirstName() }}">
                     </div>
 
                     <div class="form-group">
                         <label for="last_name">Last name:
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="last_name" name="last_name"
-                               value="{{ member.last_name }}">
+                               value="{{ member.getLastName() }}">
                     </div>
 
                     <div class="form-group">
@@ -43,7 +43,7 @@
                             <span class="text-danger">*</span></label>
                         <div class="input-group date">
                             <input type="text" class="form-control" id="birthday" name="birthday"
-                                   value="{{ member.birthday }}">
+                                   value="{{ member.getBirthday() }}">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
@@ -58,7 +58,7 @@
                             <span class="text-danger">*</span>
                         </label>
                         <input type="email" class="form-control" id="email" name="email"
-                               value="{{ member.email }}">
+                               value="{{ member.getEmail() }}">
                     </div>
 
                     <div class="form-group">
@@ -73,12 +73,12 @@
                         <legend>Organization details:</legend>
 
                         {% set board_member = "" %}
-                        {% if member.board_member %}
+                        {% if member.isBoardMember() %}
                             {% set board_member = "checked" %}
                         {% endif %}
 
                         {% set alumni_member = "" %}
-                        {% if member.alumni %}
+                        {% if member.isAlumniMember() %}
                             {% set alumni_member = "checked" %}
                         {% endif %}
 
@@ -91,7 +91,7 @@
                         <div class="form-group">
                             <label for="position_title">Position title:</label>
                             <input type="text" class="form-control" id="position_title" name="position_title"
-                                   placeholder="eg. President" value="{{ member.position_title }}">
+                                   placeholder="eg. President" value="{{ member.getPositionTitle() }}">
                             <p class="help-block small">Fill only if the member is part of the organization's board</p>
                         </div>
 
@@ -109,14 +109,14 @@
                         <label for="faculty">Faculty:
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="faculty" name="faculty"
-                               value="{{ member.faculty }}">
+                               value="{{ member.getFaculty() }}">
                     </div>
 
                     <div class="form-group">
                         <label for="field_of_study">Field of study:
                             <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="field_of_study" name="field_of_study"
-                               value="{{ member.field_of_study }}">
+                               value="{{ member.getFieldOfStudy() }}">
                     </div>
 
                     <div class="form-group">
@@ -125,7 +125,7 @@
                             <span class="text-danger">*</span>
                         </label>
                         <input type="text" class="form-control" id="year_of_graduation" name="year_of_graduation"
-                               value="{{ member.year_of_graduation }}">
+                               value="{{ member.getYearOfGraduation() }}">
                     </div>
 
                 </div>
@@ -136,7 +136,7 @@
                     <div class="row">
                         <div class="col-md-5" >
                             <div id="img-preview-photo"
-                                 style="background-image: url({{ route('imagecache', ['medium', member.photo]) }})"></div>
+                                 style="background-image: url({{ route('imagecache', ['medium', member.getPhoto()]) }})"></div>
                         </div>
                         <div class="col-md-7">
 
@@ -160,13 +160,13 @@
                     <div class="form-group">
                         <label for="website">Website:</label>
                         <input type="text" class="form-control" id="website" name="website"
-                               value="{{ member.website }}">
+                               value="{{ member.getWebsite() }}">
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Phone number:</label>
                         <input type="phone" class="form-control" id="phone" name="phone"
-                               value="{{ member.phone }}">
+                               value="{{ member.getPhoneNumber() }}">
                     </div>
 
                     <legend>Social profiles:</legend>
@@ -176,7 +176,7 @@
                         <div class="input-group">
                             <span class="input-group-addon">https://facebook.com/</span>
                             <input type="text" class="form-control" id="facebook" name="facebook"
-                                   value="{{ member.facebook }}">
+                                   value="{{ member.getFacebook() }}">
                         </div>
                     </div>
 
@@ -185,7 +185,7 @@
                         <div class="input-group">
                             <span class="input-group-addon">https://twitter.com/</span>
                             <input type="text" class="form-control" id="twitter" name="twitter"
-                                   value="{{ member.twitter }}">
+                                   value="{{ member.getTwitter() }}">
                         </div>
                     </div>
 
@@ -194,7 +194,7 @@
                         <div class="input-group">
                             <span class="input-group-addon">https://plus.google.com/</span>
                             <input type="text" class="form-control" id="google_plus" name="google_plus"
-                                   value="{{ member.google_plus }}">
+                                   value="{{ member.getGooglePlus() }}">
                         </div>
                     </div>
 

@@ -5,8 +5,8 @@
 <p>Here are some details:</p>
 
 <p>
-    <strong>From:</strong> {{ fee.from_date }}<br />
-    <strong>To:</strong> {{ fee.to_date }}<br />
+    <strong>From:</strong> {{ fee.getFromDate() }}<br />
+    <strong>To:</strong> {{ fee.getToDate() }}<br />
 </p>
 
 <p>To continue using the service log in <a href="{{ Config.get('app.url') }}" target="_blank">here</a>.</p>

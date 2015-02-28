@@ -95,4 +95,14 @@ class Fee extends Model
     {
         return $this->getAttribute('member');
     }
+
+    public function getCreatedAt()
+    {
+        return $this->getAttribute('created_at');
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->getAttribute('updated_at');
+    }
 }

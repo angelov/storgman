@@ -13,19 +13,19 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{ route('imagecache', ['small', member.photo]) }}" />
+                            <img src="{{ route('imagecache', ['small', member.getPhoto()]) }}" />
                         </div>
 
 
                         <div class="col-md-8" style="display: inline-block; vertical-align: text-top">
-                            <h4>{{ member.full_name }}</h4>
+                            <h4>{{ member.getFullName() }}</h4>
                             <p class="text-muted">
                                 <i class="glyphicon glyphicon-briefcase" style="margin-right: 5px;"></i>
-                                {{ member.position_title }}
+                                {{ member.getPositionTitle() }}
                             </p>
 
                             <p class="text-right small" style="padding-top: 15px; margin-bottom: 0">
-                                <a href="{{ route('members.show', member.id) }}">
+                                <a href="{{ route('members.show', member.getId()) }}">
                                     <i class="glyphicon glyphicon-user"></i> View profile
                                 </a>
                             </p>

@@ -58,16 +58,16 @@
 
                                 <tr>
                                     <td>
-                                        <a href="{{ route('members.show', fee.member.id) }}">
-                                            {{ fee.member.full_name }}
+                                        <a href="{{ route('members.show', fee.getMember().getId()) }}">
+                                            {{ fee.getMember().getFullName() }}
                                         </a>
                                     </td>
-                                    <td class="date-to-format">{{ fee.from_date }}</td>
-                                    <td class="date-to-format">{{ fee.to_date }}</td>
-                                    <td>{{ fee.created_at }}</td>
+                                    <td class="date-to-format">{{ fee.getFromDate() }}</td>
+                                    <td class="date-to-format">{{ fee.getToDate() }}</td>
+                                    <td>{{ fee.getCreatedAt() }}</td>
                                     <td class="text-right">
-                                        <a href="{{ route('fees.destroy', fee.id) }}" data-toggle="tooltip" data-placement="top"
-                                           class="has-tooltip btn-delete-fee" data-fee="{{ fee.id }}" title="Delete">
+                                        <a href="{{ route('fees.destroy', fee.getId()) }}" data-toggle="tooltip" data-placement="top"
+                                           class="has-tooltip btn-delete-fee" data-fee="{{ fee.getId() }}" title="Delete">
                                             <i class="glyphicon glyphicon-trash"></i>
                                         </a>
                                     </td>
@@ -97,9 +97,9 @@
 
                         {% for fee in toExpire %}
                             <tr>
-                                <td>{{ fee.member.full_name }}</td>
+                                <td>{{ fee.getMember().getFullName() }}</td>
                                 <td>
-                                    <strong class="date-to-humanize">{{ fee.to_date }}</strong>
+                                    <strong class="date-to-humanize">{{ fee.getToDate() }}</strong>
                                 </td>
                             </tr>
                         {% endfor %}

@@ -32,6 +32,7 @@ use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendanceDetailsReport;
 use Angelov\Eestec\Platform\Reports\MeetingsPerMonthReport;
+use Carbon\Carbon;
 use DB;
 
 class EloquentMeetingsRepository extends AbstractEloquentRepository implements MeetingsRepositoryInterface
@@ -46,7 +47,7 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
         $meeting->save();
     }
 
-    public function countMeetingsInPeriod(DateTime $from, DateTime $to) {
+    public function countMeetingsInPeriod(Carbon $from, Carbon $to) {
         $from = $from->toDateString();
         $to = $to->toDateString();
 
@@ -84,9 +85,8 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
 
     }
 
-    public function countAttendanceForMember(Member $member, DateTime $from, DateTime $to)
+    public function countAttendanceForMember(Member $member, Carbon $from, Carbon $to)
     {
-
         $from = $from->toDateString();
         $to = $to->toDateString();
 

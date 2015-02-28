@@ -37,25 +37,25 @@
             <tbody>
             {% for meeting in meetings %}
                 <tr>
-                    <td><span class="date-to-format">{{ meeting.date }}</span></td>
-                    <td>{{ meeting.location }}</td>
-                    <td>{{ meeting.attendants|length }}</td>
+                    <td><span class="date-to-format">{{ meeting.getDate() }}</span></td>
+                    <td>{{ meeting.getLocation() }}</td>
+                    <td>{{ meeting.getAttendants()|length }}</td>
                     <td class="text-right">
                         {# view meeting report #}
-                        <a href="{{ route('meetings.show', meeting.id) }}"
+                        <a href="{{ route('meetings.show', meeting.getId()) }}"
                            data-toggle="tooltip" data-placement="top" title="View report" class="has-tooltip">
                             <i class="glyphicon glyphicon-file"></i>
                         </a>
 
                         {# edit meeting details #}
-                        <a href="{{ route('meetings.edit', meeting.id) }}" data-toggle="tooltip"
+                        <a href="{{ route('meetings.edit', meeting.getId()) }}" data-toggle="tooltip"
                            data-placement="top" title="Edit" class="has-tooltip">
                             <i class="glyphicon glyphicon-pencil"></i>
                         </a>
 
                         {# delete meeting #}
                         <a data-toggle="tooltip" data-placement="top" title="Delete"
-                           href="{{ route('meetings.destroy', meeting.id) }}" data-meeting="{{ meeting.id }}"
+                           href="{{ route('meetings.destroy', meeting.getId()) }}" data-meeting="{{ meeting.getId() }}"
                            class="btn-delete-meeting has-tooltip">
                             <i class="glyphicon glyphicon-trash"></i>
                         </a>

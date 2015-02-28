@@ -6,11 +6,11 @@
 <div class="row">
     <div class="col-md-12">
 
-        <form role="form" method="post" action="{{ route('meetings.update', meeting.id) }}">
+        <form role="form" method="post" action="{{ route('meetings.update', meeting.getId()) }}">
             <input type="hidden" name="_method" value="put" />
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-            <input type="hidden" name="created_by" value="{{ meeting.created_by }}">
+            <input type="hidden" name="created_by" value="{{ meeting.getCreator().getId() }}">
 
             {% if Session.has('errorMessages') %}
                 <div class="alert alert-danger">
@@ -33,7 +33,7 @@
                             <div class="form-group">
                                 <label for="location">Location:</label>
                                 <input type="text" class="form-control" id="location" name="location"
-                                        value="{{ meeting.location }}">
+                                        value="{{ meeting.getLocation() }}">
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 <label for="date">Date:</label>
                                 <div class="input-group date">
-                                    <input type="text" class="form-control" id="date" name="date" value="{{ meeting.date }}">
+                                    <input type="text" class="form-control" id="date" name="date" value="{{ meeting.getDate()|date('Y-m-d') }}">
                                     <span class="input-group-addon">
                                         <i class="glyphicon glyphicon-calendar"></i>
                                     </span>
@@ -53,7 +53,7 @@
                     <legend>Details:</legend>
 
                     <div class="form-group">
-                        <textarea class="form-control" name="details" id="txt-meeting-details">{{ meeting.info|raw }}</textarea>
+                        <textarea class="form-control" name="details" id="txt-meeting-details">{{ meeting.getInfo()|raw }}</textarea>
                     </div>
 
                 </div>
@@ -68,7 +68,7 @@
                     </div>
 
                     <div id="attendants-list">
-                        <p class="small text-right">No. of attendants: <span id="count-attendants">{{ meeting.attendants|length }}</span></p>
+                        <p class="small text-right">No. of attendants: <span id="count-attendants">{{ meeting.getAttendants()|length }}</span></p>
 
                         <div id="tpl-attendant" class="attendant has-tooltip"
                              data-toggle="tooltip">
@@ -80,15 +80,15 @@
                             <img class="img-attendant" />
                         </div>
 
-                        {% for attendant in meeting.attendants %}
+                        {% for attendant in meeting.getAttendants() %}
                             <div class="attendant has-tooltip"
-                                 data-toggle="tooltip" title="{{ attendant.full_name }}" data-id="{{ attendant.id }}">
+                                 data-toggle="tooltip" title="{{ attendant.getFullName() }}" data-id="{{ attendant.getId() }}">
                                 <div class="delete-attendant">
                                     <div class="caption-content">
                                         <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
                                     </div>
                                 </div>
-                                <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.photo]) }}" />
+                                <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.getPhoto()]) }}" />
                             </div>
                         {% endfor %}
 
@@ -100,7 +100,7 @@
 
             <div class="row pull-right">
                 <div class="col-md-12 ">
-                    <button type="submit" class="btn btn-info" id="btn-create-meeting">Add the report</button>
+                    <button type="submit" class="btn btn-info" id="btn-create-meeting">Update the report</button>
                 </div>
             </div>
 
