@@ -113,7 +113,8 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
      *
      * @param $count
      * @param array $withRelationships
+     * @param string $orderByField
      * @return Meeting[]
      */
-    public function latest($count, array $withRelationships = []);
+    public function latest($count, array $withRelationships = [], $orderByField = 'date');
 }
