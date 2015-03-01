@@ -57,9 +57,10 @@ interface RepositoryInterface
      *
      * @param $count
      * @param array $withRelationships
+     * @param string $orderByField
      * @return array
      */
-    public function latest($count, array $withRelationships = []);
+    public function latest($count, array $withRelationships = [], $orderByField = 'id');
 
     /**
      * Deletes a fee from the storage

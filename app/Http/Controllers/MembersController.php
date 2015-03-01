@@ -44,7 +44,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Mail\Message;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
@@ -291,6 +290,8 @@ class MembersController extends BaseController
             $message->to($member->getEmail())->subject('Your account was approved!');
         });
 
+        $data = [];
+
         $data['status'] = 'success';
         $data['message'] = 'Member approved successfully.';
 
@@ -315,6 +316,8 @@ class MembersController extends BaseController
         });
 
         $this->members->destroy($id);
+
+        $data = [];
 
         $data['status'] = 'success';
         $data['message'] = 'Member declined successfully.';

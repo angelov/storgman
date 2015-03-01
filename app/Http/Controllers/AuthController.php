@@ -75,10 +75,9 @@ class AuthController extends BaseController
      * Thanks to reddit.com/user/baileylo for the suggestions.
      *
      * @param LoginFormRequest $request
-     * @param MembershipService $membershipService
      * @return RedirectResponse
      */
-    public function login(LoginFormRequest $request, MembershipService $membershipService)
+    public function login(LoginFormRequest $request)
     {
         $credentials = $request->only('email', 'password');
         $remember = ($request->get('remember') == 'yes');

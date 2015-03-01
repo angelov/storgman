@@ -352,7 +352,7 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
     {
         $fee = $this->getLatestFee();
 
-        return (!$fee) ? null : new Carbon($fee->getToDate());
+        return (!$fee) ? null : $fee->getToDate();
     }
 
     /**
@@ -362,7 +362,7 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
     {
         $fee = $this->getFirstFee();
 
-        return ($fee) ? new Carbon($fee->getFromDate()) : $this->getCreatedAt();
+        return ($fee) ? $fee->getFromDate() : $this->getCreatedAt();
     }
 
     /**

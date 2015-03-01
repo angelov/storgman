@@ -66,7 +66,7 @@ class HomeController extends BaseController
         $boardMember = $logged->isBoardMember();
 
         if (!$boardMember) {
-            return \Redirect::route('members.show', $logged->id);
+            return \Redirect::route('members.show', $logged->getId());
         }
 
         $withBirthday = $this->members->getByBirthdayDate($today);
@@ -75,8 +75,11 @@ class HomeController extends BaseController
         $perFaculty = json_encode($this->members->countPerFaculty());
 
         $perMonthAll = $this->membersStats->newMembersMonthlyLastYear();
-        $perMonth['months'] = json_encode($perMonthAll->getMonthsTitles());
-        $perMonth['values'] = json_encode($perMonthAll->getMonthsValues());
+
+        $perMonth = [
+            'months' => json_encode($perMonthAll->getMonthsTitles()),
+            'values' => json_encode($perMonthAll->getMonthsValues())
+        ];
 
         return $this->view->make(
             'homepage.index',

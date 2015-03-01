@@ -147,6 +147,9 @@ class Meeting extends Model
         $this->creator()->associate($creator);
     }
 
+    /**
+     * @return Member
+     */
     public function getCreator()
     {
         return $this->creator;

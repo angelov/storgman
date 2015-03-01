@@ -98,10 +98,9 @@ class FeesController extends BaseController
      * Show the form for creating a new fee.
      * Method available only via ajax.
      *
-     * @param MembershipService $membershipService
      * @return Response
      */
-    public function create(MembershipService $membershipService)
+    public function create()
     {
         $member_id = $this->request->get('member_id');
         $member = $this->members->get($member_id);
@@ -158,6 +157,8 @@ class FeesController extends BaseController
         });
 
         $this->fees->store($fee);
+
+        $data = [];
 
         $data['status'] = 'success';
         $data['message'] = 'The membership was renewed successfully.';

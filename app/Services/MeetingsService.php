@@ -88,7 +88,7 @@ class MeetingsService
      */
     public function latestMeetingsAttendanceStatusForMember(Member $member)
     {
-        $meetings = $this->meetings->latest(10, ['attendants']);
+        $meetings = $this->meetings->latest(10, ['attendants'], 'date');
         $reports = [];
 
         foreach ($meetings as $meeting) {
