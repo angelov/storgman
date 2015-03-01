@@ -40,7 +40,9 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Message;
@@ -81,7 +83,7 @@ class MembersController extends BaseController
     /**
      * Display a listing of members
      *
-     * @return Response
+     * @return View
      */
     public function index()
     {
@@ -120,7 +122,7 @@ class MembersController extends BaseController
     /**
      * Show a page that lists the board members
      *
-     * @return Response
+     * @return View
      */
     public function board()
     {
@@ -131,7 +133,7 @@ class MembersController extends BaseController
     /**
      * Show a page with the unapproved member accounts
      *
-     * @return Response
+     * @return View
      */
     public function unapproved()
     {
@@ -142,7 +144,7 @@ class MembersController extends BaseController
     /**
      * Show the form for creating a new member
      *
-     * @return Response
+     * @return View
      */
     public function create()
     {
@@ -154,7 +156,7 @@ class MembersController extends BaseController
      *
      * @param MembersPopulator $populator
      * @param StoreMemberRequest $request
-     * @return Response
+     * @return RedirectResponse
      */
     public function store(MembersPopulator $populator, StoreMemberRequest $request)
     {
@@ -179,7 +181,7 @@ class MembersController extends BaseController
      *
      * @param \Angelov\Eestec\Platform\Services\MeetingsService $meetingsService
      * @param int $id
-     * @return Response
+     * @return View
      *
      * @todo Information separated in tabs (in the view) should be separated in few methods
      */
@@ -201,7 +203,7 @@ class MembersController extends BaseController
      * (focused on the membership)
      *
      * @param int $id
-     * @return Response
+     * @return View
      */
     public function quickMemberInfo($id)
     {
@@ -214,7 +216,7 @@ class MembersController extends BaseController
      * Show the form for editing the specified member.
      *
      * @param  int      $id
-     * @return Response
+     * @return View
      */
     public function edit($id)
     {
@@ -229,7 +231,7 @@ class MembersController extends BaseController
      * @param MembersPopulator $populator
      * @param UpdateMemberRequest $request
      * @param  int $id
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(MembersPopulator $populator, UpdateMemberRequest $request, $id)
     {
@@ -323,7 +325,7 @@ class MembersController extends BaseController
     /**
      * The new members can create their profiles on the system
      *
-     * @return Response
+     * @return View
      */
     public function register()
     {
@@ -336,7 +338,7 @@ class MembersController extends BaseController
      * @param MembersPopulator $populator
      * @param StoreMemberRequest $request
      * @param Mailer $mailer
-     * @return Response
+     * @return RedirectResponse
      */
     public function postRegister(MembersPopulator $populator, StoreMemberRequest $request, Mailer $mailer)
     {

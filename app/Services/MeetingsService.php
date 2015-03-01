@@ -82,7 +82,11 @@ class MeetingsService
         return $report;
     }
 
-    public function latestMeetingsAttendanceStatusForMember($member)
+    /**
+     * @param Member $member
+     * @return MeetingAttendedReport[]
+     */
+    public function latestMeetingsAttendanceStatusForMember(Member $member)
     {
         $meetings = $this->meetings->latest(10, ['attendants']);
         $reports = [];
@@ -95,6 +99,10 @@ class MeetingsService
         return $reports;
     }
 
+    /**
+     * @param Member $member
+     * @return MeetingsAttendedByMemberPerMonthReport
+     */
     public function calculateMonthlyAttendanceDetailsForMember(Member $member)
     {
         $begin = DateTime::twelveMonthsAgo(true);
@@ -117,7 +125,7 @@ class MeetingsService
      * converts it to an array.
      *
      * @param $attendants
-     * @return array
+     * @return int[]
      */
     public function parseAttendantsIds($attendants)
     {

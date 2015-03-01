@@ -111,7 +111,7 @@ class Meeting extends Model
     }
 
     /**
-     * @param Member[]|int[] $attendants
+     * @param Member[] $attendants
      */
     public function syncAttendants(array $attendants)
     {
@@ -120,8 +120,6 @@ class Meeting extends Model
         foreach ($attendants as $attendant) {
             if ($attendant instanceof Member) {
                 $ids[] = $attendant->getId();
-            } elseif (is_int($attendant)) {
-                $ids[] = $attendant;
             }
         }
 

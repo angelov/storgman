@@ -67,6 +67,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('email');
     }
 
+    /**
+     * @param string $email
+     */
     public function setEmail($email)
     {
         $this->setAttribute('email', $email);
@@ -77,6 +80,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('password');
     }
 
+    /**
+     * @param string $password
+     */
     public function setPassword($password)
     {
         $this->setAttribute('password', $password);
@@ -87,6 +93,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('first_name');
     }
 
+    /**
+     * @param string $firstName
+     */
     public function setFirstName($firstName)
     {
         $this->setAttribute('first_name', $firstName);
@@ -97,6 +106,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('last_name');
     }
 
+    /**
+     * @param string $lastName
+     */
     public function setLastName($lastName)
     {
         $this->setAttribute('last_name', $lastName);
@@ -112,6 +124,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('faculty');
     }
 
+    /**
+     * @param string $faculty
+     */
     public function setFaculty($faculty)
     {
         $this->setAttribute('faculty', $faculty);
@@ -122,6 +137,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('field_of_study');
     }
 
+    /**
+     * @param string $field
+     */
     public function setFieldOfStudy($field)
     {
         $this->setAttribute('field_of_study', $field);
@@ -132,6 +150,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('year_of_graduation');
     }
 
+    /**
+     * @param int $year
+     */
     public function setYearOfGraduation($year)
     {
         $this->setAttribute('year_of_graduation', $year);
@@ -144,6 +165,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return ($photo) ? $photo : "default-member-photo.png";
     }
 
+    /**
+     * @param string $photoFileName
+     */
     public function setPhoto($photoFileName)
     {
         $this->setAttribute('photo', $photoFileName);
@@ -162,6 +186,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         $this->setAttribute('birthday', $birthday);
     }
 
+    /**
+     * @return int
+     */
     public function getAge()
     {
         return $this->getBirthday()->age;
@@ -172,6 +199,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('board_member');
     }
 
+    /**
+     * @param boolean $isBoardMember
+     */
     public function setBoardMember($isBoardMember)
     {
         $this->setAttribute('board_member', $isBoardMember);
@@ -182,6 +212,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('position_title');
     }
 
+    /**
+     * @param string $title
+     */
     public function setPositionTitle($title)
     {
         $this->setAttribute('position_title', $title);
@@ -208,6 +241,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('facebook');
     }
 
+    /**
+     * @param string $profile
+     */
     public function setFacebook($profile)
     {
         $this->setAttribute('facebook', $profile);
@@ -218,6 +254,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('twitter');
     }
 
+    /**
+     * @param string $profile
+     */
     public function setTwitter($profile)
     {
         $this->setAttribute('twitter', $profile);
@@ -228,6 +267,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('google_plus');
     }
 
+    /**
+     * @param string $profile
+     */
     public function setGooglePlus($profile)
     {
         $this->setAttribute('google_plus', $profile);
@@ -238,6 +280,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('phone');
     }
 
+    /**
+     * @param string $number
+     */
     public function setPhoneNumber($number)
     {
         $this->setAttribute('phone', $number);
@@ -248,6 +293,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('website');
     }
 
+    /**
+     * @param string $url
+     */
     public function setWebsite($url)
     {
         $this->setAttribute('website', $url);
@@ -258,6 +306,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('alumni');
     }
 
+    /**
+     * @param boolean $isAlumni
+     */
     public function setAlumniMember($isAlumni)
     {
         $this->setAttribute('alumni', $isAlumni);
@@ -268,6 +319,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getAttribute('approved');
     }
 
+    /**
+     * @param boolean $isApproved
+     */
     public function setApproved($isApproved)
     {
         $this->setAttribute('approved', $isApproved);
@@ -292,23 +346,23 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
     }
 
     /**
-     * @return DateTime
+     * @return Carbon
      */
     public function getExpirationDate()
     {
         $fee = $this->getLatestFee();
 
-        return (!$fee) ? null : new DateTime($fee->getToDate());
+        return (!$fee) ? null : new Carbon($fee->getToDate());
     }
 
     /**
-     * @return DateTime
+     * @return Carbon
      */
     public function getJoiningDate()
     {
         $fee = $this->getFirstFee();
 
-        return ($fee) ? new DateTime($fee->getFromDate()) : $this->getCreatedAt();
+        return ($fee) ? new Carbon($fee->getFromDate()) : $this->getCreatedAt();
     }
 
     /**
@@ -322,16 +376,25 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $fee;
     }
 
+    /**
+     * @return Fee
+     */
     public function getLatestFee()
     {
         return $this->getFeeByOrder("DESC");
     }
 
+    /**
+     * @return Fee
+     */
     public function getFirstFee()
     {
         return $this->getFeeByOrder("ASC");
     }
 
+    /**
+     * @return bool
+     */
     public function isActive()
     {
         $expirationDate = $this->getExpirationDate();
@@ -345,6 +408,9 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $today < $expirationDate;
     }
 
+    /**
+     * @return string
+     */
     public function getMembershipStatus()
     {
         return ($this->isActive()) ? "Active" : "Inactive";
