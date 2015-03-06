@@ -25,9 +25,34 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands;
+namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
-abstract class Command
+use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
+
+class DeleteMemberCommandHandler
 {
+    protected $members;
+    protected $photos;
 
+    public function __construct(MembersRepositoryInterface $members, PhotosRepositoryInterface $photos)
+    {
+        $this->members = $members;
+        $this->photos = $photos;
+    }
+
+    public function handle(DeleteMemberCommand $command)
+    {
+        $id = $command->getMemberId();
+
+        $member = $this->members->get($id);
+        $photo = $member->getPhoto();
+
+        if (isset($photo)) {
+            $this->photos->destroy($photo, 'members');
+        }
+
+        $this->members->destroy($id);
+    }
 }

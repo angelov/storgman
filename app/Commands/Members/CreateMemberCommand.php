@@ -25,9 +25,34 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands;
+namespace Angelov\Eestec\Platform\Commands\Members;
 
-abstract class Command
+use Angelov\Eestec\Platform\Commands\Command;
+
+class CreateMemberCommand extends Command
 {
+    protected $memberData;
+    protected $approve;
 
+    public function __construct(array $data, $approve = false)
+    {
+        $this->memberData = $data;
+        $this->approve = $approve;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMemberData()
+    {
+        return $this->memberData;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldBeApproved()
+    {
+        return $this->approve;
+    }
 }

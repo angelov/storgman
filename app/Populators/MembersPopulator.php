@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -28,7 +28,6 @@
 namespace Angelov\Eestec\Platform\Populators;
 
 use Angelov\Eestec\Platform\Entities\Member;
-use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
 use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
 use DateTime;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -44,40 +43,45 @@ class MembersPopulator
         $this->photos = $photos;
     }
 
-    public function populateFromRequest(Member $member, StoreMemberRequest $request)
+    public function populateFromArray(Member $member, array $data)
     {
-        $member->setFirstName($request->get('first_name'));
-        $member->setLastName($request->get('last_name'));
-        $member->setBirthday(new DateTime($request->get('birthday')));
-        $member->setEmail($request->get('email'));
+        $member->setFirstName($data['first_name']);
+        $member->setLastName($data['last_name']);
+        $member->setBirthday(new DateTime($data['birthday']));
+        $member->setEmail($data['email']);
 
-        if ($request->has('password')) {
-            $member->setPassword($this->hasher->make($request->get('password')));
+        if ($data['password']) {
+            $hashed = $this->hasher->make($data['password']);
+            $member->setPassword($hashed);
         }
 
-        $member->setFaculty($request->get('faculty'));
-        $member->setFieldOfStudy($request->get('field_of_study'));
-        $member->setYearOfGraduation($request->get('year_of_graduation'));
-        $member->setBoardMember($request->get('board_member') == 1);
-        $member->setPositionTitle($request->get('position_title'));
-        $member->setAlumniMember($request->get('alumni_member') == 1);
+        $member->setFaculty($data['faculty']);
+        $member->setFieldOfStudy($data['field_of_study']);
+        $member->setYearOfGraduation($data['year_of_graduation']);
+        $member->setBoardMember($data['board_member'] == 1);
+        $member->setPositionTitle($data['position_title']);
 
-        $member->setFacebook($request->get('facebook'));
-        $member->setTwitter($request->get('twitter'));
-        $member->setGooglePlus($request->get('google_plus'));
-
-        $member->setPhoneNumber($request->get('phone'));
-        $member->setWebsite($request->get('website'));
-
-        if ($request->hasFile('member_photo')) {
-            $photo = $request->file('member_photo');
-
-            /** @todo This needs to be placed somewhere else */
-            $photoFileName = md5($member->email) . "." . $photo->getClientOriginalExtension();
-            $this->photos->store($photo, 'members', $photoFileName);
-
-            $member->setPhoto($photoFileName);
+        if (isset($data['alumni_member'])) {
+            $member->setAlumniMember($data['alumni_member'] == 1);
         }
+
+        $member->setFacebook($data['facebook']);
+        $member->setTwitter($data['twitter']);
+        $member->setGooglePlus($data['google_plus']);
+
+        $member->setPhoneNumber($data['phone']);
+        $member->setWebsite($data['website']);
+
+        /** @todo URGENT: This needs to be placed somewhere else */
+//        if ($request->hasFile('member_photo')) {
+//            $photo = $request->file('member_photo');
+//
+//
+//            $photoFileName = md5($member->email) . "." . $photo->getClientOriginalExtension();
+//            $this->photos->store($photo, 'members', $photoFileName);
+//
+//            $member->setPhoto($photoFileName);
+//        }
 
         return $member;
     }

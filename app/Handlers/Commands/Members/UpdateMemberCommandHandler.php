@@ -25,9 +25,30 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands;
+namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
-abstract class Command
+use Angelov\Eestec\Platform\Commands\Members\UpdateMemberCommand;
+use Angelov\Eestec\Platform\Populators\MembersPopulator;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+
+class UpdateMemberCommandHandler
 {
+    protected $members;
+    protected $populator;
 
+    public function __construct(MembersRepositoryInterface $members, MembersPopulator $populator)
+    {
+        $this->members = $members;
+        $this->populator = $populator;
+    }
+
+    public function handle(UpdateMemberCommand $command)
+    {
+        $member = $this->members->get($command->getMemberId());
+        $data = $command->getMemberData();
+
+        $this->populator->populateFromArray($member, $data);
+
+        $this->members->store($member);
+    }
 }

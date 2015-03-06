@@ -25,9 +25,21 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands;
+namespace Angelov\Eestec\Platform\Commands\Members;
 
-abstract class Command
+use Angelov\Eestec\Platform\Commands\Command;
+
+class DeleteMemberCommand extends Command
 {
+    protected $memberId;
 
+    public function __construct($memberId)
+    {
+        $this->memberId = $memberId;
+    }
+
+    public function getMemberId()
+    {
+        return $this->memberId;
+    }
 }

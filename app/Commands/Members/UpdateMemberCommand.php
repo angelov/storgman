@@ -25,9 +25,38 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands;
+namespace Angelov\Eestec\Platform\Commands\Members;
 
-abstract class Command
+use Angelov\Eestec\Platform\Commands\Command;
+
+class UpdateMemberCommand extends Command
 {
+    protected $memberId;
+    protected $memberData;
 
+    /**
+     * @param $memberId
+     * @param array $data
+     */
+    public function __construct($memberId, array $data)
+    {
+        $this->memberId = $memberId;
+        $this->memberData = $data;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMemberId()
+    {
+        return $this->memberId;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMemberData()
+    {
+        return $this->memberData;
+    }
 }

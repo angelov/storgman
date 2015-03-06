@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,23 +20,24 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Commands\Members\CreateMemberCommand;
+use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
+use Angelov\Eestec\Platform\Commands\Members\UpdateMemberCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
 use Angelov\Eestec\Platform\Http\Requests\UpdateMemberRequest;
 use Angelov\Eestec\Platform\Paginators\MembersPaginator;
-use Angelov\Eestec\Platform\Populators\MembersPopulator;
 use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
 use Angelov\Eestec\Platform\Services\MeetingsService;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory;
@@ -58,6 +59,7 @@ class MembersController extends BaseController
     protected $authenticator;
     protected $session;
     protected $redirector;
+    protected $commandBus;
 
     public function __construct(
         Request $request,
@@ -67,7 +69,8 @@ class MembersController extends BaseController
         Redirector $redirector,
         MembersRepositoryInterface $members,
         FeesRepositoryInterface $fees,
-        MembersPaginator $paginator
+        MembersPaginator $paginator,
+        Dispatcher $commandBus
     ) {
         $this->request = $request;
         $this->members = $members;
@@ -77,6 +80,7 @@ class MembersController extends BaseController
         $this->authenticator = $authenticator;
         $this->session = $session;
         $this->redirector = $redirector;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -153,22 +157,14 @@ class MembersController extends BaseController
     /**
      * Store a newly created member in storage.
      *
-     * @param MembersPopulator $populator
      * @param StoreMemberRequest $request
      * @return RedirectResponse
      */
-    public function store(MembersPopulator $populator, StoreMemberRequest $request)
+    public function store(StoreMemberRequest $request)
     {
-        $member = new Member();
-        $populator->populateFromRequest($member, $request);
+        $data = $request->all();
 
-        /**
-         * Automatically approve the member's account when
-         * it is created by the board members
-         */
-        $member->setApproved(true);
-
-        $this->members->store($member);
+        $this->commandBus->dispatch(new CreateMemberCommand($data, $approve = true));
 
         $this->session->flash('action-message', "Member added successfully.");
 
@@ -227,17 +223,15 @@ class MembersController extends BaseController
     /**
      * Update the specified member in storage.
      *
-     * @param MembersPopulator $populator
      * @param UpdateMemberRequest $request
      * @param  int $id
      * @return RedirectResponse
      */
-    public function update(MembersPopulator $populator, UpdateMemberRequest $request, $id)
+    public function update(UpdateMemberRequest $request, $id)
     {
-        $member = $this->members->get($id);
-        $populator->populateFromRequest($member, $request);
+        $data = $request->all();
 
-        $this->members->store($member);
+        $this->commandBus->dispatch(new UpdateMemberCommand($id, $data));
 
         $this->session->flash('action-message', "Member updated successfully.");
 
@@ -248,23 +242,14 @@ class MembersController extends BaseController
      * Remove the specified members from storage.
      * Method available only via AJAX requests
      *
-     * @param PhotosRepositoryInterface $photos
      * @param  int $id
      * @return JsonResponse
      */
-    public function destroy(PhotosRepositoryInterface $photos, $id)
+    public function destroy($id)
     {
+        $this->commandBus->dispatch(new DeleteMemberCommand($id));
+
         $data = [];
-
-        $member = $this->members->get($id);
-        $photo = $member->getPhoto();
-
-        if (isset($photo)) {
-            $photos->destroy($photo, 'members');
-        }
-
-        $this->members->destroy($id);
-
         $data['status'] = 'success';
         $data['message'] = 'Member deleted successfully.';
 
@@ -338,22 +323,20 @@ class MembersController extends BaseController
     /**
      * Proceed the information submitted via the registration form
      *
-     * @param MembersPopulator $populator
      * @param StoreMemberRequest $request
-     * @param Mailer $mailer
      * @return RedirectResponse
      */
-    public function postRegister(MembersPopulator $populator, StoreMemberRequest $request, Mailer $mailer)
+    public function postRegister(StoreMemberRequest $request)
     {
-        $member = new Member();
-        $populator->populateFromRequest($member, $request);
+        $data = $request->all();
 
-        $this->members->store($member);
+        $this->commandBus->dispatch(new CreateMemberCommand($data));
 
-        $mailer->send('emails.members.registered', compact('member'), function(Message $message) use ($member)
+        // @todo This should be moved to an event listener
+        /*$mailer->send('emails.members.registered', compact('member'), function(Message $message) use ($member)
         {
             $message->to($member->getEmail())->subject('Thank you for joining us!');
-        });
+        });*/
 
         $this->session->flash('action-message',
             "Your account was created successfully. You will be notified when the board members approve it.");

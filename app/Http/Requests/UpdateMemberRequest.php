@@ -29,11 +29,6 @@ namespace Angelov\Eestec\Platform\Http\Requests;
 
 class UpdateMemberRequest extends StoreMemberRequest
 {
-    public function __construct()
-    {
-        dd($this);
-    }
-
     public function validate()
     {
         /**

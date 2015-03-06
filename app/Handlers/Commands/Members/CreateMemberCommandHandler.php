@@ -25,9 +25,35 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands;
+namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
-abstract class Command
+use Angelov\Eestec\Platform\Commands\Members\CreateMemberCommand;
+use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Populators\MembersPopulator;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+
+class CreateMemberCommandHandler
 {
+    protected $members;
+    protected $populator;
 
+    public function __construct(MembersRepositoryInterface $members, MembersPopulator $populator)
+    {
+        $this->members = $members;
+        $this->populator = $populator;
+    }
+
+    public function handle(CreateMemberCommand $command)
+    {
+        $member = new Member();
+        $data = $command->getMemberData();
+
+        $this->populator->populateFromArray($member, $data);
+
+        if ($command->shouldBeApproved()) {
+            $member->setApproved(true);
+        }
+
+        $this->members->store($member);
+    }
 }
