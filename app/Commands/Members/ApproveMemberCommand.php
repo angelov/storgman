@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Commands\Members;
 
-class DeleteMemberCommand extends AbstractMemberCommand
+class ApproveMemberCommand extends AbstractMemberCommand
 {
 }
+ 

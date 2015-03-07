@@ -27,7 +27,9 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
+use Angelov\Eestec\Platform\Commands\Members\ApproveMemberCommand;
 use Angelov\Eestec\Platform\Commands\Members\CreateMemberCommand;
+use Angelov\Eestec\Platform\Commands\Members\DeclineMemberCommand;
 use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
 use Angelov\Eestec\Platform\Commands\Members\UpdateMemberCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
@@ -36,22 +38,18 @@ use Angelov\Eestec\Platform\Paginators\MembersPaginator;
 use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Services\MeetingsService;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Mail\Message;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
 
 class MembersController extends BaseController
 {
-    protected $request;
     protected $members;
     protected $paginator;
     protected $fees;
@@ -62,22 +60,16 @@ class MembersController extends BaseController
     protected $commandBus;
 
     public function __construct(
-        Request $request,
         Factory $view,
-        Guard $authenticator,
         Store $session,
         Redirector $redirector,
         MembersRepositoryInterface $members,
         FeesRepositoryInterface $fees,
-        MembersPaginator $paginator,
         Dispatcher $commandBus
     ) {
-        $this->request = $request;
         $this->members = $members;
         $this->fees = $fees;
-        $this->paginator = $paginator;
         $this->view = $view;
-        $this->authenticator = $authenticator;
         $this->session = $session;
         $this->redirector = $redirector;
         $this->commandBus = $commandBus;
@@ -86,12 +78,14 @@ class MembersController extends BaseController
     /**
      * Display a listing of members
      *
+     * @param Request $request
+     * @param MembersPaginator $paginator
      * @return View
      */
-    public function index()
+    public function index(Request $request, MembersPaginator $paginator)
     {
-        $page = $this->request->get('page', 1);
-        $members = $this->paginator->get($page);
+        $page = $request->get('page', 1);
+        $members = $paginator->get($page);
 
         /** @todo This can get a little optimized */
         $pending = count($this->members->getUnapprovedMembers());
@@ -174,7 +168,7 @@ class MembersController extends BaseController
     /**
      * Display the specified member.
      *
-     * @param \Angelov\Eestec\Platform\Services\MeetingsService $meetingsService
+     * @param MeetingsService $meetingsService
      * @param int $id
      * @return View
      *
@@ -260,23 +254,20 @@ class MembersController extends BaseController
      * Approve a pending member account
      * Method available only via AJAX requests
      *
-     * @param Mailer $mailer
      * @param int $id
      * @return JsonResponse
      */
-    public function approve(Mailer $mailer, $id)
+    public function approve($id)
     {
-        $member = $this->members->get($id);
-        $member->setApproved(true);
-        $this->members->store($member);
+        $this->commandBus->dispatch(new ApproveMemberCommand($id));
 
-        $mailer->send('emails.members.approved', compact('member'), function(Message $message) use ($member)
-        {
-            $message->to($member->getEmail())->subject('Your account was approved!');
-        });
+        // @todo Move as event
+//        $mailer->send('emails.members.approved', compact('member'), function(Message $message) use ($member)
+//        {
+//            $message->to($member->getEmail())->subject('Your account was approved!');
+//        });
 
         $data = [];
-
         $data['status'] = 'success';
         $data['message'] = 'Member approved successfully.';
 
@@ -287,20 +278,17 @@ class MembersController extends BaseController
      * Decline a pending member account
      * Method available only via AJAX requests
      *
-     * @param Mailer $mailer
      * @param int $id
      * @return JsonResponse
      */
-    public function decline(Mailer $mailer, $id)
+    public function decline($id)
     {
-        $member = $this->members->get($id);
+        $this->commandBus->dispatch(new DeclineMemberCommand($id));
 
-        $mailer->send('emails.members.declined', compact('member'), function(Message $message) use ($member)
-        {
-            $message->to($member->getEmail())->subject('We are sorry...');
-        });
-
-        $this->members->destroy($id);
+//        $mailer->send('emails.members.declined', compact('member'), function(Message $message) use ($member)
+//        {
+//            $message->to($member->getEmail())->subject('We are sorry...');
+//        });
 
         $data = [];
 

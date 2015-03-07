@@ -27,6 +27,22 @@
 
 namespace Angelov\Eestec\Platform\Commands\Members;
 
-class DeleteMemberCommand extends AbstractMemberCommand
+use Angelov\Eestec\Platform\Commands\Command;
+
+abstract class AbstractMemberCommand extends Command
 {
+    protected $memberId;
+
+    /**
+     * @param int $memberId
+     */
+    public function __construct($memberId)
+    {
+        $this->memberId = $memberId;
+    }
+
+    public function getMemberId()
+    {
+        return $this->memberId;
+    }
 }

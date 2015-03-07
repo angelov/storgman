@@ -25,8 +25,25 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Members;
+namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
-class DeleteMemberCommand extends AbstractMemberCommand
+use Angelov\Eestec\Platform\Commands\Members\ApproveMemberCommand;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+
+class ApproveMemberCommandHandler
 {
+    protected $members;
+
+    public function __construct(MembersRepositoryInterface $members)
+    {
+        $this->members = $members;
+    }
+
+    public function handle(ApproveMemberCommand $command)
+    {
+        $member = $this->members->get($command->getMemberId());
+        $member->setApproved(true);
+        $this->members->store($member);
+    }
 }
+ 

@@ -25,8 +25,23 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Members;
+namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
-class DeleteMemberCommand extends AbstractMemberCommand
+use Angelov\Eestec\Platform\Commands\Members\DeclineMemberCommand;
+use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
+use Illuminate\Contracts\Bus\Dispatcher;
+
+class DeclineMemberCommandHandler
 {
+    protected $commandBus;
+
+    public function __construct(Dispatcher $commandBus)
+    {
+        $this->commandBus = $commandBus;
+    }
+
+    public function handle(DeclineMemberCommand $command)
+    {
+        $this->commandBus->dispatch(new DeleteMemberCommand($command->getMemberId()));
+    }
 }

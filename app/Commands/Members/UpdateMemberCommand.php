@@ -27,29 +27,19 @@
 
 namespace Angelov\Eestec\Platform\Commands\Members;
 
-use Angelov\Eestec\Platform\Commands\Command;
-
-class UpdateMemberCommand extends Command
+class UpdateMemberCommand extends AbstractMemberCommand
 {
     protected $memberId;
     protected $memberData;
 
     /**
-     * @param $memberId
+     * @param int $memberId
      * @param array $data
      */
     public function __construct($memberId, array $data)
     {
         $this->memberId = $memberId;
         $this->memberData = $data;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMemberId()
-    {
-        return $this->memberId;
     }
 
     /**
