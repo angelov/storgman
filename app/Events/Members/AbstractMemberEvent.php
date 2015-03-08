@@ -25,29 +25,22 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Providers;
+namespace Angelov\Eestec\Platform\Events\Members;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Events\Event;
 
-class EventServiceProvider extends ServiceProvider {
+abstract class AbstractMemberEvent extends Event
+{
+    protected $member;
 
-    /**
-     * The event handler mappings for the application.
-     *
-     * @var array
-     */
-    protected $listen = [
-        'Angelov\Eestec\Platform\Events\Members\MemberWasApprovedEvent' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Members\EmailApprovalConfirmation'
-        ],
+    public function __construct(Member $member)
+    {
+        $this->member = $member;
+    }
 
-        'Angelov\Eestec\Platform\Events\Members\MemberWasDeclinedEvent' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Members\EmailDenialConfirmation'
-        ],
-
-        'Angelov\Eestec\Platform\Events\Members\MemberJoinedEvent' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Members\EmailWelcomeMessage'
-        ]
-    ];
-
+    public function getMember()
+    {
+        return $this->member;
+    }
 }

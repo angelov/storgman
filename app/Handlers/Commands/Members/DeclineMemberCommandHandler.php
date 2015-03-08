@@ -29,19 +29,32 @@ namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
 use Angelov\Eestec\Platform\Commands\Members\DeclineMemberCommand;
 use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
+use Angelov\Eestec\Platform\Events\Members\MemberWasDeclinedEvent;
+use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
 class DeclineMemberCommandHandler
 {
     protected $commandBus;
+    protected $events;
+    protected $members;
 
-    public function __construct(Dispatcher $commandBus)
+    public function __construct(MembersRepositoryInterface $members, Dispatcher $commandBus, EventsDispatcher $events)
     {
         $this->commandBus = $commandBus;
+        $this->events = $events;
+        $this->members = $members;
     }
 
     public function handle(DeclineMemberCommand $command)
     {
-        $this->commandBus->dispatch(new DeleteMemberCommand($command->getMemberId()));
+        $id = $command->getMemberId();
+
+        $this->commandBus->dispatch(new DeleteMemberCommand($id));
+
+        $member = $this->members->get($id);
+
+        $this->events->fire(new MemberWasDeclinedEvent($member));
     }
 }

@@ -28,22 +28,30 @@
 namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
 use Angelov\Eestec\Platform\Commands\Members\ApproveMemberCommand;
+use Angelov\Eestec\Platform\Events\Members\MemberWasApprovedEvent;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class ApproveMemberCommandHandler
 {
     protected $members;
+    protected $events;
 
-    public function __construct(MembersRepositoryInterface $members)
+    public function __construct(MembersRepositoryInterface $members, Dispatcher $events)
     {
         $this->members = $members;
+        $this->events = $events;
     }
 
     public function handle(ApproveMemberCommand $command)
     {
-        $member = $this->members->get($command->getMemberId());
+        $id = $command->getMemberId();
+
+        $member = $this->members->get($id);
         $member->setApproved(true);
         $this->members->store($member);
+
+        $this->events->fire(new MemberWasApprovedEvent($member));
     }
 }
  

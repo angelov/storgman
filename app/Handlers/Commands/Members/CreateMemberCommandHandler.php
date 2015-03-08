@@ -29,18 +29,22 @@ namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
 use Angelov\Eestec\Platform\Commands\Members\CreateMemberCommand;
 use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Events\Members\MemberJoinedEvent;
 use Angelov\Eestec\Platform\Populators\MembersPopulator;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class CreateMemberCommandHandler
 {
     protected $members;
     protected $populator;
+    protected $events;
 
-    public function __construct(MembersRepositoryInterface $members, MembersPopulator $populator)
+    public function __construct(MembersRepositoryInterface $members, MembersPopulator $populator, Dispatcher $events)
     {
         $this->members = $members;
         $this->populator = $populator;
+        $this->events = $events;
     }
 
     public function handle(CreateMemberCommand $command)
@@ -50,8 +54,14 @@ class CreateMemberCommandHandler
 
         $this->populator->populateFromArray($member, $data);
 
-        if ($command->shouldBeApproved()) {
+        if ($command->shouldBeApproved()) { // Member was added by a board member
+
             $member->setApproved(true);
+
+        } else { // The member created his account
+
+            $this->events->fire(new MemberJoinedEvent($member));
+
         }
 
         $this->members->store($member);

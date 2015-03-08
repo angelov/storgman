@@ -25,29 +25,29 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Providers;
+namespace Angelov\Eestec\Platform\Handlers\Events\Members;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Angelov\Eestec\Platform\Events\Members\MemberWasDeclinedEvent;
+use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Mail\Message;
 
-class EventServiceProvider extends ServiceProvider {
+class EmailDenialConfirmation
+{
+    protected $mailer;
 
-    /**
-     * The event handler mappings for the application.
-     *
-     * @var array
-     */
-    protected $listen = [
-        'Angelov\Eestec\Platform\Events\Members\MemberWasApprovedEvent' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Members\EmailApprovalConfirmation'
-        ],
+    public function __construct(Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
 
-        'Angelov\Eestec\Platform\Events\Members\MemberWasDeclinedEvent' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Members\EmailDenialConfirmation'
-        ],
+    public function handle(MemberWasDeclinedEvent $event)
+    {
+        $member = $event->getMember();
 
-        'Angelov\Eestec\Platform\Events\Members\MemberJoinedEvent' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Members\EmailWelcomeMessage'
-        ]
-    ];
-
+        $this->mailer->send('emails.members.declined', compact('member'), function(Message $message) use ($member)
+        {
+            $message->to($member->getEmail())->subject('We are sorry...');
+        });
+    }
 }
+ 

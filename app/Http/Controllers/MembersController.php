@@ -124,6 +124,7 @@ class MembersController extends BaseController
     public function board()
     {
         $members = $this->members->getBoardMembers();
+
         return $this->view->make('members.board', compact('members'));
     }
 
@@ -135,6 +136,7 @@ class MembersController extends BaseController
     public function unapproved()
     {
         $members = $this->members->getUnapprovedMembers();
+
         return $this->view->make('members.unapproved', compact('members'));
     }
 
@@ -261,12 +263,6 @@ class MembersController extends BaseController
     {
         $this->commandBus->dispatch(new ApproveMemberCommand($id));
 
-        // @todo Move as event
-//        $mailer->send('emails.members.approved', compact('member'), function(Message $message) use ($member)
-//        {
-//            $message->to($member->getEmail())->subject('Your account was approved!');
-//        });
-
         $data = [];
         $data['status'] = 'success';
         $data['message'] = 'Member approved successfully.';
@@ -284,11 +280,6 @@ class MembersController extends BaseController
     public function decline($id)
     {
         $this->commandBus->dispatch(new DeclineMemberCommand($id));
-
-//        $mailer->send('emails.members.declined', compact('member'), function(Message $message) use ($member)
-//        {
-//            $message->to($member->getEmail())->subject('We are sorry...');
-//        });
 
         $data = [];
 
@@ -319,12 +310,6 @@ class MembersController extends BaseController
         $data = $request->all();
 
         $this->commandBus->dispatch(new CreateMemberCommand($data));
-
-        // @todo This should be moved to an event listener
-        /*$mailer->send('emails.members.registered', compact('member'), function(Message $message) use ($member)
-        {
-            $message->to($member->getEmail())->subject('Thank you for joining us!');
-        });*/
 
         $this->session->flash('action-message',
             "Your account was created successfully. You will be notified when the board members approve it.");
