@@ -6,42 +6,21 @@ number of information (such as list of members and their info) currently spread 
 etc. in one place.
 
 [Electrical Engineering Students’ European Association (EESTEC)](http://eestec.net) is a non-political, non-profit
-organization ofand for Electrical Engineering and Computer Science (EECS) students of universities, institutes and
+organization of and for Electrical Engineering and Computer Science (EECS) students of universities, institutes and
 technical schools in Europe.
 
 You can read the detailed description of the project [here](http://angelovdejan.me/2014/08/05/introducing-eestec-platform-for-local-committees.html).
 
-Under development by [Angelov Dejan](http://angelov.me).
-The application is not production ready yet!
+We are currently implementing this application at [EESTEC LC Skopje](http://members.eestec-sk.org.mk/). Feel free to try it for your LC as well. You can get the latest release of the application on the [releases](https://github.com/angelov/eestec-platform/releases) page. If you find any bugs or have some ideas, please create an issue [here](https://github.com/angelov/eestec-platform/issues).
 
-**Warning:** I'm upgrading the application to use Laravel 5, so these days it is kinda messy and probably doesn't work properly. Everything is [gonna be alright](https://www.youtube.com/watch?v=PGYAAsHT4QE) soon.
+Under development by [Angelov Dejan](http://angelovdejan.me).
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/build.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/build-status/master)
 
-### Roadmap
-
-##### Version 1 
-I'm a student and I work full time on some other stuff, so, unfortunately, I can't provide the full attention this project needs. Because of that, I can't tell a concrete release date of the application. However, the first version is almost finished and only some smaller pieces are missing for it to be completed.
-
-Here is a list of some planned things that still need to be finished:
-* ~~Editing meeting reports~~ (done)
-* The results from some database queries can be cached
-* ~~Sending emails to the members when some events occur (eg. their account is approved)~~ (done)
-* ~~Members should be able to edit their profiles~~ (done)
-* The configuration files can be cleaned from some unnecessary stuff
-* ~~Provide option to store the static files (like members' photos) on AWS (or something similar)~~ (rescheduled for v2)
-* Upgrade to Laravel 5 (almost finished)
-
-##### Version 2
-
-Here's a list of some features planned to be included in the second version:
-
-* Option for the members to connect their accounts with their other accounts on some social networks (eg. to be able to login using their Facebook accounts)
-* Office space reservations - Members can check if the office space is available and request to use it for some meeting or something similar.
-* ....
-
 ### Requirements
+
+The application is based on the [Laravel 5](http://laravel.com) framework. To install it you need the following:
 
 * PHP >= 5.4
 * MCrypt and GD PHP extensions
@@ -51,15 +30,17 @@ Here's a list of some features planned to be included in the second version:
 * Bower
 * Grunt
 
-Note: You can use [Laravel Homestead](http://laravel.com/docs/homestead) as your development environment, since it has everything you need for this project.
+*Note:* You can use [Laravel Homestead](http://laravel.com/docs/homestead) as your development environment, since it has everything you need for this project.
 
 ### Installation
 
 To install the application on your local machine, follow these steps:
 
-1. Download the code from this repository
-2. Create new vhost `eestec.local` that points to the `public` dir
-3. Edit the needed files in `app/config` to configure the application
+1. Download the code from this repository (latest release can be found [here](https://github.com/angelov/eestec-platform/releases))
+2. Create new vhost `eestec.local` that points to the `public` directory
+3. To configure the application, rename the `.env.example` file to `.env` and update the config values inside
+    * You can use `cp .env.example .env` to keep the original file, just in case
+    * If you need some more advanced configuration, check the files in the `config` directory
 4. Run the following commands from your command line:
     * `composer install` to install the PHP dependencies
     * `bower install` to install the front-end dependencies
@@ -74,12 +55,12 @@ To install the application on your local machine, follow these steps:
 
 ### Contributing
 
-If you want to contribute, submit an issue or pull request.
+If you want to contribute, submit an issue or a pull request.
 
 ### License
 
 EESTEC Platform for Local Committees    
-Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>    
+Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>    
     
 This file is part of EESTEC Platform.   
     
