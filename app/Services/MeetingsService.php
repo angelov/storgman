@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -34,7 +34,6 @@ use Angelov\Eestec\Platform\Reports\MeetingsAttendanceDetailsForMemberReport;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendedByMemberPerMonthReport;
 use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
-use Illuminate\Http\Request;
 
 class MeetingsService
 {
@@ -155,19 +154,18 @@ class MeetingsService
         $list = '|';
 
         foreach ($attendants as $member) {
-            $list .= $member->id ."|";
+            $list .= $member->getId() ."|";
         }
 
         return $list;
     }
 
     /**
-     * @param Request $request
+     * @param string $ids
      * @return Member[]
      */
-    public function extractAttendantsFromRequest(Request $request)
+    public function extractAttendants($ids)
     {
-        $ids = $request->get('attendants');
         $parsedIds = $this->parseAttendantsIds($ids);
         $attendants = $this->members->getByIds($parsedIds);
 

@@ -27,17 +27,19 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
+use Angelov\Eestec\Platform\Commands\Meetings\CreateMeetingReportCommand;
+use Angelov\Eestec\Platform\Commands\Meetings\DeleteMeetingReportCommand;
+use Angelov\Eestec\Platform\Commands\Meetings\UpdateMeetingReportCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Paginators\MeetingsPaginator;
-use Angelov\Eestec\Platform\Populators\MeetingsPopulator;
 use Angelov\Eestec\Platform\Services\MeetingsService;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 use Illuminate\Routing\Redirector;
@@ -54,6 +56,7 @@ class MeetingsController extends BaseController
     protected $authenticator;
     protected $session;
     protected $redirector;
+    protected $commandBus;
 
     public function __construct(
         Request $request,
@@ -64,7 +67,8 @@ class MeetingsController extends BaseController
         MeetingsRepositoryInterface $meetings,
         MembersRepositoryInterface $members,
         MeetingsPaginator $paginator,
-        MeetingsService $meetingsService
+        MeetingsService $meetingsService,
+        Dispatcher $commandBus
     ) {
         $this->request = $request;
         $this->meetings = $meetings;
@@ -75,6 +79,7 @@ class MeetingsController extends BaseController
         $this->authenticator = $authenticator;
         $this->session = $session;
         $this->redirector = $redirector;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -106,17 +111,14 @@ class MeetingsController extends BaseController
      * Store a newly created meeting report in storage.
      * POST /meetings
      *
-     * @param MeetingsPopulator $populator
      * @param StoreMeetingRequest $request
      * @return RedirectResponse
      */
-    public function store(MeetingsPopulator $populator, StoreMeetingRequest $request)
+    public function store(StoreMeetingRequest $request)
     {
-        $meeting = new Meeting();
+        $data = $request->all();
 
-        $populator->populateFromRequest($meeting, $request);
-
-        $this->meetings->store($meeting);
+        $this->commandBus->dispatch(new CreateMeetingReportCommand($data));
 
         return $this->redirector->route('meetings.index');
     }
@@ -145,7 +147,8 @@ class MeetingsController extends BaseController
     public function edit($id)
     {
         $meeting = $this->meetings->get($id);
-        $attendantsIds = $this->meetingsService->prepareAttendantsIds($meeting->getAttendants());
+        $attendants = $meeting->getAttendants();
+        $attendantsIds = $this->meetingsService->prepareAttendantsIds($attendants);
 
         return $this->view->make('meetings.edit', compact('meeting', 'attendantsIds'));
     }
@@ -154,18 +157,15 @@ class MeetingsController extends BaseController
      * Update the specified resource in storage.
      * PUT /meetings/{id}
      *
-     * @param MeetingsPopulator $populator
      * @param StoreMeetingRequest $request
      * @param  int $id
      * @return RedirectResponse
      */
-    public function update(MeetingsPopulator $populator, StoreMeetingRequest $request, $id)
+    public function update(StoreMeetingRequest $request, $id)
     {
-        $meeting = $this->meetings->get($id);
+        $data = $request->all();
 
-        $populator->populateFromRequest($meeting, $request);
-
-        $this->meetings->store($meeting);
+        $this->commandBus->dispatch(new UpdateMeetingReportCommand($id, $data));
 
         return $this->redirector->route('meetings.index');
     }
@@ -179,10 +179,9 @@ class MeetingsController extends BaseController
      */
     public function destroy($id)
     {
+        $this->commandBus->dispatch(new DeleteMeetingReportCommand($id));
+
         $data = [];
-
-        $this->meetings->destroy($id);
-
         $data['status'] = 'success';
         $data['message'] = 'Meeting deleted successfully.';
 

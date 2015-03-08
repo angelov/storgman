@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -29,7 +29,6 @@ namespace Angelov\Eestec\Platform\Populators;
 
 use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Entities\Member;
-use Angelov\Eestec\Platform\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Services\MeetingsService;
 use Illuminate\Contracts\Auth\Guard;
@@ -50,17 +49,17 @@ class MeetingsPopulator
         $this->meetingsService = $meetingsService;
     }
 
-    public function populateFromRequest(Meeting $meeting, StoreMeetingRequest $request)
+    public function populateFromArray(Meeting $meeting, array $data)
     {
-        $meeting->setDate(new \DateTime($request->get('date')));
-        $meeting->setLocation($request->get('location'));
-        $meeting->setInfo($request->get('details'));
+        $meeting->setDate(new \DateTime($data['date']));
+        $meeting->setLocation($data['location']);
+        $meeting->setInfo($data['details']);
 
         /** @var Member $creator */
         $creator = $this->authenticator->user();
         $meeting->setCreator($creator);
 
-        $attendants = $this->meetingsService->extractAttendantsFromRequest($request);
+        $attendants = $this->meetingsService->extractAttendants($data['attendants']);
 
         if ($meeting->hasAttendants()) {
             $meeting->syncAttendants($attendants);
