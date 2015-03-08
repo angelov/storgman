@@ -12,10 +12,10 @@
                     <span class="pull-right">{{ member.getMembershipStatus() }}</span>
                     <br />
                     <strong>Joined on:</strong>
-                    <span class="pull-right date-to-format">{{ member.getJoiningDate() }}</span>
+                    <span class="pull-right date-to-format">{{ member.getJoiningDate()|date('Y-m-d') }}</span>
                     <br />
                     <strong>Expiration date:</strong>
-                    <span class="pull-right">{{ member.getExpirationDate() }}</span>
+                    <span class="pull-right">{{ member.getExpirationDate()|date('Y-m-d') }}</span>
                 </p>
 
                 <span class="pull-right text-right" style="margin-top: 10px;">

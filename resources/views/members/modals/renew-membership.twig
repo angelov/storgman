@@ -17,7 +17,7 @@
                 <dd>{{ member.getMembershipStatus() }}</dd>
 
                 <dt>Expiration date:</dt>
-                <dd>{{ member.getExpirationDate() }}</dd>
+                <dd>{{ member.getExpirationDate()|date('Y-m-d') }}</dd>
             </dl>
 
             <legend>Add new paid membership fee:</legend>
