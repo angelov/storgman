@@ -208,6 +208,6 @@ return [
 
     ],
 
-    'version' => 'v1.0-beta'
+    'version' => 'v1.0.1-beta'
 
 ];
