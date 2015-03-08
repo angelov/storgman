@@ -148,11 +148,7 @@ class FeesController extends BaseController
 
         $this->commandBus->dispatch(new StoreFeeCommand($memberId, $from, $to));
 
-        $data = [];
-        $data['status'] = 'success';
-        $data['message'] = 'The membership was renewed successfully.';
-
-        return new JsonResponse($data);
+        return $this->successfulJsonResponse('The membership was renewed successfully.');
     }
 
     /**
@@ -166,11 +162,6 @@ class FeesController extends BaseController
     {
         $this->commandBus->dispatch(new DeleteFeeCommand($id));
 
-        $data = [];
-        $data['status'] = 'success';
-        $data['message'] = 'Fee deleted successfully.';
-
-        return new JsonResponse($data);
-
+        return $this->successfulJsonResponse('Fee deleted successfully.');
     }
 }

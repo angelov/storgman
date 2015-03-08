@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -181,11 +181,7 @@ class MeetingsController extends BaseController
     {
         $this->commandBus->dispatch(new DeleteMeetingReportCommand($id));
 
-        $data = [];
-        $data['status'] = 'success';
-        $data['message'] = 'Meeting deleted successfully.';
-
-        return new JsonResponse($data);
+        return $this->successfulJsonResponse('Meeting deleted successfully.');
     }
 
 }

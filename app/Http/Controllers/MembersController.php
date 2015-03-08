@@ -245,11 +245,7 @@ class MembersController extends BaseController
     {
         $this->commandBus->dispatch(new DeleteMemberCommand($id));
 
-        $data = [];
-        $data['status'] = 'success';
-        $data['message'] = 'Member deleted successfully.';
-
-        return new JsonResponse($data);
+        return $this->successfulJsonResponse('Member deleted successfully.');
     }
 
     /**
@@ -263,11 +259,7 @@ class MembersController extends BaseController
     {
         $this->commandBus->dispatch(new ApproveMemberCommand($id));
 
-        $data = [];
-        $data['status'] = 'success';
-        $data['message'] = 'Member approved successfully.';
-
-        return new JsonResponse($data);
+        return $this->successfulJsonResponse('Member approved successfully.');
     }
 
     /**
@@ -281,12 +273,7 @@ class MembersController extends BaseController
     {
         $this->commandBus->dispatch(new DeclineMemberCommand($id));
 
-        $data = [];
-
-        $data['status'] = 'success';
-        $data['message'] = 'Member declined successfully.';
-
-        return new JsonResponse($data);
+        return $this->successfulJsonResponse('Member declined successfully.');
     }
 
     /**
