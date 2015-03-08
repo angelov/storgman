@@ -28,6 +28,7 @@
 namespace Angelov\Eestec\Platform\Services;
 
 use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Reports\ExpectedAndPaidFeesPerMonthReport;
 use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
@@ -58,4 +59,26 @@ class MembershipService
         return $report;
     }
 
+    public function suggestDates(Member $member)
+    {
+        $exp = $member->getExpirationDate();
+
+        $suggestDates = [];
+
+        if ($exp !== null) {
+
+            $exp = clone $exp;
+            $suggestDates['from'] = $exp->modify('+1 day')->format('Y-m-d');
+            $suggestDates['to'] = $exp->modify('+1 year')->format('Y-m-d');
+
+        } else {
+
+            $today = new \DateTime('now');
+            $suggestDates['from'] = $today->format('Y-m-d');
+            $suggestDates['to'] = $today->modify('+1 year')->format('Y-m-d');
+
+        }
+
+        return $suggestDates;
+    }
 }

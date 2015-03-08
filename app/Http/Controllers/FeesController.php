@@ -36,7 +36,6 @@ use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
 use Illuminate\View\Factory;
@@ -100,38 +99,16 @@ class FeesController extends BaseController
      * Show the form for creating a new fee.
      * Method available only via ajax.
      *
-     * @return Response
+     * @return View
      */
     public function create()
     {
-        $member_id = $this->request->get('member_id');
-        $member = $this->members->get($member_id);
+        $memberId = $this->request->get('member_id');
+        $member = $this->members->get($memberId);
 
-        $exp = $member->getExpirationDate();
+        $suggestDates = $this->membership->suggestDates($member);
 
-        /** @todo Move the suggesting to separate place */
-        $suggestDates = [];
-
-        if ($exp !== null) {
-
-            $exp = clone $exp;
-            $suggestDates['from'] = $exp->modify('+1 day')->format('Y-m-d');
-            $suggestDates['to'] = $exp->modify('+1 year')->format('Y-m-d');
-
-        } else {
-
-            $today = new \DateTime('now');
-            $suggestDates['from'] = $today->format('Y-m-d');
-            $suggestDates['to'] = $today->modify('+1 year')->format('Y-m-d');
-
-        }
-
-        $response = new Response();
-        $data = $this->view->make('members.modals.renew-membership', compact('member', 'suggestDates'))->render();
-        $response->setContent($data);
-
-        return $response;
-
+        return $this->view->make('members.modals.renew-membership', compact('member', 'suggestDates'))->render();
     }
 
     /**
