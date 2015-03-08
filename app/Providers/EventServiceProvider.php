@@ -37,6 +37,9 @@ class EventServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $listen = [
+
+        // Members Handlers
+
         'Angelov\Eestec\Platform\Events\Members\MemberWasApprovedEvent' => [
             'Angelov\Eestec\Platform\Handlers\Events\Members\EmailApprovalConfirmation'
         ],
@@ -47,7 +50,14 @@ class EventServiceProvider extends ServiceProvider {
 
         'Angelov\Eestec\Platform\Events\Members\MemberJoinedEvent' => [
             'Angelov\Eestec\Platform\Handlers\Events\Members\EmailWelcomeMessage'
+        ],
+
+        // Membership Fees Handlers
+
+        'Angelov\Eestec\Platform\Events\Fees\FeeWasProceededEvent' => [
+            'Angelov\Eestec\Platform\Handlers\Events\Fees\EmailProceedingConfirmation'
         ]
+
     ];
 
 }

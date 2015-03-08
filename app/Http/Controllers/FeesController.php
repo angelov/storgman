@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,26 +20,25 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Commands\Fees\DeleteFeeCommand;
+use Angelov\Eestec\Platform\Commands\Fees\StoreFeeCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;
 use Angelov\Eestec\Platform\Paginators\FeesPaginator;
 use Angelov\Eestec\Platform\Services\MembershipService;
-use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Angelov\Eestec\Platform\Entities\Fee;
 use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
-use Illuminate\Mail\Message;
 use Illuminate\View\Factory;
 
 class FeesController extends BaseController
@@ -50,6 +49,7 @@ class FeesController extends BaseController
     protected $paginator;
     protected $membership;
     protected $view;
+    protected $commandBus;
 
     public function __construct(
         Request $request,
@@ -57,7 +57,8 @@ class FeesController extends BaseController
         FeesRepositoryInterface $fees,
         MembersRepositoryInterface $members,
         MembershipService $membership,
-        FeesPaginator $paginator
+        FeesPaginator $paginator,
+        Dispatcher $commandBus
     ) {
         $this->request = $request;
         $this->fees = $fees;
@@ -65,6 +66,7 @@ class FeesController extends BaseController
         $this->paginator = $paginator;
         $this->membership = $membership;
         $this->view = $view;
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -110,7 +112,7 @@ class FeesController extends BaseController
         /** @todo Move the suggesting to separate place */
         $suggestDates = [];
 
-        if ($exp != null) {
+        if ($exp !== null) {
 
             $exp = clone $exp;
             $suggestDates['from'] = $exp->modify('+1 day')->format('Y-m-d');
@@ -136,30 +138,17 @@ class FeesController extends BaseController
      * Store a newly created fee.
      *
      * @param StoreFeeRequest $request
-     * @param Mailer $mailer
      * @return JsonResponse
      */
-    public function store(StoreFeeRequest $request, Mailer $mailer)
+    public function store(StoreFeeRequest $request)
     {
-        $fee = new Fee();
-
-        $fee->setFromDate(new DateTime($request->get('from')));
-        $fee->setToDate(new DateTime($request->get('to')));
-
         $memberId = $request->get('member_id');
-        $member = $this->members->get($memberId);
+        $from = $request->get('from');
+        $to = $request->get('to');
 
-        $fee->setMember($member);
-
-        $mailer->send('emails.fees.proceeded', compact('member', 'fee'), function(Message $message) use ($member)
-        {
-            $message->to($member->email)->subject('Membership fee proceeded');
-        });
-
-        $this->fees->store($fee);
+        $this->commandBus->dispatch(new StoreFeeCommand($memberId, $from, $to));
 
         $data = [];
-
         $data['status'] = 'success';
         $data['message'] = 'The membership was renewed successfully.';
 
@@ -175,15 +164,13 @@ class FeesController extends BaseController
      */
     public function destroy($id)
     {
+        $this->commandBus->dispatch(new DeleteFeeCommand($id));
+
         $data = [];
-
-        $this->fees->destroy($id);
-
         $data['status'] = 'success';
         $data['message'] = 'Fee deleted successfully.';
 
         return new JsonResponse($data);
 
     }
-
 }
