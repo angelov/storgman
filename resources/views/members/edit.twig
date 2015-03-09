@@ -43,7 +43,7 @@
                             <span class="text-danger">*</span></label>
                         <div class="input-group date">
                             <input type="text" class="form-control" id="birthday" name="birthday"
-                                   value="{{ member.getBirthday() }}">
+                                   value="{{ member.getBirthday()|date('Y-m-d') }}">
                             <span class="input-group-addon">
                                 <i class="glyphicon glyphicon-calendar"></i>
                             </span>
