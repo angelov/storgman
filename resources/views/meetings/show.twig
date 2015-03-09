@@ -1,4 +1,4 @@
-{% set page_title = meeting.date ~ ', Meeting details' %}
+{% set page_title = meeting.getDate()|date('Y-m-d') ~ ', Meeting details' %}
 {% include 'header.twig' %}
 
 <h1><span class="date-to-format">{{ meeting.date }}</span> <small>Meeting details</small></h1>
