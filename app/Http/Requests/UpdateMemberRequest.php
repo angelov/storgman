@@ -36,10 +36,7 @@ class UpdateMemberRequest extends StoreMemberRequest
          * is not changed, the system will consider the email as
          * already taken and will throw an error.
          */
-//        if ($req == $this->request->get('email')) {
-//            $this->validator->removeRule('email', 'unique');
-//        }
-        $this->removeRule('email', 'unique'); // @todo TEMPORARY
+        $this->removeRule('email', 'unique');
 
         /**
          * We don't want to change the member's password if there's
