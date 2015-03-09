@@ -30,15 +30,22 @@ namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 use Angelov\Eestec\Platform\Commands\Members\UpdateMemberCommand;
 use Angelov\Eestec\Platform\Populators\MembersPopulator;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UpdateMemberCommandHandler
 {
     protected $members;
+    protected $photos;
     protected $populator;
 
-    public function __construct(MembersRepositoryInterface $members, MembersPopulator $populator)
-    {
+    public function __construct(
+        MembersRepositoryInterface $members,
+        PhotosRepositoryInterface $photos,
+        MembersPopulator $populator
+    ) {
         $this->members = $members;
+        $this->photos = $photos;
         $this->populator = $populator;
     }
 
@@ -48,6 +55,16 @@ class UpdateMemberCommandHandler
         $data = $command->getMemberData();
 
         $this->populator->populateFromArray($member, $data);
+
+        if (isset($data['member_photo'])) {
+            /** @var UploadedFile $photo */
+            $photo = $data['member_photo'];
+            $photoFileName = md5($member->getEmail()) . "." . $photo->getClientOriginalExtension();
+
+            $this->photos->store($photo, 'members', $photoFileName);
+
+            $member->setPhoto($photoFileName);
+        }
 
         $this->members->store($member);
     }

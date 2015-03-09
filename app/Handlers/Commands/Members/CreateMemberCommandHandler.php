@@ -32,17 +32,25 @@ use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Events\Members\MemberJoinedEvent;
 use Angelov\Eestec\Platform\Populators\MembersPopulator;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CreateMemberCommandHandler
 {
     protected $members;
     protected $populator;
     protected $events;
+    protected $photos;
 
-    public function __construct(MembersRepositoryInterface $members, MembersPopulator $populator, Dispatcher $events)
+    public function __construct(
+        MembersRepositoryInterface $members,
+        PhotosRepositoryInterface $photos,
+        MembersPopulator $populator,
+        Dispatcher $events)
     {
         $this->members = $members;
+        $this->photos = $photos;
         $this->populator = $populator;
         $this->events = $events;
     }
@@ -53,6 +61,18 @@ class CreateMemberCommandHandler
         $data = $command->getMemberData();
 
         $this->populator->populateFromArray($member, $data);
+
+        if (isset($data['member_photo'])) {
+
+            /** @var UploadedFile $photo */
+            $photo = $data['member_photo'];
+            $photoFileName = md5($member->getEmail()) . "." . $photo->getClientOriginalExtension();
+
+            $this->photos->store($photo, 'members', $photoFileName);
+
+            $member->setPhoto($photoFileName);
+
+        }
 
         if ($command->shouldBeApproved()) { // Member was added by a board member
 

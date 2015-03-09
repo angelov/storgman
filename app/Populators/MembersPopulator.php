@@ -58,7 +58,7 @@ class MembersPopulator
         $member->setFaculty($data['faculty']);
         $member->setFieldOfStudy($data['field_of_study']);
         $member->setYearOfGraduation($data['year_of_graduation']);
-        $member->setBoardMember($data['board_member'] == 1);
+        $member->setBoardMember( array_get($data, 'board_member', 0) == 1 );
         $member->setPositionTitle($data['position_title']);
 
         if (isset($data['alumni_member'])) {
@@ -71,17 +71,6 @@ class MembersPopulator
 
         $member->setPhoneNumber($data['phone']);
         $member->setWebsite($data['website']);
-
-        /** @todo URGENT: This needs to be placed somewhere else */
-//        if ($request->hasFile('member_photo')) {
-//            $photo = $request->file('member_photo');
-//
-//
-//            $photoFileName = md5($member->email) . "." . $photo->getClientOriginalExtension();
-//            $this->photos->store($photo, 'members', $photoFileName);
-//
-//            $member->setPhoto($photoFileName);
-//        }
 
         return $member;
     }
