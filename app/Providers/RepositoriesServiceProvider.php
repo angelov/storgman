@@ -57,6 +57,9 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->container->bind('Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface',
             'Angelov\Eestec\Platform\Repositories\EloquentMeetingsRepository');
 
+        $this->container->bind('Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface',
+            'Angelov\Eestec\Platform\Repositories\EloquentDocumentsRepository');
+
         $container = $this->container;
 
         $this->container->bind('PhotosRepository', function () use ($container) {
