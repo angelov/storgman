@@ -1,6 +1,54 @@
 {% set page_title = 'Documents' %}
 {% include 'header.twig' %}
 
+<div class="modal fade"  id="modal-add-document">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add new document</h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <div class="form-group">
+                        <label for="document-title">Title:</label>
+                        <input type="text" class="form-control" id="document-title" placeholder="Enter title">
+                    </div>
+                    <div class="form-group">
+                        <label for="document-description">Description:</label>
+                        <textarea class="form-control" id="document-description" rows="4" placeholder="Optional description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="document-url">URL:</label>
+                        <input type="text" class="form-control" id="document-url" placeholder="Enter URL to the document">
+                        <p class="help-block small">eg. from Google Docs, Dropbox etc.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="document-description">Tags:</label>
+                        <input type="text" class="form-control" id="document-url" placeholder="Start typing to see suggestions" />
+                    </div>
+                    <div class="form-group">
+                        <label style="margin-right: 10px;">Visible to:</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> All members
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Board members
+                        </label>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a href="" class="btn btn-primary" id="btn-proceed-fee">Add</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row vertical-center">
     <div class="col-md-7">
         <h1>Documents</h1>
@@ -10,7 +58,7 @@
             <i class="glyphicon glyphicon-search"></i>
             <input type="search" class="form-control" placeholder="Search documents by title" />
         </div>
-        <a class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Add document</a>
+        <a class="btn btn-info" data-toggle="modal" data-target="#modal-add-document"><i class="glyphicon glyphicon-plus"></i> Add document</a>
     </div>
 </div>
 
@@ -51,29 +99,29 @@
                 <h3 class="panel-title">Plans and ideas for Q1 2015 <small>(external)</small></h3>
             </div>
             <div class="panel-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget viverra erat, eu vehicula enim.
-                Pellentesque tempus sapien nisl, a consectetur sapien dictum non. Curabitur eget mattis turpis.
-                Maecenas rutrum urna lectus, sit amet bibendum eros dictum quis.</p>
-
-                <p>Tags:
-                    <a href=""><span class="label label-primary">Finances</span></a>
-                    <a href=""><span class="label label-success">Sponsors</span></a>
-                    <a href=""><span class="label label-default">Code App Level Up 2014</span></a>
-                    <a href=""><span class="label label-danger">Logistics</span></a>
-
-                </p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget viverra erat, eu vehicula enim.
+                            Pellentesque tempus sapien nisl, a consectetur sapien dictum non. Curabitur eget mattis turpis.
+                            Maecenas rutrum urna lectus, sit amet bibendum eros dictum quis.</p>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-md-9 small">
+                        <p>
                         Uploaded by <a href="">Dejan Angelov</a> on 09.03.2015.<br />
                         Visible to all members. 948 views by 46 members.
+                        </p>
                     </div>
 
                     <div class="col-md-2 small">
+                        <p>
                         Share:<br />
                         <a class="has-tooltip" href="" data-toggle="tooltip" data-placement="top" title="Share on Facebook"><i class="fa fa-facebook-square fa-lg"></i></a>
                         <a class="has-tooltip" href="" data-toggle="tooltip" data-placement="top" title="Share on Twitter"><i class="fa fa-twitter-square fa-lg"></i></a>
                         <a class="has-tooltip" href="" data-toggle="tooltip" data-placement="top" title="Get link"><i class="fa fa-link fa-lg"></i></a>
+                        </p>
                     </div>
 
                     <div class="col-md-1">
@@ -81,7 +129,19 @@
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 25px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        Tags:
+                            <a href=""><span class="label label-primary">Finances</span></a>
+                            <a href=""><span class="label label-success">Sponsors</span></a>
+                            <a href=""><span class="label label-default">Code App Level Up 2014</span></a>
+                            <a href=""><span class="label label-danger">Logistics</span></a>
+
+                    </div>
+                </div>
+
+
+                <div class="row" style="margin-top: 20px;">
                     <div class="col-md-12">
                         <form class="form-inline">
                             <label>Use this link to share the document:</label>
