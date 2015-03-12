@@ -29,29 +29,39 @@ namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\Commands\Documents\StoreDocumentCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreDocumentRequest;
+use Angelov\Eestec\Platform\Paginators\DocumentsPaginator;
+use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 
 class DocumentsController extends BaseController
 {
     protected $views;
     protected $commandBus;
+    protected $documents;
 
-    public function __construct(Factory $views, Dispatcher $commandBus)
+    public function __construct(DocumentsRepositoryInterface $documents, Factory $views, Dispatcher $commandBus)
     {
         $this->views = $views;
         $this->commandBus = $commandBus;
+        $this->documents = $documents;
     }
 
     /**
      * List the submitted documents
      *
+     * @param Request $request
+     * @param DocumentsPaginator $paginator
      * @return View
      */
-    public function index()
+    public function index(Request $request, DocumentsPaginator $paginator)
     {
-        return $this->views->make('documents.index');
+        $page = $request->get('page', 1);
+        $documents = $paginator->get($page, $with = ['submitter']);
+
+        return $this->views->make('documents.index', compact('documents'));
     }
 
     /**
