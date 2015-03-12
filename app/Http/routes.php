@@ -177,6 +177,7 @@ $router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember']]
 
 $router->group(['prefix' => 'documents'], function (Router $router) {
 
-    $router->get('/', ['as' => 'documents.index', 'uses' => 'DocumentsController@index']);
+    $router->get('/',  ['as' => 'documents.index', 'uses' => 'DocumentsController@index']);
+    $router->post('/', ['as' => 'documents.store', 'uses' => 'DocumentsController@store', 'middleware' => ['ajax']]);
 
 });

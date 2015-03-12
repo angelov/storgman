@@ -40,5 +40,13 @@ interface DocumentsRepositoryInterface extends RepositoryInterface
      * @throws ResourceNotFoundException
      */
     public function get($id);
+
+    /**
+     * Stores a document
+     *
+     * @param  Document $document
+     * @return void
+     */
+    public function store(Document $document);
 }
  

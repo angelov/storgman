@@ -25,19 +25,22 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Commands\Documents;
 
-use Angelov\Eestec\Platform\Entities\Document;
+use Angelov\Eestec\Platform\Commands\Command;
 
-class EloquentDocumentsRepository extends AbstractEloquentRepository implements DocumentsRepositoryInterface
+class StoreDocumentCommand extends Command
 {
-    public function __construct(Document $document)
+    protected $data;
+
+    public function __construct(array $data)
     {
-        $this->entity = $document;
+        $this->data = $data;
     }
 
-    public function store(Document $document)
+    public function getData()
     {
-        $document->save();
+        return $this->data;
     }
 }
+ 

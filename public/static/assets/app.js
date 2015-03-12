@@ -478,4 +478,40 @@ $(function(){
         }
     );
 
+    /**
+     * Store the new document
+     */
+
+    $(document).on('click', '#btn-store-document', function() {
+        var btn = $(this);
+
+        $.ajax({
+            type: 'post',
+            url: btn.attr('href'),
+            data: {
+                'title': $('#document-title').val(),
+                'description': $('#document-description').val(),
+                'url': $('#document-url').val(),
+                '_token': $("#csrf-token").val()
+            },
+            success:function(data){
+
+                /** @todo Show success message */
+
+                $("#documents-list").prepend(data);
+
+                setTimeout(function(){
+                    $('#modal-add-document').modal('hide');
+                    $("#form-add-document").trigger("reset");
+                }, 1500);
+
+            },
+            error: function() {
+                /** @todo Show error message */
+            }
+        });
+
+        return false;
+    });
+
 });

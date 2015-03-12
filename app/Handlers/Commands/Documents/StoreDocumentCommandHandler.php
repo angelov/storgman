@@ -25,19 +25,37 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Handlers\Commands\Documents;
 
+use Angelov\Eestec\Platform\Commands\Documents\StoreDocumentCommand;
 use Angelov\Eestec\Platform\Entities\Document;
+use Angelov\Eestec\Platform\Populators\DocumentsPopulator;
+use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
 
-class EloquentDocumentsRepository extends AbstractEloquentRepository implements DocumentsRepositoryInterface
+class StoreDocumentCommandHandler
 {
-    public function __construct(Document $document)
+    protected $populator;
+    protected $documents;
+
+    public function __construct(DocumentsPopulator $populator, DocumentsRepositoryInterface $documents)
     {
-        $this->entity = $document;
+        $this->populator = $populator;
+        $this->documents = $documents;
     }
 
-    public function store(Document $document)
+    /**
+     * @param StoreDocumentCommand $command
+     * @return Document
+     */
+    public function handle(StoreDocumentCommand $command)
     {
-        $document->save();
+        $document = new Document();
+
+        $this->populator->populateFromArray($document, $command->getData());
+
+        $this->documents->store($document);
+
+        return $document;
     }
 }
+ 

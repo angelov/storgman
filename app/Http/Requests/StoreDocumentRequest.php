@@ -25,19 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Http\Requests;
 
-use Angelov\Eestec\Platform\Entities\Document;
-
-class EloquentDocumentsRepository extends AbstractEloquentRepository implements DocumentsRepositoryInterface
+class StoreDocumentRequest extends Request
 {
-    public function __construct(Document $document)
-    {
-        $this->entity = $document;
-    }
-
-    public function store(Document $document)
-    {
-        $document->save();
-    }
 }
+ 

@@ -25,19 +25,33 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Populators;
 
 use Angelov\Eestec\Platform\Entities\Document;
+use Angelov\Eestec\Platform\Entities\Member;
+use Illuminate\Contracts\Auth\Guard;
 
-class EloquentDocumentsRepository extends AbstractEloquentRepository implements DocumentsRepositoryInterface
+class DocumentsPopulator
 {
-    public function __construct(Document $document)
+    protected $authenticator;
+
+    public function __construct(Guard $authenticator)
     {
-        $this->entity = $document;
+        $this->authenticator = $authenticator;
     }
 
-    public function store(Document $document)
+    public function populateFromArray(Document $document, array $data)
     {
-        $document->save();
+        $document->setTitle($data['title']);
+        $document->setDescription($data['description']);
+        $document->setUrl($data['url']);
+
+        /** @var Member $member */
+        $member = $this->authenticator->user();
+
+        $document->setSubmitter($member);
+
+        return $document;
     }
 }
+ 

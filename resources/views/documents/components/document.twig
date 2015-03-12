@@ -1,0 +1,61 @@
+<div class="panel panel-default document-item">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ document.getTitle() }}</small></h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <p>{{ document.getDescription() }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9 small">
+                <p>
+                    Submitted by
+                    <a href="{{ route('members.show', document.getSubmitter().getId()) }}">
+                        {{ document.getSubmitter().getFullName() }}
+                    </a>
+                    on {{ document.getCreatedAt()|date('Y-m-d') }}.<br />
+                    Visible to all members. 948 views by 46 members.
+                </p>
+            </div>
+
+            <div class="col-md-2 small">
+                <p>
+                    Share:<br />
+                    <a class="has-tooltip" href="" data-toggle="tooltip" data-placement="top" title="Share on Facebook"><i class="fa fa-facebook-square fa-lg"></i></a>
+                    <a class="has-tooltip" href="" data-toggle="tooltip" data-placement="top" title="Share on Twitter"><i class="fa fa-twitter-square fa-lg"></i></a>
+                    <a class="has-tooltip" href="" data-toggle="tooltip" data-placement="top" title="Get link"><i class="fa fa-link fa-lg"></i></a>
+                </p>
+            </div>
+
+            <div class="col-md-1">
+                <a href="" class="btn btn-default pull-right"><i class="glyphicon glyphicon-new-window"></i> View</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                Tags:
+                <a href=""><span class="label label-primary">Finances</span></a>
+                <a href=""><span class="label label-success">Sponsors</span></a>
+                <a href=""><span class="label label-default">Code App Level Up 2014</span></a>
+                <a href=""><span class="label label-danger">Logistics</span></a>
+
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-12">
+                <form class="form-inline">
+                    <label>Use this link to share the document:</label>
+                    <input type="text" style="width: 100%" class="form-control"
+                           value="http://members.eestec-sk.org.mk/documents/65" disabled
+                            />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
