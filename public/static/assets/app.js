@@ -514,4 +514,14 @@ $(function(){
         return false;
     });
 
+    /**
+     * Show share-able document's link
+     */
+
+    $(document).on('click', '.btn-show-link', function() {
+        $(this).parents(".document-item").find(".document-share-link").slideDown();
+
+        return false;
+    });
+
 });
