@@ -126,6 +126,27 @@ class Document extends Model
         return count($counted);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('Angelov\Eestec\Platform\Entities\Tag');
+    }
+
+    /**
+     * @param Tag $tag
+     */
+    public function addTag(Tag $tag)
+    {
+        $this->tags()->attach($tag);
+    }
+
+    /**
+     * @return Tag[]
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
     /**
      * @return \DateTime
      */

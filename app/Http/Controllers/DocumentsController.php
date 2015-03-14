@@ -33,6 +33,7 @@ use Angelov\Eestec\Platform\Events\Documents\DocumentWasOpened;
 use Angelov\Eestec\Platform\Http\Requests\StoreDocumentRequest;
 use Angelov\Eestec\Platform\Paginators\DocumentsPaginator;
 use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\TagsRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
@@ -48,10 +49,12 @@ class DocumentsController extends BaseController
     protected $views;
     protected $commandBus;
     protected $documents;
+    protected $tags;
     protected $events;
 
     public function __construct(
         DocumentsRepositoryInterface $documents,
+        TagsRepositoryInterface $tags,
         Factory $views,
         Dispatcher $commandBus,
         EventsDispatcher $events
@@ -59,6 +62,7 @@ class DocumentsController extends BaseController
         $this->views = $views;
         $this->commandBus = $commandBus;
         $this->documents = $documents;
+        $this->tags = $tags;
         $this->events = $events;
     }
 
@@ -72,9 +76,10 @@ class DocumentsController extends BaseController
     public function index(Request $request, DocumentsPaginator $paginator)
     {
         $page = $request->get('page', 1);
-        $documents = $paginator->get($page, $with = ['submitter', 'openedBy']);
+        $documents = $paginator->get($page, $with = ['submitter', 'openedBy', 'tags']);
+        $tags = $this->tags->all($with = ['documents']);
 
-        return $this->views->make('documents.index', compact('documents'));
+        return $this->views->make('documents.index', compact('documents', 'tags'));
     }
 
     /**

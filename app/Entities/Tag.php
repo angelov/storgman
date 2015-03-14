@@ -74,6 +74,21 @@ class Tag extends Model
         $this->setColor($color);
     }
 
+    public function documents()
+    {
+        return $this->belongsToMany('Angelov\Eestec\Platform\Entities\Document');
+    }
+
+    public function countDocuments()
+    {
+        return $this->documents->count();
+    }
+
+    public function getDocuments()
+    {
+        return $this->documents->all();
+    }
+
     public function getCreatedAt()
     {
         return $this->getAttribute('created_at');

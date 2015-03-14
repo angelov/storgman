@@ -298,6 +298,12 @@ class FakeDataSeeder extends Seeder
 
                 $countOpeners++;
             }
+
+            $tags = $this->pickGeneratedTags(rand(0, 5));
+
+            foreach ($tags as $tag) {
+                $document->addTag($tag);
+            }
         }
 
         printf("Generated %d documents with total %d openings\n", $count, $countOpenings);

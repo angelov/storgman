@@ -57,10 +57,14 @@
         <div class="row">
             <div class="col-md-12">
                 Tags:
-                <a href=""><span class="label" style="background-color: #999">Finances</span></a>
-                <a href=""><span class="label label-success">Sponsors</span></a>
-                <a href=""><span class="label label-default">Code App Level Up 2014</span></a>
-                <a href=""><span class="label label-danger">Logistics</span></a>
+
+                {% for tag in document.getTags() %}
+
+                    <a href="">
+                        <span class="label" style="background-color: {{ tag.getColor() }}">{{ tag.getName() }}</span>
+                    </a>
+
+                {% endfor %}
 
             </div>
         </div>
