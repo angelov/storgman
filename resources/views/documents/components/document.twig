@@ -25,7 +25,7 @@
                         {{ document.getSubmitter().getFullName() }}
                     </a>
                     on {{ document.getCreatedAt()|date('Y-m-d') }}.<br />
-                    Visible to all members. 948 views by 46 members.
+                    Visible to all members. {{ document.countOpenings() }} views by {{ document.countOpeners() }} members.
                 </p>
             </div>
 

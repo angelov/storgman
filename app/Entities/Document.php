@@ -89,6 +89,43 @@ class Document extends Model
         $this->submitter()->associate($member);
     }
 
+    public function openedBy()
+    {
+        return $this->belongsToMany('Angelov\Eestec\Platform\Entities\Member', 'document_openings')->withTimestamps();
+    }
+
+    public function addOpener(Member $member)
+    {
+        $this->openedBy()->attach($member);
+    }
+
+    /**
+     * @return Member[]
+     */
+    public function getOpeners()
+    {
+        return $this->openedBy->all();
+    }
+
+    public function countOpenings()
+    {
+        return $this->openedBy->count();
+    }
+
+    public function countOpeners()
+    {
+        $openers = $this->getOpeners();
+        $counted = [];
+
+        foreach ($openers as $opener) {
+            if ( ! in_array($opener->getId(), $counted)) {
+                $counted[] = $opener->getId();
+            }
+        }
+
+        return count($counted);
+    }
+
     /**
      * @return \DateTime
      */

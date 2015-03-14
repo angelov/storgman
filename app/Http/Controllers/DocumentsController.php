@@ -29,10 +29,13 @@ namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\Commands\Documents\DeleteDocumentCommand;
 use Angelov\Eestec\Platform\Commands\Documents\StoreDocumentCommand;
+use Angelov\Eestec\Platform\Events\Documents\DocumentWasOpened;
 use Angelov\Eestec\Platform\Http\Requests\StoreDocumentRequest;
 use Angelov\Eestec\Platform\Paginators\DocumentsPaginator;
 use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -45,12 +48,18 @@ class DocumentsController extends BaseController
     protected $views;
     protected $commandBus;
     protected $documents;
+    protected $events;
 
-    public function __construct(DocumentsRepositoryInterface $documents, Factory $views, Dispatcher $commandBus)
-    {
+    public function __construct(
+        DocumentsRepositoryInterface $documents,
+        Factory $views,
+        Dispatcher $commandBus,
+        EventsDispatcher $events
+    ) {
         $this->views = $views;
         $this->commandBus = $commandBus;
         $this->documents = $documents;
+        $this->events = $events;
     }
 
     /**
@@ -63,7 +72,7 @@ class DocumentsController extends BaseController
     public function index(Request $request, DocumentsPaginator $paginator)
     {
         $page = $request->get('page', 1);
-        $documents = $paginator->get($page, $with = ['submitter']);
+        $documents = $paginator->get($page, $with = ['submitter', 'openedBy']);
 
         return $this->views->make('documents.index', compact('documents'));
     }
@@ -86,14 +95,16 @@ class DocumentsController extends BaseController
      * Redirect the user to the document's url
      *
      * @param Redirector $redirector
+     * @param Guard $authenticator
      * @param int $id
      * @return RedirectResponse
      */
-    public function show(Redirector $redirector, $id)
+    public function show(Redirector $redirector, Guard $authenticator, $id)
     {
-        // @todo Fire an "DocumentWasOpened" event
-
         $document = $this->documents->get($id);
+        $member = $authenticator->user();
+
+        $this->events->fire(new DocumentWasOpened($document, $member));
 
         return $redirector->to($document->getUrl(), 301);
     }

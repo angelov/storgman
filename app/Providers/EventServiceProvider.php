@@ -56,6 +56,12 @@ class EventServiceProvider extends ServiceProvider {
 
         'Angelov\Eestec\Platform\Events\Fees\FeeWasProceededEvent' => [
             'Angelov\Eestec\Platform\Handlers\Events\Fees\EmailProceedingConfirmation'
+        ],
+
+        // Documents Handlers
+
+        'Angelov\Eestec\Platform\Events\Documents\DocumentWasOpened' => [
+            'Angelov\Eestec\Platform\Handlers\Events\Documents\TrackDocumentOpening'
         ]
 
     ];
