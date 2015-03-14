@@ -32,10 +32,13 @@
             <div class="col-md-2 small">
                 <p>
                     Share:<br />
-                    <a class="has-tooltip" href="" data-toggle="tooltip" data-placement="top" title="Share on Facebook">
+                    <a class="has-tooltip btn-fb-share" data-toggle="tooltip" data-placement="top" title="Share on Facebook" target="_blank"
+                       href="https://www.facebook.com/sharer/sharer.php?u={{ route('documents.show', document.getId())|url_encode }}">
                         <i class="fa fa-facebook-square fa-lg"></i>
                     </a>
-                    <a class="has-tooltip" href="" data-toggle="tooltip" data-placement="top" title="Share on Twitter">
+                    <a class="has-tooltip btn-twitter-share"
+                       href="https://twitter.com/intent/tweet?text={{ "Document: " ~ document.getTitle() ~ " -"|url_encode }}&url={{ route('documents.show', document.getId())|url_encode }}"
+                       data-toggle="tooltip" data-placement="top" title="Share on Twitter">
                         <i class="fa fa-twitter-square fa-lg"></i>
                     </a>
                     <a class="has-tooltip btn-show-link" href="" data-toggle="tooltip" data-placement="top" title="Get link">
