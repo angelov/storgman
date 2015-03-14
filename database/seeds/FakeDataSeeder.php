@@ -25,9 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Angelov\Eestec\Platform\Entities\Document;
 use Angelov\Eestec\Platform\Entities\Fee;
 use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
 use Illuminate\Database\Seeder;
 use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
@@ -38,6 +40,7 @@ class FakeDataSeeder extends Seeder
     protected $members;
     protected $fees;
     protected $meetings;
+    protected $documents;
     protected $faker;
     protected $generatedMembers;
 
@@ -45,6 +48,7 @@ class FakeDataSeeder extends Seeder
         MembersRepositoryInterface $members,
         FeesRepositoryInterface $fees,
         MeetingsRepositoryInterface $meetings,
+        DocumentsRepositoryInterface $documents,
         Faker\Factory $fakerFactory
     ) {
         $this->members = $members;
@@ -52,6 +56,7 @@ class FakeDataSeeder extends Seeder
         $this->meetings = $meetings;
         $this->faker = $fakerFactory::create();
         $this->generatedMembers = [];
+        $this->documents = $documents;
     }
 
     public function run()
@@ -59,6 +64,7 @@ class FakeDataSeeder extends Seeder
         $this->generateMembers(500);
         $this->generateFees();
         $this->generateMeetings(50);
+        $this->generateDocuments(20);
     }
 
     private function generateMembers($count = 200)
@@ -74,7 +80,7 @@ class FakeDataSeeder extends Seeder
 
             $member = new Member();
 
-            $member->setEmail($this->faker->email);
+            $member->setEmail($this->faker->email . rand(0, 9123));
             $member->setPassword(Hash::make('123456'));
             $member->setFirstName($this->faker->firstName);
             $member->setLastName($this->faker->lastName);
@@ -236,6 +242,48 @@ class FakeDataSeeder extends Seeder
         }
 
         return $this->faker->numberBetween(50, 100);
+    }
+
+    public function generateDocuments($count = 100)
+    {
+        if (!$this->hasGeneratedMembers()) {
+            return;
+        }
+
+        print "Generating documents started...\n";
+
+        $countOpenings = 0;
+        $countOpeners = 0;
+
+        for ($i = 0; $i < $count; $i++) {
+
+            $document = new Document();
+
+            $title = $this->faker->sentence(rand(6, 15));
+            $document->setTitle($title);
+            $document->setDescription($this->faker->realText());
+            $document->setUrl("http://eestec.local");
+
+            $submitter = $this->generatedMembers[rand(0, count($this->generatedMembers) - 1)];
+
+            $document->setSubmitter($submitter);
+
+            $this->documents->store($document);
+
+            $openers = $this->pickGeneratedMembers(rand(0, count($this->generatedMembers) - 1));
+
+            foreach ($openers as $opener) {
+                for ($j=0; $j < rand(1, 10); $j++) {
+                    $document->addOpener($opener);
+                    $countOpenings++;
+                }
+
+                $countOpeners++;
+            }
+
+        }
+
+        printf("Generated %d documents with total %d openings\n", $count, $countOpenings);
     }
 
 }
