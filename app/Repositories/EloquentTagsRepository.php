@@ -27,6 +27,17 @@
 
 namespace Angelov\Eestec\Platform\Repositories;
 
+use Angelov\Eestec\Platform\Entities\Tag;
+
 class EloquentTagsRepository extends AbstractEloquentRepository implements TagsRepositoryInterface
 {
+    public function __construct(Tag $tag)
+    {
+        $this->entity = $tag;
+    }
+
+    public function store(Tag $tag)
+    {
+        $tag->save();
+    }
 }

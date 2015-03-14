@@ -27,7 +27,26 @@
 
 namespace Angelov\Eestec\Platform\Repositories;
 
+use Angelov\Eestec\Platform\Entities\Tag;
+use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
+
 interface TagsRepositoryInterface extends RepositoryInterface
 {
+    /**
+     * Returns the tag with the given ID
+     *
+     * @param int $id
+     * @return Tag
+     * @throws ResourceNotFoundException
+     */
+    public function get($id);
+
+    /**
+     * Stores a tag
+     *
+     * @param  Tag $tag
+     * @return void
+     */
+    public function store(Tag $tag);
 }
  

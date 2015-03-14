@@ -70,7 +70,7 @@ class Tag extends Model
 
     public function setRandomColor()
     {
-        $color = array_rand($this->colors);
+        $color = $this->colors[array_rand($this->colors)];
         $this->setColor($color);
     }
 

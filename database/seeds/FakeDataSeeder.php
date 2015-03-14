@@ -29,8 +29,10 @@ use Angelov\Eestec\Platform\Entities\Document;
 use Angelov\Eestec\Platform\Entities\Fee;
 use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Entities\Tag;
 use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Repositories\TagsRepositoryInterface;
 use Illuminate\Database\Seeder;
 use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
@@ -41,14 +43,17 @@ class FakeDataSeeder extends Seeder
     protected $fees;
     protected $meetings;
     protected $documents;
+    protected $tags;
     protected $faker;
     protected $generatedMembers;
+    protected $generatedTags;
 
     public function __construct(
         MembersRepositoryInterface $members,
         FeesRepositoryInterface $fees,
         MeetingsRepositoryInterface $meetings,
         DocumentsRepositoryInterface $documents,
+        TagsRepositoryInterface $tags,
         Faker\Factory $fakerFactory
     ) {
         $this->members = $members;
@@ -57,6 +62,7 @@ class FakeDataSeeder extends Seeder
         $this->faker = $fakerFactory::create();
         $this->generatedMembers = [];
         $this->documents = $documents;
+        $this->tags = $tags;
     }
 
     public function run()
@@ -64,6 +70,7 @@ class FakeDataSeeder extends Seeder
         $this->generateMembers(500);
         $this->generateFees();
         $this->generateMeetings(50);
+        $this->generateTags(20);
         $this->generateDocuments(20);
     }
 
@@ -225,6 +232,17 @@ class FakeDataSeeder extends Seeder
         return $pickedMembers;
     }
 
+    private function pickGeneratedTags($count = 0)
+    {
+        $tags = [];
+
+        for ($i=0; $i < $count; $i++) {
+            $tags[] = $this->generatedTags[array_rand($this->generatedTags)];
+        }
+
+        return $tags;
+    }
+
     private function calculateNeededAttendants()
     {
         $count = count($this->generatedMembers);
@@ -280,10 +298,24 @@ class FakeDataSeeder extends Seeder
 
                 $countOpeners++;
             }
-
         }
 
         printf("Generated %d documents with total %d openings\n", $count, $countOpenings);
+    }
+
+    public function generateTags($count = 10)
+    {
+        print "Generating documents' tags started...\n";
+
+        for ($i=0; $i < $count; $i++) {
+            $tag = new Tag();
+            $tag->setName($this->faker->domainWord);
+            $this->tags->store($tag);
+
+            $this->generatedTags[] = $tag;
+        }
+
+        print "Generated ". $count ." tags.\n";
     }
 
 }
