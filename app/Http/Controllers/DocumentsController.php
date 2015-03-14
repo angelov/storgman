@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
+use Angelov\Eestec\Platform\Commands\Documents\DeleteDocumentCommand;
 use Angelov\Eestec\Platform\Commands\Documents\StoreDocumentCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreDocumentRequest;
 use Angelov\Eestec\Platform\Paginators\DocumentsPaginator;
@@ -34,6 +35,7 @@ use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -94,5 +96,20 @@ class DocumentsController extends BaseController
         $document = $this->documents->get($id);
 
         return $redirector->to($document->getUrl(), 301);
+    }
+
+    /**
+     * Delete the specific document
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function destroy($id)
+    {
+        // @todo Check if the member is allowed to delete the document
+
+        $this->commandBus->dispatch(new DeleteDocumentCommand($id));
+
+        return $this->successfulJsonResponse("Document deleted successfully.");
     }
 }

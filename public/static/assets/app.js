@@ -543,4 +543,70 @@ $(function(){
         });
     });
 
+    /**
+     * Show delete/edit buttons for document
+     */
+
+    $(".document-item").hover(
+        function(){
+            var a = $(this).find('.document-actions');
+            var h = $(this).find('.panel-heading');
+
+            var org_height = h.height();
+
+            a.show();
+
+            h.height(org_height);
+        },
+        function(){
+            $(this).find('.document-actions').hide();
+        }
+    );
+
+    /**
+     * Deleting a document
+     */
+
+    $(document).on('click', '.btn-delete-document', function() {
+        var confirmed = confirm('Are you sure?');
+        var btn = $(this);
+        var token = $("#csrf-token").val();
+
+        if (confirmed) {
+
+            $.ajax({
+                type: 'delete',
+                url: btn.attr('href'),
+                data: {
+                    '_token': token
+                },
+                dataType: "json",
+                success:function(data){
+
+                    var document_item = btn.parents('.document-item');
+
+                    //console.log(document_item.html());
+
+                    document_item.html("");
+                    document_item.removeClass('panel panel-default');
+
+                    document_item.html('' +
+                        '<div class="alert alert-success alert-dismissible" role="alert">' +
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                            '<span aria-hidden="true">&times;</span>' +
+                        '</button>' +
+                        data.message + '</div>'
+                    );
+
+                },
+                error: function(data, status, message) {
+                    console.log(status + ": " + message);
+                }
+            });
+
+        }
+
+        return false;
+    });
+
 });
