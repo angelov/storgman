@@ -34,7 +34,9 @@ use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class DocumentsController extends BaseController
 {
@@ -77,5 +79,20 @@ class DocumentsController extends BaseController
 
         return $this->views->make('documents.components.document', compact('document'));
     }
+
+    /**
+     * Redirect the user to the document's url
+     *
+     * @param Redirector $redirector
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function show(Redirector $redirector, $id)
+    {
+        // @todo Fire an "DocumentWasOpened" event
+
+        $document = $this->documents->get($id);
+
+        return $redirector->to($document->getUrl(), 301);
+    }
 }
- 

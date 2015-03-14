@@ -33,6 +33,11 @@ class Document extends Model
 {
     protected $table = "documents";
 
+    public function getId()
+    {
+        return $this->getAttribute('id');
+    }
+
     public function getTitle()
     {
         return $this->getAttribute('title');

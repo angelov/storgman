@@ -37,7 +37,9 @@
             </div>
 
             <div class="col-md-1">
-                <a href="" class="btn btn-default pull-right"><i class="glyphicon glyphicon-new-window"></i> View</a>
+                <a href="{{ route('documents.show', document.getId()) }}" class="btn btn-default pull-right">
+                    <i class="glyphicon glyphicon-new-window"></i> View
+                </a>
             </div>
         </div>
 
@@ -57,7 +59,7 @@
                 <form class="form-inline">
                     <label>Use this link to share the document:</label>
                     <input type="text" style="width: 100%" class="form-control"
-                           value="http://members.eestec-sk.org.mk/documents/65" disabled
+                           value="{{ route('documents.show', document.getId()) }}" disabled
                             />
                 </form>
             </div>
