@@ -48,18 +48,7 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        /**
-         * @Todo The TwigBridge for some reason required the illuminate/html library. Remove later.
-         */
-        $this->app->bind('Illuminate\Html\FormBuilder', function () {
-
-            return new \Illuminate\Html\FormBuilder(
-                $this->app->make('Illuminate\Html\HtmlBuilder'),
-                $this->app->make('Illuminate\Routing\UrlGenerator'),
-                csrf_token()
-            );
-
-        });
+        
     }
 
 }
