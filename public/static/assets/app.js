@@ -467,7 +467,7 @@ $(function(){
 
     $('#quick-member-search-for-fee').click(function(){
         $(this).val('');
-    })
+    });
 
     $('.row-fee').hover(
         function(){
@@ -522,6 +522,25 @@ $(function(){
         $(this).parents(".document-item").find(".document-share-link").slideDown();
 
         return false;
+    });
+
+    /**
+     * Filter tags when browsing documents
+     */
+
+    $("#input-filter-tags").keyup(function() {
+        var find = $(this).val().toLowerCase();
+
+        $(".tag-item").each(function() {
+            var link = $(this).find("a");
+            var tag = link.text().toLowerCase();
+
+            if (tag.indexOf(find) >= 0) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
     });
 
 });
