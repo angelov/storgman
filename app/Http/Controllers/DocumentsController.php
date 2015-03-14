@@ -128,4 +128,14 @@ class DocumentsController extends BaseController
 
         return $this->successfulJsonResponse("Document deleted successfully.");
     }
+
+    public function byTag(TagsRepositoryInterface $tags, $id)
+    {
+        $tag = $tags->get($id);
+        $documents = $tag->getDocuments();
+        $tags = $tags->all($with = ['documents']);
+
+        return $this->views->make('documents.by-tag', compact('tag', 'documents', 'tags'));
+    }
 }
+

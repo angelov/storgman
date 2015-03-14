@@ -23,8 +23,8 @@
     <div class="col-md-8">
 
         <legend class="clearfix">
-            <span class="pull-left">All documents</span>
-            <span class="pull-right text-muted text-"><small><small>{{ documents.total }} documents</small></small></span>
+            <span class="pull-left">Tag: {{ tag.getName() }}</span>
+            <span class="pull-right text-muted text-"><small><small>{{ documents|length }} documents</small></small></span>
         </legend>
 
         <div id="documents-list">

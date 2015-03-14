@@ -60,7 +60,7 @@
 
                 {% for tag in document.getTags() %}
 
-                    <a href="">
+                    <a href="{{ route('documents.byTag', tag.getId()) }}">
                         <span class="label" style="background-color: {{ tag.getColor() }}">{{ tag.getName() }}</span>
                     </a>
 

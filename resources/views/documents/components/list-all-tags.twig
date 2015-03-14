@@ -1,0 +1,27 @@
+<div class="col-md-4">
+
+    <legend>Browse by tags</legend>
+
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+            <div class="right-inner-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="search" id="input-filter-tags" class="form-control" placeholder="Filter tags" />
+            </div>
+        </div>
+
+        <ul class="list-group" id="list-all-tags">
+
+            {% for tag in tags %}
+
+                <li class="list-group-item tag-item">
+                    <a href="{{ route('documents.byTag', tag.getId()) }}">{{ tag.getName() }}</a> <span class="badge">{{ tag.countDocuments() }}</span>
+                </li>
+
+            {% endfor %}
+
+        </ul>
+    </div>
+
+</div>

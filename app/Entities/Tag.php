@@ -48,6 +48,11 @@ class Tag extends Model
         parent::__construct();
     }
 
+    public function getId()
+    {
+        return $this->getAttribute('id');
+    }
+
     public function getName()
     {
         return $this->getAttribute('name');
