@@ -34,4 +34,10 @@ return [
         'secret' => '',
     ],
 
+    'facebook' => [
+        'client_id' => env('FB_APP_ID'),
+        'client_secret' => env('FB_APP_SECRET'),
+        'redirect' => config('app.url') ."/auth/facebook-callback"
+    ]
+
 ];

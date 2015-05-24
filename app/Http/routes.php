@@ -63,6 +63,18 @@ $router->group(['prefix' => 'auth'], function (Router $router) {
          'middleware' => 'auth']
     );
 
+    $router->get('/facebook',
+        ['as' => 'auth.facebook',
+         'uses' => 'AuthController@loginWithFacebook',
+         'middleware' => 'guest']
+    );
+
+    $router->get('/facebook-callback',
+        ['as' => 'auth.facebook-callback',
+         'uses' => 'AuthController@proceedFacebookLogin',
+         'middleware' => 'guest']
+    );
+
 });
 
 /**

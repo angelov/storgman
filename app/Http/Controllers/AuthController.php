@@ -29,7 +29,7 @@ namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Http\Requests\LoginFormRequest;
-use Angelov\Eestec\Platform\Services\MembershipService;
+use Angelov\Eestec\Platform\Repositories\SocialProfilesRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -37,6 +37,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Session\Store;
+use Laravel\Socialite\Contracts\Factory as SocialiteFactory;
 
 class AuthController extends BaseController
 {
@@ -89,11 +90,7 @@ class AuthController extends BaseController
         /** @var Member $member */
         $member = $this->authenticator->user();
 
-        if (!$member->isApproved()) {
-            return $this->redirectBackWithError('Your account is not approved yet.');
-        }
-
-        return $this->redirector->to('/');
+        return $this->proceedLogin($member);
     }
 
     /**
@@ -121,6 +118,41 @@ class AuthController extends BaseController
     public function logout()
     {
         $this->authenticator->logout();
+
+        return $this->redirector->to('/');
+    }
+
+    public function loginWithFacebook(SocialiteFactory $socialite)
+    {
+        $fb = $socialite->driver('facebook');
+        return $fb->redirect();
+    }
+
+    public function proceedFacebookLogin(SocialiteFactory $socialite, SocialProfilesRepositoryInterface $socialProfiles)
+    {
+        $fb = $socialite->driver('facebook');
+
+        $profileId = $fb->user()->getId();
+
+        $profile = $socialProfiles->getByProfileIdAndProvider($profileId, "facebook");
+
+        if (!$profile) {
+            $this->session->flash('auth-error', 'Have you connected your account with Facebook?');
+            return $this->redirector->route('auth');
+        }
+
+        $member = $profile->getMember();
+
+        $this->authenticator->login($member);
+
+        return $this->redirector->to('/');
+    }
+
+    protected function proceedLogin(Member $member)
+    {
+        if (!$member->isApproved()) {
+            return $this->redirectBackWithError('Your account is not approved yet.');
+        }
 
         return $this->redirector->to('/');
     }

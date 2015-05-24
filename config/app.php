@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 return [
 
@@ -144,6 +144,7 @@ return [
         'TwigBridge\ServiceProvider',
         'Intervention\Image\ImageServiceProviderLaravel5',
         'Barryvdh\Debugbar\ServiceProvider',
+        'Laravel\Socialite\SocialiteServiceProvider',
 
         /*
 		 * Application Service Providers...
