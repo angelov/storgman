@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,24 +20,17 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
 namespace Angelov\Eestec\Platform\Providers;
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoriesServiceProvider extends ServiceProvider
 {
-    protected $container;
-
-    public function __construct(Application $container) {
-        $this->container = $container;
-    }
-
     /**
      * Bind the repository interfaces to some implementations
      *
@@ -45,30 +38,30 @@ class RepositoriesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->container->bind('Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface',
+        $this->app->bind('Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface',
             'Angelov\Eestec\Platform\Repositories\EloquentMembersRepository');
 
-        $this->container->bind('Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface',
+        $this->app->bind('Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface',
             'Angelov\Eestec\Platform\Repositories\EloquentFeesRepository');
 
-        $this->container->bind('Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface',
+        $this->app->bind('Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface',
             'Angelov\Eestec\Platform\Repositories\LocalPhotosRepository');
 
-        $this->container->bind('Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface',
+        $this->app->bind('Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface',
             'Angelov\Eestec\Platform\Repositories\EloquentMeetingsRepository');
 
-        $this->container->bind('Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface',
+        $this->app->bind('Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface',
             'Angelov\Eestec\Platform\Repositories\EloquentDocumentsRepository');
 
-        $this->container->bind('Angelov\Eestec\Platform\Repositories\TagsRepositoryInterface',
+        $this->app->bind('Angelov\Eestec\Platform\Repositories\TagsRepositoryInterface',
             'Angelov\Eestec\Platform\Repositories\EloquentTagsRepository');
 
-        $this->container->bind('Angelov\Eestec\Platform\Repositories\SocialProfilesRepositoryInterface',
+        $this->app->bind('Angelov\Eestec\Platform\Repositories\SocialProfilesRepositoryInterface',
             'Angelov\Eestec\Platform\Repositories\EloquentSocialProfilesRepository');
 
-        $container = $this->container;
+        $container = $this->app;
 
-        $this->container->bind('PhotosRepository', function () use ($container) {
+        $this->app->bind('PhotosRepository', function () use ($container) {
             return $container->make('Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface');
         });
 
