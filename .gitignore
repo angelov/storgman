@@ -15,3 +15,4 @@ config/development/
 config/testing/
 storage/views/
 db.sh
+composer.lock
