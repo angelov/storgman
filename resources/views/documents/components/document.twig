@@ -25,7 +25,14 @@
                         {{ document.getSubmitter().getFullName() }}
                     </a>
                     on {{ document.getCreatedAt()|date('Y-m-d') }}.<br />
-                    Visible to all members. {{ document.countOpenings() }} views by {{ document.countOpeners() }} members.
+
+                    Visible to:
+                    {% if document.isVisibleToAllMembers() %}
+                        all members.
+                    {% else  %}
+                        board members.
+                    {% endif %}
+                    {{ document.countOpenings() }} views by {{ document.countOpeners() }} members.
                 </p>
             </div>
 

@@ -162,5 +162,26 @@ class Document extends Model
     {
         return $this->getAttribute('updated_at');
     }
+
+    /**
+     * By default, all members have access to the document
+     */
+    public function setVisibleToAllMembers()
+    {
+        $this->setAttribute('board_only', false);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVisibleToAllMembers()
+    {
+        return (! $this->getAttribute('board_only'));
+    }
+
+    public function setVisibleToBoardOnly()
+    {
+        $this->setAttribute('board_only', true);
+    }
 }
  

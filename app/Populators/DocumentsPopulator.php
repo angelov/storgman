@@ -46,6 +46,10 @@ class DocumentsPopulator
         $document->setDescription($data['description']);
         $document->setUrl($data['url']);
 
+        if ($data['document-access'] == 'board') {
+            $document->setVisibleToBoardOnly();
+        }
+
         /** @var Member $member */
         $member = $this->authenticator->user();
 

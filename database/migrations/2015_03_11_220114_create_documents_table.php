@@ -26,6 +26,7 @@ class CreateDocumentsTable extends Migration {
                     ->on('members')
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
+                $table->boolean('board_only')->default(false);
                 $table->timestamps();
             }
         );

@@ -492,6 +492,7 @@ $(function(){
                 'title': $('#document-title').val(),
                 'description': $('#document-description').val(),
                 'url': $('#document-url').val(),
+                'document-access': $("input:radio[name='document-access']:checked").val(),
                 '_token': $("#csrf-token").val()
             },
             success:function(data){
