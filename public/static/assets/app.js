@@ -482,35 +482,72 @@ $(function(){
      * Store the new document
      */
 
-    $(document).on('click', '#btn-store-document', function() {
-        var btn = $(this);
+    var sendDocumentData = function(form, url, method, onSuccess, onError) {
+
+        console.log(form);
 
         $.ajax({
-            type: 'post',
-            url: btn.attr('href'),
+            type: method,
+            url: url,
             data: {
-                'title': $('#document-title').val(),
-                'description': $('#document-description').val(),
-                'url': $('#document-url').val(),
-                'document-access': $("input:radio[name='document-access']:checked").val(),
-                '_token': $("#csrf-token").val()
+                'title': form.find('#document-title').val(),
+                'description': form.find('#document-description').val(),
+                'url': form.find('#document-url').val(),
+                'document-access': form.find("input:radio[name='document-access']:checked").val(),
+                '_token': form.find("#csrf-token").val()
             },
-            success:function(data){
-
-                /** @todo Show success message */
-
-                $("#documents-list").prepend(data);
-
-                setTimeout(function(){
-                    $('#modal-add-document').modal('hide');
-                    $("#form-add-document").trigger("reset");
-                }, 1500);
-
-            },
-            error: function() {
-                /** @todo Show error message */
-            }
+            success: onSuccess,
+            error: onError
         });
+
+
+        console.log("Title (sendDocumentData): " + $("#form-edit-document").find("#document-title").val());
+    };
+
+    $(document).on('click', '#btn-store-document', function() {
+        var btn = $(this);
+        var form = $("#form-add-document");
+
+        var onSuccess = function(data){
+
+            /** @todo Show success message */
+
+            $("#documents-list").prepend(data);
+
+            setTimeout(function(){
+                $('#modal-add-document').modal('hide');
+                $("#form-add-document").trigger("reset");
+            }, 1500);
+
+        };
+
+        var onError = function() { /* todo */ };
+
+
+        sendDocumentData(form, btn.attr('href'), 'post', onSuccess, onError);
+
+        return false;
+    });
+
+    $(document).on('click', '#btn-update-document', function() {
+        var btn = $(this);
+        var form = btn.parents('form');
+
+
+        var onSuccess = function(){
+
+            /** @todo Show success message */
+            /** @todo Update the document's data in the list */
+
+            setTimeout(function(){
+                $('#modal-edit-document').modal('hide');
+            }, 1500);
+
+        };
+
+        var onError = function() { /* todo */ };
+
+        sendDocumentData($("#form-edit-document"), btn.attr('href'), 'put', onSuccess, onError);
 
         return false;
     });
@@ -608,6 +645,22 @@ $(function(){
         }
 
         return false;
+    });
+
+    $(document).on('click', '.btn-edit-document', function() {
+
+        $.ajax({
+            type: 'get',
+            url: $(this).attr('href'),
+            success: function (data) {
+                var modalDiv = $("#modal-edit-document");
+                modalDiv.html(data);
+                modalDiv.modal('show');
+            }
+        });
+
+        return false;
+
     });
 
     /**

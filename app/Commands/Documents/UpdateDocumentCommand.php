@@ -25,39 +25,29 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Populators;
+namespace Angelov\Eestec\Platform\Commands\Documents;
 
-use Angelov\Eestec\Platform\Entities\Document;
-use Angelov\Eestec\Platform\Entities\Member;
-use Illuminate\Contracts\Auth\Guard;
+use Angelov\Eestec\Platform\Commands\Command;
 
-class DocumentsPopulator
+class UpdateDocumentCommand extends Command
 {
-    protected $authenticator;
+    protected $documentId;
+    protected $data = [];
 
-    public function __construct(Guard $authenticator)
+    function __construct($documentId, array $data)
     {
-        $this->authenticator = $authenticator;
+        $this->data = $data;
+        $this->documentId = $documentId;
     }
 
-    public function populateFromArray(Document $document, array $data)
+    public function getDocumentId()
     {
-        $document->setTitle($data['title']);
-        $document->setDescription($data['description']);
-        $document->setUrl($data['url']);
+        return $this->documentId;
+    }
 
-        if ($data['document-access'] == 'board') {
-            $document->setVisibleToBoardOnly();
-        } else {
-            $document->setVisibleToAllMembers();
-        }
-
-        /** @var Member $member */
-        $member = $this->authenticator->user();
-
-        $document->setSubmitter($member);
-
-        return $document;
+    public function getData()
+    {
+        return $this->data;
     }
 }
  

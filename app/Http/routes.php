@@ -189,10 +189,12 @@ $router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember']]
 
 $router->group(['prefix' => 'documents'], function (Router $router) {
 
-    $router->get('/',         ['as' => 'documents.index',   'uses' => 'DocumentsController@index']);
-    $router->post('/',        ['as' => 'documents.store',   'uses' => 'DocumentsController@store', 'middleware' => ['ajax']]);
-    $router->get('/{id}',     ['as' => 'documents.show',    'uses' => 'DocumentsController@show']);
-    $router->delete('/{id}',  ['as' => 'documents.destroy', 'uses' => 'DocumentsController@destroy', 'middleware' => ['ajax']]);
-    $router->get('/tag/{id}', ['as' => 'documents.byTag',   'uses' => 'DocumentsController@byTag']);
+    $router->get('/',          ['as' => 'documents.index',   'uses' => 'DocumentsController@index']);
+    $router->post('/',         ['as' => 'documents.store',   'uses' => 'DocumentsController@store',   'middleware' => ['ajax']]);
+    $router->get('/{id}',      ['as' => 'documents.show',    'uses' => 'DocumentsController@show']);
+    $router->delete('/{id}',   ['as' => 'documents.destroy', 'uses' => 'DocumentsController@destroy', 'middleware' => ['ajax']]);
+    $router->get('/{id}/edit', ['as' => 'documents.edit',    'uses' => 'DocumentsController@edit',    'middleware' => ['ajax']]);
+    $router->put('/{id}',      ['as' => 'documents.update',  'uses' => 'DocumentsController@update',  'middleware' => ['ajax']]);
+    $router->get('/tag/{id}',  ['as' => 'documents.byTag',   'uses' => 'DocumentsController@byTag']);
 
 });

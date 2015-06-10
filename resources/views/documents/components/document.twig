@@ -2,7 +2,8 @@
     <div class="panel-heading clearfix">
         <h3 class="panel-title  pull-left">{{ document.getTitle() }}</small></h3>
         <div class="pull-right document-actions" style="display: none;">
-            <a class="has-tooltip btn-show-link" href="" data-toggle="tooltip" data-placement="top" title="Edit">
+            <a class="has-tooltip btn-edit-document" href="{{ route('documents.edit', document.getId()) }}"
+               data-document-id="{{ document.getId() }}" data-toggle="tooltip" data-placement="top" title="Edit">
                 <i class="glyphicon glyphicon-pencil"></i>
             </a>
             <a class="has-tooltip btn-delete-document" href="{{ route('documents.destroy', document.getId()) }}" data-toggle="tooltip" data-placement="top" title="Delete">
@@ -11,6 +12,7 @@
         </div>
     </div>
     <div class="panel-body">
+        <div class="modal fade"  id="modal-edit-document"></div>
         <div class="row">
             <div class="col-md-12">
                 <p>{{ document.getDescription() }}</p>

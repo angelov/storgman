@@ -25,39 +25,31 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Populators;
+namespace Angelov\Eestec\Platform\Handlers\Commands\Documents;
 
-use Angelov\Eestec\Platform\Entities\Document;
-use Angelov\Eestec\Platform\Entities\Member;
-use Illuminate\Contracts\Auth\Guard;
+use Angelov\Eestec\Platform\Commands\Documents\UpdateDocumentCommand;
+use Angelov\Eestec\Platform\Populators\DocumentsPopulator;
+use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
 
-class DocumentsPopulator
+class UpdateDocumentCommandHandler
 {
-    protected $authenticator;
+    protected $documents;
+    protected $populator;
 
-    public function __construct(Guard $authenticator)
+    public function __construct(DocumentsRepositoryInterface $documents, DocumentsPopulator $populator)
     {
-        $this->authenticator = $authenticator;
+        $this->documents = $documents;
+        $this->populator = $populator;
     }
 
-    public function populateFromArray(Document $document, array $data)
+    public function handle(UpdateDocumentCommand $command)
     {
-        $document->setTitle($data['title']);
-        $document->setDescription($data['description']);
-        $document->setUrl($data['url']);
+        $docId = $command->getDocumentId();
+        $document = $this->documents->get($docId);
 
-        if ($data['document-access'] == 'board') {
-            $document->setVisibleToBoardOnly();
-        } else {
-            $document->setVisibleToAllMembers();
-        }
+        $this->populator->populateFromArray($document, $command->getData());
 
-        /** @var Member $member */
-        $member = $this->authenticator->user();
-
-        $document->setSubmitter($member);
-
-        return $document;
+        $this->documents->store($document);
     }
 }
  

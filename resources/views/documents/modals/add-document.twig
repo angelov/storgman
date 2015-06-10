@@ -6,9 +6,9 @@
                 <h4 class="modal-title">Add new document</h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" value="{{ csrf_token() }}" id="csrf-token" />
 
                 <form id="form-add-document">
+                    <input type="hidden" value="{{ csrf_token() }}" id="csrf-token" />
 
                     <div class="form-group">
                         <label for="document-title">Title:</label>

@@ -29,6 +29,7 @@ namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\Commands\Documents\DeleteDocumentCommand;
 use Angelov\Eestec\Platform\Commands\Documents\StoreDocumentCommand;
+use Angelov\Eestec\Platform\Commands\Documents\UpdateDocumentCommand;
 use Angelov\Eestec\Platform\Events\Documents\DocumentWasOpened;
 use Angelov\Eestec\Platform\Http\Requests\StoreDocumentRequest;
 use Angelov\Eestec\Platform\Paginators\DocumentsPaginator;
@@ -136,6 +137,22 @@ class DocumentsController extends BaseController
         $tags = $tags->all($with = ['documents']);
 
         return $this->views->make('documents.by-tag', compact('tag', 'documents', 'tags'));
+    }
+
+    public function edit($id)
+    {
+        $document = $this->documents->get($id);
+
+        return $this->views->make('documents.modals.edit-document', compact('document'));
+    }
+
+    public function update(StoreDocumentRequest $request, $id)
+    {
+        $data = $request->all();
+
+        $this->commandBus->dispatch(new UpdateDocumentCommand($id, $data));
+
+        return $this->successfulJsonResponse("Document updated successfully.");
     }
 }
 
