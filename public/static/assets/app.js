@@ -69,8 +69,6 @@ $(function(){
         var member = btn.data('member');
         var token = $("#csrf-token").val();
 
-        console.log(token);
-
         $.ajax({
             type: 'post',
             url: btn.attr('href'),
@@ -131,25 +129,9 @@ $(function(){
      * needs refactoring.
      */
 
-//    var searchResized = false;
-//
-//    $("#quick-member-search").click(function(){
-//
-//        if (!searchResized) {
-//            console.log($(this).css("left"));
-//            var elwidth = $(this).width() + 80;
-//
-//            $(this).animate({
-//                'marginLeft'    : "-=50px",
-//                'width': elwidth + "px"
-//            });
-//
-//            searchResized = true;
-//        }
-//
-//    });
+    var inputQuickMemberSearch = $("#quick-member-search");
 
-    if ($("#quick-member-search").length) {
+    if (inputQuickMemberSearch.length) {
 
         var engine2 = new Bloodhound({
             name: 'members',
@@ -161,7 +143,7 @@ $(function(){
         });
         engine2.initialize();
 
-        $("#quick-member-search").typeahead(
+        inputQuickMemberSearch.typeahead(
             {
                 hint: true,
                 highlight: true,
@@ -207,7 +189,6 @@ $(function(){
 
     $(document).on('click', '#btn-proceed-fee', function() {
         var btn = $(this);
-        console.log("clicked");
         var token = $("#csrf-token").val();
 
         $.ajax({
@@ -306,7 +287,9 @@ $(function(){
      */
 
     // load the members only if needed
-    if ($("#new-attendant").length) {
+    var inputNewAttendant = $("#new-attendant");
+
+    if (inputNewAttendant.length) {
 
         var countAttendants = parseInt($('#count-attendants').text());
 
@@ -320,7 +303,7 @@ $(function(){
         });
         engine.initialize();
 
-        $('#new-attendant').typeahead(
+        inputNewAttendant.typeahead(
             {
                 hint: true,
                 highlight: true,
@@ -391,7 +374,6 @@ $(function(){
     $(document).on('click', '.btn-delete-meeting', function() {
         var confirmed = confirm('Are you sure?');
         var btn = $(this);
-        var member = btn.data('meeting');
         var token = $("#csrf-token").val();
 
         if (confirmed) {
@@ -427,7 +409,8 @@ $(function(){
         height: '130px'
     });
 
-    if ($('#quick-member-search-for-fee').length) {
+    var inputQuickMemberSearchForFee = $('#quick-member-search-for-fee');
+    if (inputQuickMemberSearchForFee.length) {
         var engineA = new Bloodhound({
             name: 'members',
             prefetch: {url: '/members/prefetch'},
@@ -438,7 +421,7 @@ $(function(){
         });
         engineA.initialize();
 
-        $('#quick-member-search-for-fee').typeahead(
+        inputQuickMemberSearchForFee.typeahead(
             {
                 hint: true,
                 highlight: true,
@@ -456,7 +439,6 @@ $(function(){
                     url: '/members/' + member.id + '/quick-info',
                     success:function(data){
 
-                        console.log(data);
                         $("#member-info").html(data).show();
 
                     }
@@ -465,7 +447,7 @@ $(function(){
             });
     }
 
-    $('#quick-member-search-for-fee').click(function(){
+    inputQuickMemberSearchForFee.click(function(){
         $(this).val('');
     });
 
@@ -484,8 +466,6 @@ $(function(){
 
     var sendDocumentData = function(form, url, method, onSuccess, onError) {
 
-        console.log(form);
-
         $.ajax({
             type: method,
             url: url,
@@ -500,8 +480,6 @@ $(function(){
             error: onError
         });
 
-
-        console.log("Title (sendDocumentData): " + $("#form-edit-document").find("#document-title").val());
     };
 
     $(document).on('click', '#btn-store-document', function() {
@@ -623,7 +601,6 @@ $(function(){
 
                     var document_item = btn.parents('.document-item');
 
-                    //console.log(document_item.html());
 
                     document_item.html("");
                     document_item.removeClass('panel panel-default');
@@ -636,9 +613,6 @@ $(function(){
                         data.message + '</div>'
                     );
 
-                },
-                error: function(data, status, message) {
-                    console.log(status + ": " + message);
                 }
             });
 
