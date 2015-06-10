@@ -32,10 +32,17 @@
                 <div class="form-group">
                     <label style="margin-right: 10px;">Visible to:</label>
                     <label class="radio-inline">
-                        <input type="radio" name="document-access" id="document-access-all" value="all" checked> All members
+                        {% set boardOnly = "" %}
+                        {% set allMembers = "" %}
+                        {% if document.isVisibleToAllMembers() %}
+                            {% set allMembers = "checked" %}
+                        {% else %}
+                            {% set boardOnly = "checked" %}
+                        {% endif %}
+                        <input type="radio" name="document-access" id="document-access-all" value="all" {{ allMembers }}> All members
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="document-access" id="document-access-board" value="board"> Board members
+                        <input type="radio" name="document-access" id="document-access-board" value="board" {{ boardOnly }}> Board members
                     </label>
                 </div>
             </form>
