@@ -1,6 +1,6 @@
-<div class="panel panel-default document-item">
+<div class="panel panel-default document-item" data-document-id="{{ document.getId() }}">
     <div class="panel-heading clearfix">
-        <h3 class="panel-title  pull-left">{{ document.getTitle() }}</small></h3>
+        <h3 class="panel-title  pull-left document-title">{{ document.getTitle() }}</h3>
         <div class="pull-right document-actions" style="display: none;">
             <a class="has-tooltip btn-edit-document" href="{{ route('documents.edit', document.getId()) }}"
                data-document-id="{{ document.getId() }}" data-toggle="tooltip" data-placement="top" title="Edit">
@@ -15,7 +15,7 @@
         <div class="modal fade"  id="modal-edit-document"></div>
         <div class="row">
             <div class="col-md-12">
-                <p>{{ document.getDescription() }}</p>
+                <p class="document-description">{{ document.getDescription() }}</p>
             </div>
         </div>
 
@@ -30,9 +30,9 @@
 
                     Visible to:
                     {% if document.isVisibleToAllMembers() %}
-                        all members.
+                        <span class="document-access">all members</span>.
                     {% else  %}
-                        board members.
+                        <span class="document-access">board members</span>.
                     {% endif %}
                     {{ document.countOpenings() }} views by {{ document.countOpeners() }} members.
                 </p>

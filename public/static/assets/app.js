@@ -510,12 +510,26 @@ $(function(){
     $(document).on('click', '#btn-update-document', function() {
         var btn = $(this);
         var form = btn.parents('form');
+        var documentId = btn.parents('#document-item').data('document-id');
 
 
-        var onSuccess = function(){
+        var onSuccess = function(res){
 
             /** @todo Show success message */
-            /** @todo Update the document's data in the list */
+
+            var d = $("div[data-document-id=\"" + res.data.document.id + "\"]");
+            var doc = res.data.document;
+
+            d.find('.document-description').html(doc.description);
+            d.find('.document-title').html(doc.title);
+
+            var da = d.find('.document-access');
+
+            if (doc['document-access'] == 'board') {
+                da.html('board members');
+            } else {
+                da.html('all members');
+            }
 
             setTimeout(function(){
                 $('#modal-edit-document').modal('hide');

@@ -38,25 +38,27 @@ class BaseController extends Controller
     /**
      * @param string $status
      * @param string $message
+     * @param array $data
      * @return JsonResponse
      */
-    protected function respondWithJson($status, $message)
+    protected function respondWithJson($status, $message, $data = [])
     {
-        $data = [
+        $responseData = [
             'status' => $status,
-            'message' => $message
+            'message' => $message,
+            'data' => $data
         ];
 
-        return new JsonResponse($data);
+        return new JsonResponse($responseData);
     }
 
-    public function successfulJsonResponse($message)
+    public function successfulJsonResponse($message, $data = [])
     {
-        return $this->respondWithJson('success', $message);
+        return $this->respondWithJson('success', $message, $data);
     }
 
-    public function errorJsonResponse($message)
+    public function errorJsonResponse($message, $data = [])
     {
-        return $this->respondWithJson('error', $message);
+        return $this->respondWithJson('error', $message, $data);
     }
 }

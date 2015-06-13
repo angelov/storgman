@@ -149,10 +149,11 @@ class DocumentsController extends BaseController
     public function update(StoreDocumentRequest $request, $id)
     {
         $data = $request->all();
+        $data['id'] = $id;
 
         $this->commandBus->dispatch(new UpdateDocumentCommand($id, $data));
 
-        return $this->successfulJsonResponse("Document updated successfully.");
+        return $this->successfulJsonResponse("Document updated successfully.", ['document' => $data]);
     }
 }
 
