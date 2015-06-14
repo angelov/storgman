@@ -286,8 +286,6 @@ class FakeDataSeeder extends Seeder
 
             $document->setSubmitter($submitter);
 
-            $this->documents->store($document);
-
             $openers = $this->pickGeneratedMembers(rand(0, count($this->generatedMembers) - 1));
 
             foreach ($openers as $opener) {
@@ -304,6 +302,8 @@ class FakeDataSeeder extends Seeder
             foreach ($tags as $tag) {
                 $document->addTag($tag);
             }
+
+            $this->documents->store($document);
         }
 
         printf("Generated %d documents with total %d openings\n", $count, $countOpenings);

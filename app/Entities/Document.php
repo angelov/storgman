@@ -34,6 +34,7 @@ class Document extends Model
     protected $table = "documents";
 
     protected $tagList = [];
+    protected $openedByList = [];
 
     public function getId()
     {
@@ -98,7 +99,7 @@ class Document extends Model
 
     public function addOpener(Member $member)
     {
-        $this->openedBy()->attach($member);
+        $this->openedByList[] = $member;
     }
 
     /**
@@ -192,6 +193,10 @@ class Document extends Model
 
         foreach ($this->tagList as $tag) {
             $this->tags()->attach($tag);
+        }
+
+        foreach ($this->openedByList as $opener) {
+            $this->openedBy()->attach($opener);
         }
     }
 }
