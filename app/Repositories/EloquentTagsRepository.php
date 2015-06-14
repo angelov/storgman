@@ -40,4 +40,11 @@ class EloquentTagsRepository extends AbstractEloquentRepository implements TagsR
     {
         $tag->save();
     }
+
+    public function getByNames(array $names)
+    {
+        $tags = $this->entity->whereIn('name', $names)->get()->all();
+
+        return $tags;
+    }
 }

@@ -33,6 +33,8 @@ class Document extends Model
 {
     protected $table = "documents";
 
+    protected $tagList = [];
+
     public function getId()
     {
         return $this->getAttribute('id');
@@ -136,7 +138,7 @@ class Document extends Model
      */
     public function addTag(Tag $tag)
     {
-        $this->tags()->attach($tag);
+        $this->tagList[] = $tag;
     }
 
     /**
@@ -182,6 +184,15 @@ class Document extends Model
     public function setVisibleToBoardOnly()
     {
         $this->setAttribute('board_only', true);
+    }
+
+    public function save(array $options = [])
+    {
+        parent::save($options);
+
+        foreach ($this->tagList as $tag) {
+            $this->tags()->attach($tag);
+        }
     }
 }
  

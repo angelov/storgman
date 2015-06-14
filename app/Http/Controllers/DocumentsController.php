@@ -155,5 +155,11 @@ class DocumentsController extends BaseController
 
         return $this->successfulJsonResponse("Document updated successfully.", ['document' => $data]);
     }
+
+    public function listTags(TagsRepositoryInterface $tags)
+    {
+        $all = $tags->all();
+        return new JsonResponse($all);
+    }
 }
 

@@ -48,5 +48,13 @@ interface TagsRepositoryInterface extends RepositoryInterface
      * @return void
      */
     public function store(Tag $tag);
+
+    /**
+     * Returns an array with tags that have some of the given names
+     *
+     * @param array $names
+     * @return Tag[]
+     */
+    public function getByNames(array $names);
 }
  

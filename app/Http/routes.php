@@ -196,5 +196,6 @@ $router->group(['prefix' => 'documents'], function (Router $router) {
     $router->get('/{id}/edit', ['as' => 'documents.edit',    'uses' => 'DocumentsController@edit',    'middleware' => ['ajax']]);
     $router->put('/{id}',      ['as' => 'documents.update',  'uses' => 'DocumentsController@update',  'middleware' => ['ajax']]);
     $router->get('/tag/{id}',  ['as' => 'documents.byTag',   'uses' => 'DocumentsController@byTag']);
+    $router->get('/tags',      ['as' => 'documents.tags',    'uses' => 'DocumentsController@listTags']);
 
 });

@@ -474,6 +474,7 @@ $(function(){
                 'description': form.find('#document-description').val(),
                 'url': form.find('#document-url').val(),
                 'document-access': form.find("input:radio[name='document-access']:checked").val(),
+                'tags': form.find("#document-tags").tagsinput('items'),
                 '_token': form.find("#csrf-token").val()
             },
             success: onSuccess,
@@ -495,12 +496,12 @@ $(function(){
             setTimeout(function(){
                 $('#modal-add-document').modal('hide');
                 $("#form-add-document").trigger("reset");
+                $("#document-tags").tagsinput('removeAll');
             }, 1500);
 
         };
 
         var onError = function() { /* todo */ };
-
 
         sendDocumentData(form, btn.attr('href'), 'post', onSuccess, onError);
 
@@ -649,6 +650,28 @@ $(function(){
 
         return false;
 
+    });
+
+    var tagList = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: {
+            url: '/documents/tags'
+            //filter: function(list) {
+            //    return $.map(list, function(cityname) {
+            //        return { name: cityname }; });
+            //}
+        }
+    });
+    tagList.initialize();
+
+    $('#document-tags').tagsinput({
+        typeaheadjs: {
+            name: 'tags',
+            displayKey: 'name',
+            valueKey: 'name',
+            source: tagList.ttAdapter()
+        }
     });
 
     /**

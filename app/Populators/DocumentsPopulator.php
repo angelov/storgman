@@ -29,17 +29,27 @@ namespace Angelov\Eestec\Platform\Populators;
 
 use Angelov\Eestec\Platform\Entities\Document;
 use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Entities\Tag;
+use Angelov\Eestec\Platform\Repositories\TagsRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;
 
 class DocumentsPopulator
 {
     protected $authenticator;
+    protected $tags;
 
-    public function __construct(Guard $authenticator)
+    public function __construct(Guard $authenticator, TagsRepositoryInterface $tags)
     {
         $this->authenticator = $authenticator;
+        $this->tags = $tags;
     }
 
+    /**
+     * @todo Needs some refactoring
+     * @param Document $document
+     * @param array $data
+     * @return Document
+     */
     public function populateFromArray(Document $document, array $data)
     {
         $document->setTitle($data['title']);
@@ -56,6 +66,26 @@ class DocumentsPopulator
         $member = $this->authenticator->user();
 
         $document->setSubmitter($member);
+
+        $tags = $data['tags'];
+
+        $tagsObj = $this->tags->getByNames($tags);
+
+        foreach ($tagsObj as $tag) {
+            $document->addTag($tag);
+
+            if(($key = array_search($tag->getName(), $tags)) !== false) {
+                unset($tags[$key]);
+            }
+        }
+
+        foreach ($tags as $newTag) {
+            $tag = new Tag();
+            $tag->setName($newTag);
+
+            $this->tags->store($tag);
+            $document->addTag($tag);
+        }
 
         return $document;
     }
