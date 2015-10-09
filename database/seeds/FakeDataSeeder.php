@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Entities\Document;
-use Angelov\Eestec\Platform\Entities\Fee;
-use Angelov\Eestec\Platform\Entities\Meeting;
-use Angelov\Eestec\Platform\Entities\Member;
-use Angelov\Eestec\Platform\Entities\Tag;
+use Angelov\Eestec\Platform\Documents\Document;
+use Angelov\Eestec\Platform\Membership\Fee;
+use Angelov\Eestec\Platform\Meetings\Meeting;
+use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Eestec\Platform\Documents\Tags\Tag;
 use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;

@@ -27,9 +27,9 @@
 
 namespace Angelov\Eestec\Platform\Populators;
 
-use Angelov\Eestec\Platform\Entities\Document;
-use Angelov\Eestec\Platform\Entities\Member;
-use Angelov\Eestec\Platform\Entities\Tag;
+use Angelov\Eestec\Platform\Documents\Document;
+use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Eestec\Platform\Documents\Tags\Tag;
 use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;
 
@@ -46,9 +46,9 @@ class DocumentsPopulator
 
     /**
      * @todo Needs some refactoring
-     * @param Document $document
+     * @param \Angelov\Eestec\Platform\Documents\Document $document
      * @param array $data
-     * @return Document
+     * @return \Angelov\Eestec\Platform\Documents\Document
      */
     public function populateFromArray(Document $document, array $data)
     {
@@ -62,7 +62,7 @@ class DocumentsPopulator
             $document->setVisibleToAllMembers();
         }
 
-        /** @var Member $member */
+        /** @var \Angelov\Eestec\Platform\Members\Member $member */
         $member = $this->authenticator->user();
 
         $document->setSubmitter($member);

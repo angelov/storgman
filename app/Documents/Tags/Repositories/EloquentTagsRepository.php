@@ -29,7 +29,7 @@ namespace Angelov\Eestec\Platform\Documents\Tags\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
 use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
-use Angelov\Eestec\Platform\Entities\Tag;
+use Angelov\Eestec\Platform\Documents\Tags\Tag;
 
 class EloquentTagsRepository extends AbstractEloquentRepository implements TagsRepositoryInterface
 {

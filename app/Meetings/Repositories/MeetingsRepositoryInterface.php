@@ -29,8 +29,8 @@ namespace Angelov\Eestec\Platform\Meetings\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Entities\Meeting;
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Meetings\Meeting;
+use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendanceDetailsReport;
 use Angelov\Eestec\Platform\Reports\MeetingsPerMonthReport;
@@ -58,7 +58,7 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
     /**
      * Stores a meeting
      *
-     * @param  Meeting $meeting
+     * @param  \Angelov\Eestec\Platform\Meetings\Meeting $meeting
      * @return void
      */
     public function store(Meeting $meeting);
@@ -102,7 +102,7 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
     /**
      * Count the number of meetings attended by member per month
      *
-     * @param Member $member
+     * @param \Angelov\Eestec\Platform\Members\Member $member
      * @param DateTime $from
      * @param DateTime $to
      * @return MeetingsPerMonthReport

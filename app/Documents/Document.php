@@ -25,8 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Entities;
+namespace Angelov\Eestec\Platform\Documents;
 
+use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Eestec\Platform\Documents\Tags\Tag;
 use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
@@ -73,11 +75,11 @@ class Document extends Model
 
     public function submitter()
     {
-        return $this->belongsTo('Angelov\Eestec\Platform\Entities\Member', 'submitted_by');
+        return $this->belongsTo('Angelov\Eestec\Platform\Members\Member', 'submitted_by');
     }
 
     /**
-     * @return Member
+     * @return \Angelov\Eestec\Platform\Members\Member
      */
     public function getSubmitter()
     {
@@ -94,7 +96,7 @@ class Document extends Model
 
     public function openedBy()
     {
-        return $this->belongsToMany('Angelov\Eestec\Platform\Entities\Member', 'document_openings')->withTimestamps();
+        return $this->belongsToMany('Angelov\Eestec\Platform\Members\Member', 'document_openings')->withTimestamps();
     }
 
     public function addOpener(Member $member)
@@ -103,7 +105,7 @@ class Document extends Model
     }
 
     /**
-     * @return Member[]
+     * @return \Angelov\Eestec\Platform\Members\Member[]
      */
     public function getOpeners()
     {
@@ -131,11 +133,11 @@ class Document extends Model
 
     public function tags()
     {
-        return $this->belongsToMany('Angelov\Eestec\Platform\Entities\Tag');
+        return $this->belongsToMany('Angelov\Eestec\Platform\Documents\Tags\Tag');
     }
 
     /**
-     * @param Tag $tag
+     * @param \Angelov\Eestec\Platform\Documents\Tags\Tag $tag
      */
     public function addTag(Tag $tag)
     {

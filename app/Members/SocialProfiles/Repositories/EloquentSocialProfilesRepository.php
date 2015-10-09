@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Members\SocialProfiles\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Entities\SocialProfile;
+use Angelov\Eestec\Platform\Members\SocialProfiles\SocialProfile;
 
 class EloquentSocialProfilesRepository extends AbstractEloquentRepository implements SocialProfilesRepositoryInterface
 {

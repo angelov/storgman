@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Events\Fees;
 
-use Angelov\Eestec\Platform\Entities\Fee;
+use Angelov\Eestec\Platform\Membership\Fee;
 use Angelov\Eestec\Platform\Events\Event;
 
 class FeeWasProceededEvent extends Event

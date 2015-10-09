@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Http\Middleware;
 
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Members\Member;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 

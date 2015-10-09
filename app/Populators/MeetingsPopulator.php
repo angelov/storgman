@@ -27,8 +27,8 @@
 
 namespace Angelov\Eestec\Platform\Populators;
 
-use Angelov\Eestec\Platform\Entities\Meeting;
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Meetings\Meeting;
+use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Services\MeetingsService;
 use Illuminate\Contracts\Auth\Guard;

@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Http\Middleware;
 
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Members\Member;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
@@ -49,7 +49,7 @@ class BoardMembersOnlyMiddleware
      */
     public function handle($request, Closure $next)
     {
-        /** @var Member $member */
+        /** @var \Angelov\Eestec\Platform\Members\Member $member */
         $member = $this->guard->user();
 
         if (!$member->isBoardMember()) {

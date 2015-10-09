@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Services;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Reports\MeetingAttendedReport;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendanceDetailsForMemberReport;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendedByMemberPerMonthReport;
@@ -51,7 +51,7 @@ class MeetingsService
     /**
      * Calculates the member's attendance details for the weekly meetings.
      *
-     * @param Member $member
+     * @param \Angelov\Eestec\Platform\Members\Member $member
      * @return MeetingsAttendanceDetailsForMemberReport
      */
     public function calculateAttendanceDetailsForMember(Member $member)
@@ -82,7 +82,7 @@ class MeetingsService
     }
 
     /**
-     * @param Member $member
+     * @param \Angelov\Eestec\Platform\Members\Member $member
      * @return MeetingAttendedReport[]
      */
     public function latestMeetingsAttendanceStatusForMember(Member $member)
@@ -99,7 +99,7 @@ class MeetingsService
     }
 
     /**
-     * @param Member $member
+     * @param \Angelov\Eestec\Platform\Members\Member $member
      * @return MeetingsAttendedByMemberPerMonthReport
      */
     public function calculateMonthlyAttendanceDetailsForMember(Member $member)
@@ -146,7 +146,7 @@ class MeetingsService
     /**
      * Serialize the attendants' IDs in one string
      *
-     * @param Member[] $attendants
+     * @param \Angelov\Eestec\Platform\Members\Member[] $attendants
      * @return string
      */
     public function prepareAttendantsIds(array $attendants)
@@ -162,7 +162,7 @@ class MeetingsService
 
     /**
      * @param string $ids
-     * @return Member[]
+     * @return \Angelov\Eestec\Platform\Members\Member[]
      */
     public function extractAttendants($ids)
     {

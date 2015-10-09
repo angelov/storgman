@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,13 +20,14 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Entities;
+namespace Angelov\Eestec\Platform\Members;
 
+use Angelov\Eestec\Platform\Membership\Fee;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Auth\Authenticatable;
@@ -334,7 +335,7 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
      */
     public function fees()
     {
-        return $this->hasMany('Angelov\Eestec\Platform\Entities\Fee');
+        return $this->hasMany('Angelov\Eestec\Platform\Membership\Fee');
     }
 
     /**
@@ -421,7 +422,7 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
      */
     public function attendedMeetings()
     {
-        return $this->belongsToMany('Angelov\Eestec\Platform\Entities\Meeting');
+        return $this->belongsToMany('Angelov\Eestec\Platform\Meetings\Meeting');
     }
 
     /**
@@ -429,6 +430,6 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
      */
     public function createdMeetings()
     {
-        return $this->hasMany('Angelov\Eestec\Platform\Entities\Meeting');
+        return $this->hasMany('Angelov\Eestec\Platform\Meetings\Meeting');
     }
 }

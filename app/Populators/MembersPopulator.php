@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Populators;
 
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
 use DateTime;
 use Illuminate\Contracts\Hashing\Hasher;

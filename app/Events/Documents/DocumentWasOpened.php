@@ -27,8 +27,8 @@
 
 namespace Angelov\Eestec\Platform\Events\Documents;
 
-use Angelov\Eestec\Platform\Entities\Document;
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Documents\Document;
+use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Events\Event;
 
 class DocumentWasOpened extends Event

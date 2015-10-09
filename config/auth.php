@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => 'Angelov\Eestec\Platform\Entities\Member',
+    'model' => 'Angelov\Eestec\Platform\Members\Member',
 
     /*
     |--------------------------------------------------------------------------

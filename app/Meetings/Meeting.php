@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,13 +20,14 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Entities;
+namespace Angelov\Eestec\Platform\Meetings;
 
+use Angelov\Eestec\Platform\Members\Member;
 use Illuminate\Database\Eloquent\Model;
 
 class Meeting extends Model
@@ -148,7 +149,7 @@ class Meeting extends Model
     }
 
     /**
-     * @return Member
+     * @return \Angelov\Eestec\Platform\Members\Member
      */
     public function getCreator()
     {
@@ -157,12 +158,12 @@ class Meeting extends Model
 
     public function attendants()
     {
-        return $this->belongsToMany('Angelov\Eestec\Platform\Entities\Member');
+        return $this->belongsToMany('Angelov\Eestec\Platform\Members\Member');
     }
 
     public function creator()
     {
-        return $this->belongsTo('Angelov\Eestec\Platform\Entities\Member', 'created_by');
+        return $this->belongsTo('Angelov\Eestec\Platform\Members\Member', 'created_by');
     }
 
     public function save(array $options = [])

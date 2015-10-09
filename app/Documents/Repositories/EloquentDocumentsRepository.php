@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Documents\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Entities\Document;
+use Angelov\Eestec\Platform\Documents\Document;
 
 class EloquentDocumentsRepository extends AbstractEloquentRepository implements DocumentsRepositoryInterface
 {

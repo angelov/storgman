@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Members\SocialProfiles\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Entities\SocialProfile;
+use Angelov\Eestec\Platform\Members\SocialProfiles\SocialProfile;
 
 interface SocialProfilesRepositoryInterface extends RepositoryInterface
 {

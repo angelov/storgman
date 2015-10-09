@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Events\Members;
 
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Events\Event;
 
 abstract class AbstractMemberEvent extends Event

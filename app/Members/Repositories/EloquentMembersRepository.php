@@ -29,7 +29,7 @@ namespace Angelov\Eestec\Platform\Members\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Reports\MembershipStatusReport;
 use Angelov\Eestec\Platform\Reports\MembersPerFacultyReport;
 use Angelov\Eestec\Platform\Reports\NewMembersPerMonthReport;

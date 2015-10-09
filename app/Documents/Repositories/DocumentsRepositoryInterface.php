@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Documents\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Entities\Document;
+use Angelov\Eestec\Platform\Documents\Document;
 use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 
 interface DocumentsRepositoryInterface extends RepositoryInterface
@@ -45,7 +45,7 @@ interface DocumentsRepositoryInterface extends RepositoryInterface
     /**
      * Stores a document
      *
-     * @param  Document $document
+     * @param  \Angelov\Eestec\Platform\Documents\Document $document
      * @return void
      */
     public function store(Document $document);

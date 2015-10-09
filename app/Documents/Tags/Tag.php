@@ -25,77 +25,73 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Entities;
+namespace Angelov\Eestec\Platform\Documents\Tags;
 
-use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
-class Fee extends Model
+class Tag extends Model
 {
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'fees';
+    protected $table = "tags";
 
-    protected $dates = ['from_date', 'to_date'];
+    protected $colors = [
+        "#999",
+        "#428bca",
+        "#5cb85c",
+        "#5bc0de",
+        "#f0ad4e",
+        "#d9534f"
+    ];
 
-    /**
-     * The member who paid the fee
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function member()
+    public function __construct()
     {
-        return $this->belongsTo('Angelov\Eestec\Platform\Entities\Member');
+        $this->setRandomColor();
+        parent::__construct();
     }
 
-    /**
-     * @return int
-     */
     public function getId()
     {
         return $this->getAttribute('id');
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getFromDate()
+    public function getName()
     {
-        return $this->getAttribute('from_date');
+        return $this->getAttribute('name');
     }
 
-    public function setFromDate(DateTime $date)
+    public function setName($name)
     {
-        $this->setAttribute('from_date', $date);
+        $this->setAttribute('name', $name);
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getToDate()
+    public function getColor()
     {
-        return $this->getAttribute('to_date');
+        return $this->getAttribute('color');
     }
 
-    public function setToDate(DateTime $date)
+    public function setColor($color)
     {
-        $this->setAttribute('to_date', $date);
+        $this->setAttribute('color', $color);
     }
 
-    public function setMember(Member $member)
+    public function setRandomColor()
     {
-        $this->member()->associate($member);
+        $color = $this->colors[array_rand($this->colors)];
+        $this->setColor($color);
     }
 
-    /**
-     * @return Member
-     */
-    public function getMember()
+    public function documents()
     {
-        return $this->getAttribute('member');
+        return $this->belongsToMany('Angelov\Eestec\Platform\Documents\Document');
+    }
+
+    public function countDocuments()
+    {
+        return $this->documents->count();
+    }
+
+    public function getDocuments()
+    {
+        return $this->documents->all();
     }
 
     public function getCreatedAt()

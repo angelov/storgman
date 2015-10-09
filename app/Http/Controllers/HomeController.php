@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
 use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Entities\Member;
+use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Services\MembersStatisticsService;
@@ -61,7 +61,7 @@ class HomeController extends BaseController
     {
         $today = new DateTime();
 
-        /** @var Member $logged */
+        /** @var \Angelov\Eestec\Platform\Members\Member $logged */
         $logged = $this->authenticator->user();
         $boardMember = $logged->isBoardMember();
 

@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Documents\Tags\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Entities\Tag;
+use Angelov\Eestec\Platform\Documents\Tags\Tag;
 use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 
 interface TagsRepositoryInterface extends RepositoryInterface

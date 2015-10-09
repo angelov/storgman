@@ -1,7 +1,8 @@
 <?php
 
-namespace Angelov\Eestec\Platform\Entities;
+namespace Angelov\Eestec\Platform\Members\SocialProfiles;
 
+use Angelov\Eestec\Platform\Members\Member;
 use Illuminate\Database\Eloquent\Model;
 
 class SocialProfile extends Model
@@ -10,7 +11,7 @@ class SocialProfile extends Model
 
     public function member()
     {
-        return $this->belongsTo('Angelov\Eestec\Platform\Entities\Member');
+        return $this->belongsTo('Angelov\Eestec\Platform\Members\Member');
     }
 
     /**
