@@ -22,7 +22,7 @@ Under development by [Angelov Dejan](http://angelovdejan.me).
 
 The application is based on the [Laravel 5](http://laravel.com) framework. To install it you need the following:
 
-* PHP >= 5.4
+* PHP >= 5.5.9
 * MCrypt and GD PHP extensions
 * Apache/nginx web server
 * Relational database (tested with PostgreSQL and MySQL)
@@ -41,15 +41,16 @@ To install the application on your local machine, follow these steps:
 3. To configure the application, rename the `.env.example` file to `.env` and update the config values inside
     * You can use `cp .env.example .env` to keep the original file, just in case
     * If you need some more advanced configuration, check the files in the `config` directory
-4. Run the following commands from your command line:
+4. Make sure that the `storage` and `bootstrap/cache` folders are writable
+5. Run the following commands from your command line:
     * `composer install` to install the PHP dependencies
     * `bower install` to install the front-end dependencies
     * `npm install` to prepare the project for Grunt
     * `grunt` to start the Grunt tasks
     * `php artisan migrate` to create the database schema
     * `php artisan db:seed` to insert the default data
-5. Run `http://eestec.local` in your browser. You should see the login screen.
-6. Login using the following credentials (and change them after):
+6. Run `http://eestec.local` in your browser. You should see the login screen.
+7. Login using the following credentials (and change them after):
     * email: `admin@ultim8.info`
     * password: `123456`
 
