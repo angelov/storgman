@@ -25,16 +25,36 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Documents\Tags\Repositories;
 
-use Angelov\Eestec\Platform\Entities\SocialProfile;
+use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
+use Angelov\Eestec\Platform\Entities\Tag;
+use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 
-interface SocialProfilesRepositoryInterface extends RepositoryInterface
+interface TagsRepositoryInterface extends RepositoryInterface
 {
     /**
-     * @param int $profileId (eg. "10204037128757144" for profile on Facebook)
-     * @param string $provider (eg. "facebook")
-     * @return SocialProfile
+     * Returns the tag with the given ID
+     *
+     * @param int $id
+     * @return Tag
+     * @throws ResourceNotFoundException
      */
-    public function getByProfileIdAndProvider($profileId, $provider);
+    public function get($id);
+
+    /**
+     * Stores a tag
+     *
+     * @param  Tag $tag
+     * @return void
+     */
+    public function store(Tag $tag);
+
+    /**
+     * Returns an array with tags that have some of the given names
+     *
+     * @param array $names
+     * @return Tag[]
+     */
+    public function getByNames(array $names);
 }

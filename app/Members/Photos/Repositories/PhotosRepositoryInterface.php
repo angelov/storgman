@@ -25,26 +25,27 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Members\Photos\Repositories;
 
-use Angelov\Eestec\Platform\Entities\Tag;
+use Symfony\Component\HttpFoundation\File\UploadedFile as File;
 
-class EloquentTagsRepository extends AbstractEloquentRepository implements TagsRepositoryInterface
+interface PhotosRepositoryInterface
 {
-    public function __construct(Tag $tag)
-    {
-        $this->entity = $tag;
-    }
+    /**
+     * Store uploaded photo
+     *
+     * @param  File   $file
+     * @param  string $type Eg. "members"
+     * @return string Filename
+     */
+    public function store(File $file, $type);
 
-    public function store(Tag $tag)
-    {
-        $tag->save();
-    }
-
-    public function getByNames(array $names)
-    {
-        $tags = $this->entity->whereIn('name', $names)->get()->all();
-
-        return $tags;
-    }
+    /**
+     * Deletes a photo from the storage
+     *
+     * @param string $filename
+     * @param string $type Eg. "members"
+     * @return void
+     */
+    public function destroy($filename, $type);
 }

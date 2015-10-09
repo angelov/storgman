@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Handlers\Commands\Meetings;
 use Angelov\Eestec\Platform\Commands\Meetings\CreateMeetingReportCommand;
 use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Populators\MeetingsPopulator;
-use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 
 class CreateMeetingReportCommandHandler
 {

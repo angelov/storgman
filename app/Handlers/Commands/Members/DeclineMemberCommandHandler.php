@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 use Angelov\Eestec\Platform\Commands\Members\DeclineMemberCommand;
 use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
 use Angelov\Eestec\Platform\Events\Members\MemberWasDeclinedEvent;
-use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 

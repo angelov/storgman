@@ -25,27 +25,28 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Documents\Tags\Repositories;
 
-use Angelov\Eestec\Platform\Entities\Document;
-use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
+use Angelov\Eestec\Platform\Entities\Tag;
 
-interface DocumentsRepositoryInterface extends RepositoryInterface
+class EloquentTagsRepository extends AbstractEloquentRepository implements TagsRepositoryInterface
 {
-    /**
-     * Returns the meeting with the given ID
-     *
-     * @param int $id
-     * @return Document
-     * @throws ResourceNotFoundException
-     */
-    public function get($id);
+    public function __construct(Tag $tag)
+    {
+        $this->entity = $tag;
+    }
 
-    /**
-     * Stores a document
-     *
-     * @param  Document $document
-     * @return void
-     */
-    public function store(Document $document);
+    public function store(Tag $tag)
+    {
+        $tag->save();
+    }
+
+    public function getByNames(array $names)
+    {
+        $tags = $this->entity->whereIn('name', $names)->get()->all();
+
+        return $tags;
+    }
 }

@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Handlers\Events\Documents;
 
 use Angelov\Eestec\Platform\Events\Documents\DocumentWasOpened;
-use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
+use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 
 class TrackDocumentOpening
 {

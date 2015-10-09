@@ -25,23 +25,17 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Members\SocialProfiles\Repositories;
 
+use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\Entities\SocialProfile;
 
-class EloquentSocialProfilesRepository extends AbstractEloquentRepository implements SocialProfilesRepositoryInterface
+interface SocialProfilesRepositoryInterface extends RepositoryInterface
 {
-    public function __construct(SocialProfile $entity)
-    {
-        $this->entity = $entity;
-    }
-
-    public function getByProfileIdAndProvider($profileId, $provider)
-    {
-        return $this->entity
-                    ->with('member')
-                    ->where('profile_id', $profileId)
-                    ->where('provider', $provider)
-                    ->first();
-    }
+    /**
+     * @param int $profileId (eg. "10204037128757144" for profile on Facebook)
+     * @param string $provider (eg. "facebook")
+     * @return SocialProfile
+     */
+    public function getByProfileIdAndProvider($profileId, $provider);
 }

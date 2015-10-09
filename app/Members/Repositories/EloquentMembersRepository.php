@@ -25,8 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Members\Repositories;
 
+use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Reports\MembershipStatusReport;

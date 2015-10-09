@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Paginators;
 
-use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 
 class MeetingsPaginator extends AbstractPaginator
 {

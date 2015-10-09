@@ -30,12 +30,12 @@ use Angelov\Eestec\Platform\Entities\Fee;
 use Angelov\Eestec\Platform\Entities\Meeting;
 use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Entities\Tag;
-use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
-use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Repositories\TagsRepositoryInterface;
+use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
 use Illuminate\Database\Seeder;
-use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 
 class FakeDataSeeder extends Seeder
 {

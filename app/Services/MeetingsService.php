@@ -32,8 +32,8 @@ use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Reports\MeetingAttendedReport;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendanceDetailsForMemberReport;
 use Angelov\Eestec\Platform\Reports\MeetingsAttendedByMemberPerMonthReport;
-use Angelov\Eestec\Platform\Repositories\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 
 class MeetingsService
 {

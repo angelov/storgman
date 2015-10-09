@@ -25,8 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Membership\Repositories;
 
+use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Entities\Fee;
 use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;

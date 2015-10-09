@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Populators;
 use Angelov\Eestec\Platform\Entities\Document;
 use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Entities\Tag;
-use Angelov\Eestec\Platform\Repositories\TagsRepositoryInterface;
+use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;
 
 class DocumentsPopulator

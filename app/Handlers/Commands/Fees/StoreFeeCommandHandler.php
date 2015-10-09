@@ -31,8 +31,8 @@ use Angelov\Eestec\Platform\Commands\Fees\StoreFeeCommand;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Entities\Fee;
 use Angelov\Eestec\Platform\Events\Fees\FeeWasProceededEvent;
-use Angelov\Eestec\Platform\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class StoreFeeCommandHandler

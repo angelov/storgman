@@ -25,8 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Documents\Repositories;
 
+use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
 use Angelov\Eestec\Platform\Entities\Document;
 
 class EloquentDocumentsRepository extends AbstractEloquentRepository implements DocumentsRepositoryInterface

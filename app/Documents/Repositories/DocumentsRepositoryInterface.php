@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,32 +20,33 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Documents\Repositories;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile as File;
+use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
+use Angelov\Eestec\Platform\Entities\Document;
+use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
 
-class LocalPhotosRepository implements PhotosRepositoryInterface
+interface DocumentsRepositoryInterface extends RepositoryInterface
 {
-    public function store(File $photo, $type, $fileName = null)
-    {
-        $fileName = $fileName ?: $photo->getClientOriginalName();
-        $fullPath = storage_path('photos/'. $type);
+    /**
+     * Returns the meeting with the given ID
+     *
+     * @param int $id
+     * @return Document
+     * @throws ResourceNotFoundException
+     */
+    public function get($id);
 
-        $photo->move($fullPath, $fileName);
-    }
-
-    public function destroy($filename, $type)
-    {
-        $fullPath = storage_path('photos/'. $type);
-        $imagePath = $fullPath . "/" . $filename;
-
-        if (file_exists($imagePath)) {
-            unlink($fullPath . "/" . $filename);
-        }
-    }
+    /**
+     * Stores a document
+     *
+     * @param  Document $document
+     * @return void
+     */
+    public function store(Document $document);
 }

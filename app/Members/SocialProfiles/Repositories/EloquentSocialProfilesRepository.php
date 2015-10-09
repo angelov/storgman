@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,32 +20,29 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Members\SocialProfiles\Repositories;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile as File;
+use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Eestec\Platform\Entities\SocialProfile;
 
-interface PhotosRepositoryInterface
+class EloquentSocialProfilesRepository extends AbstractEloquentRepository implements SocialProfilesRepositoryInterface
 {
-    /**
-     * Store uploaded photo
-     *
-     * @param  File   $file
-     * @param  string $type Eg. "members"
-     * @return string Filename
-     */
-    public function store(File $file, $type);
+    public function __construct(SocialProfile $entity)
+    {
+        $this->entity = $entity;
+    }
 
-    /**
-     * Deletes a photo from the storage
-     *
-     * @param string $filename
-     * @param string $type Eg. "members"
-     * @return void
-     */
-    public function destroy($filename, $type);
+    public function getByProfileIdAndProvider($profileId, $provider)
+    {
+        return $this->entity
+                    ->with('member')
+                    ->where('profile_id', $profileId)
+                    ->where('provider', $provider)
+                    ->first();
+    }
 }

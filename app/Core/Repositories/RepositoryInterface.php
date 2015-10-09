@@ -25,35 +25,58 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Repositories;
+namespace Angelov\Eestec\Platform\Core\Repositories;
 
-use Angelov\Eestec\Platform\Entities\Tag;
-use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
-
-interface TagsRepositoryInterface extends RepositoryInterface
+interface RepositoryInterface
 {
     /**
-     * Returns the tag with the given ID
+     * Returns all items
      *
-     * @param int $id
-     * @return Tag
-     * @throws ResourceNotFoundException
+     * @param array $withRelationships
+     * @return array
      */
-    public function get($id);
+    public function all(array $withRelationships = []);
 
     /**
-     * Stores a tag
+     * Returns array of items for a specific page
      *
-     * @param  Tag $tag
+     * @param int $page
+     * @param int $limit
+     * @param array $withRelationships
+     * @return \stdClass
+     */
+    public function getByPage($page, $limit, array $withRelationships);
+
+    /**
+     * Returns the latest N items
+     *
+     * @param $count
+     * @param array $withRelationships
+     * @param string $orderByField
+     * @return array
+     */
+    public function latest($count, array $withRelationships = [], $orderByField = 'id');
+
+    /**
+     * Deletes a fee from the storage
+     *
+     * @param $id int
      * @return void
      */
-    public function store(Tag $tag);
+    public function destroy($id);
 
     /**
-     * Returns an array with tags that have some of the given names
+     * Returns the member with the specific IDs
      *
-     * @param array $names
-     * @return Tag[]
+     * @param array $ids
+     * @return array
      */
-    public function getByNames(array $names);
+    public function getByIds(array $ids);
+
+    /**
+     * Counts the members
+     *
+     * @return int
+     */
+    public function countAll();
 }

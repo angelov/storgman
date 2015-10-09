@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Handlers\Commands\Documents;
 
 use Angelov\Eestec\Platform\Commands\Documents\DeleteDocumentCommand;
-use Angelov\Eestec\Platform\Repositories\DocumentsRepositoryInterface;
+use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 
 class DeleteDocumentCommandHandler
 {

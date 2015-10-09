@@ -27,14 +27,14 @@
 
 namespace Angelov\Eestec\Platform\Paginators;
 
-use Angelov\Eestec\Platform\Repositories\RepositoryInterface;
+use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 
 abstract class AbstractPaginator
 {
     /** @var Factory $paginator */
     protected $paginator;
 
-    /** @var RepositoryInterface */
+    /** @var \Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface */
     protected $repository;
 
     protected $itemsPerPage = 15;

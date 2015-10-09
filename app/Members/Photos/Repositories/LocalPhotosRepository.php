@@ -25,34 +25,27 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
+namespace Angelov\Eestec\Platform\Members\Photos\Repositories;
 
-use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile as File;
 
-class DeleteMemberCommandHandler
+class LocalPhotosRepository implements PhotosRepositoryInterface
 {
-    protected $members;
-    protected $photos;
-
-    public function __construct(MembersRepositoryInterface $members, PhotosRepositoryInterface $photos)
+    public function store(File $photo, $type, $fileName = null)
     {
-        $this->members = $members;
-        $this->photos = $photos;
+        $fileName = $fileName ?: $photo->getClientOriginalName();
+        $fullPath = storage_path('photos/'. $type);
+
+        $photo->move($fullPath, $fileName);
     }
 
-    public function handle(DeleteMemberCommand $command)
+    public function destroy($filename, $type)
     {
-        $id = $command->getMemberId();
+        $fullPath = storage_path('photos/'. $type);
+        $imagePath = $fullPath . "/" . $filename;
 
-        $member = $this->members->get($id);
-        $photo = $member->getPhoto();
-
-        if (isset($photo)) {
-            $this->photos->destroy($photo, 'members');
+        if (file_exists($imagePath)) {
+            unlink($fullPath . "/" . $filename);
         }
-
-        $this->members->destroy($id);
     }
 }

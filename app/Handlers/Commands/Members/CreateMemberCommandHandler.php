@@ -31,8 +31,8 @@ use Angelov\Eestec\Platform\Commands\Members\CreateMemberCommand;
 use Angelov\Eestec\Platform\Entities\Member;
 use Angelov\Eestec\Platform\Events\Members\MemberJoinedEvent;
 use Angelov\Eestec\Platform\Populators\MembersPopulator;
-use Angelov\Eestec\Platform\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
