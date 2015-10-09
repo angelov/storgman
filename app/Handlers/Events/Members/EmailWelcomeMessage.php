@@ -44,10 +44,8 @@ class EmailWelcomeMessage
     {
         $member = $event->getMember();
 
-        $this->mailer->send('emails.members.registered', compact('member'), function(Message $message) use ($member)
-        {
+        $this->mailer->send('emails.members.registered', compact('member'), function (Message $message) use ($member) {
             $message->to($member->getEmail())->subject('Thank you for joining us!');
         });
     }
 }
- 

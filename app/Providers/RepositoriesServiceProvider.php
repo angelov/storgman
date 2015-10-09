@@ -64,7 +64,5 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind('PhotosRepository', function () use ($container) {
             return $container->make('Angelov\Eestec\Platform\Repositories\PhotosRepositoryInterface');
         });
-
     }
 }
- 

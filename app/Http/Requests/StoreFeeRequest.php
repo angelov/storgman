@@ -46,4 +46,3 @@ class StoreFeeRequest extends Request
         return new JsonResponse($data);
     }
 }
- 

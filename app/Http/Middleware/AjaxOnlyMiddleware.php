@@ -40,13 +40,12 @@ class AjaxOnlyMiddleware
      * @throws NotAllowedException
      * @return mixed
      */
-	public function handle($request, Closure $next)
-	{
+    public function handle($request, Closure $next)
+    {
         if (!$request->ajax()) {
             throw new NotAllowedException();
         }
 
         return $next($request);
-	}
-
+    }
 }

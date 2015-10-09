@@ -183,5 +183,4 @@ class MeetingsController extends BaseController
 
         return $this->successfulJsonResponse('Meeting deleted successfully.');
     }
-
 }

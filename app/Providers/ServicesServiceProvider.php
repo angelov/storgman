@@ -34,7 +34,8 @@ class ServicesServiceProvider extends ServiceProvider
 {
     protected $container;
 
-    public function __construct(Application $container) {
+    public function __construct(Application $container)
+    {
         $this->container = $container;
     }
 
@@ -55,4 +56,3 @@ class ServicesServiceProvider extends ServiceProvider
         });
     }
 }
- 

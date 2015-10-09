@@ -3,18 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSocialProfilesTable extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('social_profiles', function(Blueprint $table)
-		{
-			$table->increments('id');
+class CreateSocialProfilesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('social_profiles', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('provider');
             $table->string('profile_id');
 
@@ -25,18 +24,17 @@ class CreateSocialProfilesTable extends Migration {
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-			$table->timestamps();
-		});
-	}
+            $table->timestamps();
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('social_profiles');
-	}
-
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('social_profiles');
+    }
 }

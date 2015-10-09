@@ -63,5 +63,4 @@ class MeetingsAttendanceDetailsForMemberReport
 
         return (int)round($rate, 0);
     }
-
 }

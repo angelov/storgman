@@ -68,4 +68,3 @@ class StoreFeeCommandHandler
         $this->events->fire(new FeeWasProceededEvent($fee));
     }
 }
- 

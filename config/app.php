@@ -111,8 +111,8 @@ return [
     'providers' => [
 
         /*
-		 * Laravel Framework Service Providers...
-		 */
+         * Laravel Framework Service Providers...
+         */
 
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
@@ -148,8 +148,8 @@ return [
         'Laravel\Socialite\SocialiteServiceProvider',
 
         /*
-		 * Application Service Providers...
-		 */
+         * Application Service Providers...
+         */
 
         'Angelov\Eestec\Platform\Providers\AppServiceProvider',
         'Angelov\Eestec\Platform\Providers\BusServiceProvider',

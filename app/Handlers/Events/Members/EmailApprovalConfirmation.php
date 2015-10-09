@@ -36,17 +36,16 @@ class EmailApprovalConfirmation
     protected $mailer;
 
     public function __construct(Mailer $mailer)
-	{
+    {
         $this->mailer = $mailer;
     }
 
-	public function handle(MemberWasApprovedEvent $event)
-	{
+    public function handle(MemberWasApprovedEvent $event)
+    {
         $member = $event->getMember();
 
-        $this->mailer->send('emails.members.approved', compact('member'), function(Message $message) use ($member)
-        {
+        $this->mailer->send('emails.members.approved', compact('member'), function (Message $message) use ($member) {
             $message->to($member->getEmail())->subject('Your account was approved!');
         });
-	}
+    }
 }

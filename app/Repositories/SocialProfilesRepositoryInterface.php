@@ -38,4 +38,3 @@ interface SocialProfilesRepositoryInterface extends RepositoryInterface
      */
     public function getByProfileIdAndProvider($profileId, $provider);
 }
- 

@@ -156,5 +156,4 @@ class AuthController extends BaseController
 
         return $this->redirector->to('/');
     }
-
 }

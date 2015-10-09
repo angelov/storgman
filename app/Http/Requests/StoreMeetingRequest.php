@@ -35,4 +35,3 @@ class StoreMeetingRequest extends Request
         'created_by' => 'required|exists:members,id'
     ];
 }
- 

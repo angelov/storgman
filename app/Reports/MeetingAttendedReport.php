@@ -95,7 +95,4 @@ class MeetingAttendedReport
     {
         return $this->member;
     }
-
-
-
 }

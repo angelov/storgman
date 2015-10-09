@@ -71,17 +71,14 @@ class CreateMemberCommandHandler
             $this->photos->store($photo, 'members', $photoFileName);
 
             $member->setPhoto($photoFileName);
-
         }
 
         if ($command->shouldBeApproved()) { // Member was added by a board member
 
             $member->setApproved(true);
-
         } else { // The member created his account
 
             $this->events->fire(new MemberJoinedEvent($member));
-
         }
 
         $this->members->store($member);

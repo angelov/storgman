@@ -66,17 +66,13 @@ class MembershipService
         $suggestDates = [];
 
         if ($exp !== null) {
-
             $exp = clone $exp;
             $suggestDates['from'] = $exp->modify('+1 day')->format('Y-m-d');
             $suggestDates['to'] = $exp->modify('+1 year')->format('Y-m-d');
-
         } else {
-
             $today = new \DateTime('now');
             $suggestDates['from'] = $today->format('Y-m-d');
             $suggestDates['to'] = $today->modify('+1 year')->format('Y-m-d');
-
         }
 
         return $suggestDates;

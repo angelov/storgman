@@ -58,4 +58,3 @@ class DocumentWasOpened extends Event
         return $this->member;
     }
 }
- 

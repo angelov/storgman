@@ -78,5 +78,4 @@ class DefaultMemberSeeder extends Seeder
 
         $this->fees->store($fee);
     }
-
 }

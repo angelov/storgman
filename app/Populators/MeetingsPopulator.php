@@ -69,4 +69,4 @@ class MeetingsPopulator
 
         return $meeting;
     }
-} 
+}

@@ -44,10 +44,8 @@ class EmailDenialConfirmation
     {
         $member = $event->getMember();
 
-        $this->mailer->send('emails.members.declined', compact('member'), function(Message $message) use ($member)
-        {
+        $this->mailer->send('emails.members.declined', compact('member'), function (Message $message) use ($member) {
             $message->to($member->getEmail())->subject('We are sorry...');
         });
     }
 }
- 

@@ -40,4 +40,3 @@ class LoginFormRequest extends Request
         return $this->redirector->back()->withInput();
     }
 }
- 

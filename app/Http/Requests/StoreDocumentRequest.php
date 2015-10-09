@@ -30,4 +30,3 @@ namespace Angelov\Eestec\Platform\Http\Requests;
 class StoreDocumentRequest extends Request
 {
 }
- 

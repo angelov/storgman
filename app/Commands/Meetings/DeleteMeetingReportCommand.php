@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Commands\Meetings;
 
-class DeleteMeetingReportCommand 
+class DeleteMeetingReportCommand
 {
     protected $meetingId;
 
@@ -41,4 +41,3 @@ class DeleteMeetingReportCommand
         return $this->meetingId;
     }
 }
- 

@@ -43,4 +43,3 @@ class DeleteDocumentCommand extends Command
         return $this->id;
     }
 }
- 

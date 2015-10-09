@@ -50,4 +50,3 @@ class UpdateMeetingReportCommand extends Command
         return $this->data;
     }
 }
- 

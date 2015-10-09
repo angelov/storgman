@@ -34,7 +34,7 @@ class UpdateDocumentCommand extends Command
     protected $documentId;
     protected $data = [];
 
-    function __construct($documentId, array $data)
+    public function __construct($documentId, array $data)
     {
         $this->data = $data;
         $this->documentId = $documentId;
@@ -50,4 +50,3 @@ class UpdateDocumentCommand extends Command
         return $this->data;
     }
 }
- 

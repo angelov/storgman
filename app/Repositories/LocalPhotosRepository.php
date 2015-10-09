@@ -48,5 +48,4 @@ class LocalPhotosRepository implements PhotosRepositoryInterface
             unlink($fullPath . "/" . $filename);
         }
     }
-
 }

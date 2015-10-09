@@ -38,7 +38,7 @@ class MembershipStatusReport implements JsonSerializable
      * @param integer $total Total number of members
      * @param integer $active The number of active members
      */
-    function __construct($total, $active)
+    public function __construct($total, $active)
     {
         $this->active = $active;
         $this->total = $total;

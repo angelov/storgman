@@ -52,4 +52,3 @@ class UpdateMeetingReportCommandHandler
         $this->meetings->store($meeting);
     }
 }
- 

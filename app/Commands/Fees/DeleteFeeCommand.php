@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Commands\Fees;
 
-class DeleteFeeCommand 
+class DeleteFeeCommand
 {
     protected $feeId;
 
@@ -41,4 +41,3 @@ class DeleteFeeCommand
         return $this->feeId;
     }
 }
- 

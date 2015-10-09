@@ -49,4 +49,3 @@ interface DocumentsRepositoryInterface extends RepositoryInterface
      */
     public function store(Document $document);
 }
- 

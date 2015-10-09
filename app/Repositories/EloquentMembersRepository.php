@@ -103,7 +103,6 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
         }
 
         return $report;
-
     }
 
     public function countNewMembersPerMonth(DateTime $from, DateTime $to)
@@ -164,5 +163,4 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
     {
         return $this->entity->where('approved', false)->get()->all();
     }
-
 }

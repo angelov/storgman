@@ -44,4 +44,3 @@ class FeeWasProceededEvent extends Event
         return $this->fee;
     }
 }
- 

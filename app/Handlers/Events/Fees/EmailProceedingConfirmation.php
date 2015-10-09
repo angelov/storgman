@@ -45,10 +45,8 @@ class EmailProceedingConfirmation
         $fee = $event->getFee();
         $member = $fee->getMember();
 
-        $this->mailer->send('emails.fees.proceeded', compact('member', 'fee'), function(Message $message) use ($member)
-        {
+        $this->mailer->send('emails.fees.proceeded', compact('member', 'fee'), function (Message $message) use ($member) {
             $message->to($member->getEmail())->subject('Membership fee proceeded');
         });
     }
 }
- 

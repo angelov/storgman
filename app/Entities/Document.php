@@ -121,7 +121,7 @@ class Document extends Model
         $counted = [];
 
         foreach ($openers as $opener) {
-            if ( ! in_array($opener->getId(), $counted)) {
+            if (! in_array($opener->getId(), $counted)) {
                 $counted[] = $opener->getId();
             }
         }
@@ -200,4 +200,3 @@ class Document extends Model
         }
     }
 }
- 

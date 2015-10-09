@@ -5,7 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMeetingMemberTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -44,5 +43,4 @@ class CreateMeetingMemberTable extends Migration
     {
         Schema::drop('meeting_member');
     }
-
 }

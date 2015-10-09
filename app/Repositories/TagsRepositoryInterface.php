@@ -57,4 +57,3 @@ interface TagsRepositoryInterface extends RepositoryInterface
      */
     public function getByNames(array $names);
 }
- 

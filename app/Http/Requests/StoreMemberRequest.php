@@ -41,4 +41,3 @@ class StoreMemberRequest extends Request
         'member_photo' => 'image|max:3000'
     ];
 }
- 

@@ -43,4 +43,3 @@ class StoreDocumentCommand extends Command
         return $this->data;
     }
 }
- 

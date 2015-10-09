@@ -162,4 +162,3 @@ class DocumentsController extends BaseController
         return new JsonResponse($all);
     }
 }
-

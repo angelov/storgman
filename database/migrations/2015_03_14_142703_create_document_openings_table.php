@@ -3,18 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocumentOpeningsTable extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('document_openings', function(Blueprint $table)
-		{
-			$table->increments('id');
+class CreateDocumentOpeningsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('document_openings', function (Blueprint $table) {
+            $table->increments('id');
 
             $table->unsignedInteger('document_id');
             $table->index('document_id');
@@ -32,18 +31,17 @@ class CreateDocumentOpeningsTable extends Migration {
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-			$table->timestamps();
-		});
-	}
+            $table->timestamps();
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('document_openings');
-	}
-
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('document_openings');
+    }
 }

@@ -53,13 +53,13 @@ return array(
         'xsmall' => function ($image) {
             return $image->fit(40, 40);
         },
-        'small' => function($image) { 
+        'small' => function ($image) {
             return $image->fit(100, 100);
         },
-        'medium' => function($image) {
+        'medium' => function ($image) {
             return $image->fit(200, 200);
         },
-        'large' => function($image) {
+        'large' => function ($image) {
             return $image->fit(400, 400);
         }
 

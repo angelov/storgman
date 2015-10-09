@@ -74,7 +74,7 @@ class DocumentsPopulator
         foreach ($tagsObj as $tag) {
             $document->addTag($tag);
 
-            if(($key = array_search($tag->getName(), $tags)) !== false) {
+            if (($key = array_search($tag->getName(), $tags)) !== false) {
                 unset($tags[$key]);
             }
         }
@@ -90,4 +90,3 @@ class DocumentsPopulator
         return $document;
     }
 }
- 

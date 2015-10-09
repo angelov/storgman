@@ -84,7 +84,6 @@ class FakeDataSeeder extends Seeder
         $birthYearTo = "-19 years";
 
         for ($i = 0; $i <= $count; $i++) {
-
             $member = new Member();
 
             $member->setEmail($this->faker->email . rand(0, 9123));
@@ -122,7 +121,6 @@ class FakeDataSeeder extends Seeder
             $this->generatedMembers[] = $member;
 
             $this->members->store($member);
-
         }
 
         print "Generated ". $count ." members.\n";
@@ -143,7 +141,6 @@ class FakeDataSeeder extends Seeder
         $fees = 0;
 
         foreach ($this->generatedMembers as $member) {
-
             $from = $this->faker->dateTimeBetween('-10 years', '-1 year');
 
             for ($i = 0; $i < 3; $i++) {
@@ -169,7 +166,6 @@ class FakeDataSeeder extends Seeder
                 $from->modify('+1 day');
                 $from->modify('+1 year');
             }
-
         }
 
         print "Generated ". $fees ." fees.\n";
@@ -177,7 +173,6 @@ class FakeDataSeeder extends Seeder
 
     private function generateMeetings($count = 50)
     {
-
         if (!$this->hasGeneratedMembers()) {
             return;
         }
@@ -210,7 +205,6 @@ class FakeDataSeeder extends Seeder
         }
 
         print "Generated ". $count ." meetings with ". $attendings ." total attendings\n";
-
     }
 
     private function pickGeneratedMembers($count = 0)
@@ -219,14 +213,12 @@ class FakeDataSeeder extends Seeder
         $pickedMembers = [];
 
         for ($i = 0; $i < $count; $i++) {
-
             $index = $this->faker->numberBetween(0, count($this->generatedMembers) - 1);
 
             if (!in_array($index, $pickedIndexes)) {
                 $pickedIndexes[] = $index;
                 $pickedMembers[] = $this->generatedMembers[$index];
             }
-
         }
 
         return $pickedMembers;
@@ -274,7 +266,6 @@ class FakeDataSeeder extends Seeder
         $countOpeners = 0;
 
         for ($i = 0; $i < $count; $i++) {
-
             $document = new Document();
 
             $title = $this->faker->sentence(rand(6, 15));
@@ -323,5 +314,4 @@ class FakeDataSeeder extends Seeder
 
         print "Generated ". $count ." tags.\n";
     }
-
 }

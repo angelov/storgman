@@ -48,5 +48,4 @@ interface PhotosRepositoryInterface
      * @return void
      */
     public function destroy($filename, $type);
-
 }

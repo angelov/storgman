@@ -64,5 +64,4 @@ class ExpectedAndPaidFeesPerMonthReport extends AbstractMonthlyReport implements
 
         return $data;
     }
-
-} 
+}

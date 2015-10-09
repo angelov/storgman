@@ -47,7 +47,8 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
         $meeting->save();
     }
 
-    public function countMeetingsInPeriod(Carbon $from, Carbon $to) {
+    public function countMeetingsInPeriod(Carbon $from, Carbon $to)
+    {
         $from = $from->toDateString();
         $to = $to->toDateString();
 
@@ -82,7 +83,6 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
         $report->setAverage($result['average'] ? : 0);
 
         return $report;
-
     }
 
     public function countAttendanceForMember(Member $member, Carbon $from, Carbon $to)
@@ -104,7 +104,6 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
         )[0];
 
         return $result->attended;
-
     }
 
     public function countMeetingsPerMonth(DateTime $from, DateTime $to)

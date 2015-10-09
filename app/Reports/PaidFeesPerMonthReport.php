@@ -29,4 +29,4 @@ namespace Angelov\Eestec\Platform\Reports;
 
 class PaidFeesPerMonthReport extends AbstractMonthlyReport
 {
-} 
+}

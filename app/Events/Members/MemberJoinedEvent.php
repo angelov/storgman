@@ -30,4 +30,3 @@ namespace Angelov\Eestec\Platform\Events\Members;
 class MemberJoinedEvent extends AbstractMemberEvent
 {
 }
- 

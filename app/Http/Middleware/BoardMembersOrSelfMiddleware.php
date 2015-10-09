@@ -59,5 +59,4 @@ class BoardMembersOrSelfMiddleware
 
         return $next($request);
     }
-
 }

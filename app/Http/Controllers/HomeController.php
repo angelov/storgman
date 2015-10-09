@@ -86,7 +86,5 @@ class HomeController extends BaseController
             compact('withBirthday', 'attendance', 'byMembershipStatus',
                     'perFaculty', 'perMonth', 'boardMember')
         );
-
     }
-
 }

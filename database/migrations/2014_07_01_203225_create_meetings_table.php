@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateMeetingsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -41,5 +40,4 @@ class CreateMeetingsTable extends Migration
     {
         Schema::drop('meetings');
     }
-
 }

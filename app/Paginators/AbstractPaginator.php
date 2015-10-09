@@ -60,5 +60,4 @@ abstract class AbstractPaginator
     {
         return $this->totalItems;
     }
-
 }

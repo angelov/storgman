@@ -30,4 +30,3 @@ namespace Angelov\Eestec\Platform\Commands\Members;
 class ApproveMemberCommand extends AbstractMemberCommand
 {
 }
- 

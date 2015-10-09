@@ -46,4 +46,3 @@ class SocialProfile extends Model
         $this->setAttribute('profile_id', $profileId);
     }
 }
- 

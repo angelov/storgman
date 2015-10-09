@@ -35,7 +35,7 @@ class MeetingsAttendedByMemberPerMonthReport implements JsonSerializable
     protected $attended = [];
     protected $months = [];
 
-    function __construct(array $months, array $total, array $attended)
+    public function __construct(array $months, array $total, array $attended)
     {
         $this->attended = $attended;
         $this->months = $months;

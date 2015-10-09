@@ -55,7 +55,6 @@ abstract class AbstractMonthlyReport implements JsonSerializable
         $numNeededMonths = $this->calculateNumberOfMonths();
 
         for ($m = $this->beginDate->format('m'); $m <= 12; $m++) {
-
             $count++;
 
             $dt = new DateTime("1-" . $m . "-" . $year);
@@ -70,7 +69,6 @@ abstract class AbstractMonthlyReport implements JsonSerializable
             if ($count == $numNeededMonths) {
                 break;
             }
-
         }
     }
 
@@ -121,5 +119,4 @@ abstract class AbstractMonthlyReport implements JsonSerializable
     {
         // @todo
     }
-
 }

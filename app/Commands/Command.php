@@ -29,5 +29,4 @@ namespace Angelov\Eestec\Platform\Commands;
 
 abstract class Command
 {
-
 }

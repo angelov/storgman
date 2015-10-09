@@ -30,4 +30,3 @@ namespace Angelov\Eestec\Platform\Events\Members;
 class MemberWasDeclinedEvent extends AbstractMemberEvent
 {
 }
- 

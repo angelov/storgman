@@ -11,7 +11,7 @@ $ignoreStorageFolder = function (\SplFileInfo $file) {
 };
 
 $ignoreVendorFolder = function (\SplFileInfo $file) {
-    if (strpos($file->getPath(), "vendor") {
+    if (strpos($file->getPath(), "vendor")) {
         return false;
     }
 };

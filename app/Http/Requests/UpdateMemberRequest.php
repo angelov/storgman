@@ -55,4 +55,3 @@ class UpdateMemberRequest extends StoreMemberRequest
         $this->removeRule('password', 'min');
     }
 }
- 

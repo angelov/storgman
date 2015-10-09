@@ -58,4 +58,3 @@ class StoreDocumentCommandHandler
         return $document;
     }
 }
- 

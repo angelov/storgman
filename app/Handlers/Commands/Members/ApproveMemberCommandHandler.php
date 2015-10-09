@@ -54,4 +54,3 @@ class ApproveMemberCommandHandler
         $this->events->fire(new MemberWasApprovedEvent($member));
     }
 }
- 

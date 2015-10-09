@@ -27,4 +27,6 @@
 
 namespace Angelov\Eestec\Platform\Exceptions;
 
-class NotAllowedException extends \Exception { }
+class NotAllowedException extends \Exception
+{
+}

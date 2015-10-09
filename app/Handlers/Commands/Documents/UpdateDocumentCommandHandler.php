@@ -52,4 +52,3 @@ class UpdateDocumentCommandHandler
         $this->documents->store($document);
     }
 }
- 

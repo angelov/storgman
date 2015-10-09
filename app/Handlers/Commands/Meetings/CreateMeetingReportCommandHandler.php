@@ -52,4 +52,3 @@ class CreateMeetingReportCommandHandler
         $this->meetings->store($meeting);
     }
 }
- 
