@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Events\Fees;
 
-use Angelov\Eestec\Platform\Events\Fees\FeeWasProceededEvent;
+use Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 

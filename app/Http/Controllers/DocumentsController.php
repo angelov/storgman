@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Http\Controllers;
 use Angelov\Eestec\Platform\Commands\Documents\DeleteDocumentCommand;
 use Angelov\Eestec\Platform\Commands\Documents\StoreDocumentCommand;
 use Angelov\Eestec\Platform\Commands\Documents\UpdateDocumentCommand;
-use Angelov\Eestec\Platform\Events\Documents\DocumentWasOpened;
+use Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened;
 use Angelov\Eestec\Platform\Http\Requests\StoreDocumentRequest;
 use Angelov\Eestec\Platform\Documents\DocumentsPaginator;
 use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;

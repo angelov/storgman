@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
 use Angelov\Eestec\Platform\Commands\Members\ApproveMemberCommand;
-use Angelov\Eestec\Platform\Events\Members\MemberWasApprovedEvent;
+use Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
@@ -51,6 +51,6 @@ class ApproveMemberCommandHandler
         $member->setApproved(true);
         $this->members->store($member);
 
-        $this->events->fire(new MemberWasApprovedEvent($member));
+        $this->events->fire(new \Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent($member));
     }
 }

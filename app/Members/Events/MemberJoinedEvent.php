@@ -25,22 +25,8 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Members;
+namespace Angelov\Eestec\Platform\Members\Events;
 
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Events\Event;
-
-abstract class AbstractMemberEvent extends Event
+class MemberJoinedEvent extends AbstractMemberEvent
 {
-    protected $member;
-
-    public function __construct(Member $member)
-    {
-        $this->member = $member;
-    }
-
-    public function getMember()
-    {
-        return $this->member;
-    }
 }

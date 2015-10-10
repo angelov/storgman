@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Events\Members;
 
-use Angelov\Eestec\Platform\Events\Members\MemberWasDeclinedEvent;
+use Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 
@@ -40,7 +40,7 @@ class EmailDenialConfirmation
         $this->mailer = $mailer;
     }
 
-    public function handle(MemberWasDeclinedEvent $event)
+    public function handle(\Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent $event)
     {
         $member = $event->getMember();
 

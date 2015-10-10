@@ -25,8 +25,22 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Members;
+namespace Angelov\Eestec\Platform\Membership\Events;
 
-class MemberWasApprovedEvent extends AbstractMemberEvent
+use Angelov\Eestec\Platform\Membership\Fee;
+use Angelov\Eestec\Platform\Core\Event;
+
+class FeeWasProceededEvent extends Event
 {
+    protected $fee;
+
+    public function __construct(Fee $fee)
+    {
+        $this->fee = $fee;
+    }
+
+    public function getFee()
+    {
+        return $this->fee;
+    }
 }

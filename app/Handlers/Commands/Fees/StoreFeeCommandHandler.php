@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Handlers\Commands\Fees;
 use Angelov\Eestec\Platform\Commands\Fees\StoreFeeCommand;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Membership\Fee;
-use Angelov\Eestec\Platform\Events\Fees\FeeWasProceededEvent;
+use Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent;
 use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;

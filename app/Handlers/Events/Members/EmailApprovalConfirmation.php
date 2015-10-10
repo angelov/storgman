@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Events\Members;
 
-use Angelov\Eestec\Platform\Events\Members\MemberWasApprovedEvent;
+use Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 

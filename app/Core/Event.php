@@ -25,36 +25,8 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Documents;
+namespace Angelov\Eestec\Platform\Core;
 
-use Angelov\Eestec\Platform\Documents\Document;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Events\Event;
-
-class DocumentWasOpened extends Event
+abstract class Event
 {
-    protected $document;
-    protected $member;
-
-    public function __construct(Document $document, Member $member)
-    {
-        $this->document = $document;
-        $this->member = $member;
-    }
-
-    /**
-     * @return Document
-     */
-    public function getDocument()
-    {
-        return $this->document;
-    }
-
-    /**
-     * @return Member
-     */
-    public function getMember()
-    {
-        return $this->member;
-    }
 }
