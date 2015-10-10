@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Documents;
 
-use Angelov\Eestec\Platform\Commands\Documents\DeleteDocumentCommand;
+use Angelov\Eestec\Platform\Documents\Commands\DeleteDocumentCommand;
 use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 
 class DeleteDocumentCommandHandler
@@ -39,7 +39,7 @@ class DeleteDocumentCommandHandler
         $this->documents = $documents;
     }
 
-    public function handle(DeleteDocumentCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Documents\Commands\DeleteDocumentCommand $command)
     {
         $this->documents->destroy($command->getDocumentId());
     }

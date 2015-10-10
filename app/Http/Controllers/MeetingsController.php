@@ -27,9 +27,9 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Commands\Meetings\CreateMeetingReportCommand;
-use Angelov\Eestec\Platform\Commands\Meetings\DeleteMeetingReportCommand;
-use Angelov\Eestec\Platform\Commands\Meetings\UpdateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Meetings\MeetingsPaginator;
 use Angelov\Eestec\Platform\Meetings\MeetingsService;

@@ -25,28 +25,28 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Members;
+namespace Angelov\Eestec\Platform\Documents\Commands;
 
-class UpdateMemberCommand extends AbstractMemberCommand
+use Angelov\Eestec\Platform\Commands\Command;
+
+class UpdateDocumentCommand extends Command
 {
-    protected $memberId;
-    protected $memberData;
+    protected $documentId;
+    protected $data = [];
 
-    /**
-     * @param int $memberId
-     * @param array $data
-     */
-    public function __construct($memberId, array $data)
+    public function __construct($documentId, array $data)
     {
-        $this->memberId = $memberId;
-        $this->memberData = $data;
+        $this->data = $data;
+        $this->documentId = $documentId;
     }
 
-    /**
-     * @return array
-     */
-    public function getMemberData()
+    public function getDocumentId()
     {
-        return $this->memberData;
+        return $this->documentId;
+    }
+
+    public function getData()
+    {
+        return $this->data;
     }
 }

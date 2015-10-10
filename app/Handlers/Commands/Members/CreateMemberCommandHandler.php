@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
-use Angelov\Eestec\Platform\Commands\Members\CreateMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\CreateMemberCommand;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Members\Events\MemberJoinedEvent;
 use Angelov\Eestec\Platform\Members\MembersPopulator;
@@ -55,7 +55,7 @@ class CreateMemberCommandHandler
         $this->events = $events;
     }
 
-    public function handle(CreateMemberCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Members\Commands\CreateMemberCommand $command)
     {
         $member = new Member();
         $data = $command->getMemberData();

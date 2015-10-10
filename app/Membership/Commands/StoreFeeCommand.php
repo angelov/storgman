@@ -25,8 +25,35 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Members;
+namespace Angelov\Eestec\Platform\Membership\Commands;
 
-class DeclineMemberCommand extends AbstractMemberCommand
+use Angelov\Eestec\Platform\Commands\Command;
+
+class StoreFeeCommand extends Command
 {
+    protected $memberId;
+    protected $fromDate;
+    protected $toDate;
+
+    public function __construct($memberId, $from, $to)
+    {
+        $this->memberId = $memberId;
+        $this->fromDate = $from;
+        $this->toDate = $to;
+    }
+
+    public function getMemberId()
+    {
+        return $this->memberId;
+    }
+
+    public function getToDate()
+    {
+        return $this->toDate;
+    }
+
+    public function getFromDate()
+    {
+        return $this->fromDate;
+    }
 }

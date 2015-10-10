@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Meetings;
 
-use Angelov\Eestec\Platform\Commands\Meetings\DeleteMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 
 class DeleteMeetingReportCommandHandler

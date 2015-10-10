@@ -25,21 +25,19 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Meetings;
+namespace Angelov\Eestec\Platform\Membership\Commands;
 
-use Angelov\Eestec\Platform\Commands\Command;
-
-class CreateMeetingReportCommand extends Command
+class DeleteFeeCommand
 {
-    protected $data;
+    protected $feeId;
 
-    public function __construct(array $data)
+    public function __construct($feeId)
     {
-        $this->data = $data;
+        $this->feeId = $feeId;
     }
 
-    public function getData()
+    public function getFeeId()
     {
-        return $this->data;
+        return $this->feeId;
     }
 }

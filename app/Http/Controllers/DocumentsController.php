@@ -27,9 +27,9 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Commands\Documents\DeleteDocumentCommand;
-use Angelov\Eestec\Platform\Commands\Documents\StoreDocumentCommand;
-use Angelov\Eestec\Platform\Commands\Documents\UpdateDocumentCommand;
+use Angelov\Eestec\Platform\Documents\Commands\DeleteDocumentCommand;
+use Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand;
+use Angelov\Eestec\Platform\Documents\Commands\UpdateDocumentCommand;
 use Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened;
 use Angelov\Eestec\Platform\Http\Requests\StoreDocumentRequest;
 use Angelov\Eestec\Platform\Documents\DocumentsPaginator;

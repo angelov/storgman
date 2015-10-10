@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Meetings;
 
-use Angelov\Eestec\Platform\Commands\Meetings\CreateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Meeting;
 use Angelov\Eestec\Platform\Meetings\MeetingsPopulator;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
@@ -43,7 +43,7 @@ class CreateMeetingReportCommandHandler
         $this->meetings = $meetings;
     }
 
-    public function handle(CreateMeetingReportCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand $command)
     {
         $meeting = new Meeting();
 

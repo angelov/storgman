@@ -25,8 +25,28 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Members;
+namespace Angelov\Eestec\Platform\Members\Commands;
 
-class DeleteMemberCommand extends AbstractMemberCommand
+class UpdateMemberCommand extends AbstractMemberCommand
 {
+    protected $memberId;
+    protected $memberData;
+
+    /**
+     * @param int $memberId
+     * @param array $data
+     */
+    public function __construct($memberId, array $data)
+    {
+        $this->memberId = $memberId;
+        $this->memberData = $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMemberData()
+    {
+        return $this->memberData;
+    }
 }

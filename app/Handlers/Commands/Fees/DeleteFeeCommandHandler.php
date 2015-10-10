@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Fees;
 
-use Angelov\Eestec\Platform\Commands\Fees\DeleteFeeCommand;
+use Angelov\Eestec\Platform\Membership\Commands\DeleteFeeCommand;
 use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
 
 class DeleteFeeCommandHandler

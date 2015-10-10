@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
-use Angelov\Eestec\Platform\Commands\Members\ApproveMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\ApproveMemberCommand;
 use Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;

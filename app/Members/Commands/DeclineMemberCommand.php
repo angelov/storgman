@@ -25,21 +25,8 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Documents;
+namespace Angelov\Eestec\Platform\Members\Commands;
 
-use Angelov\Eestec\Platform\Commands\Command;
-
-class DeleteDocumentCommand extends Command
+class DeclineMemberCommand extends AbstractMemberCommand
 {
-    protected $id;
-
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getDocumentId()
-    {
-        return $this->id;
-    }
 }

@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Meetings;
 
-use Angelov\Eestec\Platform\Commands\Meetings\UpdateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\MeetingsPopulator;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 
@@ -42,7 +42,7 @@ class UpdateMeetingReportCommandHandler
         $this->populator = $populator;
     }
 
-    public function handle(UpdateMeetingReportCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand $command)
     {
         $meetingId = $command->getMeetingId();
         $meeting = $this->meetings->get($meetingId);

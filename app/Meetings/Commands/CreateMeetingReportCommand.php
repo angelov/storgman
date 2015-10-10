@@ -25,35 +25,21 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Fees;
+namespace Angelov\Eestec\Platform\Meetings\Commands;
 
 use Angelov\Eestec\Platform\Commands\Command;
 
-class StoreFeeCommand extends Command
+class CreateMeetingReportCommand extends Command
 {
-    protected $memberId;
-    protected $fromDate;
-    protected $toDate;
+    protected $data;
 
-    public function __construct($memberId, $from, $to)
+    public function __construct(array $data)
     {
-        $this->memberId = $memberId;
-        $this->fromDate = $from;
-        $this->toDate = $to;
+        $this->data = $data;
     }
 
-    public function getMemberId()
+    public function getData()
     {
-        return $this->memberId;
-    }
-
-    public function getToDate()
-    {
-        return $this->toDate;
-    }
-
-    public function getFromDate()
-    {
-        return $this->fromDate;
+        return $this->data;
     }
 }

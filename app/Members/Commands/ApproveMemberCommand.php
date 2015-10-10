@@ -25,28 +25,8 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Meetings;
+namespace Angelov\Eestec\Platform\Members\Commands;
 
-use Angelov\Eestec\Platform\Commands\Command;
-
-class UpdateMeetingReportCommand extends Command
+class ApproveMemberCommand extends AbstractMemberCommand
 {
-    protected $meetingId;
-    protected $data;
-
-    public function __construct($meetingId, array $data)
-    {
-        $this->meetingId = $meetingId;
-        $this->data = $data;
-    }
-
-    public function getMeetingId()
-    {
-        return $this->meetingId;
-    }
-
-    public function getData()
-    {
-        return $this->data;
-    }
 }

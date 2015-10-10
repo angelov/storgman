@@ -27,11 +27,11 @@
 
 namespace Angelov\Eestec\Platform\Http\Controllers;
 
-use Angelov\Eestec\Platform\Commands\Members\ApproveMemberCommand;
-use Angelov\Eestec\Platform\Commands\Members\CreateMemberCommand;
-use Angelov\Eestec\Platform\Commands\Members\DeclineMemberCommand;
-use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
-use Angelov\Eestec\Platform\Commands\Members\UpdateMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\ApproveMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\CreateMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\DeclineMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\UpdateMemberCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
 use Angelov\Eestec\Platform\Http\Requests\UpdateMemberRequest;
 use Angelov\Eestec\Platform\Members\MembersPaginator;

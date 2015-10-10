@@ -25,19 +25,34 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Fees;
+namespace Angelov\Eestec\Platform\Members\Commands;
 
-class DeleteFeeCommand
+use Angelov\Eestec\Platform\Commands\Command;
+
+class CreateMemberCommand extends Command
 {
-    protected $feeId;
+    protected $memberData;
+    protected $approve;
 
-    public function __construct($feeId)
+    public function __construct(array $data, $approve = false)
     {
-        $this->feeId = $feeId;
+        $this->memberData = $data;
+        $this->approve = $approve;
     }
 
-    public function getFeeId()
+    /**
+     * @return array
+     */
+    public function getMemberData()
     {
-        return $this->feeId;
+        return $this->memberData;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldBeApproved()
+    {
+        return $this->approve;
     }
 }

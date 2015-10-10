@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
-use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
 
@@ -42,7 +42,7 @@ class DeleteMemberCommandHandler
         $this->photos = $photos;
     }
 
-    public function handle(DeleteMemberCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand $command)
     {
         $id = $command->getMemberId();
 

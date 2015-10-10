@@ -27,8 +27,8 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
-use Angelov\Eestec\Platform\Commands\Members\DeclineMemberCommand;
-use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\DeclineMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
 use Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Bus\Dispatcher;

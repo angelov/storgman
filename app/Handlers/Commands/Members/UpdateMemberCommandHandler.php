@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
 
-use Angelov\Eestec\Platform\Commands\Members\UpdateMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\UpdateMemberCommand;
 use Angelov\Eestec\Platform\Members\MembersPopulator;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;

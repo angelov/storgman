@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Documents;
 
-use Angelov\Eestec\Platform\Commands\Documents\StoreDocumentCommand;
+use Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand;
 use Angelov\Eestec\Platform\Documents\Document;
 use Angelov\Eestec\Platform\Documents\DocumentsPopulator;
 use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
@@ -44,10 +44,10 @@ class StoreDocumentCommandHandler
     }
 
     /**
-     * @param StoreDocumentCommand $command
+     * @param \Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand $command
      * @return Document
      */
-    public function handle(StoreDocumentCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand $command)
     {
         $document = new Document();
 

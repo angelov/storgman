@@ -25,19 +25,21 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Meetings;
+namespace Angelov\Eestec\Platform\Documents\Commands;
 
-class DeleteMeetingReportCommand
+use Angelov\Eestec\Platform\Commands\Command;
+
+class StoreDocumentCommand extends Command
 {
-    protected $meetingId;
+    protected $data;
 
-    public function __construct($meetingId)
+    public function __construct(array $data)
     {
-        $this->meetingId = $meetingId;
+        $this->data = $data;
     }
 
-    public function getMeetingId()
+    public function getData()
     {
-        return $this->meetingId;
+        return $this->data;
     }
 }

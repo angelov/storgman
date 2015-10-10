@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Handlers\Commands\Fees;
 
-use Angelov\Eestec\Platform\Commands\Fees\StoreFeeCommand;
+use Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Membership\Fee;
 use Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent;
@@ -48,7 +48,7 @@ class StoreFeeCommandHandler
         $this->events = $events;
     }
 
-    public function handle(StoreFeeCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand $command)
     {
         $fee = new Fee();
 

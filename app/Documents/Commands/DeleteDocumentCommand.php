@@ -25,28 +25,21 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Commands\Documents;
+namespace Angelov\Eestec\Platform\Documents\Commands;
 
 use Angelov\Eestec\Platform\Commands\Command;
 
-class UpdateDocumentCommand extends Command
+class DeleteDocumentCommand extends Command
 {
-    protected $documentId;
-    protected $data = [];
+    protected $id;
 
-    public function __construct($documentId, array $data)
+    public function __construct($id)
     {
-        $this->data = $data;
-        $this->documentId = $documentId;
+        $this->id = $id;
     }
 
     public function getDocumentId()
     {
-        return $this->documentId;
-    }
-
-    public function getData()
-    {
-        return $this->data;
+        return $this->id;
     }
 }
