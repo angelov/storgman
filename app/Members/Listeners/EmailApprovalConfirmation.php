@@ -25,13 +25,13 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Events\Members;
+namespace Angelov\Eestec\Platform\Members\Listeners;
 
-use Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent;
+use Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 
-class EmailDenialConfirmation
+class EmailApprovalConfirmation
 {
     protected $mailer;
 
@@ -40,12 +40,12 @@ class EmailDenialConfirmation
         $this->mailer = $mailer;
     }
 
-    public function handle(\Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent $event)
+    public function handle(MemberWasApprovedEvent $event)
     {
         $member = $event->getMember();
 
-        $this->mailer->send('emails.members.declined', compact('member'), function (Message $message) use ($member) {
-            $message->to($member->getEmail())->subject('We are sorry...');
+        $this->mailer->send('emails.members.approved', compact('member'), function (Message $message) use ($member) {
+            $message->to($member->getEmail())->subject('Your account was approved!');
         });
     }
 }

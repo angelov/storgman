@@ -41,27 +41,27 @@ class EventServiceProvider extends ServiceProvider
         // Members Handlers
 
         'Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Members\EmailApprovalConfirmation'
+            'Angelov\Eestec\Platform\Members\Listeners\EmailApprovalConfirmation'
         ],
 
         'Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Members\EmailDenialConfirmation'
+            'Angelov\Eestec\Platform\Members\Listeners\EmailDenialConfirmation'
         ],
 
         'Angelov\Eestec\Platform\Members\Events\MemberJoinedEvent' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Members\EmailWelcomeMessage'
+            'Angelov\Eestec\Platform\Members\Listeners\EmailWelcomeMessage'
         ],
 
         // Membership Fees Handlers
 
         'Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Fees\EmailProceedingConfirmation'
+            'Angelov\Eestec\Platform\Membership\Listeners\EmailProceedingConfirmation'
         ],
 
         // Documents Handlers
 
         'Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened' => [
-            'Angelov\Eestec\Platform\Handlers\Events\Documents\TrackDocumentOpening'
+            'Angelov\Eestec\Platform\Documents\Listeners\TrackDocumentOpening'
         ]
 
     ];

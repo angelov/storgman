@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Events\Documents;
+namespace Angelov\Eestec\Platform\Documents\Listeners;
 
 use Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened;
 use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;

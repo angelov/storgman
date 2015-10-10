@@ -25,13 +25,13 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Events\Members;
+namespace Angelov\Eestec\Platform\Membership\Listeners;
 
-use Angelov\Eestec\Platform\Members\Events\MemberJoinedEvent;
+use Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 
-class EmailWelcomeMessage
+class EmailProceedingConfirmation
 {
     protected $mailer;
 
@@ -40,12 +40,13 @@ class EmailWelcomeMessage
         $this->mailer = $mailer;
     }
 
-    public function handle(MemberJoinedEvent $event)
+    public function handle(FeeWasProceededEvent $event)
     {
-        $member = $event->getMember();
+        $fee = $event->getFee();
+        $member = $fee->getMember();
 
-        $this->mailer->send('emails.members.registered', compact('member'), function (Message $message) use ($member) {
-            $message->to($member->getEmail())->subject('Thank you for joining us!');
+        $this->mailer->send('emails.fees.proceeded', compact('member', 'fee'), function (Message $message) use ($member) {
+            $message->to($member->getEmail())->subject('Membership fee proceeded');
         });
     }
 }
