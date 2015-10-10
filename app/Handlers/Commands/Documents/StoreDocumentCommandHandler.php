@@ -29,7 +29,7 @@ namespace Angelov\Eestec\Platform\Handlers\Commands\Documents;
 
 use Angelov\Eestec\Platform\Commands\Documents\StoreDocumentCommand;
 use Angelov\Eestec\Platform\Documents\Document;
-use Angelov\Eestec\Platform\Populators\DocumentsPopulator;
+use Angelov\Eestec\Platform\Documents\DocumentsPopulator;
 use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 
 class StoreDocumentCommandHandler

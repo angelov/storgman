@@ -52,7 +52,7 @@ class ServicesServiceProvider extends ServiceProvider
         });
 
         $this->container->bind('MembersPopulator', function () use ($container) {
-            return $container->make('Angelov\Eestec\Platform\Populators\MembersPopulator');
+            return $container->make('Angelov\Eestec\Platform\Members\MembersPopulator');
         });
     }
 }

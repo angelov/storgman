@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Populators;
+namespace Angelov\Eestec\Platform\Documents;
 
 use Angelov\Eestec\Platform\Documents\Document;
 use Angelov\Eestec\Platform\Members\Member;

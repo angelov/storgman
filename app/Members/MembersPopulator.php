@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Populators;
+namespace Angelov\Eestec\Platform\Members;
 
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;

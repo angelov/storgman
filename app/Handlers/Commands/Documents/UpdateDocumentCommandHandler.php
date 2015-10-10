@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Handlers\Commands\Documents;
 
 use Angelov\Eestec\Platform\Commands\Documents\UpdateDocumentCommand;
-use Angelov\Eestec\Platform\Populators\DocumentsPopulator;
+use Angelov\Eestec\Platform\Documents\DocumentsPopulator;
 use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 
 class UpdateDocumentCommandHandler

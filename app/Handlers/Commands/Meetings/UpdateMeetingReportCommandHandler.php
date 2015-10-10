@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Handlers\Commands\Meetings;
 
 use Angelov\Eestec\Platform\Commands\Meetings\UpdateMeetingReportCommand;
-use Angelov\Eestec\Platform\Populators\MeetingsPopulator;
+use Angelov\Eestec\Platform\Meetings\MeetingsPopulator;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 
 class UpdateMeetingReportCommandHandler
