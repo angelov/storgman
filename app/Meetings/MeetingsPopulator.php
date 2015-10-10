@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Meetings;
 use Angelov\Eestec\Platform\Meetings\Meeting;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Services\MeetingsService;
+use Angelov\Eestec\Platform\Meetings\MeetingsService;
 use Illuminate\Contracts\Auth\Guard;
 
 class MeetingsPopulator

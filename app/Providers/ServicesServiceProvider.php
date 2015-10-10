@@ -44,11 +44,11 @@ class ServicesServiceProvider extends ServiceProvider
         $container = $this->container;
 
         $this->container->bind('MembershipService', function () use ($container) {
-            return $container->make('Angelov\Eestec\Platform\Services\MembershipService');
+            return $container->make('Angelov\Eestec\Platform\Membership\MembershipService');
         });
 
         $this->container->bind('MeetingsService', function () use ($container) {
-            return $container->make('Angelov\Eestec\Platform\Services\MeetingsService');
+            return $container->make('Angelov\Eestec\Platform\Meetings\MeetingsService');
         });
 
         $this->container->bind('MembersPopulator', function () use ($container) {

@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Services;
+namespace Angelov\Eestec\Platform\Members;
 
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;

@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Services;
+namespace Angelov\Eestec\Platform\Meetings;
 
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
@@ -34,6 +34,7 @@ use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendanceDetailsForMemberR
 use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendedByMemberPerMonthReport;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Membership\MembershipService;
 
 class MeetingsService
 {

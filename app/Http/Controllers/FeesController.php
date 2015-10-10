@@ -31,7 +31,7 @@ use Angelov\Eestec\Platform\Commands\Fees\DeleteFeeCommand;
 use Angelov\Eestec\Platform\Commands\Fees\StoreFeeCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;
 use Angelov\Eestec\Platform\Membership\FeesPaginator;
-use Angelov\Eestec\Platform\Services\MembershipService;
+use Angelov\Eestec\Platform\Membership\MembershipService;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
