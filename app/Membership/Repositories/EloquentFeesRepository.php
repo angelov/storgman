@@ -30,8 +30,8 @@ namespace Angelov\Eestec\Platform\Membership\Repositories;
 use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Membership\Fee;
-use Angelov\Eestec\Platform\Reports\ExpectedFeesPerMonthReport;
-use Angelov\Eestec\Platform\Reports\PaidFeesPerMonthReport;
+use Angelov\Eestec\Platform\Membership\Reports\ExpectedFeesPerMonthReport;
+use Angelov\Eestec\Platform\Membership\Reports\PaidFeesPerMonthReport;
 use DB;
 
 class EloquentFeesRepository extends AbstractEloquentRepository implements FeesRepositoryInterface

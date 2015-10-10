@@ -31,9 +31,9 @@ use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
-use Angelov\Eestec\Platform\Reports\MembershipStatusReport;
-use Angelov\Eestec\Platform\Reports\MembersPerFacultyReport;
-use Angelov\Eestec\Platform\Reports\NewMembersPerMonthReport;
+use Angelov\Eestec\Platform\Membership\Reports\MembershipStatusReport;
+use Angelov\Eestec\Platform\Members\Reports\MembersPerFacultyReport;
+use Angelov\Eestec\Platform\Members\Reports\NewMembersPerMonthReport;
 
 interface MembersRepositoryInterface extends RepositoryInterface
 {
@@ -65,7 +65,7 @@ interface MembersRepositoryInterface extends RepositoryInterface
     /**
      * Returns the number of total and active members
      *
-     * @return MembershipStatusReport
+     * @return \Angelov\Eestec\Platform\Membership\Reports\MembershipStatusReport
      */
     public function countByMembershipStatus();
 
@@ -80,7 +80,7 @@ interface MembersRepositoryInterface extends RepositoryInterface
     /**
      * Counts the members per faculties
      *
-     * @return MembersPerFacultyReport
+     * @return \Angelov\Eestec\Platform\Members\Reports\MembersPerFacultyReport
      */
     public function countPerFaculty();
 
@@ -89,7 +89,7 @@ interface MembersRepositoryInterface extends RepositoryInterface
      *
      * @param DateTime $from
      * @param DateTime $to
-     * @return NewMembersPerMonthReport
+     * @return \Angelov\Eestec\Platform\Members\Reports\NewMembersPerMonthReport
      */
     public function countNewMembersPerMonth(DateTime $from, DateTime $to);
 

@@ -25,10 +25,36 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Reports;
+namespace Angelov\Eestec\Platform\Members\Reports;
 
 use JsonSerializable;
 
-class NewMembersPerMonthReport extends AbstractMonthlyReport implements JsonSerializable
+class MembersPerFacultyReport implements JsonSerializable
 {
+    protected $faculties = [];
+
+    /**
+     * @param string $faculty The faculty's name
+     * @param integer $countMembers Number of members who go to the specific faculty
+     */
+    public function addFaculty($faculty, $countMembers)
+    {
+        $this->faculties[$faculty] = $countMembers;
+    }
+
+    public function getFaculties()
+    {
+        return $this->faculties;
+    }
+
+    public function jsonSerialize()
+    {
+        $faculties = [];
+
+        foreach ($this->faculties as $faculty => $count) {
+            $faculties[] = [$faculty, (int)$count];
+        }
+
+        return $faculties;
+    }
 }

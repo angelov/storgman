@@ -25,74 +25,42 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Reports;
+namespace Angelov\Eestec\Platform\Meetings\Reports;
 
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Members\Member;
-
-class MeetingAttendedReport
+class MeetingsAttendanceDetailsForMemberReport
 {
-    protected $meeting;
-    protected $member;
     protected $attended;
+    protected $missed;
 
-    /**
-     * @param Member $member
-     * @param \Angelov\Eestec\Platform\Meetings\Meeting $meeting
-     * @param boolean $attended
-     */
-    public function __construct(Member $member, Meeting $meeting, $attended)
-    {
-        $this->member = $member;
-        $this->meeting = $meeting;
-        $this->attended = $attended;
-    }
-
-    /**
-     * @param boolean $attended
-     */
-    public function setAttended($attended)
+    public function __construct($attended, $missed)
     {
         $this->attended = $attended;
+        $this->missed = $missed;
     }
 
-    /**
-     * @return boolean
-     */
     public function getAttended()
     {
         return $this->attended;
     }
 
-    /**
-     * @param \Angelov\Eestec\Platform\Meetings\Meeting $meeting
-     */
-    public function setMeeting($meeting)
+    public function getMissed()
     {
-        $this->meeting = $meeting;
+        return $this->missed;
     }
 
-    /**
-     * @return \Angelov\Eestec\Platform\Meetings\Meeting
-     */
-    public function getMeeting()
+    public function getTotal()
     {
-        return $this->meeting;
+        return $this->missed + $this->attended;
     }
 
-    /**
-     * @param \Angelov\Eestec\Platform\Members\Member $member
-     */
-    public function setMember($member)
+    public function getRate()
     {
-        $this->member = $member;
-    }
+        if ($this->getTotal() == 0) {
+            return 100;
+        }
 
-    /**
-     * @return Member
-     */
-    public function getMember()
-    {
-        return $this->member;
+        $rate = ($this->getAttended() / $this->getTotal()) * 100;
+
+        return (int)round($rate, 0);
     }
 }

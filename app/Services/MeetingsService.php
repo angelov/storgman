@@ -29,9 +29,9 @@ namespace Angelov\Eestec\Platform\Services;
 
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Reports\MeetingAttendedReport;
-use Angelov\Eestec\Platform\Reports\MeetingsAttendanceDetailsForMemberReport;
-use Angelov\Eestec\Platform\Reports\MeetingsAttendedByMemberPerMonthReport;
+use Angelov\Eestec\Platform\Meetings\Reports\MeetingAttendedReport;
+use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendanceDetailsForMemberReport;
+use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendedByMemberPerMonthReport;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 
@@ -83,7 +83,7 @@ class MeetingsService
 
     /**
      * @param \Angelov\Eestec\Platform\Members\Member $member
-     * @return MeetingAttendedReport[]
+     * @return \Angelov\Eestec\Platform\Meetings\Reports\MeetingAttendedReport[]
      */
     public function latestMeetingsAttendanceStatusForMember(Member $member)
     {
@@ -100,7 +100,7 @@ class MeetingsService
 
     /**
      * @param \Angelov\Eestec\Platform\Members\Member $member
-     * @return MeetingsAttendedByMemberPerMonthReport
+     * @return \Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendedByMemberPerMonthReport
      */
     public function calculateMonthlyAttendanceDetailsForMember(Member $member)
     {

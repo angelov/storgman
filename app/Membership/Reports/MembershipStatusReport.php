@@ -25,36 +25,58 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Reports;
+namespace Angelov\Eestec\Platform\Membership\Reports;
 
 use JsonSerializable;
 
-class MembersPerFacultyReport implements JsonSerializable
+class MembershipStatusReport implements JsonSerializable
 {
-    protected $faculties = [];
+    protected $total = 0;
+    protected $active = 0;
 
     /**
-     * @param string $faculty The faculty's name
-     * @param integer $countMembers Number of members who go to the specific faculty
+     * @param integer $total Total number of members
+     * @param integer $active The number of active members
      */
-    public function addFaculty($faculty, $countMembers)
+    public function __construct($total, $active)
     {
-        $this->faculties[$faculty] = $countMembers;
+        $this->active = $active;
+        $this->total = $total;
     }
 
-    public function getFaculties()
+    public function setActive($active)
     {
-        return $this->faculties;
+        $this->active = $active;
+    }
+
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    public function setTotal($total)
+    {
+        $this->total = $total;
+    }
+
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    public function getInactive()
+    {
+        return $this->total - $this->active;
     }
 
     public function jsonSerialize()
     {
-        $faculties = [];
+        $data = [
+            "total" => $this->getTotal(),
+            "active" => $this->getActive(),
+            "inactive" => $this->getInactive()
+        ];
 
-        foreach ($this->faculties as $faculty => $count) {
-            $faculties[] = [$faculty, (int)$count];
-        }
-
-        return $faculties;
+        return $data;
     }
 }

@@ -25,8 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Reports;
+namespace Angelov\Eestec\Platform\Members\Reports;
 
-class PaidFeesPerMonthReport extends AbstractMonthlyReport
+use Angelov\Eestec\Platform\Core\Reports\AbstractMonthlyReport;
+use JsonSerializable;
+
+class NewMembersPerMonthReport extends AbstractMonthlyReport implements JsonSerializable
 {
 }

@@ -32,8 +32,8 @@ use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Meetings\Meeting;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
-use Angelov\Eestec\Platform\Reports\MeetingsAttendanceDetailsReport;
-use Angelov\Eestec\Platform\Reports\MeetingsPerMonthReport;
+use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendanceDetailsReport;
+use Angelov\Eestec\Platform\Meetings\Reports\MeetingsPerMonthReport;
 use Carbon\Carbon;
 
 interface MeetingsRepositoryInterface extends RepositoryInterface
@@ -105,7 +105,7 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
      * @param \Angelov\Eestec\Platform\Members\Member $member
      * @param DateTime $from
      * @param DateTime $to
-     * @return MeetingsPerMonthReport
+     * @return \Angelov\Eestec\Platform\Meetings\Reports\MeetingsPerMonthReport
      */
     public function countAttendedMeetingsByMemberPerMonth(Member $member, DateTime $from, DateTime $to);
 

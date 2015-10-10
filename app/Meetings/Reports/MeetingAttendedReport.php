@@ -25,42 +25,74 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Reports;
+namespace Angelov\Eestec\Platform\Meetings\Reports;
 
-class MeetingsAttendanceDetailsForMemberReport
+use Angelov\Eestec\Platform\Meetings\Meeting;
+use Angelov\Eestec\Platform\Members\Member;
+
+class MeetingAttendedReport
 {
+    protected $meeting;
+    protected $member;
     protected $attended;
-    protected $missed;
 
-    public function __construct($attended, $missed)
+    /**
+     * @param Member $member
+     * @param \Angelov\Eestec\Platform\Meetings\Meeting $meeting
+     * @param boolean $attended
+     */
+    public function __construct(Member $member, Meeting $meeting, $attended)
     {
+        $this->member = $member;
+        $this->meeting = $meeting;
         $this->attended = $attended;
-        $this->missed = $missed;
     }
 
+    /**
+     * @param boolean $attended
+     */
+    public function setAttended($attended)
+    {
+        $this->attended = $attended;
+    }
+
+    /**
+     * @return boolean
+     */
     public function getAttended()
     {
         return $this->attended;
     }
 
-    public function getMissed()
+    /**
+     * @param \Angelov\Eestec\Platform\Meetings\Meeting $meeting
+     */
+    public function setMeeting($meeting)
     {
-        return $this->missed;
+        $this->meeting = $meeting;
     }
 
-    public function getTotal()
+    /**
+     * @return \Angelov\Eestec\Platform\Meetings\Meeting
+     */
+    public function getMeeting()
     {
-        return $this->missed + $this->attended;
+        return $this->meeting;
     }
 
-    public function getRate()
+    /**
+     * @param \Angelov\Eestec\Platform\Members\Member $member
+     */
+    public function setMember($member)
     {
-        if ($this->getTotal() == 0) {
-            return 100;
-        }
+        $this->member = $member;
+    }
 
-        $rate = ($this->getAttended() / $this->getTotal()) * 100;
-
-        return (int)round($rate, 0);
+    /**
+     * @return Member
+     */
+    public function getMember()
+    {
+        return $this->member;
     }
 }

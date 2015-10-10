@@ -25,8 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Reports;
+namespace Angelov\Eestec\Platform\Membership\Reports;
 
-class ExpectedFeesPerMonthReport extends AbstractMonthlyReport
+use Angelov\Eestec\Platform\Core\Reports\AbstractMonthlyReport;
+
+class PaidFeesPerMonthReport extends AbstractMonthlyReport
 {
 }

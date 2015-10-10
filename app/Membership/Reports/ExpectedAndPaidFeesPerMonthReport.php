@@ -25,56 +25,42 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Reports;
+namespace Angelov\Eestec\Platform\Membership\Reports;
 
+use Angelov\Eestec\Platform\Core\Reports\AbstractMonthlyReport;
 use JsonSerializable;
 
-class MembershipStatusReport implements JsonSerializable
+class ExpectedAndPaidFeesPerMonthReport extends AbstractMonthlyReport implements JsonSerializable
 {
-    protected $total = 0;
-    protected $active = 0;
+    protected $paid;
+    protected $expected;
 
-    /**
-     * @param integer $total Total number of members
-     * @param integer $active The number of active members
-     */
-    public function __construct($total, $active)
+    public function setPaidFees(array $paid)
     {
-        $this->active = $active;
-        $this->total = $total;
+        $this->paid = $paid;
     }
 
-    public function setActive($active)
+    public function getPaidFees()
     {
-        $this->active = $active;
+        return $this->paid;
     }
 
-    public function getActive()
+    public function setExpectedFees(array $expected)
     {
-        return $this->active;
+        $this->expected = $expected;
     }
 
-    public function setTotal($total)
+    public function getExpectedFees()
     {
-        $this->total = $total;
-    }
-
-    public function getTotal()
-    {
-        return $this->total;
-    }
-
-    public function getInactive()
-    {
-        return $this->total - $this->active;
+        return $this->expected;
     }
 
     public function jsonSerialize()
     {
         $data = [
-            "total" => $this->getTotal(),
-            "active" => $this->getActive(),
-            "inactive" => $this->getInactive()
+            'months' => $this->getMonthsTitles(),
+            'paid' => $this->getPaidFees(),
+            'expected' => $this->getExpectedFees()
         ];
 
         return $data;

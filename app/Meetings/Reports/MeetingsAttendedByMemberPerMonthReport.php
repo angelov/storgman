@@ -25,41 +25,53 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Reports;
+namespace Angelov\Eestec\Platform\Meetings\Reports;
 
 use JsonSerializable;
 
-class ExpectedAndPaidFeesPerMonthReport extends AbstractMonthlyReport implements JsonSerializable
+class MeetingsAttendedByMemberPerMonthReport implements JsonSerializable
 {
-    protected $paid;
-    protected $expected;
+    protected $total = [];
+    protected $attended = [];
+    protected $months = [];
 
-    public function setPaidFees(array $paid)
+    public function __construct(array $months, array $total, array $attended)
     {
-        $this->paid = $paid;
+        $this->attended = $attended;
+        $this->months = $months;
+        $this->total = $total;
     }
 
-    public function getPaidFees()
+    /**
+     * @return array
+     */
+    public function getAttended()
     {
-        return $this->paid;
+        return $this->attended;
     }
 
-    public function setExpectedFees(array $expected)
+    /**
+     * @return array
+     */
+    public function getMonths()
     {
-        $this->expected = $expected;
+        return $this->months;
     }
 
-    public function getExpectedFees()
+    /**
+     * @return array
+     */
+    public function getTotal()
     {
-        return $this->expected;
+        return $this->total;
     }
 
     public function jsonSerialize()
     {
         $data = [
-            'months' => $this->getMonthsTitles(),
-            'paid' => $this->getPaidFees(),
-            'expected' => $this->getExpectedFees()
+            "months" => $this->getMonths(),
+            "total" => $this->getTotal(),
+            "attended" => $this->getAttended()
         ];
 
         return $data;

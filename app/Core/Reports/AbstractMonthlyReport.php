@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Reports;
+namespace Angelov\Eestec\Platform\Core\Reports;
 
 use Angelov\Eestec\Platform\DateTime;
 use JsonSerializable;

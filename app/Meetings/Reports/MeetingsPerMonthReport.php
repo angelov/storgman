@@ -25,59 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Reports;
+namespace Angelov\Eestec\Platform\Meetings\Reports;
 
-class MeetingsAttendanceDetailsReport
+use Angelov\Eestec\Platform\Core\Reports\AbstractMonthlyReport;
+
+class MeetingsPerMonthReport extends AbstractMonthlyReport
 {
-    protected $meetings = 0;
-    protected $attendants = 0;
-    protected $average = 0;
-
-    /**
-     * @param integer $attendants
-     */
-    public function setAttendants($attendants)
-    {
-        $this->attendants = $attendants;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getAttendants()
-    {
-        return $this->attendants;
-    }
-
-    /**
-     * @param integer $average
-     */
-    public function setAverage($average)
-    {
-        $this->average = $average;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getAverage()
-    {
-        return $this->average;
-    }
-
-    /**
-     * @param integer $meetings
-     */
-    public function setMeetings($meetings)
-    {
-        $this->meetings = $meetings;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getMeetings()
-    {
-        return $this->meetings;
-    }
 }
