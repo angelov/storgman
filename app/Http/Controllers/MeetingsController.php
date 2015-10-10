@@ -31,7 +31,7 @@ use Angelov\Eestec\Platform\Commands\Meetings\CreateMeetingReportCommand;
 use Angelov\Eestec\Platform\Commands\Meetings\DeleteMeetingReportCommand;
 use Angelov\Eestec\Platform\Commands\Meetings\UpdateMeetingReportCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreMeetingRequest;
-use Angelov\Eestec\Platform\Paginators\MeetingsPaginator;
+use Angelov\Eestec\Platform\Meetings\MeetingsPaginator;
 use Angelov\Eestec\Platform\Services\MeetingsService;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Bus\Dispatcher;

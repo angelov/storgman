@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,20 +20,22 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Paginators;
+namespace Angelov\Eestec\Platform\Members;
 
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Core\Pagination\AbstractPaginator;
+use Angelov\Eestec\Platform\Core\Pagination\Factory;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 
-class MeetingsPaginator extends AbstractPaginator
+class MembersPaginator extends AbstractPaginator
 {
-    public function __construct(Factory $paginator, MeetingsRepositoryInterface $meetings)
+    public function __construct(Factory $factory, MembersRepositoryInterface $members)
     {
-        $this->paginator = $paginator;
-        $this->repository = $meetings;
+        $this->paginator = $factory;
+        $this->repository = $members;
     }
 }

@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Http\Controllers;
 use Angelov\Eestec\Platform\Commands\Fees\DeleteFeeCommand;
 use Angelov\Eestec\Platform\Commands\Fees\StoreFeeCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;
-use Angelov\Eestec\Platform\Paginators\FeesPaginator;
+use Angelov\Eestec\Platform\Membership\FeesPaginator;
 use Angelov\Eestec\Platform\Services\MembershipService;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\View\View;

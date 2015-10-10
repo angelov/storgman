@@ -34,7 +34,7 @@ use Angelov\Eestec\Platform\Commands\Members\DeleteMemberCommand;
 use Angelov\Eestec\Platform\Commands\Members\UpdateMemberCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
 use Angelov\Eestec\Platform\Http\Requests\UpdateMemberRequest;
-use Angelov\Eestec\Platform\Paginators\MembersPaginator;
+use Angelov\Eestec\Platform\Members\MembersPaginator;
 use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Services\MeetingsService;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
@@ -79,7 +79,7 @@ class MembersController extends BaseController
      * Display a listing of members
      *
      * @param Request $request
-     * @param MembersPaginator $paginator
+     * @param \Angelov\Eestec\Platform\Members\MembersPaginator $paginator
      * @return View
      */
     public function index(Request $request, MembersPaginator $paginator)

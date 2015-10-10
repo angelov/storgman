@@ -32,7 +32,7 @@ use Angelov\Eestec\Platform\Commands\Documents\StoreDocumentCommand;
 use Angelov\Eestec\Platform\Commands\Documents\UpdateDocumentCommand;
 use Angelov\Eestec\Platform\Events\Documents\DocumentWasOpened;
 use Angelov\Eestec\Platform\Http\Requests\StoreDocumentRequest;
-use Angelov\Eestec\Platform\Paginators\DocumentsPaginator;
+use Angelov\Eestec\Platform\Documents\DocumentsPaginator;
 use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;

@@ -25,17 +25,17 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Paginators;
+namespace Angelov\Eestec\Platform\Membership;
 
-use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Eestec\Platform\Core\Pagination\AbstractPaginator;
+use Angelov\Eestec\Platform\Core\Pagination\Factory;
+use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
 
-class DocumentsPaginator extends AbstractPaginator
+class FeesPaginator extends AbstractPaginator
 {
-    protected $itemsPerPage = 5;
-
-    public function __construct(Factory $factory, DocumentsRepositoryInterface $members)
+    public function __construct(Factory $paginator, FeesRepositoryInterface $fees)
     {
-        $this->paginator = $factory;
-        $this->repository = $members;
+        $this->paginator = $paginator;
+        $this->repository = $fees;
     }
 }
