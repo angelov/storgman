@@ -25,34 +25,30 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
+namespace Angelov\Eestec\Platform\Meetings\Handlers;
 
-use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
+use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\MeetingsPopulator;
+use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 
-class DeleteMemberCommandHandler
+class UpdateMeetingReportCommandHandler
 {
-    protected $members;
-    protected $photos;
+    protected $meetings;
+    protected $populator;
 
-    public function __construct(MembersRepositoryInterface $members, PhotosRepositoryInterface $photos)
+    public function __construct(MeetingsRepositoryInterface $meetings, MeetingsPopulator $populator)
     {
-        $this->members = $members;
-        $this->photos = $photos;
+        $this->meetings = $meetings;
+        $this->populator = $populator;
     }
 
-    public function handle(\Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand $command)
     {
-        $id = $command->getMemberId();
+        $meetingId = $command->getMeetingId();
+        $meeting = $this->meetings->get($meetingId);
 
-        $member = $this->members->get($id);
-        $photo = $member->getPhoto();
+        $this->populator->populateFromArray($meeting, $command->getData());
 
-        if (isset($photo)) {
-            $this->photos->destroy($photo, 'members');
-        }
-
-        $this->members->destroy($id);
+        $this->meetings->store($meeting);
     }
 }

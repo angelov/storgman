@@ -25,36 +25,36 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
+namespace Angelov\Eestec\Platform\Documents\Handlers;
 
-use Angelov\Eestec\Platform\Members\Commands\DeclineMemberCommand;
-use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
-use Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
+use Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand;
+use Angelov\Eestec\Platform\Documents\Document;
+use Angelov\Eestec\Platform\Documents\DocumentsPopulator;
+use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 
-class DeclineMemberCommandHandler
+class StoreDocumentCommandHandler
 {
-    protected $commandBus;
-    protected $events;
-    protected $members;
+    protected $populator;
+    protected $documents;
 
-    public function __construct(MembersRepositoryInterface $members, Dispatcher $commandBus, EventsDispatcher $events)
+    public function __construct(DocumentsPopulator $populator, DocumentsRepositoryInterface $documents)
     {
-        $this->commandBus = $commandBus;
-        $this->events = $events;
-        $this->members = $members;
+        $this->populator = $populator;
+        $this->documents = $documents;
     }
 
-    public function handle(DeclineMemberCommand $command)
+    /**
+     * @param \Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand $command
+     * @return Document
+     */
+    public function handle(\Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand $command)
     {
-        $id = $command->getMemberId();
+        $document = new Document();
 
-        $this->commandBus->dispatch(new DeleteMemberCommand($id));
+        $this->populator->populateFromArray($document, $command->getData());
 
-        $member = $this->members->get($id);
+        $this->documents->store($document);
 
-        $this->events->fire(new MemberWasDeclinedEvent($member));
+        return $document;
     }
 }

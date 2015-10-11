@@ -25,30 +25,22 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Meetings;
+namespace Angelov\Eestec\Platform\Meetings\Handlers;
 
-use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
-use Angelov\Eestec\Platform\Meetings\MeetingsPopulator;
+use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 
-class UpdateMeetingReportCommandHandler
+class DeleteMeetingReportCommandHandler
 {
     protected $meetings;
-    protected $populator;
 
-    public function __construct(MeetingsRepositoryInterface $meetings, MeetingsPopulator $populator)
+    public function __construct(MeetingsRepositoryInterface $meetings)
     {
         $this->meetings = $meetings;
-        $this->populator = $populator;
     }
 
-    public function handle(\Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand $command)
+    public function handle(DeleteMeetingReportCommand $command)
     {
-        $meetingId = $command->getMeetingId();
-        $meeting = $this->meetings->get($meetingId);
-
-        $this->populator->populateFromArray($meeting, $command->getData());
-
-        $this->meetings->store($meeting);
+        $this->meetings->destroy($command->getMeetingId());
     }
 }

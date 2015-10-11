@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Documents\Commands;
 
-use Angelov\Eestec\Platform\Commands\Command;
+use Angelov\Eestec\Platform\Core\Command;
 
 class DeleteDocumentCommand extends Command
 {

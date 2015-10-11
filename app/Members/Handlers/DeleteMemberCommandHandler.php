@@ -25,22 +25,34 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Documents;
+namespace Angelov\Eestec\Platform\Members\Handlers;
 
-use Angelov\Eestec\Platform\Documents\Commands\DeleteDocumentCommand;
-use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
 
-class DeleteDocumentCommandHandler
+class DeleteMemberCommandHandler
 {
-    protected $documents;
+    protected $members;
+    protected $photos;
 
-    public function __construct(DocumentsRepositoryInterface $documents)
+    public function __construct(MembersRepositoryInterface $members, PhotosRepositoryInterface $photos)
     {
-        $this->documents = $documents;
+        $this->members = $members;
+        $this->photos = $photos;
     }
 
-    public function handle(\Angelov\Eestec\Platform\Documents\Commands\DeleteDocumentCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand $command)
     {
-        $this->documents->destroy($command->getDocumentId());
+        $id = $command->getMemberId();
+
+        $member = $this->members->get($id);
+        $photo = $member->getPhoto();
+
+        if (isset($photo)) {
+            $this->photos->destroy($photo, 'members');
+        }
+
+        $this->members->destroy($id);
     }
 }

@@ -25,22 +25,30 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Fees;
+namespace Angelov\Eestec\Platform\Documents\Handlers;
 
-use Angelov\Eestec\Platform\Membership\Commands\DeleteFeeCommand;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Eestec\Platform\Documents\Commands\UpdateDocumentCommand;
+use Angelov\Eestec\Platform\Documents\DocumentsPopulator;
+use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 
-class DeleteFeeCommandHandler
+class UpdateDocumentCommandHandler
 {
-    protected $fees;
+    protected $documents;
+    protected $populator;
 
-    public function __construct(FeesRepositoryInterface $fees)
+    public function __construct(DocumentsRepositoryInterface $documents, DocumentsPopulator $populator)
     {
-        $this->fees = $fees;
+        $this->documents = $documents;
+        $this->populator = $populator;
     }
 
-    public function handle(DeleteFeeCommand $command)
+    public function handle(UpdateDocumentCommand $command)
     {
-        $this->fees->destroy($command->getFeeId());
+        $docId = $command->getDocumentId();
+        $document = $this->documents->get($docId);
+
+        $this->populator->populateFromArray($document, $command->getData());
+
+        $this->documents->store($document);
     }
 }

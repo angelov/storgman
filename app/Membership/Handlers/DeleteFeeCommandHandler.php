@@ -25,46 +25,22 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Fees;
+namespace Angelov\Eestec\Platform\Membership\Handlers;
 
-use Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand;
-use Angelov\Eestec\Platform\DateTime;
-use Angelov\Eestec\Platform\Membership\Fee;
-use Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent;
+use Angelov\Eestec\Platform\Membership\Commands\DeleteFeeCommand;
 use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Illuminate\Contracts\Events\Dispatcher;
 
-class StoreFeeCommandHandler
+class DeleteFeeCommandHandler
 {
-    protected $members;
     protected $fees;
-    protected $events;
 
-    public function __construct(FeesRepositoryInterface $fees, MembersRepositoryInterface $members, Dispatcher $events)
+    public function __construct(FeesRepositoryInterface $fees)
     {
-        $this->members = $members;
         $this->fees = $fees;
-        $this->events = $events;
     }
 
-    public function handle(\Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand $command)
+    public function handle(DeleteFeeCommand $command)
     {
-        $fee = new Fee();
-
-        $from = new DateTime($command->getFromDate());
-        $to = new DateTime($command->getToDate());
-
-        $fee->setFromDate($from);
-        $fee->setToDate($to);
-
-        $memberId = $command->getMemberId();
-        $member = $this->members->get($memberId);
-
-        $fee->setMember($member);
-
-        $this->fees->store($fee);
-
-        $this->events->fire(new FeeWasProceededEvent($fee));
+        $this->fees->destroy($command->getFeeId());
     }
 }

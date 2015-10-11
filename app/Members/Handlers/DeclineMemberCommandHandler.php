@@ -25,30 +25,36 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Meetings;
+namespace Angelov\Eestec\Platform\Members\Handlers;
 
-use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand;
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Meetings\MeetingsPopulator;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Commands\DeclineMemberCommand;
+use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
+use Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 
-class CreateMeetingReportCommandHandler
+class DeclineMemberCommandHandler
 {
-    protected $populator;
-    protected $meetings;
+    protected $commandBus;
+    protected $events;
+    protected $members;
 
-    public function __construct(MeetingsPopulator $populator, MeetingsRepositoryInterface $meetings)
+    public function __construct(MembersRepositoryInterface $members, Dispatcher $commandBus, EventsDispatcher $events)
     {
-        $this->populator = $populator;
-        $this->meetings = $meetings;
+        $this->commandBus = $commandBus;
+        $this->events = $events;
+        $this->members = $members;
     }
 
-    public function handle(\Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand $command)
+    public function handle(DeclineMemberCommand $command)
     {
-        $meeting = new Meeting();
+        $id = $command->getMemberId();
 
-        $this->populator->populateFromArray($meeting, $command->getData());
+        $this->commandBus->dispatch(new DeleteMemberCommand($id));
 
-        $this->meetings->store($meeting);
+        $member = $this->members->get($id);
+
+        $this->events->fire(new MemberWasDeclinedEvent($member));
     }
 }

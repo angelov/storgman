@@ -27,9 +27,9 @@
 
 namespace Angelov\Eestec\Platform\Members\Commands;
 
-use Angelov\Eestec\Platform\Commands\Command;
+use Angelov\Eestec\Platform\Core\Command;
 
-class CreateMemberCommand extends Command
+class CreateMemberCommand extends \Angelov\Eestec\Platform\Core\Command
 {
     protected $memberData;
     protected $approve;

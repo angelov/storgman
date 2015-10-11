@@ -25,36 +25,32 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Documents;
+namespace Angelov\Eestec\Platform\Members\Handlers;
 
-use Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand;
-use Angelov\Eestec\Platform\Documents\Document;
-use Angelov\Eestec\Platform\Documents\DocumentsPopulator;
-use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Commands\ApproveMemberCommand;
+use Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Illuminate\Contracts\Events\Dispatcher;
 
-class StoreDocumentCommandHandler
+class ApproveMemberCommandHandler
 {
-    protected $populator;
-    protected $documents;
+    protected $members;
+    protected $events;
 
-    public function __construct(DocumentsPopulator $populator, DocumentsRepositoryInterface $documents)
+    public function __construct(MembersRepositoryInterface $members, Dispatcher $events)
     {
-        $this->populator = $populator;
-        $this->documents = $documents;
+        $this->members = $members;
+        $this->events = $events;
     }
 
-    /**
-     * @param \Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand $command
-     * @return Document
-     */
-    public function handle(\Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand $command)
+    public function handle(ApproveMemberCommand $command)
     {
-        $document = new Document();
+        $id = $command->getMemberId();
 
-        $this->populator->populateFromArray($document, $command->getData());
+        $member = $this->members->get($id);
+        $member->setApproved(true);
+        $this->members->store($member);
 
-        $this->documents->store($document);
-
-        return $document;
+        $this->events->fire(new \Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent($member));
     }
 }

@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Meetings\Commands;
 
-use Angelov\Eestec\Platform\Commands\Command;
+use Angelov\Eestec\Platform\Core\Command;
 
 class UpdateMeetingReportCommand extends Command
 {

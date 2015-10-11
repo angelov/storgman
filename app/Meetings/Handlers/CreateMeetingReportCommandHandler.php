@@ -25,30 +25,30 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Documents;
+namespace Angelov\Eestec\Platform\Meetings\Handlers;
 
-use Angelov\Eestec\Platform\Documents\Commands\UpdateDocumentCommand;
-use Angelov\Eestec\Platform\Documents\DocumentsPopulator;
-use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Meeting;
+use Angelov\Eestec\Platform\Meetings\MeetingsPopulator;
+use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 
-class UpdateDocumentCommandHandler
+class CreateMeetingReportCommandHandler
 {
-    protected $documents;
     protected $populator;
+    protected $meetings;
 
-    public function __construct(DocumentsRepositoryInterface $documents, DocumentsPopulator $populator)
+    public function __construct(MeetingsPopulator $populator, MeetingsRepositoryInterface $meetings)
     {
-        $this->documents = $documents;
         $this->populator = $populator;
+        $this->meetings = $meetings;
     }
 
-    public function handle(UpdateDocumentCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand $command)
     {
-        $docId = $command->getDocumentId();
-        $document = $this->documents->get($docId);
+        $meeting = new Meeting();
 
-        $this->populator->populateFromArray($document, $command->getData());
+        $this->populator->populateFromArray($meeting, $command->getData());
 
-        $this->documents->store($document);
+        $this->meetings->store($meeting);
     }
 }

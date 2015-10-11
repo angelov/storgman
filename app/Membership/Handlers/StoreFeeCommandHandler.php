@@ -25,32 +25,46 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
+namespace Angelov\Eestec\Platform\Membership\Handlers;
 
-use Angelov\Eestec\Platform\Members\Commands\ApproveMemberCommand;
-use Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent;
+use Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand;
+use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Membership\Fee;
+use Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent;
+use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
-class ApproveMemberCommandHandler
+class StoreFeeCommandHandler
 {
     protected $members;
+    protected $fees;
     protected $events;
 
-    public function __construct(MembersRepositoryInterface $members, Dispatcher $events)
+    public function __construct(FeesRepositoryInterface $fees, MembersRepositoryInterface $members, Dispatcher $events)
     {
         $this->members = $members;
+        $this->fees = $fees;
         $this->events = $events;
     }
 
-    public function handle(ApproveMemberCommand $command)
+    public function handle(\Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand $command)
     {
-        $id = $command->getMemberId();
+        $fee = new Fee();
 
-        $member = $this->members->get($id);
-        $member->setApproved(true);
-        $this->members->store($member);
+        $from = new DateTime($command->getFromDate());
+        $to = new DateTime($command->getToDate());
 
-        $this->events->fire(new \Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent($member));
+        $fee->setFromDate($from);
+        $fee->setToDate($to);
+
+        $memberId = $command->getMemberId();
+        $member = $this->members->get($memberId);
+
+        $fee->setMember($member);
+
+        $this->fees->store($fee);
+
+        $this->events->fire(new FeeWasProceededEvent($fee));
     }
 }

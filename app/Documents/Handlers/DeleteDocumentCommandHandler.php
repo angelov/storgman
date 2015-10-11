@@ -25,22 +25,22 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Meetings;
+namespace Angelov\Eestec\Platform\Documents\Handlers;
 
-use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingReportCommand;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Documents\Commands\DeleteDocumentCommand;
+use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 
-class DeleteMeetingReportCommandHandler
+class DeleteDocumentCommandHandler
 {
-    protected $meetings;
+    protected $documents;
 
-    public function __construct(MeetingsRepositoryInterface $meetings)
+    public function __construct(DocumentsRepositoryInterface $documents)
     {
-        $this->meetings = $meetings;
+        $this->documents = $documents;
     }
 
-    public function handle(DeleteMeetingReportCommand $command)
+    public function handle(DeleteDocumentCommand $command)
     {
-        $this->meetings->destroy($command->getMeetingId());
+        $this->documents->destroy($command->getDocumentId());
     }
 }

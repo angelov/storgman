@@ -25,45 +25,38 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Handlers\Commands\Members;
+namespace Angelov\Eestec\Platform\Members\Handlers;
 
-use Angelov\Eestec\Platform\Members\Commands\CreateMemberCommand;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Members\Events\MemberJoinedEvent;
+use Angelov\Eestec\Platform\Members\Commands\UpdateMemberCommand;
 use Angelov\Eestec\Platform\Members\MembersPopulator;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
-use Illuminate\Contracts\Events\Dispatcher;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class CreateMemberCommandHandler
+class UpdateMemberCommandHandler
 {
     protected $members;
-    protected $populator;
-    protected $events;
     protected $photos;
+    protected $populator;
 
     public function __construct(
         MembersRepositoryInterface $members,
         PhotosRepositoryInterface $photos,
-        MembersPopulator $populator,
-        Dispatcher $events)
-    {
+        MembersPopulator $populator
+    ) {
         $this->members = $members;
         $this->photos = $photos;
         $this->populator = $populator;
-        $this->events = $events;
     }
 
-    public function handle(\Angelov\Eestec\Platform\Members\Commands\CreateMemberCommand $command)
+    public function handle(UpdateMemberCommand $command)
     {
-        $member = new Member();
+        $member = $this->members->get($command->getMemberId());
         $data = $command->getMemberData();
 
         $this->populator->populateFromArray($member, $data);
 
         if (isset($data['member_photo'])) {
-
             /** @var UploadedFile $photo */
             $photo = $data['member_photo'];
             $photoFileName = md5($member->getEmail()) . "." . $photo->getClientOriginalExtension();
@@ -71,14 +64,6 @@ class CreateMemberCommandHandler
             $this->photos->store($photo, 'members', $photoFileName);
 
             $member->setPhoto($photoFileName);
-        }
-
-        if ($command->shouldBeApproved()) { // Member was added by a board member
-
-            $member->setApproved(true);
-        } else { // The member created his account
-
-            $this->events->fire(new MemberJoinedEvent($member));
         }
 
         $this->members->store($member);

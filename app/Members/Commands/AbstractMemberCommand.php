@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Members\Commands;
 
-use Angelov\Eestec\Platform\Commands\Command;
+use Angelov\Eestec\Platform\Core\Command;
 
 abstract class AbstractMemberCommand extends Command
 {

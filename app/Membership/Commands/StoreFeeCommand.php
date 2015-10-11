@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Membership\Commands;
 
-use Angelov\Eestec\Platform\Commands\Command;
+use Angelov\Eestec\Platform\Core\Command;
 
 class StoreFeeCommand extends Command
 {

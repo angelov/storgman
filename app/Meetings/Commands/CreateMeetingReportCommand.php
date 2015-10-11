@@ -27,9 +27,9 @@
 
 namespace Angelov\Eestec\Platform\Meetings\Commands;
 
-use Angelov\Eestec\Platform\Commands\Command;
+use Angelov\Eestec\Platform\Core\Command;
 
-class CreateMeetingReportCommand extends Command
+class CreateMeetingReportCommand extends \Angelov\Eestec\Platform\Core\Command
 {
     protected $data;
 
