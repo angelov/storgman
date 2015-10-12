@@ -41,9 +41,11 @@ class BusServiceProvider extends ServiceProvider
     public function boot(Dispatcher $dispatcher)
     {
         $dispatcher->mapUsing(function ($command) {
-            return Dispatcher::simpleMapping(
-                $command, 'Angelov\Eestec\Platform\Commands', 'Angelov\Eestec\Platform\Handlers\Commands'
-            );
+            $className = get_class($command);
+            $parts = explode("Commands", $className);
+            $handler = $parts[0] ."Handlers" . $parts[1] ."Handler@handle";
+
+            return $handler;
         });
     }
 
