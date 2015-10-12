@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Http\Middleware;
 
-use Angelov\Eestec\Platform\Exceptions\NotAllowedException;
+use Angelov\Eestec\Platform\Core\Exceptions\NotAllowedException;
 use Closure;
 
 class AjaxOnlyMiddleware

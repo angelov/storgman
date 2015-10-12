@@ -29,7 +29,7 @@ namespace Angelov\Eestec\Platform\Documents\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\Documents\Document;
-use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 
 interface DocumentsRepositoryInterface extends RepositoryInterface
 {
@@ -38,7 +38,7 @@ interface DocumentsRepositoryInterface extends RepositoryInterface
      *
      * @param int $id
      * @return Document
-     * @throws ResourceNotFoundException
+     * @throws \Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException
      */
     public function get($id);
 

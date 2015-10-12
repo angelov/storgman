@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Members\Repositories;
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Membership\Reports\MembershipStatusReport;
 use Angelov\Eestec\Platform\Members\Reports\MembersPerFacultyReport;
 use Angelov\Eestec\Platform\Members\Reports\NewMembersPerMonthReport;

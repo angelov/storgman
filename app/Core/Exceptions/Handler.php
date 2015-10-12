@@ -25,8 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Exceptions;
+namespace Angelov\Eestec\Platform\Core\Exceptions;
 
+use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
@@ -52,7 +53,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        return parent::report($e);
+        return ExceptionHandler::report($e);
     }
 
     /**
@@ -76,6 +77,6 @@ class Handler extends ExceptionHandler
             return new JsonResponse($data);
         }
 
-        return parent::render($request, $e);
+        return ExceptionHandler::render($request, $e);
     }
 }

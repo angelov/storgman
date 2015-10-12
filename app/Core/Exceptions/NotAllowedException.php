@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Exceptions;
+namespace Angelov\Eestec\Platform\Core\Exceptions;
 
 class NotAllowedException extends \Exception
 {

@@ -25,8 +25,8 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Exceptions;
+namespace Angelov\Eestec\Platform\Membership\Exceptions;
 
-class ResourceNotFoundException extends \Exception
+class NoFeesException extends \Exception
 {
 }

@@ -38,7 +38,7 @@ $app->singleton(
 
 $app->singleton(
     'Illuminate\Contracts\Debug\ExceptionHandler',
-    'Angelov\Eestec\Platform\Exceptions\Handler'
+    'Angelov\Eestec\Platform\Core\Exceptions\Handler'
 );
 
 /*

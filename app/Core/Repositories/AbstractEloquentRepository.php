@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Core\Repositories;
 
-use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractEloquentRepository implements RepositoryInterface

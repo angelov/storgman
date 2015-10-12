@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Membership\Repositories;
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\DateTime;
 use Angelov\Eestec\Platform\Membership\Fee;
-use Angelov\Eestec\Platform\Exceptions\ResourceNotFoundException;
+use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Membership\Reports\ExpectedFeesPerMonthReport;
 use Angelov\Eestec\Platform\Membership\Reports\PaidFeesPerMonthReport;
 
@@ -41,7 +41,7 @@ interface FeesRepositoryInterface extends RepositoryInterface
      *
      * @param int $id
      * @return Fee
-     * @throws ResourceNotFoundException
+     * @throws \Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException
      */
     public function get($id);
 
