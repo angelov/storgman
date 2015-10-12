@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,36 +20,16 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Console;
+namespace Angelov\Eestec\Platform\Core\Console;
 
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * The Artisan commands provided by your application.
-     *
-     * @var array
-     */
-    protected $commands = [
-        
-    ];
-
-    /**
-     * Define the application's command schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
-     */
-    protected function schedule(Schedule $schedule)
-    {
-        //        $schedule->command('foo')
-//            ->hourly();
-    }
+    protected $commands = [];
 }

@@ -33,7 +33,7 @@ $app->singleton(
 
 $app->singleton(
     'Illuminate\Contracts\Console\Kernel',
-    'Angelov\Eestec\Platform\Console\Kernel'
+    'Angelov\Eestec\Platform\Core\Console\Kernel'
 );
 
 $app->singleton(
