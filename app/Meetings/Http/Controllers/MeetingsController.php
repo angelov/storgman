@@ -25,8 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Controllers;
+namespace Angelov\Eestec\Platform\Meetings\Http\Controllers;
 
+use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;

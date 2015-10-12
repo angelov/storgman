@@ -25,8 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Controllers;
+namespace Angelov\Eestec\Platform\Membership\Http\Controllers;
 
+use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Membership\Commands\DeleteFeeCommand;
 use Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand;
 use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;

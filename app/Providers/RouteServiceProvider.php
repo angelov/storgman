@@ -40,7 +40,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Angelov\Eestec\Platform\Http\Controllers';
+    protected $namespace = 'Angelov\Eestec\Platform';
 
     /**
      * Define your route model bindings, pattern filters, etc.

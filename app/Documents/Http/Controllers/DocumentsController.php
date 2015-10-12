@@ -25,8 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Controllers;
+namespace Angelov\Eestec\Platform\Documents\Http\Controllers;
 
+use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Documents\Commands\DeleteDocumentCommand;
 use Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand;
 use Angelov\Eestec\Platform\Documents\Commands\UpdateDocumentCommand;

@@ -39,13 +39,15 @@ $router->pattern('id', '[0-9]+');
  * Dashboard
  */
 
-$router->get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage', 'middleware' => 'auth']);
+$this->group(['namespace' => 'Members\Http\Controllers'], function(Router $router) {
+    $router->get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage', 'middleware' => 'auth']);
+});
 
 /**
  * Authentication
  */
 
-$router->group(['prefix' => 'auth'], function (Router $router) {
+$router->group(['prefix' => 'auth', 'namespace' => 'Members\Http\Controllers'], function (Router $router) {
 
     $router->get('/',
         ['as' => 'auth',
@@ -81,7 +83,7 @@ $router->group(['prefix' => 'auth'], function (Router $router) {
  * Members management
  */
 
-$router->group(['prefix' => 'members'], function (Router $router) {
+$router->group(['prefix' => 'members', 'namespace' => 'Members\Http\Controllers'], function (Router $router) {
 
     $router->group(['middleware' => ['auth', 'boardMemberOrSelf']], function(Router $router) {
         $router->get('/{id}',      ['as' => 'members.show',   'uses' => 'MembersController@show']);
@@ -139,7 +141,7 @@ $router->group(['prefix' => 'members'], function (Router $router) {
  * Membership fees management
  */
 
-$router->group(['prefix' => 'fees', 'middleware' => ['auth', 'boardMember']], function (Router $router) {
+$router->group(['prefix' => 'fees', 'middleware' => ['auth', 'boardMember'], 'namespace' => 'Membership\Http\Controllers'], function (Router $router) {
 
     $router->get('/',
         ['as' => 'fees.index',
@@ -171,7 +173,7 @@ $router->group(['prefix' => 'fees', 'middleware' => ['auth', 'boardMember']], fu
  * Meetings management
  */
 
-$router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember']], function (Router $router) {
+$router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember'], 'namespace' => 'Meetings\Http\Controllers'], function (Router $router) {
 
     $router->get('/',          ['as' => 'meetings.index',   'uses' => 'MeetingsController@index']);
     $router->get('/create',    ['as' => 'meetings.create',  'uses' => 'MeetingsController@create']);
@@ -187,7 +189,7 @@ $router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember']]
  * Documents management
  */
 
-$router->group(['prefix' => 'documents'], function (Router $router) {
+$router->group(['prefix' => 'documents', 'namespace' => 'Documents\Http\Controllers'], function (Router $router) {
 
     $router->get('/',          ['as' => 'documents.index',   'uses' => 'DocumentsController@index']);
     $router->post('/',         ['as' => 'documents.store',   'uses' => 'DocumentsController@store',   'middleware' => ['ajax']]);

@@ -25,8 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Controllers;
+namespace Angelov\Eestec\Platform\Members\Http\Controllers;
 
+use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Members\Commands\ApproveMemberCommand;
 use Angelov\Eestec\Platform\Members\Commands\CreateMemberCommand;
 use Angelov\Eestec\Platform\Members\Commands\DeclineMemberCommand;
