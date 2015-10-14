@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -58,12 +58,26 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define the routes for the application.
      *
-     * @return void
+     * @param Router $router
      */
     public function map(Router $router)
     {
-        $router->group(['namespace' => $this->namespace], function ($router) {
-            require app_path('Http/routes.php');
+        $router->group(['namespace' => $this->namespace], function (Router $router) {
+
+            $router->pattern('id', '[0-9]+');
+
+            $modules = [
+                'Members',
+                'Members/Authentication',
+                'Membership',
+                'Meetings',
+                'Documents'
+            ];
+
+            foreach ($modules as $module) {
+                require app_path($module . '/Http/routes.php');
+            }
+
         });
     }
 }
