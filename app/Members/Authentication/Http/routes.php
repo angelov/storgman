@@ -31,32 +31,10 @@ use Illuminate\Routing\Router;
 
 $router->group(['prefix' => 'auth', 'namespace' => 'Members\Authentication\Http\Controllers'], function (Router $router) {
 
-    $router->get('/',
-        ['as' => 'auth',
-            'uses' => 'AuthController@index',
-            'middleware' => 'guest']
-    );
-    $router->post('/',
-        ['as' => 'postAuth',
-            'uses' => 'AuthController@login',
-            'middleware' => 'guest']
-    );
-    $router->get('/logout',
-        ['as' => 'logout',
-            'uses' => 'AuthController@logout',
-            'middleware' => 'auth']
-    );
-
-    $router->get('/facebook',
-        ['as' => 'auth.facebook',
-            'uses' => 'AuthController@loginWithFacebook',
-            'middleware' => 'guest']
-    );
-
-    $router->get('/facebook-callback',
-        ['as' => 'auth.facebook-callback',
-            'uses' => 'AuthController@proceedFacebookLogin',
-            'middleware' => 'guest']
-    );
+    $router->get('/',                  ['as' => 'auth',                   'uses' => 'AuthController@index',                'middleware' => 'guest']);
+    $router->post('/',                 ['as' => 'postAuth',               'uses' => 'AuthController@login',                'middleware' => 'guest']);
+    $router->get('/logout',            ['as' => 'logout',                 'uses' => 'AuthController@logout',               'middleware' => 'auth']);
+    $router->get('/facebook',          ['as' => 'auth.facebook',          'uses' => 'AuthController@loginWithFacebook',    'middleware' => 'guest']);
+    $router->get('/facebook-callback', ['as' => 'auth.facebook-callback', 'uses' => 'AuthController@proceedFacebookLogin', 'middleware' => 'guest']);
 
 });

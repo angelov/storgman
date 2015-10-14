@@ -31,28 +31,10 @@ use Illuminate\Routing\Router;
 
 $router->group(['prefix' => 'fees', 'middleware' => ['auth', 'boardMember'], 'namespace' => 'Membership\Http\Controllers'], function (Router $router) {
 
-    $router->get('/',
-        ['as' => 'fees.index',
-            'uses' => 'FeesController@index']
-    );
-    $router->get('/archive',
-        ['as' => 'fees.archive',
-            'uses' => 'FeesController@archive']
-    );
-    $router->get('/create',
-        ['as' => 'fees.create',
-            'uses' => 'FeesController@create',
-            'middleware' => 'ajax']
-    );
-    $router->post('/',
-        ['as' => 'fees.store',
-            'uses' => 'FeesController@store',
-            'middleware' => 'ajax']
-    );
-    $router->delete('/{id}',
-        ['as' => 'fees.destroy',
-            'uses' => 'FeesController@destroy',
-            'middleware' => 'ajax']
-    );
+    $router->get('/',        ['as' => 'fees.index',   'uses' => 'FeesController@index']);
+    $router->get('/archive', ['as' => 'fees.archive', 'uses' => 'FeesController@archive']);
+    $router->get('/create',  ['as' => 'fees.create',  'uses' => 'FeesController@create',  'middleware' => 'ajax']);
+    $router->post('/',       ['as' => 'fees.store',   'uses' => 'FeesController@store',   'middleware' => 'ajax']);
+    $router->delete('/{id}', ['as' => 'fees.destroy', 'uses' => 'FeesController@destroy', 'middleware' => 'ajax']);
 
 });

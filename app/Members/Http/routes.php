@@ -29,60 +29,42 @@ use Illuminate\Routing\Router;
 
 /** @var Router $router */
 
-$this->group(['namespace' => 'Members\Http\Controllers'], function(Router $router) {
+$this->group(['namespace' => 'Members\Http\Controllers'], function (Router $router) {
+
     $router->get('/', ['as' => 'homepage', 'uses' => 'HomeController@showHomepage', 'middleware' => 'auth']);
+
 });
 
 $router->group(['prefix' => 'members', 'namespace' => 'Members\Http\Controllers'], function (Router $router) {
 
-    $router->group(['middleware' => ['auth', 'boardMemberOrSelf']], function(Router $router) {
+    $router->group(['middleware' => ['auth', 'boardMemberOrSelf']], function (Router $router) {
+
         $router->get('/{id}',      ['as' => 'members.show',   'uses' => 'MembersController@show']);
         $router->get('/{id}/edit', ['as' => 'members.edit',   'uses' => 'MembersController@edit']);
         $router->put('/{id}',      ['as' => 'members.update', 'uses' => 'MembersController@update']);
+
     });
 
-    $router->group(['middleware' => 'guest'], function(Router $router) {
-        $router->get('/register',
-            ['as' => 'members.register',
-                'uses' => 'MembersController@register']
-        );
-        $router->post('/register',
-            ['as' => 'members.postRegister',
-                'uses' => 'MembersController@postRegister']
-        );
+    $router->group(['middleware' => 'guest'], function (Router $router) {
+
+        $router->get('/register',  ['as' => 'members.register',     'uses' => 'MembersController@register']);
+        $router->post('/register', ['as' => 'members.postRegister', 'uses' => 'MembersController@postRegister']);
+
     });
 
-    $router->group(['middleware' => ['auth', 'boardMember']], function(Router $router) {
-        $router->get('/',          ['as' => 'members.index',  'uses' => 'MembersController@index']);
-        $router->get('/create',    ['as' => 'members.create', 'uses' => 'MembersController@create']);
-        $router->post('/',         ['as' => 'members.store',  'uses' => 'MembersController@store']);
-        $router->delete('/{id}',
-            ['as' => 'members.destroy',
-                'uses' => 'MembersController@destroy',
-                'middleware' => 'ajax']
-        );
-        $router->get('/prefetch',
-            ['as' => 'members.prefetch',
-                'uses' => 'MembersController@prefetch',
-                'middleware' => 'ajax']
-        );
-        $router->get('/board',     ['as' => 'members.board',  'uses' => 'MembersController@board']);
-        $router->get('/{id}/quick-info',
-            ['as' => 'members.quick',
-                'uses' => 'MembersController@quickMemberInfo',
-                'middleware' => 'ajax']
-        );
-        $router->post('/{id}/approve',
-            ['as' => 'members.approve',
-                'uses' => 'MembersController@approve',
-                'middleware' => 'ajax']
-        );
-        $router->post('/{id}/decline',
-            ['as' => 'members.decline',
-                'uses' => 'MembersController@decline',
-                'middleware' => 'ajax']
-        );
-        $router->get('/unapproved', ['as' => 'members.unapproved',  'uses' => 'MembersController@unapproved']);
+    $router->group(['middleware' => ['auth', 'boardMember']], function (Router $router) {
+
+        $router->get('/',                ['as' => 'members.index',      'uses' => 'MembersController@index']);
+        $router->get('/create',          ['as' => 'members.create',     'uses' => 'MembersController@create']);
+        $router->post('/',               ['as' => 'members.store',      'uses' => 'MembersController@store']);
+        $router->delete('/{id}',         ['as' => 'members.destroy',    'uses' => 'MembersController@destroy',         'middleware' => 'ajax']);
+        $router->get('/prefetch',        ['as' => 'members.prefetch',   'uses' => 'MembersController@prefetch',        'middleware' => 'ajax']);
+        $router->get('/board',           ['as' => 'members.board',      'uses' => 'MembersController@board']);
+        $router->get('/{id}/quick-info', ['as' => 'members.quick',      'uses' => 'MembersController@quickMemberInfo', 'middleware' => 'ajax']);
+        $router->post('/{id}/approve',   ['as' => 'members.approve',    'uses' => 'MembersController@approve',         'middleware' => 'ajax']);
+        $router->post('/{id}/decline',   ['as' => 'members.decline',    'uses' => 'MembersController@decline',         'middleware' => 'ajax']);
+        $router->get('/unapproved',      ['as' => 'members.unapproved', 'uses' => 'MembersController@unapproved']);
+
     });
 
 });
