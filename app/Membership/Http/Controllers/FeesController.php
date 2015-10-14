@@ -30,7 +30,7 @@ namespace Angelov\Eestec\Platform\Membership\Http\Controllers;
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Membership\Commands\DeleteFeeCommand;
 use Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand;
-use Angelov\Eestec\Platform\Http\Requests\StoreFeeRequest;
+use Angelov\Eestec\Platform\Membership\Http\Requests\StoreFeeRequest;
 use Angelov\Eestec\Platform\Membership\FeesPaginator;
 use Angelov\Eestec\Platform\Membership\MembershipService;
 use Illuminate\Contracts\Bus\Dispatcher;
@@ -115,7 +115,7 @@ class FeesController extends BaseController
     /**
      * Store a newly created fee.
      *
-     * @param StoreFeeRequest $request
+     * @param \Angelov\Eestec\Platform\Membership\Http\Requests\StoreFeeRequest $request
      * @return JsonResponse
      */
     public function store(StoreFeeRequest $request)

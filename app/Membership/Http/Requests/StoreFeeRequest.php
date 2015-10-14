@@ -25,18 +25,25 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Requests;
+namespace Angelov\Eestec\Platform\Membership\Http\Requests;
 
-class LoginFormRequest extends Request
+use Angelov\Eestec\Platform\Core\Http\Request;
+use Illuminate\Http\JsonResponse;
+
+class StoreFeeRequest extends Request
 {
+    /** @todo The date in the "to" field must be after the date in the "from" field */
     protected $rules = [
-        'email' => 'required|email',
-        'password' => 'required|min:6'
+        'from' => 'required|date_format:Y-m-d',
+        'to' => 'required|date_format:Y-m-d',
+        'member_id' => 'required|exists:members,id'
     ];
 
     public function response(array $errors)
     {
-        $this->session->flash('auth-error', 'Please insert valid information.');
-        return $this->redirector->back()->withInput();
+        $data['status'] = 'danger';
+        $data['message'] = 'The data you entered is invalid.';
+
+        return new JsonResponse($data);
     }
 }

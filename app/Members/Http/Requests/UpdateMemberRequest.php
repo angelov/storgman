@@ -25,19 +25,35 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Requests;
+namespace Angelov\Eestec\Platform\Members\Http\Requests;
 
-class StoreMemberRequest extends Request
+use Angelov\Eestec\Platform\Members\Http\Requests\StoreMemberRequest;
+
+class UpdateMemberRequest extends StoreMemberRequest
 {
-    protected $rules = [
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'email' => 'required|unique:members|email',
-        'password' => 'required|min:6',
-        'faculty' => 'required',
-        'field_of_study' => 'required',
-        'year_of_graduation' => 'required|integer',
-        'birthday' => 'required|date_format:Y-m-d',
-        'member_photo' => 'image|max:3000'
-    ];
+    public function validate()
+    {
+        /**
+         * If the unique email rule is set and the member's email
+         * is not changed, the system will consider the email as
+         * already taken and will throw an error.
+         */
+        $this->removeRule('email', 'unique');
+
+        /**
+         * We don't want to change the member's password if there's
+         * no new password inserted.
+         */
+        if ($this->get('password') == '') {
+            $this->removePasswordRules();
+        }
+
+        parent::validate();
+    }
+
+    protected function removePasswordRules()
+    {
+        $this->removeRule('password', 'required');
+        $this->removeRule('password', 'min');
+    }
 }

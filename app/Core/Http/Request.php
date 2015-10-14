@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Requests;
+namespace Angelov\Eestec\Platform\Core\Http;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Redirector;

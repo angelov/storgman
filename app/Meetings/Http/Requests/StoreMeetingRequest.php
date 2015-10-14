@@ -25,9 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Requests;
+namespace Angelov\Eestec\Platform\Meetings\Http\Requests;
 
-class StoreMeetingRequest extends Request
+use Angelov\Eestec\Platform\Core\Http\Request;
+
+class StoreMeetingRequest extends \Angelov\Eestec\Platform\Core\Http\Request
 {
     protected $rules = [
         'date' => 'required|date_format:Y-m-d',

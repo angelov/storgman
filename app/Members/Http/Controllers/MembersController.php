@@ -33,8 +33,8 @@ use Angelov\Eestec\Platform\Members\Commands\CreateMemberCommand;
 use Angelov\Eestec\Platform\Members\Commands\DeclineMemberCommand;
 use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
 use Angelov\Eestec\Platform\Members\Commands\UpdateMemberCommand;
-use Angelov\Eestec\Platform\Http\Requests\StoreMemberRequest;
-use Angelov\Eestec\Platform\Http\Requests\UpdateMemberRequest;
+use Angelov\Eestec\Platform\Members\Http\Requests\StoreMemberRequest;
+use Angelov\Eestec\Platform\Members\Http\Requests\UpdateMemberRequest;
 use Angelov\Eestec\Platform\Members\MembersPaginator;
 use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Meetings\MeetingsService;
@@ -220,7 +220,7 @@ class MembersController extends BaseController
     /**
      * Update the specified member in storage.
      *
-     * @param UpdateMemberRequest $request
+     * @param \Angelov\Eestec\Platform\Members\Http\Requests\UpdateMemberRequest $request
      * @param  int $id
      * @return RedirectResponse
      */

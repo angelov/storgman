@@ -32,7 +32,7 @@ use Angelov\Eestec\Platform\Documents\Commands\DeleteDocumentCommand;
 use Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand;
 use Angelov\Eestec\Platform\Documents\Commands\UpdateDocumentCommand;
 use Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened;
-use Angelov\Eestec\Platform\Http\Requests\StoreDocumentRequest;
+use Angelov\Eestec\Platform\Documents\Http\Requests\StoreDocumentRequest;
 use Angelov\Eestec\Platform\Documents\DocumentsPaginator;
 use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
@@ -87,7 +87,7 @@ class DocumentsController extends BaseController
     /**
      * Store a new document
      *
-     * @param StoreDocumentRequest $request
+     * @param \Angelov\Eestec\Platform\Documents\Http\Requests\StoreDocumentRequest $request
      * @return View
      */
     public function store(StoreDocumentRequest $request)

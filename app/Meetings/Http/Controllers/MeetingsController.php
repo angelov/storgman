@@ -31,7 +31,7 @@ use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
-use Angelov\Eestec\Platform\Http\Requests\StoreMeetingRequest;
+use Angelov\Eestec\Platform\Meetings\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Meetings\MeetingsPaginator;
 use Angelov\Eestec\Platform\Meetings\MeetingsService;
 use Illuminate\Contracts\Auth\Guard;
@@ -112,7 +112,7 @@ class MeetingsController extends BaseController
      * Store a newly created meeting report in storage.
      * POST /meetings
      *
-     * @param StoreMeetingRequest $request
+     * @param \Angelov\Eestec\Platform\Meetings\Http\Requests\StoreMeetingRequest $request
      * @return RedirectResponse
      */
     public function store(StoreMeetingRequest $request)
