@@ -28,7 +28,7 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
     'Illuminate\Contracts\Http\Kernel',
-    'Angelov\Eestec\Platform\Http\Kernel'
+    'Angelov\Eestec\Platform\Core\Http\Kernel'
 );
 
 $app->singleton(
