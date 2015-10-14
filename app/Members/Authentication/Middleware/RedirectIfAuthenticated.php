@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Middleware;
+namespace Angelov\Eestec\Platform\Members\Authentication\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;

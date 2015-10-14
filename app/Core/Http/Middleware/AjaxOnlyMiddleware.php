@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Middleware;
+namespace Angelov\Eestec\Platform\Core\Http\Middleware;
 
 use Angelov\Eestec\Platform\Core\Exceptions\NotAllowedException;
 use Closure;

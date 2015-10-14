@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -42,7 +42,7 @@ class Kernel extends HttpKernel
         'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
         'Illuminate\Session\Middleware\StartSession',
         'Illuminate\View\Middleware\ShareErrorsFromSession',
-        'Angelov\Eestec\Platform\Http\Middleware\VerifyCsrfToken',
+        'Angelov\Eestec\Platform\Core\Http\Middleware\VerifyCsrfToken',
     ];
 
     /**
@@ -51,11 +51,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => 'Angelov\Eestec\Platform\Http\Middleware\Authenticate',
+        'auth' => 'Angelov\Eestec\Platform\Members\Authentication\Middleware\Authenticate',
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest' => 'Angelov\Eestec\Platform\Http\Middleware\RedirectIfAuthenticated',
-        'boardMember' => 'Angelov\Eestec\Platform\Http\Middleware\BoardMembersOnlyMiddleware',
-        'ajax' => 'Angelov\Eestec\Platform\Http\Middleware\AjaxOnlyMiddleware',
-        'boardMemberOrSelf' => 'Angelov\Eestec\Platform\Http\Middleware\BoardMembersOrSelfMiddleware',
+        'guest' => 'Angelov\Eestec\Platform\Members\Authentication\Middleware\RedirectIfAuthenticated',
+        'boardMember' => 'Angelov\Eestec\Platform\Members\Authorization\Middleware\BoardMembersOnlyMiddleware',
+        'ajax' => 'Angelov\Eestec\Platform\Core\Http\Middleware\AjaxOnlyMiddleware',
+        'boardMemberOrSelf' => 'Angelov\Eestec\Platform\Members\Authorization\Middleware\BoardMembersOrSelfMiddleware',
     ];
 }

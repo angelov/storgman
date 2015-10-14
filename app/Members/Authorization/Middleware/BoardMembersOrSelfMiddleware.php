@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Http\Middleware;
+namespace Angelov\Eestec\Platform\Members\Authorization\Middleware;
 
 use Angelov\Eestec\Platform\Members\Member;
 use Closure;
