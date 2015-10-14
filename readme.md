@@ -17,6 +17,7 @@ Under development by [Angelov Dejan](http://angelovdejan.me).
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/angelov/eestec-platform/badges/build.png?b=master)](https://scrutinizer-ci.com/g/angelov/eestec-platform/build-status/master)
+[![StyleCI](https://styleci.io/repos/22167392/shield)](https://styleci.io/repos/22167392)
 
 ### Requirements
 
