@@ -25,20 +25,44 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Http\Requests;
+namespace Angelov\Eestec\Platform\Members\Authentication\Http\Middleware;
 
-use Angelov\Eestec\Platform\Core\Http\Request;
+use Closure;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\RedirectResponse;
 
-class LoginFormRequest extends \Angelov\Eestec\Platform\Core\Http\Request
+class RedirectIfAuthenticated
 {
-    protected $rules = [
-        'email' => 'required|email',
-        'password' => 'required|min:6'
-    ];
+    /**
+     * The Guard implementation.
+     *
+     * @var Guard
+     */
+    protected $auth;
 
-    public function response(array $errors)
+    /**
+     * Create a new filter instance.
+     *
+     * @param  Guard  $auth
+     */
+    public function __construct(Guard $auth)
     {
-        $this->session->flash('auth-error', 'Please insert valid information.');
-        return $this->redirector->back()->withInput();
+        $this->auth = $auth;
+    }
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if ($this->auth->check()) {
+            return new RedirectResponse(url('/'));
+        }
+
+        return $next($request);
     }
 }

@@ -47,7 +47,7 @@ $this->group(['namespace' => 'Members\Http\Controllers'], function(Router $route
  * Authentication
  */
 
-$router->group(['prefix' => 'auth', 'namespace' => 'Members\Http\Controllers'], function (Router $router) {
+$router->group(['prefix' => 'auth', 'namespace' => 'Members\Authentication\Http\Controllers'], function (Router $router) {
 
     $router->get('/',
         ['as' => 'auth',

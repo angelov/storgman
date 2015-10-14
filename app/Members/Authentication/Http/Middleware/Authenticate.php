@@ -25,19 +25,29 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Authorization\Middleware;
+namespace Angelov\Eestec\Platform\Members\Authentication\Http\Middleware;
 
-use Angelov\Eestec\Platform\Members\Member;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
-class BoardMembersOrSelfMiddleware
+class Authenticate
 {
-    protected $guard;
+    /**
+     * The Guard implementation.
+     *
+     * @var Guard
+     */
+    protected $auth;
 
+    /**
+     * Create a new filter instance.
+     *
+     * @param  Guard $auth
+     * @return @void
+     */
     public function __construct(Guard $auth)
     {
-        $this->guard = $auth;
+        $this->auth = $auth;
     }
 
     /**
@@ -49,12 +59,12 @@ class BoardMembersOrSelfMiddleware
      */
     public function handle($request, Closure $next)
     {
-        /** @var Member $member */
-        $member = $this->guard->user();
-        $id = $request->route()->getParameter('id');
-
-        if (!$member->isBoardMember() && $id != $member->id) {
-            return \Redirect::to('/');
+        if ($this->auth->guest()) {
+            if ($request->ajax()) {
+                return response('Unauthorized.', 401);
+            } else {
+                return redirect()->guest('auth');
+            }
         }
 
         return $next($request);

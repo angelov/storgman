@@ -25,29 +25,19 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Authentication\Middleware;
+namespace Angelov\Eestec\Platform\Members\Authorization\Http\Middleware;
 
+use Angelov\Eestec\Platform\Members\Member;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Http\RedirectResponse;
 
-class RedirectIfAuthenticated
+class BoardMembersOrSelfMiddleware
 {
-    /**
-     * The Guard implementation.
-     *
-     * @var Guard
-     */
-    protected $auth;
+    protected $guard;
 
-    /**
-     * Create a new filter instance.
-     *
-     * @param  Guard  $auth
-     */
     public function __construct(Guard $auth)
     {
-        $this->auth = $auth;
+        $this->guard = $auth;
     }
 
     /**
@@ -59,8 +49,12 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->check()) {
-            return new RedirectResponse(url('/'));
+        /** @var Member $member */
+        $member = $this->guard->user();
+        $id = $request->route()->getParameter('id');
+
+        if (!$member->isBoardMember() && $id != $member->id) {
+            return \Redirect::to('/');
         }
 
         return $next($request);

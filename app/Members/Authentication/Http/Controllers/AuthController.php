@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Http\Controllers;
+namespace Angelov\Eestec\Platform\Members\Authentication\Http\Controllers;
 
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Members\Http\Requests\LoginFormRequest;
+use Angelov\Eestec\Platform\Members\Authentication\Http\Requests\LoginFormRequest;
 use Angelov\Eestec\Platform\Members\SocialProfiles\Repositories\SocialProfilesRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\Factory;
@@ -76,7 +76,7 @@ class AuthController extends BaseController
      * Check the login data and authenticate the member.
      * Thanks to reddit.com/user/baileylo for the suggestions.
      *
-     * @param \Angelov\Eestec\Platform\Members\Http\Requests\LoginFormRequest $request
+     * @param \Angelov\Eestec\Platform\Members\Authentication\Http\Requests\LoginFormRequest $request
      * @return RedirectResponse
      */
     public function login(LoginFormRequest $request)

@@ -51,11 +51,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => 'Angelov\Eestec\Platform\Members\Authentication\Middleware\Authenticate',
+        'auth' => 'Angelov\Eestec\Platform\Members\Authentication\Http\Middleware\Authenticate',
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest' => 'Angelov\Eestec\Platform\Members\Authentication\Middleware\RedirectIfAuthenticated',
-        'boardMember' => 'Angelov\Eestec\Platform\Members\Authorization\Middleware\BoardMembersOnlyMiddleware',
+        'guest' => 'Angelov\Eestec\Platform\Members\Authentication\Http\Middleware\RedirectIfAuthenticated',
+        'boardMember' => 'Angelov\Eestec\Platform\Members\Authorization\Http\Middleware\BoardMembersOnlyMiddleware',
         'ajax' => 'Angelov\Eestec\Platform\Core\Http\Middleware\AjaxOnlyMiddleware',
-        'boardMemberOrSelf' => 'Angelov\Eestec\Platform\Members\Authorization\Middleware\BoardMembersOrSelfMiddleware',
+        'boardMemberOrSelf' => 'Angelov\Eestec\Platform\Members\Authorization\Http\Middleware\BoardMembersOrSelfMiddleware',
     ];
 }
