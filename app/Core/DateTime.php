@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform;
+namespace Angelov\Eestec\Platform\Core;
 
 use Carbon\Carbon;
 

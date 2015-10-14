@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Members;
 
-use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Core\DateTime;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 
 class MembersStatisticsService

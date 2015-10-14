@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Membership;
 
-use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Core\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Membership\Reports\ExpectedAndPaidFeesPerMonthReport;
 use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;

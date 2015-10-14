@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Members\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Core\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Membership\Reports\MembershipStatusReport;

@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Membership\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Core\DateTime;
 use Angelov\Eestec\Platform\Membership\Fee;
 use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Membership\Reports\ExpectedFeesPerMonthReport;
@@ -73,8 +73,8 @@ interface FeesRepositoryInterface extends RepositoryInterface
     /**
      * Returns a report how many fees were expected to be paid per month
      *
-     * @param DateTime $from
-     * @param DateTime $to
+     * @param \Angelov\Eestec\Platform\Core\DateTime $from
+     * @param \Angelov\Eestec\Platform\Core\DateTime $to
      * @return \Angelov\Eestec\Platform\Membership\Reports\PaidFeesPerMonthReport
      */
     public function calculatePaidFeesPerMonth(DateTime $from, DateTime $to);

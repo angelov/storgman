@@ -28,7 +28,7 @@
 namespace Angelov\Eestec\Platform\Membership\Handlers;
 
 use Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand;
-use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Core\DateTime;
 use Angelov\Eestec\Platform\Membership\Fee;
 use Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent;
 use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;

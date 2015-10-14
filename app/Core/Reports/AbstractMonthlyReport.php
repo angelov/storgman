@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Core\Reports;
 
-use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Core\DateTime;
 use JsonSerializable;
 
 abstract class AbstractMonthlyReport implements JsonSerializable

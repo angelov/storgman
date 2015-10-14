@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Meetings;
 
-use Angelov\Eestec\Platform\DateTime;
+use Angelov\Eestec\Platform\Core\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Meetings\Reports\MeetingAttendedReport;
 use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendanceDetailsForMemberReport;
