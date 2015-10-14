@@ -1,6 +1,20 @@
     <?php
 
-return [
+    use Angelov\Eestec\Platform\Documents\Providers\DocumentsRepositoryServiceProvider;
+    use Angelov\Eestec\Platform\Documents\Providers\EventsServiceProvider as DocumentsEventsServiceProvider;
+    use Angelov\Eestec\Platform\Documents\Tags\Providers\TagsRepositoryServiceProvider;
+    use Angelov\Eestec\Platform\Meetings\Providers\MeetingsRepositoryServiceProvider;
+    use Angelov\Eestec\Platform\Meetings\Providers\MeetingsServiceServiceProvider;
+    use Angelov\Eestec\Platform\Members\Photos\Providers\PhotosRepositoryServiceProvider;
+    use Angelov\Eestec\Platform\Members\Providers\EventsServiceProvider as MembersEventsServiceProvider;
+    use Angelov\Eestec\Platform\Members\Providers\MembersPopulatorServiceProvider;
+    use Angelov\Eestec\Platform\Members\Providers\MembersRepositoryServiceProvider;
+    use Angelov\Eestec\Platform\Members\SocialProfiles\Providers\SocialProfilesRepositoryServiceProvider;
+    use Angelov\Eestec\Platform\Membership\Providers\EventsServiceProvider as MembershipEventsServiceProvider;
+    use Angelov\Eestec\Platform\Membership\Providers\FeesRepositoryServiceProvider;
+    use Angelov\Eestec\Platform\Membership\Providers\MembershipServiceServiceProvider;
+
+    return [
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +122,7 @@ return [
     |
     */
 
-    'providers' => [
+    'providers' => array(
 
         /*
          * Laravel Framework Service Providers...
@@ -151,16 +165,25 @@ return [
          * Application Service Providers...
          */
 
-        'Angelov\Eestec\Platform\Providers\AppServiceProvider',
-        'Angelov\Eestec\Platform\Providers\BusServiceProvider',
-        'Angelov\Eestec\Platform\Providers\ConfigServiceProvider',
-        'Angelov\Eestec\Platform\Providers\EventServiceProvider',
-        'Angelov\Eestec\Platform\Providers\RouteServiceProvider',
-        'Angelov\Eestec\Platform\Providers\RepositoriesServiceProvider',
-        'Angelov\Eestec\Platform\Providers\ServicesServiceProvider',
-        //'Angelov\Eestec\Platform\Eventing\EventingServiceProvider',
+        'Angelov\Eestec\Platform\Core\Providers\AppServiceProvider',
+        'Angelov\Eestec\Platform\Core\Providers\BusServiceProvider',
+        'Angelov\Eestec\Platform\Core\Providers\ConfigServiceProvider',
+        'Angelov\Eestec\Platform\Core\Providers\RouteServiceProvider',
+        MembersRepositoryServiceProvider::class,
+        SocialProfilesRepositoryServiceProvider::class,
+        FeesRepositoryServiceProvider::class,
+        PhotosRepositoryServiceProvider::class,
+        MeetingsRepositoryServiceProvider::class,
+        DocumentsRepositoryServiceProvider::class,
+        TagsRepositoryServiceProvider::class,
+        MembershipServiceServiceProvider::class,
+        MeetingsServiceServiceProvider::class,
+        MembersPopulatorServiceProvider::class,
+        DocumentsEventsServiceProvider::class,
+        MembershipEventsServiceProvider::class,
+        MembersEventsServiceProvider::class
 
-    ],
+    ),
 
     /*
     |--------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,39 +20,23 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Providers;
+namespace Angelov\Eestec\Platform\Meetings\Providers;
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
-class ServicesServiceProvider extends ServiceProvider
+class MeetingsServiceServiceProvider extends ServiceProvider
 {
-    protected $container;
-
-    public function __construct(Application $container)
-    {
-        $this->container = $container;
-    }
-
     public function register()
     {
-        $container = $this->container;
+        $container = $this->app;
 
-        $this->container->bind('MembershipService', function () use ($container) {
-            return $container->make('Angelov\Eestec\Platform\Membership\MembershipService');
-        });
-
-        $this->container->bind('MeetingsService', function () use ($container) {
+        $this->app->bind('MeetingsService', function () use ($container) {
             return $container->make('Angelov\Eestec\Platform\Meetings\MeetingsService');
-        });
-
-        $this->container->bind('MembersPopulator', function () use ($container) {
-            return $container->make('Angelov\Eestec\Platform\Members\MembersPopulator');
         });
     }
 }

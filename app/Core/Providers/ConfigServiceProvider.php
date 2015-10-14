@@ -25,37 +25,25 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Providers;
+namespace Angelov\Eestec\Platform\Core\Providers;
 
-use Illuminate\Bus\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 
-class BusServiceProvider extends ServiceProvider
+class ConfigServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * Overwrite any vendor / package configuration.
      *
-     * @param  \Illuminate\Bus\Dispatcher  $dispatcher
-     * @return void
-     */
-    public function boot(Dispatcher $dispatcher)
-    {
-        $dispatcher->mapUsing(function ($command) {
-            $className = get_class($command);
-            $parts = explode("Commands", $className);
-            $handler = $parts[0] ."Handlers" . $parts[1] ."Handler@handle";
-
-            return $handler;
-        });
-    }
-
-    /**
-     * Register any application services.
+     * This service provider is intended to provide a convenient location for you
+     * to overwrite any "vendor" or package configuration that you may want to
+     * modify before the application handles the incoming request / command.
      *
      * @return void
      */
     public function register()
     {
-        //
+        config([
+            
+        ]);
     }
 }

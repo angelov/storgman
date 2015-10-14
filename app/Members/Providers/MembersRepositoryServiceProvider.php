@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,30 +20,22 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Providers;
+namespace Angelov\Eestec\Platform\Members\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class ConfigServiceProvider extends ServiceProvider
+class MembersRepositoryServiceProvider extends ServiceProvider
 {
-    /**
-     * Overwrite any vendor / package configuration.
-     *
-     * This service provider is intended to provide a convenient location for you
-     * to overwrite any "vendor" or package configuration that you may want to
-     * modify before the application handles the incoming request / command.
-     *
-     * @return void
-     */
     public function register()
     {
-        config([
-            
-        ]);
+        $this->app->bind(
+            'Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface',
+            'Angelov\Eestec\Platform\Members\Repositories\EloquentMembersRepository'
+        );
     }
 }

@@ -25,44 +25,15 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Providers;
+namespace Angelov\Eestec\Platform\Membership\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
-class EventServiceProvider extends ServiceProvider
+class EventsServiceProvider extends ServiceProvider
 {
-    /**
-     * The event handler mappings for the application.
-     *
-     * @var array
-     */
     protected $listen = [
-
-        // Members Handlers
-
-        'Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent' => [
-            'Angelov\Eestec\Platform\Members\Listeners\EmailApprovalConfirmation'
-        ],
-
-        'Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent' => [
-            'Angelov\Eestec\Platform\Members\Listeners\EmailDenialConfirmation'
-        ],
-
-        'Angelov\Eestec\Platform\Members\Events\MemberJoinedEvent' => [
-            'Angelov\Eestec\Platform\Members\Listeners\EmailWelcomeMessage'
-        ],
-
-        // Membership Fees Handlers
-
         'Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent' => [
             'Angelov\Eestec\Platform\Membership\Listeners\EmailProceedingConfirmation'
-        ],
-
-        // Documents Handlers
-
-        'Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened' => [
-            'Angelov\Eestec\Platform\Documents\Listeners\TrackDocumentOpening'
         ]
-
     ];
 }
