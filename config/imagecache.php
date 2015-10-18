@@ -1,5 +1,7 @@
 <?php
 
+use Intervention\Image\Image;
+
 return array(
 
     /*
@@ -48,22 +50,22 @@ return array(
     |
     */
    
-    'templates' => array(
+    'templates' => [
 
-        'xsmall' => function ($image) {
+        'xsmall' => function (Image $image) {
             return $image->fit(40, 40);
         },
-        'small' => function ($image) {
+        'small' => function (Image $image) {
             return $image->fit(100, 100);
         },
-        'medium' => function ($image) {
+        'medium' => function (Image $image) {
             return $image->fit(200, 200);
         },
-        'large' => function ($image) {
+        'large' => function (Image $image) {
             return $image->fit(400, 400);
         }
 
-    ),
+    ],
 
     /*
     |--------------------------------------------------------------------------

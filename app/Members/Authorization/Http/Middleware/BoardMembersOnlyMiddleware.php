@@ -30,6 +30,7 @@ namespace Angelov\Eestec\Platform\Members\Authorization\Http\Middleware;
 use Angelov\Eestec\Platform\Members\Member;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\Request;
 
 class BoardMembersOnlyMiddleware
 {
@@ -43,11 +44,11 @@ class BoardMembersOnlyMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         /** @var \Angelov\Eestec\Platform\Members\Member $member */
         $member = $this->guard->user();

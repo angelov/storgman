@@ -29,18 +29,19 @@ namespace Angelov\Eestec\Platform\Core\Http\Middleware;
 
 use Angelov\Eestec\Platform\Core\Exceptions\NotAllowedException;
 use Closure;
+use Illuminate\Http\Request;
 
 class AjaxOnlyMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  Request $request
      * @param  \Closure $next
      * @throws NotAllowedException
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if (!$request->ajax()) {
             throw new NotAllowedException();
