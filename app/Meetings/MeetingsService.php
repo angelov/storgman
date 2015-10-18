@@ -133,7 +133,7 @@ class MeetingsService
         $ids = array_filter(
             $ids,
             function ($value) {
-                return $value != '';
+                return is_numeric($value);
             }
         );
 
