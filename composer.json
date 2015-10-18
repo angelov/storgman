@@ -2,6 +2,7 @@
     "name": "angelov/eestec-platform",
     "description": "EESTEC platform for local committees",
     "keywords": ["eestec", "organization"],
+    "license": "GPL-3.0",
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
@@ -11,7 +12,6 @@
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*",
         "nesbot/carbon": "1.*",
-        "barryvdh/laravel-debugbar": "~2.0",
         "laravel/socialite": "~2.0"
     },
     "require-dev": {
@@ -19,7 +19,8 @@
         "mockery/mockery": "~0.9",
         "fzaninotto/faker": "1.4.0",
         "way/laravel-test-helpers": "dev-master",
-        "fabpot/php-cs-fixer": "^1.9"
+        "fabpot/php-cs-fixer": "^1.9",
+        "barryvdh/laravel-debugbar": "~2.0"
     },
     "autoload": {
         "classmap": [
