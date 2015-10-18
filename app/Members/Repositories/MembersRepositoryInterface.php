@@ -65,7 +65,7 @@ interface MembersRepositoryInterface extends RepositoryInterface
     /**
      * Returns the number of total and active members
      *
-     * @return \Angelov\Eestec\Platform\Membership\Reports\MembershipStatusReport
+     * @return MembershipStatusReport
      */
     public function countByMembershipStatus();
 
@@ -80,7 +80,7 @@ interface MembersRepositoryInterface extends RepositoryInterface
     /**
      * Counts the members per faculties
      *
-     * @return \Angelov\Eestec\Platform\Members\Reports\MembersPerFacultyReport
+     * @return MembersPerFacultyReport
      */
     public function countPerFaculty();
 
@@ -89,7 +89,7 @@ interface MembersRepositoryInterface extends RepositoryInterface
      *
      * @param DateTime $from
      * @param DateTime $to
-     * @return \Angelov\Eestec\Platform\Members\Reports\NewMembersPerMonthReport
+     * @return NewMembersPerMonthReport
      */
     public function countNewMembersPerMonth(DateTime $from, DateTime $to);
 

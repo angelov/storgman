@@ -38,14 +38,14 @@ interface DocumentsRepositoryInterface extends RepositoryInterface
      *
      * @param int $id
      * @return Document
-     * @throws \Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException
+     * @throws ResourceNotFoundException
      */
     public function get($id);
 
     /**
      * Stores a document
      *
-     * @param  \Angelov\Eestec\Platform\Documents\Document $document
+     * @param  Document $document
      * @return void
      */
     public function store(Document $document);

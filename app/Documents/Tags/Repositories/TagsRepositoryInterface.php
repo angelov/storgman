@@ -38,7 +38,7 @@ interface TagsRepositoryInterface extends RepositoryInterface
      *
      * @param int $id
      * @return Tag
-     * @throws \Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException
+     * @throws ResourceNotFoundException
      */
     public function get($id);
 

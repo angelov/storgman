@@ -41,7 +41,7 @@ interface FeesRepositoryInterface extends RepositoryInterface
      *
      * @param int $id
      * @return Fee
-     * @throws \Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException
+     * @throws ResourceNotFoundException
      */
     public function get($id);
 
@@ -66,16 +66,16 @@ interface FeesRepositoryInterface extends RepositoryInterface
      *
      * @param DateTime $from
      * @param DateTime $to
-     * @return \Angelov\Eestec\Platform\Membership\Reports\ExpectedFeesPerMonthReport
+     * @return ExpectedFeesPerMonthReport
      */
     public function calculateExpectedFeesPerMonth(DateTime $from, DateTime $to);
 
     /**
      * Returns a report how many fees were expected to be paid per month
      *
-     * @param \Angelov\Eestec\Platform\Core\DateTime $from
-     * @param \Angelov\Eestec\Platform\Core\DateTime $to
-     * @return \Angelov\Eestec\Platform\Membership\Reports\PaidFeesPerMonthReport
+     * @param DateTime $from
+     * @param DateTime $to
+     * @return PaidFeesPerMonthReport
      */
     public function calculatePaidFeesPerMonth(DateTime $from, DateTime $to);
 }

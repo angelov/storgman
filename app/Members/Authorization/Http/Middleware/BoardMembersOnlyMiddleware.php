@@ -50,7 +50,7 @@ class BoardMembersOnlyMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        /** @var \Angelov\Eestec\Platform\Members\Member $member */
+        /** @var Member $member */
         $member = $this->guard->user();
 
         if (!$member->isBoardMember()) {
