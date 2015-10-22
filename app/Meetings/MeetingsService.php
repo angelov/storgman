@@ -35,6 +35,7 @@ use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendedByMemberPerMonthRep
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Membership\MembershipService;
+use InvalidArgumentException;
 
 class MeetingsService
 {
@@ -155,6 +156,11 @@ class MeetingsService
         $list = '|';
 
         foreach ($attendants as $member) {
+
+            if (! $member instanceof Member) {
+                throw new InvalidArgumentException("The elements of the array have to be Member instances");
+            }
+
             $list .= $member->getId() ."|";
         }
 
