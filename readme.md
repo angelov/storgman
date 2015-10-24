@@ -23,7 +23,7 @@ Under development by [Angelov Dejan](http://angelovdejan.me).
 
 The application is based on the [Laravel 5](http://laravel.com) framework. To install it you need the following:
 
-* PHP >= 5.5.9
+* PHP >= 5.6
 * MCrypt and GD PHP extensions
 * Apache/nginx web server
 * Relational database (tested with PostgreSQL and MySQL)
