@@ -27,9 +27,13 @@
 
 namespace Angelov\Eestec\Platform\Tests\Meetings;
 
+use Angelov\Eestec\Platform\Core\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Angelov\Eestec\Platform\Membership\MembershipService;
+use Angelov\Eestec\Platform\Membership\Reports\ExpectedAndPaidFeesPerMonthReport;
+use Angelov\Eestec\Platform\Membership\Reports\ExpectedFeesPerMonthReport;
+use Angelov\Eestec\Platform\Membership\Reports\PaidFeesPerMonthReport;
 use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Tests\TestCase;
 use Carbon\Carbon;
@@ -49,6 +53,33 @@ class MembershipServiceTest extends TestCase
 
         $this->members = Mockery::mock(MembersRepositoryInterface::class);
         $this->fees = Mockery::mock(FeesRepositoryInterface::class);
+    }
+
+    public function testCanGenerateExpectedAndPaidFeesPerMonthLastYearReport()
+    {
+        $membershipService = new MembershipService($this->members, $this->fees);
+
+        $expectedFeesPerMonthReport = Mockery::mock(ExpectedFeesPerMonthReport::class);
+        $paidFeesPerMonthReport = Mockery::mock(PaidFeesPerMonthReport::class);
+
+        $this->fees->shouldReceive('calculateExpectedFeesPerMonth')->andReturn($expectedFeesPerMonthReport);
+        $this->fees->shouldReceive('calculatePaidFeesPerMonth')->andReturn($paidFeesPerMonthReport);
+
+        $expected = [10, 15, 20];
+        $paid = [5, 20, 15];
+
+        $expectedFeesPerMonthReport->shouldReceive('getMonthsValues')->andReturn($expected);
+        $paidFeesPerMonthReport->shouldReceive('getMonthsValues')->andReturn($paid);
+
+        $this->fees->shouldReceive('calculateExpectedFeesPerMonth');
+        $this->fees->shouldReceive('calculatePaidFeesPerMonth');
+
+        $report = $membershipService->getExpectedAndPaidFeesPerMonthLastYear();
+
+        $this->assertInstanceOf(ExpectedAndPaidFeesPerMonthReport::class, $report);
+
+        $this->assertEquals($paid, $report->getPaidFees());
+        $this->assertEquals($expected, $report->getExpectedFees());
     }
 
     public function testCanGenerateSuggestionDatesForExistingMember()
