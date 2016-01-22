@@ -21,7 +21,11 @@
         "way/laravel-test-helpers": "dev-master",
         "fabpot/php-cs-fixer": "^1.9",
         "barryvdh/laravel-debugbar": "~2.0",
-        "behat/behat": "^3.0"
+        "behat/behat": "^3.0",
+        "behat/mink": "^1.7",
+        "behat/mink-extension": "^2.1",
+        "behat/mink-goutte-driver": "^1.2",
+        "behat/mink-selenium2-driver": "^1.3"
     },
     "autoload": {
         "classmap": [
