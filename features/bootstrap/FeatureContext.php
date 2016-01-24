@@ -12,13 +12,39 @@ use Behat\MinkExtension\Context\MinkContext;
 class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
 {
     /**
-     * Initializes context.
-     *
-     * Every scenario gets its own context instance.
-     * You can also pass arbitrary arguments to the
-     * context constructor through behat.yml.
+     * @Given /^I am logged in as a board member$/
      */
-    public function __construct()
+    public function iAmLoggedInAsABoardMember()
     {
+        // experimental
+        \Auth::attempt(['email' => 'admin@ultim8.info', 'password' => '123456']);
+    }
+
+    /**
+     * @Given /^I am on the "([^"]*)" path$/
+     */
+    public function iAmOnThePath($path)
+    {
+        $this->visitPath($path);
+    }
+
+    /**
+     * @Given /^I wait for the modal window to open$/
+     */
+    public function iWaitForTheModalWindowToOpen()
+    {
+        $this->getSession()->wait(1000, "$('.modal')");
+    }
+
+    /**
+     * @Then /^the modal window should disappear$/
+     */
+    public function theModalWindowShouldDisappear()
+    {
+        $this->getSession()->wait(500);
+
+        if ($this->getSession()->evaluateScript("return $('.modal').is(':visible')")) {
+            throw new \Exception('The modal window did not disappear.');
+        }
     }
 }

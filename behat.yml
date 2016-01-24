@@ -2,6 +2,9 @@ default:
   extensions:
     Behat\MinkExtension:
       base_url:  'http://localhost/eestec-platform/public'
-      sessions:
-        default:
-          goutte: ~
+      goutte: ~
+      selenium2:
+        browser: chrome
+      laravel: ~
+    Laracasts\Behat:
+      env_path: .env
