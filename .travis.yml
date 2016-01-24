@@ -33,11 +33,11 @@ before_script:
   - sudo npm install
   - bower install
   - grunt
+  - mv .env.travis .env
   - php artisan migrate --force
   - php artisan db:seed --force
   - php artisan db:seed --force --class=FakeDataSeeder
   - chmod -R 777 storage
-  - mv .env.travis .env
   - php artisan key:generate
 
 after_script:
