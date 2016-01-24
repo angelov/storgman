@@ -18,12 +18,15 @@ before_script:
   - sudo /etc/init.d/apache2 restart
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev
-  - chmod -R 777 storage
   - "sh -e /etc/init.d/xvfb start"
   - "export DISPLAY=:99.0"
   - "wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.1.jar"
   - "java -jar selenium-server-standalone-2.49.1.jar > /dev/null &"
   - sleep 5
+  - mysql -e 'create database ep_test;'
+  - chmod -R 777 storage
+  - mv .env.travis .env
+  - php artisan key:generate
 
 after_script:
   - if [ "$TRAVIS_PHP_VERSION" != "7.0" ] && [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
