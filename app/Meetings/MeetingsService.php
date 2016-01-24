@@ -156,7 +156,6 @@ class MeetingsService
         $list = '|';
 
         foreach ($attendants as $member) {
-
             if (! $member instanceof Member) {
                 throw new InvalidArgumentException("The elements of the array have to be Member instances");
             }
