@@ -26,6 +26,21 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function iAmOnThePath($path)
     {
         $this->visitPath($path);
+
+        // experimental
+        // selenium2 driver doesn't support getting the status code
+        $currentUrl = $this->getSession()->getCurrentUrl();
+        $guzzleClient = new \GuzzleHttp\Client();
+        $response = $guzzleClient->get($currentUrl);
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode != 200) {
+            throw new \Exception(sprintf(
+                "Could not open path: \"%s\". Code: %d",
+                $path,
+                $statusCode
+            ));
+        }
     }
 
     /**
