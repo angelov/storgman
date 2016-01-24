@@ -16,6 +16,16 @@ before_script:
   - sudo sed -i -e "/DocumentRoot/i\ServerName eestec.local" /etc/apache2/sites-available/default
   - echo "127.0.0.1 eestec.local" | sudo tee -a /etc/hosts
   - sudo /etc/init.d/apache2 restart
+
+  - sudo apt-get install xvfb
+  - sudo apt-get install unzip
+  - wget -N http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - chmod +x chromedriver
+  - sudo mv -f chromedriver /usr/local/share/chromedriver
+  - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+  - sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
+
   - curl -s http://getcomposer.org/installer | php
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - php composer.phar install --dev
