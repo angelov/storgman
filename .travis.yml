@@ -48,7 +48,7 @@ before_script:
   - php artisan db:seed --force --class=FakeDataSeeder
   - chmod -R 777 storage
   - php artisan key:generate
-  - php artisan serve
+  - php artisan serve &
   - sleep 3
 
 after_script:
