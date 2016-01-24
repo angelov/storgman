@@ -17,6 +17,11 @@ before_script:
   - echo "127.0.0.1 eestec.local" | sudo tee -a /etc/hosts
   - sudo /etc/init.d/apache2 restart
 
+  - sudo apt-get install libxss1 libappindicator1 libindicator7
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo dpkg -i google-chrome*.deb
+  - sudo apt-get install -f
+
   - sudo apt-get install xvfb
   - sudo apt-get install unzip
   - wget -N http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip
