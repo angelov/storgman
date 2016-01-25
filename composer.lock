@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6973b0d2daad76f98614186faf6d69bb",
-    "content-hash": "b4efead2f96090edd55334ff7a162367",
+    "hash": "952c11014769265ee27eb5982bcef6c8",
+    "content-hash": "7b10fe3ac2c88961385a33560dcdd377",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1500,16 +1500,16 @@
         },
         {
             "name": "rcrowe/twigbridge",
-            "version": "dev-master",
+            "version": "v0.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rcrowe/TwigBridge.git",
-                "reference": "0e2693d99745eb8bbd01a80e841951c0738e1d15"
+                "reference": "634c4d12fc3dc633d202341b7a29a107f77a67da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/0e2693d99745eb8bbd01a80e841951c0738e1d15",
-                "reference": "0e2693d99745eb8bbd01a80e841951c0738e1d15",
+                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/634c4d12fc3dc633d202341b7a29a107f77a67da",
+                "reference": "634c4d12fc3dc633d202341b7a29a107f77a67da",
                 "shasum": ""
             },
             "require": {
@@ -1532,7 +1532,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.7-dev"
+                    "dev-master": "0.10-dev"
                 }
             },
             "autoload": {
@@ -1560,7 +1560,7 @@
                 "laravel",
                 "twig"
             ],
-            "time": "2015-05-21 13:46:00"
+            "time": "2015-12-21 22:03:34"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4896,13 +4896,12 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "rcrowe/twigbridge": 20,
         "way/laravel-test-helpers": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6",
+        "php": ">=5.6|7.0",
         "ext-gd": "*"
     },
     "platform-dev": []

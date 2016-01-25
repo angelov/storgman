@@ -7,7 +7,7 @@
         "php": ">=5.6|7.0",
         "laravel/framework": "5.1.*",
         "twig/twig": "1.22.*",
-        "rcrowe/twigbridge": "0.7.*@dev",
+        "rcrowe/twigbridge": "0.9.*",
         "ext-gd": "*",
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*",
