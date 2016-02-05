@@ -108,10 +108,24 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @When /^I login as "([^"]*)"$/
+     * @Then /^I should be on the login page$/
      */
-    public function iLoginAs($name)
+    public function iShouldBeOnTheLoginPage()
     {
-
+        $loginPath = route('auth');
+        $this->assertSession()->addressEquals($loginPath);
     }
+
+    /**
+     * @Given /^I am not logged in$/
+     */
+    public function iAmNotLoggedIn()
+    {
+        /** @var Illuminate\Contracts\Auth\Guard $authenticator */
+//        $authenticator = app()->make(Illuminate\Auth\Guard::class);
+
+        \Auth::logout();
+    }
+
+
 }
