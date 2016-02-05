@@ -3,18 +3,22 @@
 // Everything in this file is just for experimental purposes!
 
 use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Illuminate\Contracts\Hashing\Hasher;
+use Laracasts\Behat\Context\Migrator;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
 {
+    use Migrator;
+
     /**
      * @Given /^I am logged in as a board member$/
      */
@@ -68,49 +72,29 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @Given /^there are the following users:$/
+     * @Given /^there are the following members:$/
      */
-    public function thereAreTheFollowingUsers(TableNode $table)
+    public function iHaveTheFollowingMembers(TableNode $members)
     {
-        $faker = Faker\Factory::create();
+        /** @var MembersRepositoryInterface $members */
+        $membersRepository = app()->make(MembersRepositoryInterface::class);
+
+        /** @var Hasher $hasher */
         $hasher = app()->make(Hasher::class);
 
-        foreach ($table as $row) {
+        foreach ($members as $current) {
             $member = new Member();
-
-            $member->setEmail($row['email']);
-            $member->setPassword($hasher->make($row['password']));
-            $member->setFirstName($faker->firstName);
-            $member->setLastName($faker->lastName);
-            $member->setFaculty("Faculty");
-            $member->setFieldOfStudy("Field of study");
-            $member->setYearOfGraduation($faker->numberBetween(2015, 2018));
-
+            $member->setFirstName($current['first_name']);
+            $member->setLastName($current['last_name']);
+            $member->setEmail($current['email']);
+            $member->setPassword($hasher->make($current['password']));
             $member->setApproved(true);
 
-            $social = strtolower($member->getFirstName() . $member->getLastName());
-
-            if ($faker->boolean(60)) {
-                $member->setFacebook($social);
+            if ($member['type'] === 'board') {
+                $member->setBoardMember(true);
             }
 
-            if ($faker->boolean(60)) {
-                $member->setTwitter($social);
-            }
-
-            if ($faker->boolean(60)) {
-                $member->setGooglePlus($social);
-            }
-
-            $member->setPhoneNumber($faker->phoneNumber);
-            $member->setWebsite("http://". $social .".com");
-
-            $birthday = $faker->dateTimeBetween("-20 years", "now");
-
-            $member->setBirthday($birthday);
-            $member->setBoardMember($row['board'] == "true");
-
-            $member->save();
+            $membersRepository->store($member);
         }
     }
 
@@ -121,5 +105,13 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     {
         $loginPath = route('auth');
         $this->visit($loginPath);
+    }
+
+    /**
+     * @When /^I login as "([^"]*)"$/
+     */
+    public function iLoginAs($name)
+    {
+
     }
 }

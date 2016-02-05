@@ -4,9 +4,9 @@ Feature: Authentication
   I need to sign in
 
   Background:
-    Given there are the following users:
-      | email               | password | board |
-      | angelov@example.org | 123456   | false |
+    Given there are the following members:
+      | first_name | last_name | email               | password | board |
+      | Dejan      | Angelov   | angelov@example.org | 123456   | false |
 
   Scenario: Login with valid credentials
     Given I am on the login page

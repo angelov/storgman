@@ -1,7 +1,7 @@
 default:
   extensions:
     Behat\MinkExtension:
-      base_url:  'http://localhost:8000/'
+      base_url: 'http://eestec.local'
       goutte: ~
       selenium2:
         browser: chrome
