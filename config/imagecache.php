@@ -51,9 +51,10 @@ return array(
     */
 
     'templates' => array(
-        'small' => 'Intervention\Image\Templates\Small',
-        'medium' => 'Intervention\Image\Templates\Medium',
-        'large' => 'Intervention\Image\Templates\Large',
+        'xsmall' => Angelov\Eestec\Platform\Members\Photos\Sizes\ExtraSmall::class,
+        'small'  => Angelov\Eestec\Platform\Members\Photos\Sizes\Small::class,
+        'medium' => Angelov\Eestec\Platform\Members\Photos\Sizes\Medium::class,
+        'large'  => Angelov\Eestec\Platform\Members\Photos\Sizes\Large::class,
     ),
 
     /*
