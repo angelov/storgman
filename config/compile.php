@@ -15,8 +15,6 @@ return [
 
     'files' => [
         realpath(__DIR__.'/../app/Core/Providers/AppServiceProvider.php'),
-        realpath(__DIR__.'/../app/Core/Providers/BusServiceProvider.php'),
-        realpath(__DIR__.'/../app/Core/Providers/ConfigServiceProvider.php'),
         realpath(__DIR__.'/../app/Core/Providers/RouteServiceProvider.php'),
     ],
 

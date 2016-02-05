@@ -49,23 +49,12 @@ return array(
     | {route}/{template}/{filename}
     |
     */
-   
-    'templates' => [
 
-        'xsmall' => function (Image $image) {
-            return $image->fit(40, 40);
-        },
-        'small' => function (Image $image) {
-            return $image->fit(100, 100);
-        },
-        'medium' => function (Image $image) {
-            return $image->fit(200, 200);
-        },
-        'large' => function (Image $image) {
-            return $image->fit(400, 400);
-        }
-
-    ],
+    'templates' => array(
+        'small' => 'Intervention\Image\Templates\Small',
+        'medium' => 'Intervention\Image\Templates\Medium',
+        'large' => 'Intervention\Image\Templates\Large',
+    ),
 
     /*
     |--------------------------------------------------------------------------

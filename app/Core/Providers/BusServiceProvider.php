@@ -27,7 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Core\Providers;
 
-use Illuminate\Bus\Dispatcher;
+use Collective\Bus\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 
 class BusServiceProvider extends ServiceProvider
@@ -35,7 +35,7 @@ class BusServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @param  \Illuminate\Bus\Dispatcher  $dispatcher
+     * @param  Dispatcher  $dispatcher
      * @return void
      */
     public function boot(Dispatcher $dispatcher)

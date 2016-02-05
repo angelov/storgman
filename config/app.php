@@ -1,20 +1,22 @@
-    <?php
+<?php
 
-    use Angelov\Eestec\Platform\Documents\Providers\DocumentsRepositoryServiceProvider;
-    use Angelov\Eestec\Platform\Documents\Providers\EventsServiceProvider as DocumentsEventsServiceProvider;
-    use Angelov\Eestec\Platform\Documents\Tags\Providers\TagsRepositoryServiceProvider;
-    use Angelov\Eestec\Platform\Meetings\Providers\MeetingsRepositoryServiceProvider;
-    use Angelov\Eestec\Platform\Meetings\Providers\MeetingsServiceServiceProvider;
-    use Angelov\Eestec\Platform\Members\Photos\Providers\PhotosRepositoryServiceProvider;
-    use Angelov\Eestec\Platform\Members\Providers\EventsServiceProvider as MembersEventsServiceProvider;
-    use Angelov\Eestec\Platform\Members\Providers\MembersPopulatorServiceProvider;
-    use Angelov\Eestec\Platform\Members\Providers\MembersRepositoryServiceProvider;
-    use Angelov\Eestec\Platform\Members\SocialProfiles\Providers\SocialProfilesRepositoryServiceProvider;
-    use Angelov\Eestec\Platform\Membership\Providers\EventsServiceProvider as MembershipEventsServiceProvider;
-    use Angelov\Eestec\Platform\Membership\Providers\FeesRepositoryServiceProvider;
-    use Angelov\Eestec\Platform\Membership\Providers\MembershipServiceServiceProvider;
+use Angelov\Eestec\Platform\Documents\Providers\DocumentsRepositoryServiceProvider;
+use Angelov\Eestec\Platform\Documents\Providers\EventsServiceProvider as DocumentsEventsServiceProvider;
+use Angelov\Eestec\Platform\Documents\Tags\Providers\TagsRepositoryServiceProvider;
+use Angelov\Eestec\Platform\Meetings\Providers\MeetingsRepositoryServiceProvider;
+use Angelov\Eestec\Platform\Meetings\Providers\MeetingsServiceServiceProvider;
+use Angelov\Eestec\Platform\Members\Photos\Providers\PhotosRepositoryServiceProvider;
+use Angelov\Eestec\Platform\Members\Providers\EventsServiceProvider as MembersEventsServiceProvider;
+use Angelov\Eestec\Platform\Members\Providers\MembersPopulatorServiceProvider;
+use Angelov\Eestec\Platform\Members\Providers\MembersRepositoryServiceProvider;
+use Angelov\Eestec\Platform\Members\SocialProfiles\Providers\SocialProfilesRepositoryServiceProvider;
+use Angelov\Eestec\Platform\Membership\Providers\EventsServiceProvider as MembershipEventsServiceProvider;
+use Angelov\Eestec\Platform\Membership\Providers\FeesRepositoryServiceProvider;
+use Angelov\Eestec\Platform\Membership\Providers\MembershipServiceServiceProvider;
 
-    return [
+return [
+
+    'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +42,7 @@
     |
     */
 
-        'url' => env('APP_URL', 'http://localhost/'),
+    'url' => env('APP_URL', 'http://localhost/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -128,12 +130,9 @@
          * Laravel Framework Service Providers...
          */
 
-        'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
-        'Illuminate\Bus\BusServiceProvider',
         'Illuminate\Cache\CacheServiceProvider',
         'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
-        'Illuminate\Routing\ControllerServiceProvider',
         'Illuminate\Cookie\CookieServiceProvider',
         'Illuminate\Database\DatabaseServiceProvider',
         'Illuminate\Encryption\EncryptionServiceProvider',
@@ -158,8 +157,9 @@
 
         'TwigBridge\ServiceProvider',
         'Intervention\Image\ImageServiceProviderLaravel5',
-        'Barryvdh\Debugbar\ServiceProvider',
+//        'Barryvdh\Debugbar\ServiceProvider',
         'Laravel\Socialite\SocialiteServiceProvider',
+        Collective\Bus\BusServiceProvider::class,
 
         /*
          * Application Service Providers...

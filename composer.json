@@ -12,7 +12,8 @@
         "intervention/image": "2.*",
         "intervention/imagecache": "2.*",
         "nesbot/carbon": "1.*",
-        "laravel/socialite": "~2.0"
+        "laravel/socialite": "~2.0",
+        "laravelcollective/bus": "^5.2"
     },
     "require-dev": {
         "phpunit/phpunit": "~5.0",
@@ -20,7 +21,6 @@
         "fzaninotto/faker": "1.4.0",
         "way/laravel-test-helpers": "dev-master",
         "fabpot/php-cs-fixer": "^1.9",
-        "barryvdh/laravel-debugbar": "~2.0",
         "behat/behat": "^3.0",
         "behat/mink": "^1.7",
         "behat/mink-extension": "^2.1",
