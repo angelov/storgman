@@ -1,3 +1,4 @@
+@members @database
 Feature: Authentication
   In order to use the application
   As an organization member

@@ -96,7 +96,7 @@ interface MembersRepositoryInterface extends RepositoryInterface
     /**
      * Returns an array with the board members
      *
-     * @return array
+     * @return Member[]
      */
     public function getBoardMembers();
 

@@ -5,6 +5,17 @@ default:
       goutte: ~
       selenium2:
         browser: chrome
+      javascript_session: selenium2
       laravel: ~
     Laracasts\Behat:
       env_path: .env
+
+  suites:
+    members:
+      contexts:
+        - Behat\MinkExtension\Context\MinkContext
+        - Angelov\Eestec\Platform\Core\FeatureContexts\DatabasePreparationsContext
+        - Angelov\Eestec\Platform\Members\FeatureContexts\MembersManagementContext
+        - Angelov\Eestec\Platform\Members\Authentication\FeatureContexts\AuthenticationContext
+      filters:
+        tags: "@members"
