@@ -25,28 +25,33 @@ before_script:
   - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
   - sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
 
-  - curl -s http://getcomposer.org/installer | php
-  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - php composer.phar install --dev
   - "sh -e /etc/init.d/xvfb start"
   - "export DISPLAY=:99.0"
   - "wget http://selenium-release.storage.googleapis.com/2.49/selenium-server-standalone-2.49.1.jar"
   - "java -jar selenium-server-standalone-2.49.1.jar > /dev/null &"
   - sleep 5
+
+  - curl -s http://getcomposer.org/installer | php
+  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - php composer.phar install
+
   - mysql -e 'create database ep_test;'
+
   - sudo add-apt-repository -y ppa:chris-lea/node.js
   - sudo apt-get -y update
   - sudo apt-get -y install nodejs
+
   - sudo npm install -g grunt-cli
   - sudo npm install -g bower
   - sudo npm install
   - bower install
   - grunt
+
   - mv .env.travis .env
+
   - php artisan migrate --force
   - php artisan db:seed --force
-  - php artisan db:seed --force --class=FakeDataSeeder
-  - chmod -R 777 storage
+  - chmod -R 777 bootstrap storage
   - php artisan key:generate
   - php artisan serve &
   - sleep 3
