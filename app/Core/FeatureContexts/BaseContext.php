@@ -29,13 +29,14 @@ namespace Angelov\Eestec\Platform\Core\FeatureContexts;
 
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Behat\Behat\Context\Context;
+use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
-abstract class BaseContext extends RawMinkContext implements Context
+abstract class BaseContext extends RawMinkContext implements Context, SnippetAcceptingContext
 {
     /**
      * @return Kernel
@@ -75,5 +76,10 @@ abstract class BaseContext extends RawMinkContext implements Context
     protected function getMembersRepository()
     {
         return app()->make(MembersRepositoryInterface::class);
+    }
+
+    public function getPage()
+    {
+        return $this->getSession()->getPage();
     }
 }

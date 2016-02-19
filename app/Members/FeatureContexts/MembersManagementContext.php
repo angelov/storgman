@@ -33,6 +33,10 @@ use Behat\Gherkin\Node\TableNode;
 
 class MembersManagementContext extends BaseContext
 {
+    /** @var $members Member[] */
+    private $members;
+    private $credentials;
+
     /**
      * @Given /^there are the following members:$/
      */
@@ -54,6 +58,97 @@ class MembersManagementContext extends BaseContext
             }
 
             $repository->store($member);
+            $this->members[] = $member;
+            $this->keepMemberCredentials($member, $current);
         }
+    }
+
+    private function keepMemberCredentials(Member $member, $data)
+    {
+        $this->credentials[$member->getId()] = [
+            'email' => $data['email'],
+            'password' => $data['password']
+        ];
+    }
+
+    private function getLoginPath()
+    {
+        return $this->getUrlGenerator()->route('auth');
+    }
+
+    /**
+     * @Given /^I am on the login page$/
+     */
+    public function iAmOnTheLoginPage()
+    {
+        $this->visitPath($this->getLoginPath());
+    }
+
+    /**
+     * @Then /^I should be on the login page$/
+     */
+    public function iShouldBeOnTheLoginPage()
+    {
+        $loginPath = $this->getLoginPath();
+        $this->assertSession()->addressEquals($loginPath);
+    }
+
+    /**
+     * @Given /^I am not logged in$/
+     */
+    public function iAmNotLoggedIn()
+    {
+        $this->visitPath($this->getLogoutPath());
+    }
+
+    private function getLogoutPath()
+    {
+        return $this->getUrlGenerator()->route('logout');
+    }
+
+    /**
+     * @When /^I go to the login page$/
+     */
+    public function iGoToTheTheLoginPage()
+    {
+        $this->visitPath($this->getLoginPath());
+    }
+
+    /**
+     * @Given I am logged in as (a )board member
+     */
+    public function iAmLoggedInAsABoardMember()
+    {
+        $member = $this->findBoardMember();
+        $credentials = $this->getMemberCredentials($member);
+
+        $loginPath = $this->getLoginPath();
+        $this->visitPath($loginPath);
+
+        $page = $this->getPage();
+
+        $page->fillField('Email address', $credentials['email']);
+        $page->fillField('Password', $credentials['password']);
+        $page->pressButton('Sign in');
+    }
+
+    private function findBoardMember()
+    {
+        $count = count($this->members);
+        for ($i=0; $i<$count; $i++) {
+            $member = $this->members[$i];
+
+            if ($member->isBoardMember()) {
+                return $member;
+            }
+        }
+
+        throw new \Exception("There are no board members.");
+    }
+
+    private function getMemberCredentials(Member $member)
+    {
+        $id = $member->getId();
+        return $this->credentials[$id];
     }
 }

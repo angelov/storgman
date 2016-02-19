@@ -39,13 +39,6 @@ Feature: Authentication
     When I press "Sign in"
     Then I should see "Please insert valid information."
 
-  Scenario: Try to login with invalid email
-    Given I am on the login page
-    And I fill in the following:
-      | Email address | emailaddress |
-    When I press "Sign in"
-    And I should see "Please"
-
   Scenario: Trying to login with wrong credentials
     Given I am on the login page
     And I fill in the following:
@@ -53,3 +46,9 @@ Feature: Authentication
       | Password      | 123456                  |
     When I press "Sign in"
     Then I should see "Wrong email or password."
+
+  Scenario: Try to login when already authenticated
+    Given I am on the homepage
+    And I am logged in as a board member
+    When I go to the login page
+    Then I should be on the homepage
