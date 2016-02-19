@@ -78,6 +78,7 @@ class MembersManagementContext extends BaseContext
 
     /**
      * @Given /^I am on the login page$/
+     * @When /^I go to the login page$/
      */
     public function iAmOnTheLoginPage()
     {
@@ -104,14 +105,6 @@ class MembersManagementContext extends BaseContext
     private function getLogoutPath()
     {
         return $this->getUrlGenerator()->route('logout');
-    }
-
-    /**
-     * @When /^I go to the login page$/
-     */
-    public function iGoToTheTheLoginPage()
-    {
-        $this->visitPath($this->getLoginPath());
     }
 
     /**
