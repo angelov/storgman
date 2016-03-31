@@ -59,7 +59,10 @@ class MembersPopulator
         $member->setFieldOfStudy($data['field_of_study']);
         $member->setYearOfGraduation($data['year_of_graduation']);
         $member->setBoardMember(array_get($data, 'board_member', 0) == 1);
-        $member->setPositionTitle($data['position_title']);
+
+        if (isset($data['position_title'])) {
+            $member->setPositionTitle($data['position_title']);
+        }
 
         if (isset($data['alumni_member'])) {
             $member->setAlumniMember($data['alumni_member'] == 1);
