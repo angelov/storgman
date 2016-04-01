@@ -6,9 +6,10 @@ Feature: Authentication
 
   Background:
     Given there are the following members:
-      | first_name | last_name | email               | password | board |
-      | Dejan      | Angelov   | angelov@example.org | 123456   | true  |
-      | Somebody   | Cool      | coolguy@example.org | 123456   | false |
+      | first_name | last_name  | email               | password | board | approved |
+      | Dejan      | Angelov    | angelov@example.org | 123456   | yes   | yes      |
+      | Reynold    | Kozey      | reynold@example.org | 123456   | no    | yes      |
+      | Raina      | McCullough | raina@example.org   | 123456   | no    | no       |
     And I am not logged in
 
   Scenario: Opening the homepage as non-authenticated user
@@ -16,23 +17,29 @@ Feature: Authentication
     Then I should be on the login page
     And I should see "Please Sign In"
 
-  Scenario: Login as board member
+  Scenario: Login correct credentials
     Given I am on the login page
     When I fill in the following:
       | Email address | angelov@example.org |
       | Password      | 123456              |
     And I press "Sign in"
-    Then I should be on the homepage
     And I should see "Logout"
 
+  Scenario: Login as board member
+    When I login as "Dejan Angelov"
+    Then I should be on the homepage
+
   Scenario: Login as regular member
+    When I login as "Reynold Kozey"
+    Then I should be on my profile page
+
+  Scenario: Try to login as unapproved member
     Given I am on the login page
-    When I fill in the following:
-      | Email address | coolguy@example.org |
-      | Password      | 123456              |
-    And I press "Sign in"
-#    Then I should be on my profile page
-    And I should see "Somebody Cool"
+    And I fill in the following:
+      | Email address | raina@example.org |
+      | Password      | 123456            |
+    When I press "Sign in"
+    Then I should see "Your account is not approved yet."
 
   Scenario: Trying to login without credentials
     Given I am on the login page

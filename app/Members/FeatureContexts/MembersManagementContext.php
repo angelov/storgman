@@ -29,13 +29,18 @@ namespace Angelov\Eestec\Platform\Members\FeatureContexts;
 
 use Angelov\Eestec\Platform\Core\FeatureContexts\BaseContext;
 use Angelov\Eestec\Platform\Members\Member;
+use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 
 class MembersManagementContext extends BaseContext
 {
     /** @var $members Member[] */
     private $members;
+
     private $credentials;
+
+    /** @var $authenticatedMember Member */
+    private $authenticatedMember;
 
     /**
      * @Given /^there are the following members:$/
@@ -51,11 +56,9 @@ class MembersManagementContext extends BaseContext
             $member->setLastName($current['last_name']);
             $member->setEmail($current['email']);
             $member->setPassword($hasher->make($current['password']));
-            $member->setApproved(true);
 
-            if ($current['board'] === 'true') {
-                $member->setBoardMember(true);
-            }
+            $member->setApproved($current['approved'] === 'yes');
+            $member->setBoardMember($current['board'] === 'yes');
 
             $repository->store($member);
             $this->members[] = $member;
@@ -113,6 +116,12 @@ class MembersManagementContext extends BaseContext
     public function iAmLoggedInAsABoardMember()
     {
         $member = $this->findBoardMember();
+
+        $this->authenticate($member);
+    }
+
+    private function authenticate(Member $member)
+    {
         $credentials = $this->getMemberCredentials($member);
 
         $loginPath = $this->getLoginPath();
@@ -123,12 +132,34 @@ class MembersManagementContext extends BaseContext
         $page->fillField('Email address', $credentials['email']);
         $page->fillField('Password', $credentials['password']);
         $page->pressButton('Sign in');
+
+        $this->authenticatedMember = $member;
+    }
+
+    /**
+     * @todo Create separate in-memory members repository
+     */
+    private function findMemberByFullName($fullName)
+    {
+        $count = count($this->members);
+        for ($i = 0; $i < $count; $i++) {
+            $member = $this->members[$i];
+
+            if ($member->getFullName() === $fullName) {
+                return $member;
+            }
+        }
+
+        throw new \Exception(printf(
+            "There is no member with the given full name [%s].",
+            $fullName
+        ));
     }
 
     private function findBoardMember()
     {
         $count = count($this->members);
-        for ($i=0; $i<$count; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $member = $this->members[$i];
 
             if ($member->isBoardMember()) {
@@ -143,5 +174,27 @@ class MembersManagementContext extends BaseContext
     {
         $id = $member->getId();
         return $this->credentials[$id];
+    }
+
+    /**
+     * @When /^I login as "([^"]*)"$/
+     */
+    public function iLoginAs($fullName)
+    {
+        $member = $this->findMemberByFullName($fullName);
+        $this->authenticate($member);
+    }
+
+    /**
+     * @Then /^I should be on my profile page$/
+     */
+    public function iShouldBeOnMyProfilePage()
+    {
+        if (!$this->authenticatedMember) {
+            throw new \Exception("You must login first.");
+        }
+
+        $id = $this->authenticatedMember->getId();
+        $this->assertSession()->addressEquals(route('members.show', $id));
     }
 }
