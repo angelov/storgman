@@ -1,74 +1,77 @@
 {% set page_title = 'Meetings' %}
-{% include 'header.twig' %}
 
-<h1>Meetings</h1>
+{% extends "base.twig" %}
 
-<div class="" id="action-status" style="display: none;">
-    <a class="close" data-hide="alert" href="#">×</a>
-    <span id="action-message"></span>
-</div>
+{% block body %}
 
-<div class="row">
-    <div class="col-md-7">
-        <p>There are total <strong>{{ meetings.total }}</strong> meetings.</p>
+    <h1>Meetings</h1>
+
+    <div class="" id="action-status" style="display: none;">
+        <a class="close" data-hide="alert" href="#">×</a>
+        <span id="action-message"></span>
     </div>
 
-    <div class="col-md-5 text-right">
+    <div class="row">
+        <div class="col-md-7">
+            <p>There are total <strong>{{ meetings.total }}</strong> meetings.</p>
+        </div>
 
-        <a href="{{ route('meetings.create') }}" class="btn btn-info">
-            <i class="glyphicon glyphicon-plus"></i> Create meeting report
-        </a>
+        <div class="col-md-5 text-right">
 
+            <a href="{{ route('meetings.create') }}" class="btn btn-info">
+                <i class="glyphicon glyphicon-plus"></i> Create meeting report
+            </a>
+
+        </div>
     </div>
-</div>
 
-<div class="row" style="margin-top: 15px;">
-    <div class="col-md-12">
-        <table class="table table-bordered table-striped">
-            <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
-            <thead>
-            <tr>
-                <th>Date</th>
-                <th>Location</th>
-                <th># of attendants</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for meeting in meetings %}
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped">
+                <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
+                <thead>
                 <tr>
-                    <td><span class="date-to-format">{{ meeting.getDate() }}</span></td>
-                    <td>{{ meeting.getLocation() }}</td>
-                    <td>{{ meeting.getAttendants()|length }}</td>
-                    <td class="text-right">
-                        {# view meeting report #}
-                        <a href="{{ route('meetings.show', meeting.getId()) }}"
-                           data-toggle="tooltip" data-placement="top" title="View report" class="has-tooltip">
-                            <i class="glyphicon glyphicon-file"></i>
-                        </a>
-
-                        {# edit meeting details #}
-                        <a href="{{ route('meetings.edit', meeting.getId()) }}" data-toggle="tooltip"
-                           data-placement="top" title="Edit" class="has-tooltip">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                        </a>
-
-                        {# delete meeting #}
-                        <a data-toggle="tooltip" data-placement="top" title="Delete"
-                           href="{{ route('meetings.destroy', meeting.getId()) }}" data-meeting="{{ meeting.getId() }}"
-                           class="btn-delete-meeting has-tooltip">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </a>
-                    </td>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th># of attendants</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for meeting in meetings %}
+                    <tr>
+                        <td><span class="date-to-format">{{ meeting.getDate() }}</span></td>
+                        <td>{{ meeting.getLocation() }}</td>
+                        <td>{{ meeting.getAttendants()|length }}</td>
+                        <td class="text-right">
+                            {# view meeting report #}
+                            <a href="{{ route('meetings.show', meeting.getId()) }}"
+                               data-toggle="tooltip" data-placement="top" title="View report" class="has-tooltip">
+                                <i class="glyphicon glyphicon-file"></i>
+                            </a>
+
+                            {# edit meeting details #}
+                            <a href="{{ route('meetings.edit', meeting.getId()) }}" data-toggle="tooltip"
+                               data-placement="top" title="Edit" class="has-tooltip">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+
+                            {# delete meeting #}
+                            <a data-toggle="tooltip" data-placement="top" title="Delete"
+                               href="{{ route('meetings.destroy', meeting.getId()) }}" data-meeting="{{ meeting.getId() }}"
+                               class="btn-delete-meeting has-tooltip">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
-<div class="text-right">
-    {{ meetings.render()|raw }}
-</div>
+    <div class="text-right">
+        {{ meetings.render()|raw }}
+    </div>
 
-{% include 'footer.twig' %}
+{% endblock %}

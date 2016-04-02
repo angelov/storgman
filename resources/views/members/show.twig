@@ -1,130 +1,133 @@
 {% set page_title = member.getFullName() %}
-{% include 'header.twig' %}
 
-<h1>{{ member.getFullName() }}</h1>
+{% extends "base.twig" %}
 
-<div class="modal fade" id="modal-renew-membership"></div>
+{% block body %}
 
-<div class="row">
+    <h1>{{ member.getFullName() }}</h1>
 
-    <div class="col-md-3">
-        <div class="row">
-            <div class="col-md-12">
-                <img src="{{ route('imagecache', ['medium', member.getPhoto()]) }}" alt="..."
-                     class="img-thumbnail" style="width: 100%">
+    <div class="modal fade" id="modal-renew-membership"></div>
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="{{ route('imagecache', ['medium', member.getPhoto()]) }}" alt="..."
+                         class="img-thumbnail" style="width: 100%">
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% if member.isApproved() == false %}
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if member.isApproved() == false %}
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-times" style="margin-right: 5px;"></i> Unapproved
+                                    </td>
+                                </tr>
+                            {% endif %}
+
+
+                            {% if (member.isAlumniMember()) %}
+                                <tr>
+                                    <td>
+                                        <i class="glyphicon glyphicon-credit-card" style="margin-right: 5px;"></i> Alumni member
+                                    </td>
+                                </tr>
+                            {% else %}
+
+                                <tr>
+                                    <td>
+                                        {% if member.isActive() %}
+                                            <i class="fa fa-check" style="margin-right: 5px;"></i> Active
+                                        {% else %}
+                                            <i class="fa fa-times" style="margin-right: 5px;"></i> Inactive
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                            {% endif %}
+
                             <tr>
                                 <td>
-                                    <i class="fa fa-times" style="margin-right: 5px;"></i> Unapproved
+                                    <i class="glyphicon glyphicon-heart" style="margin-right: 5px"></i>
+                                    Joined <span class="date-to-humanize">{{ member.getJoiningDate()|date('Y-m-d') }}</span>
                                 </td>
                             </tr>
-                        {% endif %}
-
-
-                        {% if (member.isAlumniMember()) %}
-                            <tr>
-                                <td>
-                                    <i class="glyphicon glyphicon-credit-card" style="margin-right: 5px;"></i> Alumni member
-                                </td>
-                            </tr>
-                        {% else %}
 
                             <tr>
                                 <td>
-                                    {% if member.isActive() %}
-                                        <i class="fa fa-check" style="margin-right: 5px;"></i> Active
-                                    {% else %}
-                                        <i class="fa fa-times" style="margin-right: 5px;"></i> Inactive
+                                    {% if (member.isBoardMember()) %}
+                                        <i class="glyphicon glyphicon-tower" style="margin-right: 5px;"></i> Board member
+                                    {% elseif (member.isAlumniMember() is not defined) %}
+                                        <i class="glyphicon glyphicon-user" style="margin-right: 5px;"></i> Regular member
                                     {% endif %}
                                 </td>
                             </tr>
 
-                        {% endif %}
+                            {% if (member.getPositionTitle() != "") %}
+                                <tr>
+                                    <td>
+                                        <i class="glyphicon glyphicon-briefcase" style="margin-right: 5px;"></i> {{ member.getPositionTitle() }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
 
-                        <tr>
-                            <td>
-                                <i class="glyphicon glyphicon-heart" style="margin-right: 5px"></i>
-                                Joined <span class="date-to-humanize">{{ member.getJoiningDate()|date('Y-m-d') }}</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                {% if (member.isBoardMember()) %}
-                                    <i class="glyphicon glyphicon-tower" style="margin-right: 5px;"></i> Board member
-                                {% elseif (member.isAlumniMember() is not defined) %}
-                                    <i class="glyphicon glyphicon-user" style="margin-right: 5px;"></i> Regular member
-                                {% endif %}
-                            </td>
-                        </tr>
-
-                        {% if (member.getPositionTitle() != "") %}
-                            <tr>
-                                <td>
-                                    <i class="glyphicon glyphicon-briefcase" style="margin-right: 5px;"></i> {{ member.getPositionTitle() }}
-                                </td>
-                            </tr>
-                        {% endif %}
-                    </tbody>
-                </table>
             </div>
 
         </div>
 
-    </div>
-
-    <div class="col-md-9">
-        <div class="row">
-            <div class="col-m-12">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="active">
-                        <a href="#member-basic-info-tab" role="tab" data-toggle="tab">Basic information</a>
-                    </li>
-                    <li>
-                        <a href="#member-membership-tab" role="tab" data-toggle="tab">Membership</a>
-                    </li>
-                    <li>
-                        <a href="#member-meetings-tab" role="tab" data-toggle="tab">Meetings</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="tab-content" id="member-profile-tabs">
-
-                    <div class="tab-pane active" id="member-basic-info-tab">
-                        {% include 'members.profile.basic' %}
-                    </div>
-
-                    <div class="tab-pane" id="member-membership-tab">
-                        {% include 'members.profile.membership' %}
-                    </div>
-
-                    <div class="tab-pane" id="member-meetings-tab">
-                        {% include 'members.profile.meetings' %}
-                    </div>
-
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-m-12">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active">
+                            <a href="#member-basic-info-tab" role="tab" data-toggle="tab">Basic information</a>
+                        </li>
+                        <li>
+                            <a href="#member-membership-tab" role="tab" data-toggle="tab">Membership</a>
+                        </li>
+                        <li>
+                            <a href="#member-meetings-tab" role="tab" data-toggle="tab">Meetings</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content" id="member-profile-tabs">
+
+                        <div class="tab-pane active" id="member-basic-info-tab">
+                            {% include 'members.profile.basic' %}
+                        </div>
+
+                        <div class="tab-pane" id="member-membership-tab">
+                            {% include 'members.profile.membership' %}
+                        </div>
+
+                        <div class="tab-pane" id="member-meetings-tab">
+                            {% include 'members.profile.meetings' %}
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
-</div>
-
-{% include 'footer.twig' %}
+{% endblock %}

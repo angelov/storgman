@@ -1,48 +1,50 @@
 {% set page_title = 'Documents' %}
-{% include 'header.twig' %}
 
-{% include 'documents/modals/add-document.twig' %}
+{% extends "base.twig" %}
 
-<div class="row vertical-center">
-    <div class="col-md-7">
-        <h1>Documents</h1>
-    </div>
-    <div class="col-md-5 text-right">
-        <div class="right-inner-addon" style="float: left; width: 67%">
-            <i class="glyphicon glyphicon-search"></i>
-            <input type="search" class="form-control" placeholder="Search documents by title" />
+{% block body %}
+
+    {% include 'documents/modals/add-document.twig' %}
+
+    <div class="row vertical-center">
+        <div class="col-md-7">
+            <h1>Documents</h1>
         </div>
-        <button id="btn-add-document" class="btn btn-info" data-toggle="modal" data-target="#modal-add-document"><i class="glyphicon glyphicon-plus"></i> Add document</button>
+        <div class="col-md-5 text-right">
+            <div class="right-inner-addon" style="float: left; width: 67%">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="search" class="form-control" placeholder="Search documents by title" />
+            </div>
+            <button id="btn-add-document" class="btn btn-info" data-toggle="modal" data-target="#modal-add-document"><i class="glyphicon glyphicon-plus"></i> Add document</button>
+        </div>
     </div>
-</div>
 
-<div class="row">
+    <div class="row">
 
-    {% include 'documents/components/list-all-tags.twig' %}
+        {% include 'documents/components/list-all-tags.twig' %}
 
-    <div class="col-md-8">
+        <div class="col-md-8">
 
-        <legend class="clearfix">
-            <span class="pull-left">All documents</span>
-            <span class="pull-right text-muted text-"><small><small>{{ documents.total }} documents</small></small></span>
-        </legend>
+            <legend class="clearfix">
+                <span class="pull-left">All documents</span>
+                <span class="pull-right text-muted text-"><small><small>{{ documents.total }} documents</small></small></span>
+            </legend>
 
-        <div id="documents-list">
+            <div id="documents-list">
 
-            {% for document in documents %}
+                {% for document in documents %}
 
-                {% include 'documents/components/document.twig' %}
+                    {% include 'documents/components/document.twig' %}
 
-            {% endfor %}
+                {% endfor %}
+
+            </div>
+
+            <div class="text-right">
+                {{ documents.render()|raw }}
+            </div>
 
         </div>
-
-        <div class="text-right">
-            {{ documents.render()|raw }}
-        </div>
-
     </div>
-</div>
 
-
-{% include 'footer.twig' %}
+{% endblock %}

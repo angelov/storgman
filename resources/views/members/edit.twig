@@ -1,220 +1,223 @@
 {% set page_title = member.getFullName() ~ ', Edit details' %}
-{% include 'header.twig' %}
 
-<h1>Edit member details:</h1>
+{% extends "base.twig" %}
 
-<div class="row">
-    <div class="col-md-12">
+{% block body %}
 
-        <form role="form" action="{{ route('members.update', member.getId()) }}" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="_method" value="PUT">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+    <h1>Edit member details:</h1>
 
-            {% if Session.has('errorMessages') %}
-                <div class="alert alert-danger">
-                    <p><strong>Please fix the following errors:</strong></p>
-                    <ul>
-                        {% for message in Session.get('errorMessages') %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+    <div class="row">
+        <div class="col-md-12">
 
-            <div class="row">
-                <div class="col-md-5">
-                    <legend>Personal information:</legend>
-                    <div class="form-group">
-                        <label for="first_name">First name:
-                            <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="first_name" name="first_name"
-                               value="{{ member.getFirstName() }}">
+            <form role="form" action="{{ route('members.update', member.getId()) }}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+                {% if Session.has('errorMessages') %}
+                    <div class="alert alert-danger">
+                        <p><strong>Please fix the following errors:</strong></p>
+                        <ul>
+                            {% for message in Session.get('errorMessages') %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
+                {% endif %}
 
-                    <div class="form-group">
-                        <label for="last_name">Last name:
-                            <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="last_name" name="last_name"
-                               value="{{ member.getLastName() }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="birthday">Birthday:
-                            <span class="text-danger">*</span></label>
-                        <div class="input-group date">
-                            <input type="text" class="form-control" id="birthday" name="birthday"
-                                   value="{{ member.getBirthday()|date('Y-m-d') }}">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-calendar"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <legend>Authentication info:</legend>
-
-                    <div class="form-group">
-                        <label for="email">
-                            Email:
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input type="email" class="form-control" id="email" name="email"
-                               value="{{ member.getEmail() }}" disabled>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">
-                            Password:
-                        </label>
-                        <input type="password" class="form-control" id="password" name="password" />
-                    </div>
-
-                    {% if Auth.user().isBoardMember() %}
-
-                        <legend>Organization details:</legend>
-
-                        {% set board_member = "" %}
-                        {% if member.isBoardMember() %}
-                            {% set board_member = "checked" %}
-                        {% endif %}
-
-                        {% set alumni_member = "" %}
-                        {% if member.isAlumniMember() %}
-                            {% set alumni_member = "checked" %}
-                        {% endif %}
-
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="board_member" value="1" {{ board_member }}> Board member
-                            </label>
+                <div class="row">
+                    <div class="col-md-5">
+                        <legend>Personal information:</legend>
+                        <div class="form-group">
+                            <label for="first_name">First name:
+                                <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="first_name" name="first_name"
+                                   value="{{ member.getFirstName() }}">
                         </div>
 
                         <div class="form-group">
-                            <label for="position_title">Position title:</label>
-                            <input type="text" class="form-control" id="position_title" name="position_title"
-                                   placeholder="eg. President" value="{{ member.getPositionTitle() }}">
-                            <p class="help-block small">Fill only if the member is part of the organization's board</p>
+                            <label for="last_name">Last name:
+                                <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="last_name" name="last_name"
+                                   value="{{ member.getLastName() }}">
                         </div>
 
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="alumni_member" value="1" {{ alumni_member }}> Alumni member
-                            </label>
-                        </div>
-
-                    {% endif %}
-
-                    <legend>Education:</legend>
-
-                    <div class="form-group">
-                        <label for="faculty">Faculty:
-                            <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="faculty" name="faculty"
-                               value="{{ member.getFaculty() }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="field_of_study">Field of study:
-                            <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="field_of_study" name="field_of_study"
-                               value="{{ member.getFieldOfStudy() }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="year_of_graduation">
-                            (Expected) year of graduation:
-                            <span class="text-danger">*</span>
-                        </label>
-                        <input type="text" class="form-control" id="year_of_graduation" name="year_of_graduation"
-                               value="{{ member.getYearOfGraduation() }}">
-                    </div>
-
-                </div>
-
-                <div class="col-md-6 col-md-offset-1">
-                    <legend>Photo:</legend>
-
-                    <div class="row">
-                        <div class="col-md-5" >
-                            <div id="img-preview-photo"
-                                 style="background-image: url({{ route('imagecache', ['medium', member.getPhoto()]) }})"></div>
-                        </div>
-                        <div class="col-md-7">
-
-                            <div id="photo-upload">
-                                <span class="btn btn-default fileinput-button">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                    <span>Select a file to upload</span>
-                                    <input id="member-photo" type="file" name="member_photo" >
+                        <div class="form-group">
+                            <label for="birthday">Birthday:
+                                <span class="text-danger">*</span></label>
+                            <div class="input-group date">
+                                <input type="text" class="form-control" id="birthday" name="birthday"
+                                       value="{{ member.getBirthday()|date('Y-m-d') }}">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>
                                 </span>
-
-                                <p class="help-block small">
-                                    The photo will be processed and cropped/resized to fit 400x400px in size.
-                                </p>
-
                             </div>
                         </div>
-                    </div>
 
-                    <legend>Contact information:</legend>
+                        <legend>Authentication info:</legend>
 
-                    <div class="form-group">
-                        <label for="website">Website:</label>
-                        <input type="text" class="form-control" id="website" name="website"
-                               value="{{ member.getWebsite() }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone number:</label>
-                        <input type="phone" class="form-control" id="phone" name="phone"
-                               value="{{ member.getPhoneNumber() }}">
-                    </div>
-
-                    <legend>Social profiles:</legend>
-
-                    <div class="form-group">
-                        <label for="facebook">Facebook:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon">https://facebook.com/</span>
-                            <input type="text" class="form-control" id="facebook" name="facebook"
-                                   value="{{ member.getFacebook() }}">
+                        <div class="form-group">
+                            <label for="email">
+                                Email:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   value="{{ member.getEmail() }}" disabled>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="twitter">Twitter:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon">https://twitter.com/</span>
-                            <input type="text" class="form-control" id="twitter" name="twitter"
-                                   value="{{ member.getTwitter() }}">
+                        <div class="form-group">
+                            <label for="password">
+                                Password:
+                            </label>
+                            <input type="password" class="form-control" id="password" name="password" />
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="google_plus">Google+:</label>
-                        <div class="input-group">
-                            <span class="input-group-addon">https://plus.google.com/</span>
-                            <input type="text" class="form-control" id="google_plus" name="google_plus"
-                                   value="{{ member.getGooglePlus() }}">
+                        {% if Auth.user().isBoardMember() %}
+
+                            <legend>Organization details:</legend>
+
+                            {% set board_member = "" %}
+                            {% if member.isBoardMember() %}
+                                {% set board_member = "checked" %}
+                            {% endif %}
+
+                            {% set alumni_member = "" %}
+                            {% if member.isAlumniMember() %}
+                                {% set alumni_member = "checked" %}
+                            {% endif %}
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="board_member" value="1" {{ board_member }}> Board member
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="position_title">Position title:</label>
+                                <input type="text" class="form-control" id="position_title" name="position_title"
+                                       placeholder="eg. President" value="{{ member.getPositionTitle() }}">
+                                <p class="help-block small">Fill only if the member is part of the organization's board</p>
+                            </div>
+
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="alumni_member" value="1" {{ alumni_member }}> Alumni member
+                                </label>
+                            </div>
+
+                        {% endif %}
+
+                        <legend>Education:</legend>
+
+                        <div class="form-group">
+                            <label for="faculty">Faculty:
+                                <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="faculty" name="faculty"
+                                   value="{{ member.getFaculty() }}">
                         </div>
+
+                        <div class="form-group">
+                            <label for="field_of_study">Field of study:
+                                <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="field_of_study" name="field_of_study"
+                                   value="{{ member.getFieldOfStudy() }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="year_of_graduation">
+                                (Expected) year of graduation:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="year_of_graduation" name="year_of_graduation"
+                                   value="{{ member.getYearOfGraduation() }}">
+                        </div>
+
                     </div>
 
-                </div>
-            </div>
+                    <div class="col-md-6 col-md-offset-1">
+                        <legend>Photo:</legend>
 
-            <div class="row" style="margin-top: 20px">
-                <div class="col-md-6">
-                    <p class="text-muted">
-                        <span class="text-danger">*</span> - required fields
-                    </p>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button type="submit" class="btn btn-info" id="btn-submit-member">Update details</button>
-                </div>
-            </div>
+                        <div class="row">
+                            <div class="col-md-5" >
+                                <div id="img-preview-photo"
+                                     style="background-image: url({{ route('imagecache', ['medium', member.getPhoto()]) }})"></div>
+                            </div>
+                            <div class="col-md-7">
 
-        </form>
+                                <div id="photo-upload">
+                                    <span class="btn btn-default fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>Select a file to upload</span>
+                                        <input id="member-photo" type="file" name="member_photo" >
+                                    </span>
 
+                                    <p class="help-block small">
+                                        The photo will be processed and cropped/resized to fit 400x400px in size.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <legend>Contact information:</legend>
+
+                        <div class="form-group">
+                            <label for="website">Website:</label>
+                            <input type="text" class="form-control" id="website" name="website"
+                                   value="{{ member.getWebsite() }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone number:</label>
+                            <input type="phone" class="form-control" id="phone" name="phone"
+                                   value="{{ member.getPhoneNumber() }}">
+                        </div>
+
+                        <legend>Social profiles:</legend>
+
+                        <div class="form-group">
+                            <label for="facebook">Facebook:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">https://facebook.com/</span>
+                                <input type="text" class="form-control" id="facebook" name="facebook"
+                                       value="{{ member.getFacebook() }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="twitter">Twitter:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">https://twitter.com/</span>
+                                <input type="text" class="form-control" id="twitter" name="twitter"
+                                       value="{{ member.getTwitter() }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="google_plus">Google+:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">https://plus.google.com/</span>
+                                <input type="text" class="form-control" id="google_plus" name="google_plus"
+                                       value="{{ member.getGooglePlus() }}">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 20px">
+                    <div class="col-md-6">
+                        <p class="text-muted">
+                            <span class="text-danger">*</span> - required fields
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button type="submit" class="btn btn-info" id="btn-submit-member">Update details</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
     </div>
-</div>
 
-{% include 'footer.twig' %}
+{% endblock %}

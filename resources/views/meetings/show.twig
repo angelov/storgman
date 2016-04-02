@@ -1,114 +1,114 @@
 {% set page_title = meeting.getDate()|date('Y-m-d') ~ ', Meeting details' %}
-{% include 'header.twig' %}
 
-<h1><span class="date-to-format">{{ meeting.date }}</span> <small>Meeting details</small></h1>
+{% extends "base.twig" %}
 
-<div class="row" style="margin-top: 30px;">
-    <div class="col-md-5">
+{% block body %}
 
-        <ul class="list-group text-right">
-            <li class="list-group-item text-muted text-left">Basic information</li>
-            <li class="list-group-item">
-                <span class="pull-left"><strong>Date:</strong></span>
-                <span class="date-to-format">{{ meeting.getDate() }}</span>
-            </li>
-            <li class="list-group-item">
-                <span class="pull-left"><strong>Location:</strong></span>
-                {{ meeting.getLocation() }}
-            </li>
-            <li class="list-group-item">
-                <span class="pull-left"><strong># of attendants</strong></span>
-                {{ meeting.getAttendants()|length }}
-            </li>
-            <li class="list-group-item">
-                <span class="pull-left"><strong>Created by:</strong></span>
-                {{ meeting.getCreator().getFullName() }}
-            </li>
-        </ul>
+    <h1><span class="date-to-format">{{ meeting.date }}</span> <small>Meeting details</small></h1>
 
-        <ul class="list-group">
-            <li class="list-group-item text-muted text-left">Details</li>
-            <li class="list-group-item">
-                <p>{{ meeting.getInfo()|raw }}</p>
-            </li>
-        </ul>
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-md-5">
+
+            <ul class="list-group text-right">
+                <li class="list-group-item text-muted text-left">Basic information</li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Date:</strong></span>
+                    <span class="date-to-format">{{ meeting.getDate() }}</span>
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Location:</strong></span>
+                    {{ meeting.getLocation() }}
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong># of attendants</strong></span>
+                    {{ meeting.getAttendants()|length }}
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Created by:</strong></span>
+                    {{ meeting.getCreator().getFullName() }}
+                </li>
+            </ul>
+
+            <ul class="list-group">
+                <li class="list-group-item text-muted text-left">Details</li>
+                <li class="list-group-item">
+                    <p>{{ meeting.getInfo()|raw }}</p>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-7">
+
+            {#<ul class="list-group">
+                <li class="list-group-item text-muted text-left">
+                    Statistics
+                    <span class="pull-right small text-muted">(not implemented yet)</span>
+                </li>
+                <li class="list-group-item" style="height: 164px">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="chart-meeting-returning-members" style="margin-top: 10px; height: 130px"></div>
+                        </div>
+
+                        <div class="col-md-7">
+
+                            <table class="table" style="margin-top: -10px;">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span class="text-success">
+                                                <i class="glyphicon glyphicon-arrow-up" style=""></i>
+                                                <strong>5 more</strong>
+                                            </span>
+                                            attendants than the last meeting
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="text-danger">
+                                                <i class="glyphicon glyphicon-arrow-down" style=""></i>
+                                                <strong>10 less</strong>
+                                            </span>
+                                            attendants than average
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p class="small text-muted">
+                                * New members are those members who hasn't attended the previous meeting.
+                                Returning are those who has.
+                            </p>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>#}
+
+            <ul class="list-group">
+                <li class="list-group-item text-muted text-left">Attendants</li>
+                <li class="list-group-item">
+
+                    {% for attendant in meeting.getAttendants() %}
+
+                        <a href="{{ route('members.show', attendant.getId()) }}" class="attendant has-tooltip"
+                           data-toggle="tooltip" title="{{ attendant.getFullName() }}">
+                            <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.getPhoto()]) }}" />
+                        </a>
+
+                    {% endfor %}
+
+                </li>
+            </ul>
+
+        </div>
 
     </div>
 
-    <div class="col-md-7">
-
-        {#<ul class="list-group">
-            <li class="list-group-item text-muted text-left">
-                Statistics
-                <span class="pull-right small text-muted">(not implemented yet)</span>
-            </li>
-            <li class="list-group-item" style="height: 164px">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div id="chart-meeting-returning-members" style="margin-top: 10px; height: 130px"></div>
-                    </div>
-
-                    <div class="col-md-7">
-
-                        <table class="table" style="margin-top: -10px;">
-                            <thead>
-                                <tr>
-                                    <td></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <span class="text-success">
-                                            <i class="glyphicon glyphicon-arrow-up" style=""></i>
-                                            <strong>5 more</strong>
-                                        </span>
-                                        attendants than the last meeting
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="text-danger">
-                                            <i class="glyphicon glyphicon-arrow-down" style=""></i>
-                                            <strong>10 less</strong>
-                                        </span>
-                                        attendants than average
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <p class="small text-muted">
-                            * New members are those members who hasn't attended the previous meeting.
-                            Returning are those who has.
-                        </p>
-                    </div>
-                </div>
-
-            </li>
-        </ul>#}
-
-        <ul class="list-group">
-            <li class="list-group-item text-muted text-left">Attendants</li>
-            <li class="list-group-item">
-
-                {% for attendant in meeting.getAttendants() %}
-
-                    <a href="{{ route('members.show', attendant.getId()) }}" class="attendant has-tooltip"
-                       data-toggle="tooltip" title="{{ attendant.getFullName() }}">
-                        <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.getPhoto()]) }}" />
-                    </a>
-
-                {% endfor %}
-
-            </li>
-        </ul>
-
-    </div>
-
-
-</div>
-
-
-
-{% include 'footer.twig' %}
+{% endblock %}

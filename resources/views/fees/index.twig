@@ -1,129 +1,132 @@
 {% set page_title = 'Fees' %}
-{% include 'header.twig' %}
 
-<h1>Fees</h1>
+{% extends "base.twig" %}
 
-<div class="row">
-    <div class="col-md-5">
-        <div class="row">
-            <div class="col-md-12">
-                <legend>Create new paid fee:</legend>
-                <form class="form-horizontal" role="form">
-                    <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
-                    <div class="form-group" style="margin-bottom: 0;"">
-                        <label for="quick-member-search-for-fee" class="col-md-4 control-label">Choose a member:</label>
-                        <div class="input-group col-md-7">
-                            <input type="text" class="form-control" id="quick-member-search-for-fee" placeholder="Enter the name">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+{% block body %}
+
+    <h1>Fees</h1>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <legend>Create new paid fee:</legend>
+                    <form class="form-horizontal" role="form">
+                        <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
+                        <div class="form-group" style="margin-bottom: 0;"">
+                            <label for="quick-member-search-for-fee" class="col-md-4 control-label">Choose a member:</label>
+                            <div class="input-group col-md-7">
+                                <input type="text" class="form-control" id="quick-member-search-for-fee" placeholder="Enter the name">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
 
+                </div>
             </div>
+
+            <div class="modal fade" id="modal-renew-membership"></div>
+
+            <div id="member-info" style="margin-top: 20px; display: none;"></div>
+
         </div>
 
-        <div class="modal fade" id="modal-renew-membership"></div>
+        <div class="col-md-7" style="margin-top: 10px;">
+            <ul class="list-group">
+                <li class="list-group-item text-muted text-left">
+                    Latest paid fees
 
-        <div id="member-info" style="margin-top: 20px; display: none;"></div>
+                    <span class="pull-right">
+                        <a href="{{ route('fees.archive') }}" class="btn btn-default btn-xs">
+                            View fees archive
+                        </a>
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Member</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Paid on</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
+                                {% for fee in latest %}
+
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('members.show', fee.getMember().getId()) }}">
+                                                {{ fee.getMember().getFullName() }}
+                                            </a>
+                                        </td>
+                                        <td class="date-to-format">{{ fee.getFromDate() }}</td>
+                                        <td class="date-to-format">{{ fee.getToDate() }}</td>
+                                        <td>{{ fee.getCreatedAt() }}</td>
+                                        <td class="text-right">
+                                            <a href="{{ route('fees.destroy', fee.getId()) }}" data-toggle="tooltip" data-placement="top"
+                                               class="has-tooltip btn-delete-fee" data-fee="{{ fee.getId() }}" title="Delete">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <div class="col-md-7" style="margin-top: 10px;">
-        <ul class="list-group">
-            <li class="list-group-item text-muted text-left">
-                Latest paid fees
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="list-group" style="margin-top: 10px;">
+                <li class="list-group-item text-muted text-left">
+                    Memberships to expire soon
+                </li>
+                <li class="list-group-item">
+                    <table class="table table-striped">
+                        <tbody>
 
-                <span class="pull-right">
-                    <a href="{{ route('fees.archive') }}" class="btn btn-default btn-xs">
-                        View fees archive
-                    </a>
-                </span>
-            </li>
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Member</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Paid on</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            {% for fee in latest %}
-
+                            {% for fee in toExpire %}
                                 <tr>
+                                    <td>{{ fee.getMember().getFullName() }}</td>
                                     <td>
-                                        <a href="{{ route('members.show', fee.getMember().getId()) }}">
-                                            {{ fee.getMember().getFullName() }}
-                                        </a>
-                                    </td>
-                                    <td class="date-to-format">{{ fee.getFromDate() }}</td>
-                                    <td class="date-to-format">{{ fee.getToDate() }}</td>
-                                    <td>{{ fee.getCreatedAt() }}</td>
-                                    <td class="text-right">
-                                        <a href="{{ route('fees.destroy', fee.getId()) }}" data-toggle="tooltip" data-placement="top"
-                                           class="has-tooltip btn-delete-fee" data-fee="{{ fee.getId() }}" title="Delete">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                        </a>
+                                        <strong class="date-to-humanize">{{ fee.getToDate() }}</strong>
                                     </td>
                                 </tr>
-
                             {% endfor %}
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+        </div>
 
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <ul class="list-group" style="margin-top: 10px;">
-            <li class="list-group-item text-muted text-left">
-                Memberships to expire soon
-            </li>
-            <li class="list-group-item">
-                <table class="table table-striped">
-                    <tbody>
-
-                        {% for fee in toExpire %}
-                            <tr>
-                                <td>{{ fee.getMember().getFullName() }}</td>
-                                <td>
-                                    <strong class="date-to-humanize">{{ fee.getToDate() }}</strong>
-                                </td>
-                            </tr>
-                        {% endfor %}
-
-                    </tbody>
-                </table>
-            </li>
-        </ul>
+        <div class="col-md-8">
+            <ul class="list-group" style="margin-top: 10px;">
+                <li class="list-group-item text-muted text-left">
+                    Paid membership fees per month
+                    <span id="chart-fees-per-month-legend" class="pull-right small""></span>
+                </li>
+                <li class="list-group-item">
+                    <script type="text/javascript">
+                        var totalFeesPerMonth = {{ fees|raw }};
+                    </script>
+                    <div id="chart-fees-per-month" style="width: 100%"></div>
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <div class="col-md-8">
-        <ul class="list-group" style="margin-top: 10px;">
-            <li class="list-group-item text-muted text-left">
-                Paid membership fees per month
-                <span id="chart-fees-per-month-legend" class="pull-right small""></span>
-            </li>
-            <li class="list-group-item">
-                <script type="text/javascript">
-                    var totalFeesPerMonth = {{ fees|raw }};
-                </script>
-                <div id="chart-fees-per-month" style="width: 100%"></div>
-            </li>
-        </ul>
-    </div>
-</div>
-
-{% include 'footer.twig' %}
+{% endblock %}

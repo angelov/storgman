@@ -1,101 +1,102 @@
 {% set page_title = 'Create new meeting report' %}
-{% include 'header.twig' %}
 
-<h1>Create new meeting report:</h1>
+{% extends "base.twig" %}
 
-<div class="row">
-    <div class="col-md-12">
+{% block body %}
 
-        <form role="form" method="post" action="{{ route('meetings.store') }}">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+    <h1>Create new meeting report:</h1>
 
-            {% if Session.has('errorMessages') %}
-                <div class="alert alert-danger">
-                    <p><strong>Please fix the following errors:</strong></p>
-                    <ul>
-                        {% for message in Session.get('errorMessages') %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+    <div class="row">
+        <div class="col-md-12">
 
-            <div class="row">
+            <form role="form" method="post" action="{{ route('meetings.store') }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-                <div class="col-md-7">
-                    <legend>Basic information:</legend>
+                {% if Session.has('errorMessages') %}
+                    <div class="alert alert-danger">
+                        <p><strong>Please fix the following errors:</strong></p>
+                        <ul>
+                            {% for message in Session.get('errorMessages') %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="location">Location:</label>
-                                <input type="text" class="form-control" id="location" name="location">
+                <div class="row">
+
+                    <div class="col-md-7">
+                        <legend>Basic information:</legend>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="location">Location:</label>
+                                    <input type="text" class="form-control" id="location" name="location">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="date">Date:</label>
-                                <div class="input-group date">
-                                    <input type="text" class="form-control" id="date" name="date">
-                                    <span class="input-group-addon">
-                                        <i class="glyphicon glyphicon-calendar"></i>
-                                    </span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="date">Date:</label>
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="date" name="date">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <legend>Details:</legend>
+                        <legend>Details:</legend>
 
-                    <div class="form-group">
-                        <textarea class="form-control" name="details" id="txt-meeting-details"></textarea>
-                    </div>
-
-                    <input type="hidden" name="created_by" value="{{ Auth.user().getId() }}">
-
-                </div>
-
-                <div class="col-md-5">
-                    <legend>Attendants:</legend>
-
-                    <div class="form-group">
-                        <label for="new-attendant">Enter member:</label>
-                        <input type="text" id="new-attendant" class="form-control" placeholder="Start typing member's name..." />
-                        <input type="hidden" id="attendants" value="|" name="attendants" />
-                    </div>
-
-                    <div id="attendants-list">
-                        <p class="small text-right">No. of attendants: <span id="count-attendants">0</span></p>
-
-                        <div id="tpl-attendant" class="attendant has-tooltip"
-                                data-toggle="tooltip">
-                            <div class="delete-attendant">
-                                <div class="caption-content">
-                                    <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
-                                </div>
-                            </div>
-                            <img class="img-attendant" />
+                        <div class="form-group">
+                            <textarea class="form-control" name="details" id="txt-meeting-details"></textarea>
                         </div>
 
+                        <input type="hidden" name="created_by" value="{{ Auth.user().getId() }}">
+
+                    </div>
+
+                    <div class="col-md-5">
+                        <legend>Attendants:</legend>
+
+                        <div class="form-group">
+                            <label for="new-attendant">Enter member:</label>
+                            <input type="text" id="new-attendant" class="form-control" placeholder="Start typing member's name..." />
+                            <input type="hidden" id="attendants" value="|" name="attendants" />
+                        </div>
+
+                        <div id="attendants-list">
+                            <p class="small text-right">No. of attendants: <span id="count-attendants">0</span></p>
+
+                            <div id="tpl-attendant" class="attendant has-tooltip"
+                                    data-toggle="tooltip">
+                                <div class="delete-attendant">
+                                    <div class="caption-content">
+                                        <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                                    </div>
+                                </div>
+                                <img class="img-attendant" />
+                            </div>
+
+
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
-
-            <div class="row pull-right">
-                <div class="col-md-12 ">
-                    <button type="submit" class="btn btn-info" id="btn-create-meeting">Add the report</button>
+                <div class="row pull-right">
+                    <div class="col-md-12 ">
+                        <button type="submit" class="btn btn-info" id="btn-create-meeting">Add the report</button>
+                    </div>
                 </div>
-            </div>
 
-        </form>
+            </form>
 
+        </div>
     </div>
-</div>
 
-
-
-{% include 'footer.twig' %}
+{% endblock %}

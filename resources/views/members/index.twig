@@ -1,110 +1,113 @@
 {% set page_title = 'Members' %}
-{% include 'header.twig' %}
 
-<h1>Members</h1>
+{% extends "base.twig" %}
 
-{% if Session.has('action-message') %}
-    <div class="alert alert-success">
+{% block body %}
+
+    <h1>Members</h1>
+
+    {% if Session.has('action-message') %}
+        <div class="alert alert-success">
+            <a class="close" data-hide="alert" href="#">×</a>
+            <span>
+                {{ Session.get('action-message') }}
+            </span>
+        </div>
+    {% endif %}
+
+    <div class="" id="action-status" style="display: none;">
         <a class="close" data-hide="alert" href="#">×</a>
-        <span>
-            {{ Session.get('action-message') }}
-        </span>
+        <span id="action-message"></span>
     </div>
-{% endif %}
 
-<div class="" id="action-status" style="display: none;">
-    <a class="close" data-hide="alert" href="#">×</a>
-    <span id="action-message"></span>
-</div>
+    <div class="row">
+        <div class="col-md-7">
+            <p>
+                There are total <strong>{{ members.total }}</strong> members.
 
-<div class="row">
-    <div class="col-md-7">
-        <p>
-            There are total <strong>{{ members.total }}</strong> members.
-
-            <a href="{{ route('members.board') }}" class="small" style="margin-left: 5px;">
-                View board members
-            </a>
-
-            {% if pending > 0 %}
-                <span class="text-muted">|</span>
-                <a href="{{ route('members.unapproved') }}" class="small" >
-                    <strong>{{ pending }} pending approvals</strong>
+                <a href="{{ route('members.board') }}" class="small" style="margin-left: 5px;">
+                    View board members
                 </a>
-            {% endif %}
-        </p>
+
+                {% if pending > 0 %}
+                    <span class="text-muted">|</span>
+                    <a href="{{ route('members.unapproved') }}" class="small" >
+                        <strong>{{ pending }} pending approvals</strong>
+                    </a>
+                {% endif %}
+            </p>
+        </div>
+
+        <div class="col-md-5 text-right">
+
+                <div class="input-group col-md-7 search-box">
+                    <input type="text" class="form-control" placeholder="Search..." id="quick-member-search" />
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                </div>
+
+                <a href="{{ route('members.create') }}" class="btn btn-info">
+                    <i class="glyphicon glyphicon-plus"></i> Add new member
+                </a>
+
+        </div>
     </div>
 
-    <div class="col-md-5 text-right">
+    <div class="modal fade" id="modal-renew-membership"></div>
 
-            <div class="input-group col-md-7 search-box">
-                <input type="text" class="form-control" placeholder="Search..." id="quick-member-search" />
-                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-            </div>
-
-            <a href="{{ route('members.create') }}" class="btn btn-info">
-                <i class="glyphicon glyphicon-plus"></i> Add new member
-            </a>
-
-    </div>
-</div>
-
-<div class="modal fade" id="modal-renew-membership"></div>
-
-<table class="table table-bordered table-striped" style="margin-top: 15px;">
-    <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
-    <thead>
-        <tr>
-            <th>Full name</th>
-            <th>Faculty</th>
-            <th>Field of study</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for member in members %}
+    <table class="table table-bordered table-striped" style="margin-top: 15px;">
+        <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
+        <thead>
             <tr>
-                <td>
-                    {{ member.getFullName() }}
-
-                    {% if member.isApproved() == false %}
-                        <span class="label label-warning">Unapproved</span>
-                    {% endif %}
-                </td>
-                <td>{{ member.getFaculty() }}</td>
-                <td>{{ member.getFieldOfStudy() }}</td>
-                <td class="text-right">
-                    {# view member details #}
-                    <a href="{{ route('members.show', member.getId()) }}" data-toggle="tooltip"
-                       data-placement="top" title="Details" class="has-tooltip">
-                        <i class="glyphicon glyphicon-user"></i>
-                     </a>
-
-                    {# edit member details #}
-                    <a href="{{ route('members.edit', member.getId()) }}" data-toggle="tooltip"
-                       data-placement="top" title="Edit" class="has-tooltip">
-                        <i class="glyphicon glyphicon-pencil"></i>
-                    </a>
-
-                    {# renew membership #}
-                    <a href="{{ route('fees.create', {"member_id": member.getId()}) }}" data-toggle="tooltip" title="Renew membership"
-                       data-placement="top" class="has-tooltip btn-renew-membership" data-member="{{ member.getId() }}">
-                        <i class="fa fa-money fa-lg"></i>
-                    </a>
-
-                    {# delete member #}
-                    <a href="{{ route('members.destroy', member.getId()) }}" data-member="{{ member.getId() }}"
-                      data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip btn-delete-member">
-                        <i class="glyphicon glyphicon-trash"></i>
-                    </a>
-                </td>
+                <th>Full name</th>
+                <th>Faculty</th>
+                <th>Field of study</th>
+                <th>Actions</th>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for member in members %}
+                <tr>
+                    <td>
+                        {{ member.getFullName() }}
 
-<div class="text-right">
-    {{ members.render()|raw }}
-</div>
+                        {% if member.isApproved() == false %}
+                            <span class="label label-warning">Unapproved</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ member.getFaculty() }}</td>
+                    <td>{{ member.getFieldOfStudy() }}</td>
+                    <td class="text-right">
+                        {# view member details #}
+                        <a href="{{ route('members.show', member.getId()) }}" data-toggle="tooltip"
+                           data-placement="top" title="Details" class="has-tooltip">
+                            <i class="glyphicon glyphicon-user"></i>
+                         </a>
 
-{% include 'footer.twig' %}
+                        {# edit member details #}
+                        <a href="{{ route('members.edit', member.getId()) }}" data-toggle="tooltip"
+                           data-placement="top" title="Edit" class="has-tooltip">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+
+                        {# renew membership #}
+                        <a href="{{ route('fees.create', {"member_id": member.getId()}) }}" data-toggle="tooltip" title="Renew membership"
+                           data-placement="top" class="has-tooltip btn-renew-membership" data-member="{{ member.getId() }}">
+                            <i class="fa fa-money fa-lg"></i>
+                        </a>
+
+                        {# delete member #}
+                        <a href="{{ route('members.destroy', member.getId()) }}" data-member="{{ member.getId() }}"
+                          data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip btn-delete-member">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-right">
+        {{ members.render()|raw }}
+    </div>
+
+{% endblock %}

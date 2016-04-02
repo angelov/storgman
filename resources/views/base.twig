@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Ultim8 - www.ultim8.info">
+    {% block meta %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Easier Local Committees management">
+        <meta name="author" content="Angelov Dejan - http://angelovdejan.me">
+    {% endblock %}
 
     <title>{{ page_title }} :: {{ Config.get('main.title') }}</title>
 
-    <link href="{{ Config.get('app.url') }}/static/assets/build/css/style.css" rel="stylesheet">
+    {% block stylesheets %}
+        <link href="{{ asset("/static/assets/build/css/style.css") }}" rel="stylesheet">
+    {% endblock %}
 </head>
 
 <body>
@@ -57,3 +61,35 @@
             </div><!--/.nav-collapse -->
         </div>
     </div>
+
+    {% block body %}{% endblock %}
+
+    <div class="footer">
+        <hr />
+
+        <p class="pull-left small">
+            <a href="http://github.com/angelov/eestec-platform" target="_blank">
+                EESTEC Platform for Local Committees
+            </a>
+            <br />
+            Developed by <a href="http://github.com/angelov" target="_blank">Angelov Dejan</a>
+
+        </p>
+
+        <p class="pull-right small">
+            <small>{{ Config.get('app.version') }},
+                <a href="https://github.com/angelov/eestec-platform/issues" target="_blank">
+                    bugs?
+                </a>
+            </small>
+        </p>
+    </div>
+
+</div> <!-- /container -->
+
+{% block javascripts %}
+    <script src="{{ asset("/static/assets/build/js/app.js") }}"></script>
+{% endblock %}
+
+</body>
+</html>

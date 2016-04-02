@@ -1,53 +1,56 @@
 {% set page_title = "Unapproved member accounts" %}
-{% include 'header.twig' %}
 
-<h1>Unapproved member accounts</h1>
+{% extends "base.twig" %}
 
-<div class="" id="action-status" style="display: none;">
-    <a class="close" data-hide="alert" href="#">×</a>
-    <span id="action-message"></span>
-</div>
+{% block body %}
 
-<table class="table table-bordered table-striped" style="margin-top: 15px;">
-    <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
-    <thead>
-        <tr>
-            <th>Full name</th>
-            <th>Faculty</th>
-            <th>Field of study</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for member in members %}
-        <tr>
-            <td>
-                {{ member.getFullName() }}
-            </td>
-            <td>{{ member.getFaculty() }}</td>
-            <td>{{ member.getFieldOfStudy() }}</td>
-            <td class="text-right">
-                {# view member details #}
-                <a href="{{ route('members.show', member.getId()) }}" data-toggle="tooltip"
-                   data-placement="top" title="Details" class="has-tooltip">
-                    <i class="glyphicon glyphicon-user"></i>
-                </a>
+    <h1>Unapproved member accounts</h1>
 
-                {# approve #}
-                <a href="{{ route('members.approve', member.getId()) }}" data-toggle="tooltip" data-member="{{ member.getId() }}"
-                   data-placement="top" title="Approve" class="has-tooltip btn-approve-member">
-                    <i class="fa fa-check"></i>
-                </a>
+    <div class="" id="action-status" style="display: none;">
+        <a class="close" data-hide="alert" href="#">×</a>
+        <span id="action-message"></span>
+    </div>
 
-                {# decline #}
-                <a href="{{ route('members.decline', member.getId()) }}" data-toggle="tooltip" data-member="{{ member.getId() }}"
-                   data-placement="top" title="Decline" class="has-tooltip btn-approve-member">
-                    <i class="fa fa-times"></i>
-                </a>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <table class="table table-bordered table-striped" style="margin-top: 15px;">
+        <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
+        <thead>
+            <tr>
+                <th>Full name</th>
+                <th>Faculty</th>
+                <th>Field of study</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for member in members %}
+            <tr>
+                <td>
+                    {{ member.getFullName() }}
+                </td>
+                <td>{{ member.getFaculty() }}</td>
+                <td>{{ member.getFieldOfStudy() }}</td>
+                <td class="text-right">
+                    {# view member details #}
+                    <a href="{{ route('members.show', member.getId()) }}" data-toggle="tooltip"
+                       data-placement="top" title="Details" class="has-tooltip">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </a>
 
-{% include 'footer.twig' %}
+                    {# approve #}
+                    <a href="{{ route('members.approve', member.getId()) }}" data-toggle="tooltip" data-member="{{ member.getId() }}"
+                       data-placement="top" title="Approve" class="has-tooltip btn-approve-member">
+                        <i class="fa fa-check"></i>
+                    </a>
+
+                    {# decline #}
+                    <a href="{{ route('members.decline', member.getId()) }}" data-toggle="tooltip" data-member="{{ member.getId() }}"
+                       data-placement="top" title="Decline" class="has-tooltip btn-approve-member">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,43 +1,45 @@
 {% set page_title = "Board Members" %}
-{% include 'header.twig' %}
 
-<h1>Board Members</h1>
+{% extends "base.twig" %}
 
-<div class="row">
+{% block body %}
 
-    {% for member in members %}
+    <h1>Board Members</h1>
 
-        <div class="col-md-4">
-            <ul class="list-group">
-                <li class="list-group-item">
+    <div class="row">
 
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="{{ route('imagecache', ['small', member.getPhoto()]) }}" />
+        {% for member in members %}
+
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="{{ route('imagecache', ['small', member.getPhoto()]) }}" />
+                            </div>
+
+
+                            <div class="col-md-8" style="display: inline-block; vertical-align: text-top">
+                                <h4>{{ member.getFullName() }}</h4>
+                                <p class="text-muted">
+                                    <i class="glyphicon glyphicon-briefcase" style="margin-right: 5px;"></i>
+                                    {{ member.getPositionTitle() }}
+                                </p>
+
+                                <p class="text-right small" style="padding-top: 15px; margin-bottom: 0">
+                                    <a href="{{ route('members.show', member.getId()) }}">
+                                        <i class="glyphicon glyphicon-user"></i> View profile
+                                    </a>
+                                </p>
+                            </div>
                         </div>
+                    </li>
+                </ul>
+            </div>
 
+        {% endfor %}
 
-                        <div class="col-md-8" style="display: inline-block; vertical-align: text-top">
-                            <h4>{{ member.getFullName() }}</h4>
-                            <p class="text-muted">
-                                <i class="glyphicon glyphicon-briefcase" style="margin-right: 5px;"></i>
-                                {{ member.getPositionTitle() }}
-                            </p>
+    </div>
 
-                            <p class="text-right small" style="padding-top: 15px; margin-bottom: 0">
-                                <a href="{{ route('members.show', member.getId()) }}">
-                                    <i class="glyphicon glyphicon-user"></i> View profile
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-    {% endfor %}
-
-
-</div>
-
-{% include 'footer.twig' %}
+{% endblock %}
