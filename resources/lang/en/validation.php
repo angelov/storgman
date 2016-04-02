@@ -83,9 +83,18 @@ return array(
     */
 
     'custom' => array(
-        'attribute-name' => array(
-            'rule-name' => 'custom-message',
+        'email' => array(
+            'email' => 'Please enter a valid email address.',
         ),
+        'year_of_graduation' => array(
+            'integer' => 'Please enter a valid (expected) year of graduation.',
+        ),
+        'birthday' => [
+            'date_format' => 'Please enter a valid date for your birthday.'
+        ],
+        'website' => [
+            'url' => 'Please enter a valid URL for your website.'
+        ]
     ),
 
     /*

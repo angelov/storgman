@@ -178,6 +178,7 @@ class MembersManagementContext extends BaseContext
 
     /**
      * @When /^I login as "([^"]*)"$/
+     * @Given /^I am logged in as "([^"]*)"$/
      */
     public function iLoginAs($fullName)
     {
@@ -196,5 +197,22 @@ class MembersManagementContext extends BaseContext
 
         $id = $this->authenticatedMember->getId();
         $this->assertSession()->addressEquals(route('members.show', $id));
+    }
+
+    /**
+     * @Then /^I should be on the registration page$/
+     */
+    public function iShouldBeOnTheRegistrationPage()
+    {
+        $this->assertSession()->addressEquals(route('members.register'));
+    }
+
+    /**
+     * @Given /^I am on the registration page$/
+     * @When /^I go to the registration page$/
+     */
+    public function iAmOnTheRegistrationPage()
+    {
+        $this->visitPath(route('members.register'));
     }
 }
