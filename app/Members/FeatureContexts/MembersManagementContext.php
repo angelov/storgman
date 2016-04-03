@@ -25,6 +25,8 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+// Note: Mess inside.
+
 namespace Angelov\Eestec\Platform\Members\FeatureContexts;
 
 use Angelov\Eestec\Platform\Core\FeatureContexts\BaseContext;
@@ -47,23 +49,38 @@ class MembersManagementContext extends BaseContext
      */
     public function thereAreTheFollowingMembers(TableNode $members)
     {
+        $this->clearMembers();
+        foreach ($members as $current) {
+            $this->storeMember($current);
+        }
+    }
+
+    private function storeMember($current)
+    {
         $repository = $this->getMembersRepository();
         $hasher = $this->getPasswordHasher();
 
-        foreach ($members as $current) {
-            $member = new Member();
-            $member->setFirstName($current['first_name']);
-            $member->setLastName($current['last_name']);
-            $member->setEmail($current['email']);
-            $member->setPassword($hasher->make($current['password']));
+        $member = new Member();
+        $member->setFirstName($current['first_name']);
+        $member->setLastName($current['last_name']);
+        $member->setEmail($current['email']);
+        $member->setPassword($hasher->make($current['password']));
 
-            $member->setApproved($current['approved'] === 'yes');
-            $member->setBoardMember($current['board'] === 'yes');
-
-            $repository->store($member);
-            $this->members[] = $member;
-            $this->keepMemberCredentials($member, $current);
+        if (isset($current['faculty'])) {
+            $member->setFaculty($current['faculty']);
         }
+
+        if (isset($current['field'])) {
+            $member->setFieldOfStudy($current['field']);
+        }
+
+        $member->setApproved($current['approved'] === 'yes');
+        $member->setBoardMember($current['board'] === 'yes');
+
+        $repository->store($member);
+
+        $this->members[] = $member;
+        $this->keepMemberCredentials($member, $current);
     }
 
     private function keepMemberCredentials(Member $member, $data)
@@ -132,6 +149,7 @@ class MembersManagementContext extends BaseContext
         $page->fillField('Email address', $credentials['email']);
         $page->fillField('Password', $credentials['password']);
         $page->pressButton('Sign in');
+
 
         $this->authenticatedMember = $member;
     }
@@ -214,5 +232,32 @@ class MembersManagementContext extends BaseContext
     public function iAmOnTheRegistrationPage()
     {
         $this->visitPath(route('members.register'));
+    }
+
+    /**
+     * @Given /^I am on the members page$/
+     */
+    public function iAmOnTheMembersPage()
+    {
+        $this->visitPath(route("members.index"));
+    }
+
+    /**
+     * @Then /^I should be on the members page$/
+     */
+    public function iShouldBeOnTheMembersPage()
+    {
+        $this->assertSession()->addressEquals(route('members.index'));
+    }
+
+    private function clearMembers()
+    {
+        if (!count($this->members)) {
+            return;
+        }
+
+        foreach ($this->members as $member) {
+            $this->getMembersRepository()->destroy($member->getId());
+        }
     }
 }

@@ -31,6 +31,7 @@ use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\MinkExtension\Context\RawMinkContext;
+use Faker\Factory as Faker;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -81,5 +82,10 @@ abstract class BaseContext extends RawMinkContext implements Context, SnippetAcc
     public function getPage()
     {
         return $this->getSession()->getPage();
+    }
+
+    public function getFaker()
+    {
+        return Faker::create();
     }
 }
