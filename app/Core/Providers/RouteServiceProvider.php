@@ -70,7 +70,8 @@ class RouteServiceProvider extends ServiceProvider
                 'Members/Authentication',
                 'Membership',
                 'Meetings',
-                'Documents'
+                'Documents',
+                'News'
             ];
 
             foreach ($modules as $module) {

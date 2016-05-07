@@ -1,0 +1,201 @@
+{% set page_title = "Create a news article" %}
+
+{% extends "base.twig" %}
+
+{% block body %}
+
+    <h1>Create a news article:</h1>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <form role="form" method="post" action="{{ route('meetings.store') }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+                <div class="row">
+                    <div class="col-md-7">
+
+                        <legend>Details</legend>
+
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Image:</label>
+                            <input type="file" class="form-control" id="image" name="image">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="content">Content:</label>
+                            <textarea class="form-control" name="details" id="txt-meeting-details" rows="10"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-5">
+
+                        <legend>Attached files</legend>
+
+                        <div class="row"  id="actions">
+
+                            <div class="col-md-12">
+                                <span class="pull-left help-block small">
+                                    You can also drag and drop your files here.
+                                </span>
+
+                                <!-- The fileinput-button span is used to style the file input field as button -->
+                                <span class="btn btn-info btn-sm fileinput-button pull-right">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Add file</span>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="files" id="previews" style="margin-top: 15px;">
+
+
+                                <div id="template" class="file-row" style="padding: 8px; border-top: 1px solid #ddd">
+
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <span class="small" style="word-wrap: break-word" data-dz-name></span>
+                                        </div>
+                                        <div class="col-md-3 text-right">
+                                            <span class="small text-muted" data-dz-size></span>
+                                        </div>
+                                        <div class="col-md-2 text-right" data-dz-remove>
+                                            <a href="" class="delete">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                        </div>
+
+                        <p class="help-block">
+                            <small>The files will be uploaded when you press the "Publish" button.</small>
+                        </p>
+
+                        <legend>Publishing</legend>
+
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="">Display in dashboard</label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="">Board members only</label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="" checked>Allow replies</label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="">Mark as important</label>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-7">
+                        <p class="help-block">
+                            <strong>Note:</strong>
+                            The content of the article will be sent by email
+                            to <strong>54</strong> members.
+                        </p>
+
+                    </div>
+                    <div class="col-md-5 text-right">
+
+
+                        <button type="submit" class="btn btn-default" id="btn-create-meeting">Preview</button>
+                        <button type="submit" class="btn btn-info" id="btn-create-meeting">Publish</button>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        $(function() {
+
+            var previewNode = document.querySelector("#template");
+            previewNode.id = "";
+            var previewTemplate = previewNode.parentNode.innerHTML;
+            var parentNode = previewNode.parentNode;
+            parentNode.removeChild(previewNode);
+
+//            console.log(previewNode.parentNode);
+//            console.log();
+
+
+            var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+                url: "/target-url", // Set the url
+                thumbnailWidth: 80,
+                thumbnailHeight: 80,
+                parallelUploads: 20,
+                previewTemplate: previewTemplate,
+                autoQueue: false, // Make sure the files aren't queued until manually added
+                previewsContainer: "#previews", // Define the container to display the previews
+                clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+            });
+
+            myDropzone.on("addedfile", function(file) {
+                // Hookup the start button
+//                file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+            });
+
+            // Update the total progress bar
+            myDropzone.on("totaluploadprogress", function(progress) {
+//                document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+            });
+
+            myDropzone.on("sending", function(file) {
+                // Show the total progress bar when upload starts
+//                document.querySelector("#total-progress").style.opacity = "1";
+                // And disable the start button
+
+                file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+            });
+
+            // Hide the total progress bar when nothing's uploading anymore
+//            myDropzone.on("queuecomplete", function(progress) {
+//                document.querySelector("#total-progress").style.opacity = "0";
+//            });
+
+            // Setup the buttons for all transfers
+            // The "add files" button doesn't need to be setup because the config
+            // `clickable` has already been specified.
+//            document.querySelector("#actions .start").onclick = function() {
+//                myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+//            };
+//            document.querySelector("#actions .cancel").onclick = function() {
+//                myDropzone.removeAllFiles(true);
+//            };
+
+        });
+
+    </script>
+
+{% endblock %}
