@@ -4,13 +4,17 @@
 
 {% block body %}
 
-    <h1><span class="date-to-format">{{ meeting.date }}</span> <small>Meeting details</small></h1>
+    <h1>Редовен EESTEC состанок <small>04.05.2016</small></h1>
 
     <div class="row" style="margin-top: 30px;">
         <div class="col-md-5">
 
             <ul class="list-group text-right">
                 <li class="list-group-item text-muted text-left">Basic information</li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Title:</strong></span>
+                    Редовен EESTEC состанок
+                </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Date:</strong></span>
                     <span class="date-to-format">{{ meeting.getDate() }}</span>
@@ -20,17 +24,199 @@
                     {{ meeting.getLocation() }}
                 </li>
                 <li class="list-group-item">
-                    <span class="pull-left"><strong># of attendants</strong></span>
+                    <span class="pull-left"><strong># of attendants:</strong></span>
                     {{ meeting.getAttendants()|length }}
                 </li>
                 <li class="list-group-item">
-                    <span class="pull-left"><strong>Created by:</strong></span>
+                    <span class="pull-left"><strong>Announced by:</strong></span>
+                    {{ meeting.getCreator().getFullName() }}
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Report written by:</strong></span>
                     {{ meeting.getCreator().getFullName() }}
                 </li>
             </ul>
 
             <ul class="list-group">
-                <li class="list-group-item text-muted text-left">Details</li>
+                <li class="list-group-item text-muted text-left">Statistics</li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="chart-meeting-returning-members" style="margin-top: 10px; height: 160px"></div>
+                        </div>
+
+                        <div class="col-md-7">
+
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                            <span class="text-success">
+                                                <i class="glyphicon glyphicon-arrow-up" style=""></i>
+                                                <strong>5 more</strong>
+                                            </span>
+                                        attendants than the last meeting
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                            <span class="text-danger">
+                                                <i class="glyphicon glyphicon-arrow-down" style=""></i>
+                                                <strong>10 less</strong>
+                                            </span>
+                                        attendants than average
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                    <p class="small text-muted">
+                        <br />
+                        * New members are those members who hasn't attended the previous meeting.
+                        Returning are those who has.
+                    </p>
+
+                </li>
+            </ul>
+
+            <ul class="list-group">
+                <li class="list-group-item text-muted text-left">
+                    Files
+                    <span class="pull-right small text-muted">
+                        <a href="" class="btn btn-default btn-xs">
+                            <i class="glyphicon glyphicon-download-alt"></i>
+                            .zip
+                        </a>
+                    </span>
+                </li>
+                <li class="list-group-item">
+
+                    <div id="template" class="file-row" style="padding: 8px;">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <span class="small" style="word-wrap: break-word">12422546_1504834719820763_n.mp4</span>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <span class="small text-muted">256 kb</span>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <a href="" class="delete">
+                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="template" class="file-row" style="padding: 8px; border-top: 1px solid #ddd">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <span class="small" style="word-wrap: break-word">pcb-v0.2-copy_etch_copper_top.pdf</span>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <span class="small text-muted">52 kb</span>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <a href="" class="delete">
+                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="template" class="file-row" style="padding: 8px; border-top: 1px solid #ddd">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <span class="small" style="word-wrap: break-word">belgrad.zip</span>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <span class="small text-muted">4.5 MB</span>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <a href="" class="delete">
+                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="template" class="file-row" style="padding: 8px; border-top: 1px solid #ddd">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <span class="small" style="word-wrap: break-word">selenium-server-standalone-2.49.1.jar</span>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <span class="small text-muted">30.9 MB</span>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <a href="" class="delete">
+                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="template" class="file-row" style="padding: 8px; border-top: 1px solid #ddd">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <span class="small" style="word-wrap: break-word">growth.pdf</span>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <span class="small text-muted">123 kb</span>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <a href="" class="delete">
+                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+
+
+        </div>
+
+        <div class="col-md-7">
+
+            <ul class="list-group">
+                <li class="list-group-item text-muted text-left">Announcement Details</li>
+                <li class="list-group-item">
+                    <p>
+                        Добри вечерс истековци!
+                    </p>
+                    <p>
+                        Пишувам во однос за Вонредниот состанок што го зборевме во нашата фејзбук група за престојниот
+                        Локален летен настан, каде што беше изгласано состанокот да го одржиме на 16.06.2015,
+                        односно овој четврток што ни претстои во 20:00 во кабинетот 109 во ФЕИТ. Доколку има измени ќе
+                        бидат на време соопштени.
+                    </p>
+                    <p>
+                        Агендата е Локалниот летен настан и како што се договоривме на последниот состанок, ние сами
+                        задутре ќе го исконцептираме и ќе му дадеме име.
+                    </p>
+                    <p>
+                        После состанокот oдиме на дружење и пеење со гитари и слични спортови во парк.
+                    </p>
+                    <p>
+                        Поздравс,
+                    </p>
+                    <p>
+                        Бањо
+                    </p>
+                </li>
+            </ul>
+
+            <ul class="list-group">
+                <li class="list-group-item text-muted text-left">Meeting Minutes</li>
                 <li class="list-group-item">
                     <p>{{ meeting.getInfo()|raw }}</p>
                 </li>
@@ -38,59 +224,10 @@
 
         </div>
 
-        <div class="col-md-7">
+    </div>
 
-            {#<ul class="list-group">
-                <li class="list-group-item text-muted text-left">
-                    Statistics
-                    <span class="pull-right small text-muted">(not implemented yet)</span>
-                </li>
-                <li class="list-group-item" style="height: 164px">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div id="chart-meeting-returning-members" style="margin-top: 10px; height: 130px"></div>
-                        </div>
-
-                        <div class="col-md-7">
-
-                            <table class="table" style="margin-top: -10px;">
-                                <thead>
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <span class="text-success">
-                                                <i class="glyphicon glyphicon-arrow-up" style=""></i>
-                                                <strong>5 more</strong>
-                                            </span>
-                                            attendants than the last meeting
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="text-danger">
-                                                <i class="glyphicon glyphicon-arrow-down" style=""></i>
-                                                <strong>10 less</strong>
-                                            </span>
-                                            attendants than average
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <p class="small text-muted">
-                                * New members are those members who hasn't attended the previous meeting.
-                                Returning are those who has.
-                            </p>
-                        </div>
-                    </div>
-
-                </li>
-            </ul>#}
-
+    <div class="row">
+        <div class="col-md-12">
             <ul class="list-group">
                 <li class="list-group-item text-muted text-left">Attendants</li>
                 <li class="list-group-item">
@@ -106,9 +243,7 @@
 
                 </li>
             </ul>
-
         </div>
-
     </div>
 
 {% endblock %}
