@@ -187,6 +187,24 @@
 
         <div class="col-md-7">
 
+            <ul class="list-group clearfix">
+                <li class="list-group-item col-md-12" style="line-height: 10px;">
+
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://google.com">
+                        Tweet
+                    </a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+                    <span class="fb-share-button" data-href="{{ route('meetings.without-report') }}" data-layout="button_count" data-mobile-iframe="true">
+                        <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('meetings.without-report') }}">
+                            Share
+                        </a>
+                    </span>
+
+                    <div class="fb-like" data-href="http://google.com" data-layout="standard" data-action="recommend" data-show-faces="false" data-share="false"></div>
+                </li>
+            </ul>
+
             <ul class="list-group">
                 <li class="list-group-item text-muted text-left">Announcement Details</li>
                 <li class="list-group-item">
