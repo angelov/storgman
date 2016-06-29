@@ -42,5 +42,4 @@ $router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember'],
     // experimental
 
     $router->get('/create-report',    ['as' => 'meetings.create-report',  'uses' => 'ReportsController@create']);
-    $router->get('/without-report',    ['as' => 'meetings.without-report',  'uses' => 'ReportsController@showWithoutReport']);
 });

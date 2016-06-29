@@ -43,9 +43,4 @@ class ReportsController extends BaseController
     {
         return $this->view->make('meetings.create-report');
     }
-
-    public function showWithoutReport()
-    {
-        return $this->view->make('meetings.show-without-report');
-    }
 }
