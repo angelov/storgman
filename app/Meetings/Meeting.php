@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -34,6 +34,13 @@ class Meeting extends Model
 {
     protected $table = 'meetings';
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->setTitle('Untitled meeting');
+    }
+
     /**
      * List of members who attended the meeting
      *
@@ -44,6 +51,16 @@ class Meeting extends Model
     public function getId()
     {
         return $this->getAttribute('id');
+    }
+
+    public function getTitle()
+    {
+        return $this->getAttribute('title');
+    }
+
+    public function setTitle($title)
+    {
+        $this->setAttribute('title', $title);
     }
 
     /**
@@ -164,6 +181,34 @@ class Meeting extends Model
     public function creator()
     {
         return $this->belongsTo('Angelov\Eestec\Platform\Members\Member', 'created_by');
+    }
+
+    public function reportAuthor()
+    {
+        return $this->belongsTo(Member::class, 'report_author');
+    }
+
+    /**
+     * @return Member
+     */
+    public function getReportAuthor()
+    {
+        return $this->reportAuthor;
+    }
+
+    public function setReportAuthor(Member $member)
+    {
+        $this->reportAuthor()->associate($member);
+    }
+
+    public function getMinutes()
+    {
+        return $this->getAttribute('minutes');
+    }
+
+    public function setMinutes($minutes)
+    {
+        $this->setAttribute('minutes', $minutes);
     }
 
     public function save(array $options = [])
