@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Meetings;
 
+use Angelov\Eestec\Platform\Core\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
 use Illuminate\Database\Eloquent\Model;
 
@@ -74,6 +75,11 @@ class Meeting extends Model
     public function setDate(\DateTime $date)
     {
         $this->setAttribute('date', $date);
+    }
+
+    public function hasPassed()
+    {
+        return $this->getDate() < (new DateTime());
     }
 
     public function getLocation()
@@ -186,6 +192,11 @@ class Meeting extends Model
     public function hasReport()
     {
         return $this->attendants()->count() != 0 || $this->getMinutes() != "";
+    }
+
+    public function needsReport()
+    {
+        return $this->hasPassed() && !$this->hasReport();
     }
 
     public function reportAuthor()
