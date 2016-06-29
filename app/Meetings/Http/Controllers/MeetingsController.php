@@ -130,9 +130,11 @@ class MeetingsController extends BaseController
 
         $command = new CreateMeetingCommand($title, $location, $date, $details, $authorId, $notifyMembers);
 
-        $this->commandBus->dispatch($command);
+        $meeting = $this->commandBus->dispatch($command);
 
-        return $this->redirector->route('meetings.index');
+        $this->session->flash('action-message', 'Meeting added successfully.');
+
+        return $this->redirector->route('meetings.show', $meeting->getId());
     }
 
     /**

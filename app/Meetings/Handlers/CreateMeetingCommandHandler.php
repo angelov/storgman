@@ -62,5 +62,7 @@ class CreateMeetingCommandHandler
         $this->meetings->store($meeting);
 
         // @todo fire an event
+
+        return $meeting;
     }
 }
