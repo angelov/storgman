@@ -59,55 +59,59 @@
                 </li>
             </ul>
 
-            <ul class="list-group">
-                <li class="list-group-item text-muted text-left">Statistics</li>
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div id="chart-meeting-returning-members" style="margin-top: 10px; height: 160px"></div>
+            {% if meeting.hasReport() %}
+
+                <ul class="list-group">
+                    <li class="list-group-item text-muted text-left">Statistics</li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div id="chart-meeting-returning-members" style="margin-top: 10px; height: 160px"></div>
+                            </div>
+
+                            <div class="col-md-7">
+
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                                <span class="text-success">
+                                                    <i class="glyphicon glyphicon-arrow-up" style=""></i>
+                                                    <strong>5 more</strong>
+                                                </span>
+                                            attendants than the last meeting
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                <span class="text-danger">
+                                                    <i class="glyphicon glyphicon-arrow-down" style=""></i>
+                                                    <strong>10 less</strong>
+                                                </span>
+                                            attendants than average
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
                         </div>
 
-                        <div class="col-md-7">
+                        <p class="small text-muted">
+                            <br />
+                            * New members are those members who hasn't attended the previous meeting.
+                            Returning are those who has.
+                        </p>
 
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <td></td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                            <span class="text-success">
-                                                <i class="glyphicon glyphicon-arrow-up" style=""></i>
-                                                <strong>5 more</strong>
-                                            </span>
-                                        attendants than the last meeting
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                            <span class="text-danger">
-                                                <i class="glyphicon glyphicon-arrow-down" style=""></i>
-                                                <strong>10 less</strong>
-                                            </span>
-                                        attendants than average
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                    </li>
+                </ul>
 
-                        </div>
-                    </div>
-
-                    <p class="small text-muted">
-                        <br />
-                        * New members are those members who hasn't attended the previous meeting.
-                        Returning are those who has.
-                    </p>
-
-                </li>
-            </ul>
+            {% endif %}
 
             <ul class="list-group">
                 <li class="list-group-item text-muted text-left">
@@ -234,28 +238,32 @@
                 </li>
             </ul>
 
-            <ul class="list-group">
-                <li class="list-group-item text-muted text-left">Meeting Minutes</li>
-                <li class="list-group-item">
-                    <p>{{ meeting.getMinutes()|raw }}</p>
-                </li>
-            </ul>
+            {% if meeting.hasReport() %}
 
-            <ul class="list-group">
-                <li class="list-group-item text-muted text-left">Attendants</li>
-                <li class="list-group-item">
+                <ul class="list-group">
+                    <li class="list-group-item text-muted text-left">Meeting Minutes</li>
+                    <li class="list-group-item">
+                        <p>{{ meeting.getMinutes()|raw }}</p>
+                    </li>
+                </ul>
 
-                    {% for attendant in meeting.getAttendants() %}
+                <ul class="list-group">
+                    <li class="list-group-item text-muted text-left">Attendants</li>
+                    <li class="list-group-item">
 
-                        <a href="{{ route('members.show', attendant.getId()) }}" class="attendant has-tooltip"
-                           data-toggle="tooltip" title="{{ attendant.getFullName() }}">
-                            <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.getPhoto()]) }}" />
-                        </a>
+                        {% for attendant in meeting.getAttendants() %}
 
-                    {% endfor %}
+                            <a href="{{ route('members.show', attendant.getId()) }}" class="attendant has-tooltip"
+                               data-toggle="tooltip" title="{{ attendant.getFullName() }}">
+                                <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.getPhoto()]) }}" />
+                            </a>
 
-                </li>
-            </ul>
+                        {% endfor %}
+
+                    </li>
+                </ul>
+
+            {% endif %}
 
         </div>
 
