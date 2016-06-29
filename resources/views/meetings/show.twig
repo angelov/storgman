@@ -1,10 +1,10 @@
-{% set page_title = meeting.getDate()|date('Y-m-d') ~ ', Meeting details' %}
+{% set page_title = meeting.getTitle() ~ ' (' ~ meeting.getDate()|date('Y-m-d') ~ '), Meeting details' %}
 
 {% extends "base.twig" %}
 
 {% block body %}
 
-    <h1>Редовен EESTEC состанок <small>04.05.2016</small></h1>
+    <h1>{{ meeting.getTitle() }} <small class="date-to-format">{{ meeting.getDate()|date('Y-m-d') }}</small></h1>
 
     <div class="row" style="margin-top: 30px;">
         <div class="col-md-5">
@@ -13,7 +13,7 @@
                 <li class="list-group-item text-muted text-left">Basic information</li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Title:</strong></span>
-                    Редовен EESTEC состанок
+                    {{ meeting.getTitle() }}
                 </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Date:</strong></span>
@@ -25,7 +25,11 @@
                 </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong># of attendants:</strong></span>
-                    {{ meeting.getAttendants()|length }}
+                    {% if meeting.hasReport() %}
+                        {{ meeting.getAttendants()|length }}
+                    {% else %}
+                        /
+                    {% endif %}
                 </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Announced by:</strong></span>
@@ -33,7 +37,11 @@
                 </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Report written by:</strong></span>
-                    {{ meeting.getCreator().getFullName() }}
+                    {% if meeting.hasReport() %}
+                        {{ meeting.getReportAuthor().getFullName() }}
+                    {% else %}
+                        /
+                    {% endif %}
                 </li>
             </ul>
 
@@ -208,35 +216,14 @@
             <ul class="list-group">
                 <li class="list-group-item text-muted text-left">Announcement Details</li>
                 <li class="list-group-item">
-                    <p>
-                        Добри вечерс истековци!
-                    </p>
-                    <p>
-                        Пишувам во однос за Вонредниот состанок што го зборевме во нашата фејзбук група за престојниот
-                        Локален летен настан, каде што беше изгласано состанокот да го одржиме на 16.06.2015,
-                        односно овој четврток што ни претстои во 20:00 во кабинетот 109 во ФЕИТ. Доколку има измени ќе
-                        бидат на време соопштени.
-                    </p>
-                    <p>
-                        Агендата е Локалниот летен настан и како што се договоривме на последниот состанок, ние сами
-                        задутре ќе го исконцептираме и ќе му дадеме име.
-                    </p>
-                    <p>
-                        После состанокот oдиме на дружење и пеење со гитари и слични спортови во парк.
-                    </p>
-                    <p>
-                        Поздравс,
-                    </p>
-                    <p>
-                        Бањо
-                    </p>
+                    {{ meeting.getInfo()|raw }}
                 </li>
             </ul>
 
             <ul class="list-group">
                 <li class="list-group-item text-muted text-left">Meeting Minutes</li>
                 <li class="list-group-item">
-                    <p>{{ meeting.getInfo()|raw }}</p>
+                    <p>{{ meeting.getMinutes()|raw }}</p>
                 </li>
             </ul>
 

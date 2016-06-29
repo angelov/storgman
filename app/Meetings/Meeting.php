@@ -183,6 +183,11 @@ class Meeting extends Model
         return $this->belongsTo('Angelov\Eestec\Platform\Members\Member', 'created_by');
     }
 
+    public function hasReport()
+    {
+        return $this->attendants()->count() != 0 || $this->getMinutes() != "";
+    }
+
     public function reportAuthor()
     {
         return $this->belongsTo(Member::class, 'report_author');
