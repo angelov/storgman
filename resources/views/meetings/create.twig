@@ -1,4 +1,4 @@
-{% set page_title = 'Create new meeting' %}
+{% set page_title = 'Announce a meeting' %}
 
 {% extends "base.twig" %}
 
@@ -50,7 +50,7 @@
                                     <label for="date">Date:</label>
                                     <div class="input-group date">
                                         <input type="text" class="form-control" id="date" name="date"
-                                            placeholder="{{ "tomorrow"|date("d.m.Y") }}">
+                                            placeholder="{{ "tomorrow"|date("Y-m-d") }}">
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
@@ -62,7 +62,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="checkbox">
-                                    <label><input type="checkbox" value="" checked>Send notification to all members</label>
+                                    <label><input type="checkbox" value="1" name="notify" checked>Send notification to all members</label>
                                 </div>
                             </div>
                         </div>

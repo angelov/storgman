@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -28,12 +28,13 @@
 namespace Angelov\Eestec\Platform\Meetings\Http\Controllers;
 
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Meetings\MeetingsPaginator;
 use Angelov\Eestec\Platform\Meetings\MeetingsService;
+use Angelov\Eestec\Platform\Members\Member;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\View\Factory;
@@ -112,14 +113,24 @@ class MeetingsController extends BaseController
      * Store a newly created meeting report in storage.
      * POST /meetings
      *
-     * @param \Angelov\Eestec\Platform\Meetings\Http\Requests\StoreMeetingRequest $request
+     * @param StoreMeetingRequest $request
      * @return RedirectResponse
      */
     public function store(StoreMeetingRequest $request)
     {
-        $data = $request->all();
+        $title = $request->get('title', '');
+        $location = $request->get('location');
+        $date = $request->get('date');
+        $details = $request->get('details', '');
+        $notifyMembers = $request->get('notify') == '1' ? true : false;
 
-        $this->commandBus->dispatch(new CreateMeetingReportCommand($data));
+        /** @var Member $author */
+        $author = $this->authenticator->user();
+        $authorId = $author->getId();
+
+        $command = new CreateMeetingCommand($title, $location, $date, $details, $authorId, $notifyMembers);
+
+        $this->commandBus->dispatch($command);
 
         return $this->redirector->route('meetings.index');
     }
