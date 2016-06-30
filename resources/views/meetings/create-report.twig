@@ -1,10 +1,11 @@
-{% set page_title = 'Create new meeting report' %}
+{% set page_title = meeting.getTitle() ~ ' - Create meeting report' %}
 
 {% extends "base.twig" %}
 
 {% block body %}
 
-    <h1>Create new meeting report:</h1>
+    <h1><small>{{ meeting.getTitle() }}  <small>(<span class="date-to-format">{{ meeting.getDate()|date('Y-m-d') }}</span>)</small></small></h1>
+    <h1>Create meeting report</h1>
 
     <div class="row">
         <div class="col-md-12">
@@ -30,15 +31,15 @@
                             <li class="list-group-item text-muted text-left">Basic information</li>
                             <li class="list-group-item">
                                 <span class="pull-left"><strong>Date:</strong></span>
-                                <span class="date-to-format">03.06.2016</span>
+                                <span class="date-to-format">{{ meeting.getDate() }}</span>
                             </li>
                             <li class="list-group-item">
                                 <span class="pull-left"><strong>Location:</strong></span>
-                                Амфитеатар МФС
+                                {{ meeting.getLocation() }}
                             </li>
                             <li class="list-group-item">
                                 <span class="pull-left"><strong>Announced by:</strong></span>
-                                Dejan Angelov
+                                {{ meeting.getCreator().getFullName() }}
                             </li>
                         </ul>
                     </div>
@@ -47,10 +48,7 @@
                             <li class="list-group-item text-muted text-left">Announcement Details</li>
                             <li class="list-group-item">
                                 <p>
-                                    Промотивниот состанок за нови членови е утре(13.04) во 20 часот во АМФИ на ФЕИТ/МФС, кој е многу многу битен за ЕЕСТЕК ЛК Скопје.
-                                    Ќе се зборува за тоа што всушност е ЕЕСТЕК, какви настани организираме и на какви учествуваме, каква е дружбата, мотивацијата за
-                                    работа, колку ние се поддржуваме и ја сакаме оваа организација. Ќе има и клипчиња многу интересни, за сите моменти поминати во
-                                    ЕЕСТЕК и изненадувањеее!
+                                    {{ meeting.getInfo()|raw }}
                                     <a href="" class="small">Read more...</a>
                                 </p>
                             </li>
@@ -64,10 +62,8 @@
                         <legend>Meeting minutes: <span class="text-muted small">(optional)</span></legend>
 
                         <div class="form-group">
-                        <textarea class="form-control" name="details" id="txt-meeting-details" rows="12"></textarea>
+                            <textarea class="form-control" name="minutes" id="txt-meeting-details" rows="12"></textarea>
                         </div>
-
-                        <input type="hidden" name="created_by" value="{{ Auth.user().getId() }}">
                     </div>
 
                     <div class="col-md-5">

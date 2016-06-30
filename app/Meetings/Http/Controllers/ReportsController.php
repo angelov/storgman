@@ -28,19 +28,24 @@
 namespace Angelov\Eestec\Platform\Meetings\Http\Controllers;
 
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
+use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Illuminate\Contracts\View\Factory;
 
 class ReportsController extends BaseController
 {
     protected $view;
+    protected $meetings;
 
-    public function __construct(Factory $view)
+    public function __construct(MeetingsRepositoryInterface $meetings, Factory $view)
     {
         $this->view = $view;
+        $this->meetings = $meetings;
     }
 
-    public function create()
+    public function create($id)
     {
-        return $this->view->make('meetings.create-report');
+        $meeting = $this->meetings->get($id);
+
+        return $this->view->make('meetings.create-report', compact('meeting'));
     }
 }

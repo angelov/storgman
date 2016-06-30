@@ -39,7 +39,5 @@ $router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember'],
     $router->put('/{id}',      ['as' => 'meetings.update',  'uses' => 'MeetingsController@update']);
     $router->delete('/{id}',   ['as' => 'meetings.destroy', 'uses' => 'MeetingsController@destroy']);
 
-    // experimental
-
-    $router->get('/create-report',    ['as' => 'meetings.create-report',  'uses' => 'ReportsController@create']);
+    $router->get('/{id}/report', ['as' => 'meetings.reports.create', 'uses' => 'ReportsController@create']);
 });
