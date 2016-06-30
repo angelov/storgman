@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -39,5 +39,7 @@ $router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember'],
     $router->put('/{id}',      ['as' => 'meetings.update',  'uses' => 'MeetingsController@update']);
     $router->delete('/{id}',   ['as' => 'meetings.destroy', 'uses' => 'MeetingsController@destroy']);
 
-    $router->get('/{id}/report', ['as' => 'meetings.reports.create', 'uses' => 'ReportsController@create']);
+    $router->get('/{id}/report',  ['as' => 'meetings.reports.create', 'uses' => 'ReportsController@create']);
+    $router->post('/{id}/report', ['as' => 'meetings.reports.store',  'uses' => 'ReportsController@store']);
+
 });
