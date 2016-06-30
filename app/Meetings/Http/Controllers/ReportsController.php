@@ -64,7 +64,7 @@ class ReportsController extends BaseController
     {
         $meeting = $this->meetings->get($id);
 
-        return $this->view->make('meetings.create-report', compact('meeting'));
+        return $this->view->make('meetings.reports.create', compact('meeting'));
     }
 
     public function store($id, Request $request, MeetingsService $meetingsService, Guard $auth)
