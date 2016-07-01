@@ -28,18 +28,22 @@
 namespace Angelov\Eestec\Platform\Meetings\Handlers;
 
 use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Events\MeetingReportWasCreatedEvent;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class CreateMeetingReportCommandHandler
 {
     protected $meetings;
     protected $members;
+    protected $events;
 
-    public function __construct(MeetingsRepositoryInterface $meetings, MembersRepositoryInterface $members)
+    public function __construct(MeetingsRepositoryInterface $meetings, MembersRepositoryInterface $members, Dispatcher $events)
     {
         $this->meetings = $meetings;
         $this->members = $members;
+        $this->events = $events;
     }
 
     public function handle(CreateMeetingReportCommand $command)
@@ -56,5 +60,7 @@ class CreateMeetingReportCommandHandler
         $meeting->addAttendants($attendants);
 
         $this->meetings->store($meeting);
+
+        $this->events->fire(new MeetingReportWasCreatedEvent($meeting));
     }
 }
