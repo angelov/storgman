@@ -28,19 +28,23 @@
 namespace Angelov\Eestec\Platform\Meetings\Handlers;
 
 use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingCommand;
+use Angelov\Eestec\Platform\Meetings\Events\MeetingWasCreatedEvent;
 use Angelov\Eestec\Platform\Meetings\Meeting;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class CreateMeetingCommandHandler
 {
     protected $meetings;
     protected $members;
+    protected $events;
 
-    public function __construct(MeetingsRepositoryInterface $meetings, MembersRepositoryInterface $members)
+    public function __construct(MeetingsRepositoryInterface $meetings, MembersRepositoryInterface $members, Dispatcher $events)
     {
         $this->meetings = $meetings;
         $this->members = $members;
+        $this->events = $events;
     }
 
     public function handle(CreateMeetingCommand $command)
@@ -61,7 +65,7 @@ class CreateMeetingCommandHandler
 
         $this->meetings->store($meeting);
 
-        // @todo fire an event
+        $this->events->fire(new MeetingWasCreatedEvent($meeting, $command->getNotifyMembers()));
 
         return $meeting;
     }
