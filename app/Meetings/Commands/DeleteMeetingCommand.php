@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,27 +20,24 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Handlers;
+namespace Angelov\Eestec\Platform\Meetings\Commands;
 
-use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingReportCommand;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
-
-class DeleteMeetingReportCommandHandler
+class DeleteMeetingCommand
 {
-    protected $meetings;
+    protected $meetingId;
 
-    public function __construct(MeetingsRepositoryInterface $meetings)
+    public function __construct($meetingId)
     {
-        $this->meetings = $meetings;
+        $this->meetingId = $meetingId;
     }
 
-    public function handle(DeleteMeetingReportCommand $command)
+    public function getMeetingId()
     {
-        $this->meetings->destroy($command->getMeetingId());
+        return $this->meetingId;
     }
 }

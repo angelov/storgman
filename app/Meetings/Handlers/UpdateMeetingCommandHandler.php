@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,18 +20,18 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
 namespace Angelov\Eestec\Platform\Meetings\Handlers;
 
-use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\MeetingsPopulator;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 
-class UpdateMeetingReportCommandHandler
+class UpdateMeetingCommandHandler
 {
     protected $meetings;
     protected $populator;
@@ -42,7 +42,7 @@ class UpdateMeetingReportCommandHandler
         $this->populator = $populator;
     }
 
-    public function handle(\Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand $command)
+    public function handle(UpdateMeetingCommand $command)
     {
         $meetingId = $command->getMeetingId();
         $meeting = $this->meetings->get($meetingId);

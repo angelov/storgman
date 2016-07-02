@@ -29,8 +29,8 @@ namespace Angelov\Eestec\Platform\Meetings\Http\Controllers;
 
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingCommand;
-use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingReportCommand;
-use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Meetings\MeetingsPaginator;
 use Angelov\Eestec\Platform\Meetings\MeetingsService;
@@ -179,7 +179,7 @@ class MeetingsController extends BaseController
     {
         $data = $request->all();
 
-        $this->commandBus->dispatch(new UpdateMeetingReportCommand($id, $data));
+        $this->commandBus->dispatch(new UpdateMeetingCommand($id, $data));
 
         return $this->redirector->route('meetings.index');
     }
@@ -193,7 +193,7 @@ class MeetingsController extends BaseController
      */
     public function destroy($id)
     {
-        $this->commandBus->dispatch(new DeleteMeetingReportCommand($id));
+        $this->commandBus->dispatch(new DeleteMeetingCommand($id));
 
         return $this->successfulJsonResponse('Meeting deleted successfully.');
     }
