@@ -28,8 +28,18 @@
 
                 <div class="row">
 
-                    <div class="col-md-7">
+                    <div class="col-md-5">
                         <legend>Basic information:</legend>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="title">Title:</label>
+                                    <input type="text" class="form-control" id="title" name="title"
+                                            value="{{ meeting.getTitle() }}">
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-6">
@@ -53,49 +63,106 @@
                             </div>
                         </div>
 
-                        <legend>Details:</legend>
+                        <legend>Attached files</legend>
 
-                        <div class="form-group">
-                            <textarea class="form-control" name="details" id="txt-meeting-details">{{ meeting.getInfo()|raw }}</textarea>
-                        </div>
+                        <div class="row"  id="actions">
 
-                    </div>
+                            <div class="col-md-12">
+                                <span class="pull-left help-block small">
+                                    You can also drag and drop your files here.<br />
+                                    The files will be uploaded when you press the "Publish" button.
+                                </span>
 
-                    <div class="col-md-5">
-                        <legend>Attendants:</legend>
+                                <span class="btn btn-info btn-sm fileinput-button pull-right">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    <span>Add file</span>
+                                </span>
 
-                        <div class="form-group">
-                            <label for="new-attendant">Enter member:</label>
-                            <input type="text" id="new-attendant" class="form-control" placeholder="Start typing member's name..." />
-                            <input type="hidden" id="attendants" value="{{ attendantsIds }}" name="attendants" />
-                        </div>
-
-                        <div id="attendants-list">
-                            <p class="small text-right">No. of attendants: <span id="count-attendants">{{ meeting.getAttendants()|length }}</span></p>
-
-                            <div id="tpl-attendant" class="attendant has-tooltip"
-                                 data-toggle="tooltip">
-                                <div class="delete-attendant">
-                                    <div class="caption-content">
-                                        <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
-                                    </div>
-                                </div>
-                                <img class="img-attendant" />
                             </div>
 
-                            {% for attendant in meeting.getAttendants() %}
-                                <div class="attendant has-tooltip"
-                                     data-toggle="tooltip" title="{{ attendant.getFullName() }}" data-id="{{ attendant.getId() }}">
+                        </div>
+
+                        <div class="files" id="previews" style="margin-top: 15px;">
+
+
+                            <div id="template" class="file-row" style="padding: 8px; border-top: 1px solid #ddd">
+
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <span class="small" style="word-wrap: break-word" data-dz-name></span>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <span class="small text-muted" data-dz-size></span>
+                                    </div>
+                                    <div class="col-md-1 text-right" data-dz-remove>
+                                        <a href="" class="delete">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {% if meeting.hasReport() %}
+
+                            <legend>Attendants:</legend>
+
+                            <div class="form-group">
+                                <label for="new-attendant">Enter member:</label>
+                                <input type="text" id="new-attendant" class="form-control" placeholder="Start typing member's name..." />
+                                <input type="hidden" id="attendants" value="{{ attendantsIds }}" name="attendants" />
+                            </div>
+
+                            <div id="attendants-list">
+                                <p class="small text-right">No. of attendants: <span id="count-attendants">{{ meeting.getAttendants()|length }}</span></p>
+
+                                <div id="tpl-attendant" class="attendant has-tooltip"
+                                     data-toggle="tooltip">
                                     <div class="delete-attendant">
                                         <div class="caption-content">
                                             <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
                                         </div>
                                     </div>
-                                    <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.getPhoto()]) }}" />
+                                    <img class="img-attendant" />
                                 </div>
-                            {% endfor %}
 
+                                {% for attendant in meeting.getAttendants() %}
+                                    <div class="attendant has-tooltip"
+                                         data-toggle="tooltip" title="{{ attendant.getFullName() }}" data-id="{{ attendant.getId() }}">
+                                        <div class="delete-attendant">
+                                            <div class="caption-content">
+                                                <a href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                                            </div>
+                                        </div>
+                                        <img class="img-attendant" src="{{ route('imagecache', ['xsmall', attendant.getPhoto()]) }}" />
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="col-md-7">
+
+                        <legend>Details:</legend>
+
+                        <div class="form-group">
+                            <textarea class="form-control has-editor" name="details" rows="12">{{ meeting.getInfo()|raw }}</textarea>
                         </div>
+
+                        {% if meeting.hasReport() %}
+
+                            <legend>Meeting minutes: <span class="text-muted small">(optional)</span></legend>
+
+                            <div class="form-group">
+                                <textarea class="form-control has-editor" name="minutes" rows="12">{{ meeting.getMinutes()|raw }}</textarea>
+                            </div>
+
+                        {% endif %}
 
                     </div>
 
@@ -103,7 +170,7 @@
 
                 <div class="row pull-right">
                     <div class="col-md-12 ">
-                        <button type="submit" class="btn btn-info" id="btn-create-meeting">Update the report</button>
+                        <button type="submit" class="btn btn-info" id="btn-create-meeting">Save</button>
                     </div>
                 </div>
 
@@ -111,5 +178,73 @@
 
         </div>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        $(function() {
+
+            var previewNode = document.querySelector("#template");
+            previewNode.id = "";
+            var previewTemplate = previewNode.parentNode.innerHTML;
+            var parentNode = previewNode.parentNode;
+            parentNode.removeChild(previewNode);
+
+//            console.log(previewNode.parentNode);
+//            console.log();
+
+
+            var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+                url: "/target-url", // Set the url
+                thumbnailWidth: 80,
+                thumbnailHeight: 80,
+                parallelUploads: 20,
+                previewTemplate: previewTemplate,
+                autoQueue: false, // Make sure the files aren't queued until manually added
+                previewsContainer: "#previews", // Define the container to display the previews
+                clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+            });
+
+            myDropzone.on("addedfile", function(file) {
+                // Hookup the start button
+//                file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+            });
+
+            // Update the total progress bar
+            myDropzone.on("totaluploadprogress", function(progress) {
+//                document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
+            });
+
+            myDropzone.on("sending", function(file) {
+                // Show the total progress bar when upload starts
+//                document.querySelector("#total-progress").style.opacity = "1";
+                // And disable the start button
+
+                file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+            });
+
+            // Hide the total progress bar when nothing's uploading anymore
+//            myDropzone.on("queuecomplete", function(progress) {
+//                document.querySelector("#total-progress").style.opacity = "0";
+//            });
+
+            // Setup the buttons for all transfers
+            // The "add files" button doesn't need to be setup because the config
+            // `clickable` has already been specified.
+//            document.querySelector("#actions .start").onclick = function() {
+//                myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+//            };
+//            document.querySelector("#actions .cancel").onclick = function() {
+//                myDropzone.removeAllFiles(true);
+//            };
+
+        });
+
+    </script>
 
 {% endblock %}

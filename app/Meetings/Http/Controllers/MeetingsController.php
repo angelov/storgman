@@ -31,6 +31,7 @@ use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Meetings\MeetingsPaginator;
 use Angelov\Eestec\Platform\Meetings\MeetingsService;
@@ -177,9 +178,21 @@ class MeetingsController extends BaseController
      */
     public function update(StoreMeetingRequest $request, $id)
     {
-        $data = $request->all();
+        $title = $request->get('title');
+        $date = $request->get('date');
+        $details = $request->get('details', '');
+        $location = $request->get('location');
 
-        $this->commandBus->dispatch(new UpdateMeetingCommand($id, $data));
+        $this->commandBus->dispatch(new UpdateMeetingCommand($id, $title, $location, $date, $details));
+
+        $minutes = $request->get('minutes', '');
+        $attendants = $this->meetingsService->parseAttendantsIds($request->get('attendants', ''));
+
+        if (count($attendants) > 0) { // maybe we should get the Meeting object and check there?
+            $this->commandBus->dispatch(new UpdateMeetingReportCommand($id, $attendants, $minutes));
+        }
+
+        $this->session->flash('action-message', 'Meeting updated successfully.');
 
         return $this->redirector->route('meetings.index');
     }

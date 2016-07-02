@@ -4,7 +4,7 @@ $(function(){
      * WYSIWYG editor for meeting's details
      */
 
-    $('#txt-meeting-details').wysihtml5({
+    var options = {
         toolbar: {
             "font-styles": false,
             "emphasis": true,
@@ -15,7 +15,10 @@ $(function(){
             "color": false,
             "blockquote": false
         }
+    };
+    $('.has-editor').wysihtml5(options);
 
-    });
+    $('#txt-meeting-details').wysihtml5(options);
+
 
 });

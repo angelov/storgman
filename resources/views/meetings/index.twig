@@ -6,6 +6,15 @@
 
     <h1>Meetings</h1>
 
+    {% if Session.has('action-message') %}
+        <div class="alert alert-success">
+            <a class="close" data-hide="alert" href="#">×</a>
+            <span>
+                {{ Session.get('action-message') }}
+            </span>
+        </div>
+    {% endif %}
+
     <div class="" id="action-status" style="display: none;">
         <a class="close" data-hide="alert" href="#">×</a>
         <span id="action-message"></span>

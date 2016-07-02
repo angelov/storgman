@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,36 +20,40 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
 namespace Angelov\Eestec\Platform\Meetings\Handlers;
 
-use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
+use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 
-class UpdateMeetingCommandHandler
+class UpdateMeetingReportCommandHandler
 {
     protected $meetings;
+    protected $members;
 
-    public function __construct(MeetingsRepositoryInterface $meetings)
+    public function __construct(MeetingsRepositoryInterface $meetings, MembersRepositoryInterface $members)
     {
         $this->meetings = $meetings;
+        $this->members = $members;
     }
 
-    public function handle(UpdateMeetingCommand $command)
+    public function handle(UpdateMeetingReportCommand $command)
     {
         $meeting = $this->meetings->get($command->getMeetingId());
 
-        $meeting->setTitle($command->getTitle());
-        $meeting->setDate(new \DateTime($command->getDate()));
-        $meeting->setLocation($command->getLocation());
-        $meeting->setInfo($command->getDetails());
+        $minutes = $command->getMinutes();
+        $meeting->setMinutes($minutes);
+
+        $attendants = $this->members->getByIds($command->getAttendants());
+        $meeting->syncAttendants($attendants);
 
         $this->meetings->store($meeting);
 
-        // @todo fire event
+        // @todo fire an event
     }
 }

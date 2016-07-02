@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,36 +20,40 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Handlers;
+namespace Angelov\Eestec\Platform\Meetings\Commands;
 
-use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Core\Command;
 
-class UpdateMeetingCommandHandler
+class UpdateMeetingReportCommand extends Command
 {
-    protected $meetings;
+    protected $meetingId;
+    protected $minutes;
+    protected $attendants;
 
-    public function __construct(MeetingsRepositoryInterface $meetings)
+    public function __construct($meetingId, array $attendants = [], $minutes = "")
     {
-        $this->meetings = $meetings;
+        $this->meetingId = $meetingId;
+        $this->attendants = $attendants;
+        $this->minutes = $minutes;
     }
 
-    public function handle(UpdateMeetingCommand $command)
+    public function getMeetingId()
     {
-        $meeting = $this->meetings->get($command->getMeetingId());
+        return $this->meetingId;
+    }
 
-        $meeting->setTitle($command->getTitle());
-        $meeting->setDate(new \DateTime($command->getDate()));
-        $meeting->setLocation($command->getLocation());
-        $meeting->setInfo($command->getDetails());
+    public function getMinutes()
+    {
+        return $this->minutes;
+    }
 
-        $this->meetings->store($meeting);
-
-        // @todo fire event
+    public function getAttendants()
+    {
+        return $this->attendants;
     }
 }

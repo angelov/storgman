@@ -32,12 +32,18 @@ use Angelov\Eestec\Platform\Core\Command;
 class UpdateMeetingCommand extends Command
 {
     protected $meetingId;
-    protected $data;
+    protected $title;
+    protected $location;
+    protected $date;
+    protected $details;
 
-    public function __construct($meetingId, array $data)
+    public function __construct($meetingId, $title, $location, $date, $details)
     {
         $this->meetingId = $meetingId;
-        $this->data = $data;
+        $this->title = $title;
+        $this->date = $date;
+        $this->details = $details;
+        $this->location = $location;
     }
 
     public function getMeetingId()
@@ -45,8 +51,24 @@ class UpdateMeetingCommand extends Command
         return $this->meetingId;
     }
 
-    public function getData()
+    public function getTitle()
     {
-        return $this->data;
+        return $this->title;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    public function getDetails()
+    {
+        return $this->details;
+    }
+
+    public function getLocation()
+    {
+        return $this->location;
     }
 }
+
