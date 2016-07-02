@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -29,11 +29,10 @@ namespace Angelov\Eestec\Platform\Meetings\Http\Requests;
 
 use Angelov\Eestec\Platform\Core\Http\Request;
 
-class StoreMeetingRequest extends \Angelov\Eestec\Platform\Core\Http\Request
+class StoreMeetingRequest extends Request
 {
     protected $rules = [
         'date' => 'required|date_format:Y-m-d',
-        'location' => 'required',
-        'created_by' => 'required|exists:members,id'
+        'location' => 'required'
     ];
 }
