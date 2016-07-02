@@ -1,0 +1,13 @@
+{% if meeting.needsReport() %}
+    <div class="alert alert-warning clearfix" role="alert">
+        <p>
+            <strong>Report needed!</strong>
+            This meeting has passed, please write the minutes and list the attendants.
+
+            <a href="{{ route('meetings.reports.create', meeting.getId()) }}" class="btn btn-default btn-sm pull-right">
+                <i class="glyphicon glyphicon-pencil"></i>
+                Write report
+            </a>
+        </p>
+    </div>
+{% endif %}
