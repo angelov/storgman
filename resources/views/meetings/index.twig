@@ -31,19 +31,27 @@
                 <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
                 <thead>
                 <tr>
+                    <th>Title</th>
                     <th>Date</th>
                     <th>Location</th>
-                    <th># of attendants</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for meeting in meetings %}
-                    <tr>
+                    <tr {% if meeting.needsReport() %} class="danger" {% endif %}>
+                        <td>{{ meeting.getTitle() }}</td>
                         <td><span class="date-to-format">{{ meeting.getDate() }}</span></td>
                         <td>{{ meeting.getLocation() }}</td>
-                        <td>{{ meeting.getAttendants()|length }}</td>
                         <td class="text-right">
+
+                            {% if meeting.needsReport() %}
+                                <a href="{{ route('meetings.reports.create', meeting.getId()) }}" class="btn btn-warning btn-xs has-tooltip"
+                                    data-toggle="tooltip" data-placement="top" title="Please write the meeting's minutes and list the attendants">
+                                    Write report
+                                </a>
+                            {% endif %}
+
                             {# view meeting report #}
                             <a href="{{ route('meetings.show', meeting.getId()) }}"
                                data-toggle="tooltip" data-placement="top" title="View report" class="has-tooltip">
