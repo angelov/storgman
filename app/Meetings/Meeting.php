@@ -77,6 +77,11 @@ class Meeting extends Model
         $this->setAttribute('date', $date);
     }
 
+    public function getTime()
+    {
+        return $this->getDate();
+    }
+
     public function hasPassed()
     {
         return $this->getDate() < (new DateTime());

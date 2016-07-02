@@ -38,21 +38,36 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="location">Location:</label>
-                                    <input type="text" class="form-control" id="location" name="location">
+                                    <input type="text" class="form-control" id="location" name="location" placeholder="Enter meeting location">
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="date">Date:</label>
                                     <div class="input-group date">
                                         <input type="text" class="form-control" id="date" name="date"
-                                            placeholder="{{ "tomorrow"|date("Y-m-d") }}">
+                                               placeholder="{{ "tomorrow"|date("Y-m-d") }}">
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="time">Time:</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="time" name="time"
+                                               placeholder="{{ "now"|date("H:i") }}">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-time"></i>
                                         </span>
                                     </div>
                                 </div>

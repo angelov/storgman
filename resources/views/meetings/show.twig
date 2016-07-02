@@ -28,7 +28,8 @@
                 </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Date:</strong></span>
-                    <span class="date-to-format">{{ meeting.getDate() }}</span>
+                    <span class="date-to-format">{{ meeting.getDate() }}</span>,
+                    {{ meeting.getTime() | date('H:i') }}
                 </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Location:</strong></span>

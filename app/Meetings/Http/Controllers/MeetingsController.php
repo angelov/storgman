@@ -121,7 +121,7 @@ class MeetingsController extends BaseController
     {
         $title = $request->get('title', '');
         $location = $request->get('location');
-        $date = $request->get('date');
+        $date = $request->get('date') ." ". $request->get('time');
         $details = $request->get('details', '');
         $notifyMembers = $request->get('notify') == '1' ? true : false;
 
@@ -179,7 +179,7 @@ class MeetingsController extends BaseController
     public function update(StoreMeetingRequest $request, $id)
     {
         $title = $request->get('title');
-        $date = $request->get('date');
+        $date = $request->get('date') ." ". $request->get('time');
         $details = $request->get('details', '');
         $location = $request->get('location');
 

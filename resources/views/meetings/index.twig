@@ -50,7 +50,7 @@
                 {% for meeting in meetings %}
                     <tr {% if meeting.needsReport() %} class="danger" {% endif %}>
                         <td>{{ meeting.getTitle() }}</td>
-                        <td><span class="date-to-format">{{ meeting.getDate() }}</span></td>
+                        <td><span class="date-to-format">{{ meeting.getDate() }}</span>, {{ meeting.getTime()|date('H:i') }}</td>
                         <td>{{ meeting.getLocation() }}</td>
                         <td class="text-right">
 
