@@ -177,6 +177,7 @@
             var parentNode = previewNode.parentNode;
             parentNode.removeChild(previewNode);
 
+            var progressBars = [];
 
             var myDropzone = new Dropzone(document.body, {
                 url: "/meetings/files",
@@ -187,52 +188,61 @@
                 clickable: ".fileinput-button"
             });
 
-
             myDropzone.on("addedfile", function(file) {
+
+                var id = "f" + Date.now();
+
+                file.id = id;
+
+                var previewElement = $(file.previewElement);
+                var el = previewElement.find('.file-progress-bar');
+
+                el.attr('id', id);
+
+                progressBars[id] = new ProgressBar.Line("#" + id, {
+                    strokeWidth: 2,
+                    color: '#c4e3f3',
+                    trailColor: '#eee'
+                });
 
                 myDropzone.uploadFile(file);
 
             });
 
-            myDropzone.on("sending", function(file) {
+            myDropzone.on("uploadprogress", function(file, progress) {
 
-                var el = $(file.previewElement).find('.file-progress-bar');
-                var id = Date.now();
-                el.attr('id', "f" + id);
+                var progressBar = progressBars[file.id];
+                progress = progress / 100;
 
-                var progressBar = new ProgressBar.Line("#f" + id, {
-                    strokeWidth: 2,
-                    duration: 2500,
-                    color: '#c4e3f3',
-                    trailColor: '#eee'
-                });
-
-                progressBar.animate(Math.random(0,1), {
-                    duration: 800
-                }, function() {
-                    console.log('Animation has finished');
+                progressBar.animate(progress, {
+                    duration: 1
                 });
 
             });
 
             myDropzone.on("error", function(file, errors) {
+
                 var previewElement = $(file.previewElement);
                 var el = previewElement.find(".file-error-messages");
 
-                for (var i in errors) {
-                    var error = errors[i];
-                    var msg = error;
+                if (errors.constructor === Array) {
+                    for (var i in errors) {
+                        var error = errors[i];
 
-                    if (errors[i+1] != undefined) {
-                        msg += "<br />";
+                        if (errors[i+1] != undefined) {
+                            error += "<br />";
+                        }
+
+                        el.append(error);
                     }
-
-                    el.append(msg);
+                } else {
+                    el.append(errors + "<br />");
                 }
 
                 previewElement.css('background', '#fcf8e3');
 
                 el.show();
+
             });
 
         });
