@@ -178,6 +178,7 @@
             parentNode.removeChild(previewNode);
 
             var progressBars = [];
+            var uploadedFiles = [];
 
             var myDropzone = new Dropzone(document.body, {
                 url: "/meetings/files",
@@ -243,6 +244,14 @@
 
                 el.show();
 
+            });
+
+            myDropzone.on("success", function(file, response) {
+                uploadedFiles[file.id] = response;
+            });
+
+            myDropzone.on("removedfile", function(file) {
+                delete uploadedFiles[file.id];
             });
 
         });

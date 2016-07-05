@@ -45,6 +45,8 @@ $router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember'],
 
     $router->post('/files', function(\Angelov\Eestec\Platform\Meetings\Attachments\Http\Requests\StoreAttachmentRequest $request) {
         \Log::info($request->all());
+
+        return rand(0, 100);
     });
 
 });
