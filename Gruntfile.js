@@ -23,6 +23,7 @@ module.exports = function(grunt) {
                     dir + '/vendor/slimScroll/jquery.slimscroll.min.js',
                     dir + '/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.js',
                     dir + '/vendor/dropzone/dist/min/dropzone.min.js',
+                    dir + '/vendor/progressbar.js/dist/progressbar.min.js',
                     dir + '/app.js',
                     dir + '/dates.js',
                     dir + '/datepicker.js',

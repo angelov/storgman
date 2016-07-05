@@ -89,8 +89,7 @@
 
                             <div class="col-md-12">
                                 <span class="pull-left help-block small">
-                                    You can also drag and drop your files here.<br />
-                                    The files will be uploaded when you press the "Publish" button.
+                                    Drop your files here or use the button to add an attachment.
                                 </span>
 
                                 <span class="btn btn-info btn-sm fileinput-button pull-right">
@@ -121,6 +120,20 @@
                                     </div>
                                 </div>
 
+                                <div class="row" style="margin-top: 5px;">
+                                    <div class="col-md-11">
+                                        <div class="file-progress-bar"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top: 5px;">
+                                    <div class="col-md-11">
+                                        <p class="small file-error-messages text-muted" style="display: none;">
+                                            <span class="text-danger"><strong>Errors:</strong></span><br />
+                                        </p>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -139,7 +152,7 @@
 
                 <div class="row pull-right">
                     <div class="col-md-12 ">
-                        <button type="submit" class="btn btn-info" id="btn-create-meeting">Publish</button>
+                        <button type="submit" class="btn btn-info uploads-files" id="btn-create-meeting">Publish</button>
                     </div>
                 </div>
 
@@ -147,5 +160,82 @@
 
         </div>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        $(function() {
+
+            var previewNode = document.querySelector("#template");
+            previewNode.id = "";
+            var previewTemplate = previewNode.parentNode.innerHTML;
+            var parentNode = previewNode.parentNode;
+            parentNode.removeChild(previewNode);
+
+
+            var myDropzone = new Dropzone(document.body, {
+                url: "/meetings/files",
+                parallelUploads: 1,
+                previewTemplate: previewTemplate,
+                autoQueue: false,
+                previewsContainer: "#previews",
+                clickable: ".fileinput-button"
+            });
+
+
+            myDropzone.on("addedfile", function(file) {
+
+                myDropzone.uploadFile(file);
+
+            });
+
+            myDropzone.on("sending", function(file) {
+
+                var el = $(file.previewElement).find('.file-progress-bar');
+                var id = Date.now();
+                el.attr('id', "f" + id);
+
+                var progressBar = new ProgressBar.Line("#f" + id, {
+                    strokeWidth: 2,
+                    duration: 2500,
+                    color: '#c4e3f3',
+                    trailColor: '#eee'
+                });
+
+                progressBar.animate(Math.random(0,1), {
+                    duration: 800
+                }, function() {
+                    console.log('Animation has finished');
+                });
+
+            });
+
+            myDropzone.on("error", function(file, errors) {
+                var previewElement = $(file.previewElement);
+                var el = previewElement.find(".file-error-messages");
+
+                for (var i in errors) {
+                    var error = errors[i];
+                    var msg = error;
+
+                    if (errors[i+1] != undefined) {
+                        msg += "<br />";
+                    }
+
+                    el.append(msg);
+                }
+
+                previewElement.css('background', '#fcf8e3');
+
+                el.show();
+            });
+
+        });
+    </script>
 
 {% endblock %}

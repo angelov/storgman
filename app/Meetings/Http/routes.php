@@ -25,6 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Router;
 
 /** @var Router $router */
@@ -41,5 +42,9 @@ $router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember'],
 
     $router->get('/{id}/report',  ['as' => 'meetings.reports.create', 'uses' => 'ReportsController@create']);
     $router->post('/{id}/report', ['as' => 'meetings.reports.store',  'uses' => 'ReportsController@store']);
+
+    $router->post('/files', function(\Angelov\Eestec\Platform\Meetings\Attachments\Http\Requests\StoreAttachmentRequest $request) {
+        \Log::info($request->all());
+    });
 
 });
