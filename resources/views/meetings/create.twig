@@ -254,6 +254,10 @@
                 delete uploadedFiles[file.id];
             });
 
+            myDropzone.on("sending", function(file, xhr, formData) {
+                formData.append("_token", $('[name=_token]').val());
+            })
+
         });
     </script>
 
