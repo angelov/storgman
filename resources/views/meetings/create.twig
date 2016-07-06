@@ -206,7 +206,13 @@
                     trailColor: '#eee'
                 });
 
-                myDropzone.uploadFile(file);
+                var fsb = myDropzone.options.filesizeBase;
+                var fileSize = (file.size / fsb) / fsb;
+                var maxFileSize = myDropzone.options.maxFilesize;
+
+                if (fileSize <= maxFileSize) {
+                    myDropzone.uploadFile(file);
+                }
 
             });
 

@@ -233,6 +233,8 @@ return [
 
     ],
 
-    'version' => 'v1.0.1-beta'
+    'version' => 'v1.0.1-beta',
+
+    'max_file_upload_size' => 1500 // in kilobytes
 
 ];
