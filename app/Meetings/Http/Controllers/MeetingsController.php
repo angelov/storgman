@@ -124,6 +124,7 @@ class MeetingsController extends BaseController
         $date = $request->get('date') ." ". $request->get('time');
         $details = $request->get('details', '');
         $notifyMembers = $request->get('notify') == '1' ? true : false;
+        $attachments = $this->parseAttachmentIds($request->get('attachments'));
 
         /** @var Member $author */
         $author = $this->authenticator->user();
@@ -136,6 +137,18 @@ class MeetingsController extends BaseController
         $this->session->flash('action-message', 'Meeting added successfully.');
 
         return $this->redirector->route('meetings.show', $meeting->getId());
+    }
+
+    // @todo move to separate class or something
+    private function parseAttachmentIds($attachments)
+    {
+        $attachments = json_decode($attachments, true);
+
+        $attachments = array_map(function($id) {
+            return (int) $id;
+        }, $attachments);
+
+        return $attachments;
     }
 
     /**

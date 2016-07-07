@@ -262,7 +262,22 @@
 
             myDropzone.on("sending", function(file, xhr, formData) {
                 formData.append("_token", $('[name=_token]').val());
-            })
+            });
+
+            $(".uploads-files").on('click', function(e) {
+                var form = $(this).parents('form');
+                var attachments = [];
+
+                for (var i in uploadedFiles) {
+                    attachments.push(uploadedFiles[i]);
+                }
+
+                attachments = JSON.stringify(attachments);
+
+                var field = "<input type='hidden' name='attachments' id='attachments' value='"+attachments+"' />";
+
+                form.append(field);
+            });
 
         });
     </script>
