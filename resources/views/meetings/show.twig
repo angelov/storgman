@@ -113,7 +113,7 @@
 
             <ul class="list-group">
                 <li class="list-group-item text-muted text-left">
-                    Files
+                    Attachments
                     <span class="pull-right small text-muted">
                         <a href="" class="btn btn-default btn-xs">
                             <i class="glyphicon glyphicon-download-alt"></i>
@@ -123,86 +123,33 @@
                 </li>
                 <li class="list-group-item">
 
-                    <div id="template" class="file-row" style="padding: 8px;">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <span class="small" style="word-wrap: break-word">12422546_1504834719820763_n.mp4</span>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <span class="small text-muted">256 kb</span>
-                            </div>
-                            <div class="col-md-1 text-right">
-                                <a href="" class="delete">
-                                    <i class="glyphicon glyphicon-download-alt"></i>
-                                </a>
+                    {% for attachment in meeting.getAttachments() %}
+
+                        <div id="template" class="file-row" style="padding: 8px; {% if not loop.first %}border-top: 1px solid #ddd{% endif %}">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <span class="small" style="word-wrap: break-word">
+                                        {{ attachment.getFilename() }}
+                                    </span>
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    <span class="small text-muted">{{ attachment.getSize() }}</span>
+                                    {# todo: add unit #}
+                                </div>
+                                <div class="col-md-1 text-right">
+                                    <a href="" class="delete">
+                                        {# todo: add download link #}
+                                        <i class="glyphicon glyphicon-download-alt"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div id="template" class="file-row" style="padding: 8px; border-top: 1px solid #ddd">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <span class="small" style="word-wrap: break-word">pcb-v0.2-copy_etch_copper_top.pdf</span>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <span class="small text-muted">52 kb</span>
-                            </div>
-                            <div class="col-md-1 text-right">
-                                <a href="" class="delete">
-                                    <i class="glyphicon glyphicon-download-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    {% else %}
 
-                    <div id="template" class="file-row" style="padding: 8px; border-top: 1px solid #ddd">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <span class="small" style="word-wrap: break-word">belgrad.zip</span>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <span class="small text-muted">4.5 MB</span>
-                            </div>
-                            <div class="col-md-1 text-right">
-                                <a href="" class="delete">
-                                    <i class="glyphicon glyphicon-download-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                        <p class="help-block">No attachments available.</p>
 
-                    <div id="template" class="file-row" style="padding: 8px; border-top: 1px solid #ddd">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <span class="small" style="word-wrap: break-word">selenium-server-standalone-2.49.1.jar</span>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <span class="small text-muted">30.9 MB</span>
-                            </div>
-                            <div class="col-md-1 text-right">
-                                <a href="" class="delete">
-                                    <i class="glyphicon glyphicon-download-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="template" class="file-row" style="padding: 8px; border-top: 1px solid #ddd">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <span class="small" style="word-wrap: break-word">growth.pdf</span>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <span class="small text-muted">123 kb</span>
-                            </div>
-                            <div class="col-md-1 text-right">
-                                <a href="" class="delete">
-                                    <i class="glyphicon glyphicon-download-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
+                    {% endfor %}
                 </li>
             </ul>
 
