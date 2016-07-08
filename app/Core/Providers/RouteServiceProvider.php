@@ -70,6 +70,7 @@ class RouteServiceProvider extends ServiceProvider
                 'Members/Authentication',
                 'Membership',
                 'Meetings',
+                'Meetings/Attachments',
                 'Documents',
                 'News'
             ];

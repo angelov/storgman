@@ -29,17 +29,15 @@ use Illuminate\Routing\Router;
 
 /** @var Router $router */
 
-$router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember'], 'namespace' => 'Meetings\Http\Controllers'], function (Router $router) {
+$router->group(
+    [
+        'prefix' => 'meetings/attachments',
+        'middleware' => ['auth', 'boardMember'],
+        'namespace' => 'Meetings\Attachments\Http\Controllers'
+    ],
+    function (Router $router) {
 
-    $router->get('/',          ['as' => 'meetings.index',   'uses' => 'MeetingsController@index']);
-    $router->get('/create',    ['as' => 'meetings.create',  'uses' => 'MeetingsController@create']);
-    $router->post('/',         ['as' => 'meetings.store',   'uses' => 'MeetingsController@store']);
-    $router->get('/{id}',      ['as' => 'meetings.show',    'uses' => 'MeetingsController@show']);
-    $router->get('/{id}/edit', ['as' => 'meetings.edit',    'uses' => 'MeetingsController@edit']);
-    $router->put('/{id}',      ['as' => 'meetings.update',  'uses' => 'MeetingsController@update']);
-    $router->delete('/{id}',   ['as' => 'meetings.destroy', 'uses' => 'MeetingsController@destroy']);
+        $router->post('/', ['as' => 'meetings.attachments.store', 'uses' => 'AttachmentsController@store']);
 
-    $router->get('/{id}/report',  ['as' => 'meetings.reports.create', 'uses' => 'ReportsController@create']);
-    $router->post('/{id}/report', ['as' => 'meetings.reports.store',  'uses' => 'ReportsController@store']);
-
-});
+    }
+);
