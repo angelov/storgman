@@ -25,36 +25,18 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Http\Controllers;
+namespace Angelov\Eestec\Platform\Meetings\Attachments\Repositories;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
+use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
-use Angelov\Eestec\Platform\Meetings\Attachments\Commands\StoreAttachmentCommand;
-use Angelov\Eestec\Platform\Meetings\Attachments\Http\Requests\StoreAttachmentRequest;
-use Angelov\Eestec\Platform\Members\Member;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Bus\Dispatcher;
 
-class AttachmentsController extends BaseController
+interface AttachmentsRepositoryInterface extends RepositoryInterface
 {
-    protected $commandBus;
-
-    public function __construct(Dispatcher $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
-
-    public function store(StoreAttachmentRequest $request, Guard $auth)
-    {
-        $file = $request->file('file');
-
-        /** @var Member $owner */
-        $owner = $auth->user();
-        $owner = $owner->getId();
-
-        /** @var Attachment $attachment */
-        $attachment = $this->commandBus->dispatch(new StoreAttachmentCommand($file, $owner));
-
-        return $attachment->getId();
-    }
+    /**
+     * Stores an attachment
+     *
+     * @param Attachment $attachment
+     * @return void
+     */
+    public function store(Attachment $attachment);
 }

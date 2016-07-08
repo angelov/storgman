@@ -25,36 +25,20 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Http\Controllers;
+namespace Angelov\Eestec\Platform\Meetings\Attachments\Repositories;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
+use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
 use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
-use Angelov\Eestec\Platform\Meetings\Attachments\Commands\StoreAttachmentCommand;
-use Angelov\Eestec\Platform\Meetings\Attachments\Http\Requests\StoreAttachmentRequest;
-use Angelov\Eestec\Platform\Members\Member;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Bus\Dispatcher;
 
-class AttachmentsController extends BaseController
+class EloquentAttachmentsRepository extends AbstractEloquentRepository implements AttachmentsRepositoryInterface
 {
-    protected $commandBus;
-
-    public function __construct(Dispatcher $commandBus)
+    public function __construct(Attachment $entity)
     {
-        $this->commandBus = $commandBus;
+        parent::__construct($entity);
     }
 
-    public function store(StoreAttachmentRequest $request, Guard $auth)
+    public function store(Attachment $attachment)
     {
-        $file = $request->file('file');
-
-        /** @var Member $owner */
-        $owner = $auth->user();
-        $owner = $owner->getId();
-
-        /** @var Attachment $attachment */
-        $attachment = $this->commandBus->dispatch(new StoreAttachmentCommand($file, $owner));
-
-        return $attachment->getId();
+        $attachment->save();
     }
 }

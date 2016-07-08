@@ -35,6 +35,11 @@ class Attachment extends Model
 {
     protected $table = "meeting_attachments";
 
+    public function getId()
+    {
+        return $this->getAttribute('id');
+    }
+
     public function getFilename()
     {
         return $this->getAttribute('filename');

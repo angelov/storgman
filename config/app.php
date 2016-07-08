@@ -3,6 +3,7 @@
 use Angelov\Eestec\Platform\Documents\Providers\DocumentsRepositoryServiceProvider;
 use Angelov\Eestec\Platform\Documents\Providers\EventsServiceProvider as DocumentsEventsServiceProvider;
 use Angelov\Eestec\Platform\Documents\Tags\Providers\TagsRepositoryServiceProvider;
+use Angelov\Eestec\Platform\Meetings\Attachments\Providers\AttachmentsRepositoryServiceProvider;
 use Angelov\Eestec\Platform\Meetings\Providers\MeetingsRepositoryServiceProvider;
 use Angelov\Eestec\Platform\Meetings\Providers\MeetingsServiceServiceProvider;
 use Angelov\Eestec\Platform\Members\Photos\Providers\PhotosRepositoryServiceProvider;
@@ -181,7 +182,8 @@ return [
         MembersPopulatorServiceProvider::class,
         DocumentsEventsServiceProvider::class,
         MembershipEventsServiceProvider::class,
-        MembersEventsServiceProvider::class
+        MembersEventsServiceProvider::class,
+        AttachmentsRepositoryServiceProvider::class
 
     ),
 

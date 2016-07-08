@@ -25,36 +25,29 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Http\Controllers;
+namespace Angelov\Eestec\Platform\Meetings\Attachments\Commands;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
-use Angelov\Eestec\Platform\Meetings\Attachments\Commands\StoreAttachmentCommand;
-use Angelov\Eestec\Platform\Meetings\Attachments\Http\Requests\StoreAttachmentRequest;
-use Angelov\Eestec\Platform\Members\Member;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Bus\Dispatcher;
+use Angelov\Eestec\Platform\Core\Command;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class AttachmentsController extends BaseController
+class StoreAttachmentCommand extends Command
 {
-    protected $commandBus;
+    protected $file;
+    protected $ownerId;
 
-    public function __construct(Dispatcher $commandBus)
+    public function __construct(UploadedFile $file, $ownerId)
     {
-        $this->commandBus = $commandBus;
+        $this->file = $file;
+        $this->ownerId = $ownerId;
     }
 
-    public function store(StoreAttachmentRequest $request, Guard $auth)
+    public function getFile()
     {
-        $file = $request->file('file');
+        return $this->file;
+    }
 
-        /** @var Member $owner */
-        $owner = $auth->user();
-        $owner = $owner->getId();
-
-        /** @var Attachment $attachment */
-        $attachment = $this->commandBus->dispatch(new StoreAttachmentCommand($file, $owner));
-
-        return $attachment->getId();
+    public function getOwnerId()
+    {
+        return $this->ownerId;
     }
 }
