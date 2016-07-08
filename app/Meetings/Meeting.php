@@ -28,6 +28,7 @@
 namespace Angelov\Eestec\Platform\Meetings;
 
 use Angelov\Eestec\Platform\Core\DateTime;
+use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
 use Angelov\Eestec\Platform\Members\Member;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,6 +49,11 @@ class Meeting extends Model
      * @var Member[] $attendants
      */
     protected $attendants = [];
+
+    /**
+     * @var Attachment[] $attachments
+     */
+    protected $attachments = [];
 
     public function getId()
     {
@@ -194,6 +200,24 @@ class Meeting extends Model
         return $this->belongsTo('Angelov\Eestec\Platform\Members\Member', 'created_by');
     }
 
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class, 'meeting_id');
+    }
+
+    /**
+     * @param Attachment[] $attachments
+     */
+    public function addAttachments(array $attachments)
+    {
+        $this->attachments = array_merge($this->attachments, $attachments);
+    }
+
+    public function getAttachments()
+    {
+        return $this->getAttribute('attachments')->all();
+    }
+
     public function hasReport()
     {
         return $this->attendants()->count() != 0 || $this->getMinutes() != "";
@@ -238,6 +262,10 @@ class Meeting extends Model
 
         if (count($this->attendants) > 0) {
             $this->syncAttendants($this->attendants);
+        }
+
+        if (count($this->attachments) > 0) {
+            $this->attachments()->saveMany($this->attachments);
         }
     }
 }

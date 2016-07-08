@@ -130,7 +130,7 @@ class MeetingsController extends BaseController
         $author = $this->authenticator->user();
         $authorId = $author->getId();
 
-        $command = new CreateMeetingCommand($title, $location, $date, $details, $authorId, $notifyMembers);
+        $command = new CreateMeetingCommand($title, $location, $date, $details, $authorId, $attachments, $notifyMembers);
 
         $meeting = $this->commandBus->dispatch($command);
 

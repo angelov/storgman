@@ -36,9 +36,10 @@ class CreateMeetingCommand extends Command
     protected $date;
     protected $details;
     protected $notifyMembers;
+    protected $attachments = [];
     protected $creatorId;
 
-    public function __construct($title, $location, $date, $details, $creatorId, $notifyMembers = true)
+    public function __construct($title, $location, $date, $details, $creatorId, array $attachments = [], $notifyMembers = true)
     {
         $this->title = $title;
         $this->location = $location;
@@ -46,6 +47,7 @@ class CreateMeetingCommand extends Command
         $this->details = $details;
         $this->notifyMembers = $notifyMembers;
         $this->creatorId = $creatorId;
+        $this->attachments = $attachments;
     }
 
     public function getTitle()
@@ -76,5 +78,10 @@ class CreateMeetingCommand extends Command
     public function getCreatorId()
     {
         return $this->creatorId;
+    }
+
+    public function getAttachments()
+    {
+        return $this->attachments;
     }
 }

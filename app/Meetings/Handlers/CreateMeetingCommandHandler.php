@@ -27,10 +27,14 @@
 
 namespace Angelov\Eestec\Platform\Meetings\Handlers;
 
+use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
+use Angelov\Eestec\Platform\Meetings\Attachments\Exceptions\NotOwnerOfAttachmentException;
+use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
 use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Events\MeetingWasCreatedEvent;
 use Angelov\Eestec\Platform\Meetings\Meeting;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
@@ -38,12 +42,18 @@ class CreateMeetingCommandHandler
 {
     protected $meetings;
     protected $members;
+    protected $attachments;
     protected $events;
 
-    public function __construct(MeetingsRepositoryInterface $meetings, MembersRepositoryInterface $members, Dispatcher $events)
+    public function __construct(
+        MeetingsRepositoryInterface $meetings,
+        MembersRepositoryInterface $members,
+        AttachmentsRepositoryInterface $attachments,
+        Dispatcher $events)
     {
         $this->meetings = $meetings;
         $this->members = $members;
+        $this->attachments = $attachments;
         $this->events = $events;
     }
 
@@ -63,10 +73,28 @@ class CreateMeetingCommandHandler
 
         $meeting->setInfo($command->getDetails());
 
+        $attachments = $this->attachments->getByIds($command->getAttachments());
+        $this->checkAttachmentOwnership($creator, $attachments);
+        $meeting->addAttachments($attachments);
+
         $this->meetings->store($meeting);
 
         $this->events->fire(new MeetingWasCreatedEvent($meeting, $command->getNotifyMembers()));
 
         return $meeting;
+    }
+
+    /**
+     * @param Member $creator
+     * @param Attachment[] $attachments
+     * @throws NotOwnerOfAttachmentException
+     */
+    private function checkAttachmentOwnership(Member $creator, array $attachments)
+    {
+        foreach ($attachments as $attachment) {
+            if ($attachment->getOwner()->getId() != $creator->getId()) {
+                throw new NotOwnerOfAttachmentException("You must own the attachment to add it to a meeting");
+            }
+        }
     }
 }
