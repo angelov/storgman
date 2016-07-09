@@ -28,6 +28,7 @@
 namespace Angelov\Eestec\Platform\Meetings\Http\Controllers;
 
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
+use Angelov\Eestec\Platform\Meetings\Attachments\FileSize;
 use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;

@@ -225,7 +225,7 @@
             var size;
 
             {% for attachment in meeting.getAttachments() %}
-                size = {{ attachment.getSize() }};
+                size = {{ attachment.getSize().getValue() }};
                 size *= myDropzone.options.filesizeBase;
 
                 attachment = {

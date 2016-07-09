@@ -62,7 +62,10 @@ class Attachment extends Model
 
     public function getSize()
     {
-        return $this->getAttribute('size');
+        $value = $this->getAttribute('size');
+        $size = new FileSize($value, FileSize::UNIT_KILOBYTE);
+
+        return $size;
     }
 
     public function setSize($size)
