@@ -1,6 +1,8 @@
 $(function() {
 
-    // uploadUrl must be defined before this file is included
+    if (typeof uploadUrl === 'undefined') {
+        return;
+    }
 
     var previewNode = document.querySelector("#template");
     previewNode.id = "";
@@ -12,7 +14,7 @@ $(function() {
     var uploadedFiles = [];
 
     myDropzone = new Dropzone(document.body, {
-        url: "/meetings/attachments",
+        url: uploadUrl,
         parallelUploads: 1,
         previewTemplate: previewTemplate,
         autoQueue: false,
