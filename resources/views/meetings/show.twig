@@ -35,14 +35,25 @@
                     <span class="pull-left"><strong>Location:</strong></span>
                     {{ meeting.getLocation() }}
                 </li>
-                <li class="list-group-item">
-                    <span class="pull-left"><strong># of attendants:</strong></span>
-                    {% if meeting.hasReport() %}
-                        {{ meeting.getAttendants()|length }}
-                    {% else %}
-                        /
-                    {% endif %}
-                </li>
+
+                {% if member.isBoardMember() %}
+
+                    <li class="list-group-item">
+                        <span class="pull-left"><strong># of attendants:</strong></span>
+                        {% if meeting.hasReport() %}
+                            {{ meeting.getAttendants()|length }}
+                        {% else %}
+                            /
+                        {% endif %}
+
+                        <span class="pull-right text-muted has-tooltip"
+                              data-toggle="tooltip" data-placement="top" title="Visible only to Board Members">
+                                    <i class="btn-xs glyphicon glyphicon-lock"></i>
+                                </span>
+                    </li>
+
+                {% endif %}
+
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Announced by:</strong></span>
                     {{ meeting.getCreator().getFullName() }}
@@ -57,6 +68,11 @@
                         {% else %}
                             /
                         {% endif %}
+
+                        <span class="pull-right text-muted has-tooltip"
+                              data-toggle="tooltip" data-placement="top" title="Visible only to Board Members">
+                                <i class="btn-xs glyphicon glyphicon-lock"></i>
+                            </span>
                     </li>
 
                 {% endif %}
@@ -66,7 +82,14 @@
             {% if meeting.hasReport() and member.isBoardMember() %}
 
                 <ul class="list-group">
-                    <li class="list-group-item text-muted text-left">Statistics</li>
+                    <li class="list-group-item text-muted text-left">
+                        Statistics
+
+                            <span class="pull-right text-muted has-tooltip"
+                                  data-toggle="tooltip" data-placement="top" title="Visible only to Board Members">
+                                <i class="btn-xs glyphicon glyphicon-lock"></i>
+                            </span>
+                    </li>
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-md-4">
@@ -184,14 +207,28 @@
             {% if meeting.hasReport() and member.isBoardMember() %}
 
                 <ul class="list-group">
-                    <li class="list-group-item text-muted text-left">Meeting Minutes</li>
+                    <li class="list-group-item text-muted text-left">
+                        Meeting Minutes
+
+                            <span class="pull-right text-muted has-tooltip"
+                                  data-toggle="tooltip" data-placement="top" title="Visible only to Board Members">
+                                <i class="btn-xs glyphicon glyphicon-lock"></i>
+                            </span>
+                    </li>
                     <li class="list-group-item">
                         <p>{{ meeting.getMinutes()|raw }}</p>
                     </li>
                 </ul>
 
                 <ul class="list-group">
-                    <li class="list-group-item text-muted text-left">Attendants</li>
+                    <li class="list-group-item text-muted text-left">
+                        Attendants
+
+                            <span class="pull-right text-muted has-tooltip"
+                                  data-toggle="tooltip" data-placement="top" title="Visible only to Board Members">
+                                <i class="btn-xs glyphicon glyphicon-lock"></i>
+                            </span>
+                    </li>
                     <li class="list-group-item">
 
                         {% for attendant in meeting.getAttendants() %}

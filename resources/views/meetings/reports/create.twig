@@ -59,7 +59,14 @@
 
                 <div class="row">
                     <div class="col-md-7">
-                        <legend>Meeting minutes: <span class="text-muted small">(optional)</span></legend>
+                        <legend>
+                            Meeting minutes:
+                            <span class="text-muted small">(optional)</span>
+                            <span class="pull-right text-muted has-tooltip"
+                                  data-toggle="tooltip" data-placement="top" title="Visible only to Board Members">
+                                <i class="btn-xs glyphicon glyphicon-lock"></i>
+                            </span>
+                        </legend>
 
                         <div class="form-group">
                             <textarea class="form-control" name="minutes" id="txt-meeting-details" rows="12"></textarea>
@@ -67,7 +74,13 @@
                     </div>
 
                     <div class="col-md-5">
-                        <legend>Attendants:</legend>
+                        <legend>
+                            Attendants:
+                            <span class="pull-right text-muted has-tooltip"
+                                  data-toggle="tooltip" data-placement="top" title="Visible only to Board Members">
+                                <i class="btn-xs glyphicon glyphicon-lock"></i>
+                            </span>
+                        </legend>
 
                         <div class="form-group">
                             <label for="new-attendant">Enter member:</label>
