@@ -50,6 +50,16 @@ class Attachment extends Model
         $this->setAttribute("filename", $filename);
     }
 
+    public function getStorageFilename()
+    {
+        return $this->getAttribute('storage_filename');
+    }
+
+    public function setStorageFilename($filename)
+    {
+        $this->setAttribute('storage_filename', $filename);
+    }
+
     public function getSize()
     {
         return $this->getAttribute('size');

@@ -27,11 +27,21 @@
 
 namespace Angelov\Eestec\Platform\Meetings\Attachments\Repositories;
 
+use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
 
 interface AttachmentsRepositoryInterface extends RepositoryInterface
 {
+    /**
+     * Returns the attachment with the given ID
+     *
+     * @param int $id
+     * @return Attachment
+     * @throws ResourceNotFoundException
+     */
+    public function get($id);
+
     /**
      * Stores an attachment
      *

@@ -61,6 +61,8 @@ class StoreAttachmentCommandHandler
         $filename = md5($file->getClientOriginalName()) . "_" . md5(rand(0, 10000)) . "." . $file->getClientOriginalExtension();
         $file->move(storage_path("meetings/attachments"), $filename);
 
+        $attachment->setStorageFilename($filename);
+
         $this->attachments->store($attachment);
 
         return $attachment;

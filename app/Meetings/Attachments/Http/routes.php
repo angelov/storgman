@@ -29,15 +29,14 @@ use Illuminate\Routing\Router;
 
 /** @var Router $router */
 
-$router->group(
-    [
-        'prefix' => 'meetings/attachments',
-        'middleware' => ['auth', 'boardMember'],
-        'namespace' => 'Meetings\Attachments\Http\Controllers'
-    ],
-    function (Router $router) {
+$ns = 'Meetings\Attachments\Http\Controllers';
 
+$router->group(['prefix' => 'meetings/attachments', 'middleware' => 'auth', 'namespace' => $ns], function (Router $router) {
+
+    $router->group(['middleware' => 'boardMember'], function (Router $router) {
         $router->post('/', ['as' => 'meetings.attachments.store', 'uses' => 'AttachmentsController@store']);
+    });
 
-    }
-);
+    $router->get('/{id}', ['as' => 'meetings.attachments.show', 'uses' => 'AttachmentsController@show']);
+
+});

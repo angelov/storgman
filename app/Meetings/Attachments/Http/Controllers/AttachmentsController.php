@@ -31,6 +31,7 @@ use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
 use Angelov\Eestec\Platform\Meetings\Attachments\Commands\StoreAttachmentCommand;
 use Angelov\Eestec\Platform\Meetings\Attachments\Http\Requests\StoreAttachmentRequest;
+use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Member;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Bus\Dispatcher;
@@ -38,10 +39,12 @@ use Illuminate\Contracts\Bus\Dispatcher;
 class AttachmentsController extends BaseController
 {
     protected $commandBus;
+    protected $attachments;
 
-    public function __construct(Dispatcher $commandBus)
+    public function __construct(AttachmentsRepositoryInterface $attachments, Dispatcher $commandBus)
     {
         $this->commandBus = $commandBus;
+        $this->attachments = $attachments;
     }
 
     public function store(StoreAttachmentRequest $request, Guard $auth)
@@ -56,5 +59,13 @@ class AttachmentsController extends BaseController
         $attachment = $this->commandBus->dispatch(new StoreAttachmentCommand($file, $owner));
 
         return $attachment->getId();
+    }
+
+    public function show($id)
+    {
+        $attachment = $this->attachments->get($id);
+        $path = storage_path('meetings/attachments/') . $attachment->getStorageFilename();
+
+        return response()->download($path, $attachment->getFilename());
     }
 }

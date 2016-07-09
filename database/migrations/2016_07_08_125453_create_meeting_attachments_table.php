@@ -11,6 +11,8 @@ class CreateMeetingAttachmentsTable extends Migration
             $table->increments('id');
 
             $table->string('filename');
+            $table->string('storage_filename');
+
             $table->float('size')->comment('kilobytes');
 
             $table->unsignedInteger('meeting_id')->nullable();
