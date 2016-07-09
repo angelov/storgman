@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -29,7 +29,9 @@ namespace Angelov\Eestec\Platform\Meetings\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\Core\DateTime;
+use Angelov\Eestec\Platform\Meetings\Exceptions\NoPreviousMeetingException;
 use Angelov\Eestec\Platform\Meetings\Meeting;
+use Angelov\Eestec\Platform\Meetings\Reports\MeetingAttendantsTypeReport;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendanceDetailsReport;
@@ -118,4 +120,22 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
      * @return Meeting[]
      */
     public function latest($count, array $withRelationships = [], $orderByField = 'date');
+
+    /**
+     * @return int
+     */
+    public function getAverageNumberOfAttendants();
+
+    /**
+     * @param Meeting $meeting
+     * @return Meeting
+     * @throws NoPreviousMeetingException
+     */
+    public function getPreviousMeeting(Meeting $meeting);
+
+    /**
+     * @param Meeting $meeting
+     * @return MeetingAttendantsTypeReport
+     */
+    public function getAttendantsTypeForMeeting(Meeting $meeting);
 }

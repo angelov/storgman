@@ -93,6 +93,9 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-md-4">
+                                <script type="text/javascript">
+                                    var meetingAttendantsType = {{ attendantsType|raw }};
+                                </script>
                                 <div id="chart-meeting-returning-members" style="margin-top: 10px; height: 160px"></div>
                             </div>
 
@@ -105,21 +108,52 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+
+                                    {% if previousMeeting is not null%}
+
+                                        <tr>
+                                            <td>
+                                                {% set difference = meeting.getAttendants()|length - previousMeeting.getAttendants()|length %}
+                                                {% if difference >= 0 %}
+
+                                                    <span class="text-success">
+                                                        <i class="glyphicon glyphicon-arrow-up" style=""></i>
+                                                        <strong>{{ difference }} more</strong>
+                                                    </span>
+
+                                                {% else %}
+
+                                                    <span class="text-danger">
+                                                        <i class="glyphicon glyphicon-arrow-down" style=""></i>
+                                                        <strong>{{ difference|abs }} less</strong>
+                                                    </span>
+
+                                                {% endif %}
+
+                                                attendants than previous meeting
+                                            </td>
+                                        </tr>
+
+                                    {% endif %}
+
                                     <tr>
                                         <td>
+                                            {% set difference = meeting.getAttendants()|length - averageAttendants %}
+                                            {% if difference >= 0 %}
+
                                                 <span class="text-success">
                                                     <i class="glyphicon glyphicon-arrow-up" style=""></i>
-                                                    <strong>5 more</strong>
+                                                    <strong>{{ difference }} more</strong>
                                                 </span>
-                                            attendants than the last meeting
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
+
+                                            {% else %}
+
                                                 <span class="text-danger">
                                                     <i class="glyphicon glyphicon-arrow-down" style=""></i>
-                                                    <strong>10 less</strong>
+                                                    <strong>{{ difference|abs }} less</strong>
                                                 </span>
+
+                                            {% endif %}
                                             attendants than average
                                         </td>
                                     </tr>

@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -29,7 +29,9 @@ namespace Angelov\Eestec\Platform\Meetings\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
 use Angelov\Eestec\Platform\Core\DateTime;
+use Angelov\Eestec\Platform\Meetings\Exceptions\NoPreviousMeetingException;
 use Angelov\Eestec\Platform\Meetings\Meeting;
+use Angelov\Eestec\Platform\Meetings\Reports\MeetingAttendantsTypeReport;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendanceDetailsReport;
 use Angelov\Eestec\Platform\Meetings\Reports\MeetingsPerMonthReport;
@@ -177,5 +179,84 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
         };
 
         return $report;
+    }
+
+    public function getAverageNumberOfAttendants()
+    {
+        $result = DB::select(
+          '
+                  SELECT avg(attendants) AS average
+                  FROM
+                    (SELECT count(meeting_member.id) AS attendants
+                     FROM meetings,
+                          meeting_member
+                     WHERE meetings.id = meeting_member.meeting_id
+                       AND meetings.date <= now()
+                     GROUP BY meeting_member.meeting_id) AS na;
+        '
+        );
+
+        $average = (int) round($result[0]->average);
+
+        return $average;
+    }
+
+    // @todo optimize
+    public function getPreviousMeeting(Meeting $meeting)
+    {
+        $result = DB::select(
+            '
+                    SELECT id,
+                      (SELECT id
+                       FROM meetings e2
+                       WHERE e2.date < e1.date
+                       ORDER BY date DESC LIMIT 1) AS previous_meeting_id
+                    FROM meetings e1
+                    WHERE id = ?
+
+            ', [$meeting->getId()]
+        );
+
+        $prevId = (int) $result[0]->previous_meeting_id;
+
+        if (! $prevId) {
+            throw new NoPreviousMeetingException();
+        }
+
+        return Meeting::find($prevId);
+    }
+
+    public function getAttendantsTypeForMeeting(Meeting $meeting)
+    {
+        try {
+            $previous = $this->getPreviousMeeting($meeting);
+        } catch (NoPreviousMeetingException $e) {
+            $attendants = count($meeting->getAttendants());
+            return new MeetingAttendantsTypeReport($meeting, $attendants, 0);
+        }
+
+        $result = DB::select(
+            '
+                SELECT sum(CASE WHEN cnt > 1 THEN 1 ELSE 0 END) AS returning
+                FROM
+                  (SELECT member_id,
+                          count(member_id) AS cnt
+                   FROM
+                     (SELECT meeting_member.member_id
+                      FROM meetings,
+                           meeting_member
+                      WHERE meetings.id = meeting_member.meeting_id
+                        AND meetings.id IN (?, ?)) attendants
+                   GROUP BY member_id) attendants_count
+            ', [$meeting->getId(), $previous->getId()]
+        );
+
+        $result = $result[0];
+        $total = count($meeting->getAttendants());
+        $returning = (int) $result->returning;
+        $new = $total - $returning;
+
+
+        return new MeetingAttendantsTypeReport($meeting, $new, $returning);
     }
 }

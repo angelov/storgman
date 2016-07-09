@@ -196,40 +196,39 @@ $(function() {
     });
 
 
-    $('#chart-meeting-returning-members').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: ''
-        },
-        tooltip: {
-            enabled: false
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                size: 80,
-                showInLegend: true
-            }
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            type: 'pie',
-            data: [
-                ['New',   20.0],
-                ['Returning',       80.0]
-            ]
-        }]
-    });
+    if (typeof meetingAttendantsType !== "undefined") {
+        $('#chart-meeting-returning-members').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    size: 80,
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                type: 'pie',
+                data: meetingAttendantsType
+            }]
+        });
+    }
 
     if (typeof totalFeesPerMonth == 'object') {
 

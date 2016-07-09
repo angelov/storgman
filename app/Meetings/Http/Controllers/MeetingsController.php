@@ -33,6 +33,7 @@ use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
+use Angelov\Eestec\Platform\Meetings\Exceptions\NoPreviousMeetingException;
 use Angelov\Eestec\Platform\Meetings\Http\Requests\StoreMeetingRequest;
 use Angelov\Eestec\Platform\Meetings\MeetingsPaginator;
 use Angelov\Eestec\Platform\Meetings\MeetingsService;
@@ -163,7 +164,18 @@ class MeetingsController extends BaseController
     {
         $meeting = $this->meetings->get($id);
 
-        return $this->view->make('meetings.show', compact('meeting'));
+        $averageAttendants = $this->meetings->getAverageNumberOfAttendants();
+        $previousMeeting = null;
+
+        try {
+            $previousMeeting = $this->meetings->getPreviousMeeting($meeting);
+        } catch (NoPreviousMeetingException $e) {
+            $previousMeeting = null;
+        }
+
+        $attendantsType = json_encode($this->meetings->getAttendantsTypeForMeeting($meeting));
+
+        return $this->view->make('meetings.show', compact('meeting', 'averageAttendants', 'previousMeeting', 'attendantsType'));
     }
 
     /**
