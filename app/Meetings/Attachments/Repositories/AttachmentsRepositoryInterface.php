@@ -49,4 +49,9 @@ interface AttachmentsRepositoryInterface extends RepositoryInterface
      * @return void
      */
     public function store(Attachment $attachment);
+
+    /**
+     * @return Attachment[]
+     */
+    public function getUnused();
 }

@@ -5,6 +5,7 @@ use Angelov\Eestec\Platform\Documents\Providers\EventsServiceProvider as Documen
 use Angelov\Eestec\Platform\Documents\Tags\Providers\TagsRepositoryServiceProvider;
 use Angelov\Eestec\Platform\Meetings\Attachments\Packaging\PackagingManagerServiceProvider;
 use Angelov\Eestec\Platform\Meetings\Attachments\Providers\AttachmentsRepositoryServiceProvider;
+use Angelov\Eestec\Platform\Meetings\Attachments\Providers\EventsServiceProvider as AttachmentsEventsServiceProvider;
 use Angelov\Eestec\Platform\Meetings\Providers\MeetingsRepositoryServiceProvider;
 use Angelov\Eestec\Platform\Meetings\Providers\MeetingsServiceServiceProvider;
 use Angelov\Eestec\Platform\Members\Photos\Providers\PhotosRepositoryServiceProvider;
@@ -187,7 +188,8 @@ return [
         MembersEventsServiceProvider::class,
         AttachmentsRepositoryServiceProvider::class,
         PackagingManagerServiceProvider::class,
-        ViewComposersServiceProvider::class
+        ViewComposersServiceProvider::class,
+        AttachmentsEventsServiceProvider::class
 
     ],
 

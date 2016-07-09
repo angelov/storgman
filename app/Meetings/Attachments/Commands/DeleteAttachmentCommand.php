@@ -25,18 +25,19 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Console;
+namespace Angelov\Eestec\Platform\Meetings\Attachments\Commands;
 
-use Angelov\Eestec\Platform\Meetings\Attachments\Tasks\CheckForUnusedAttachmentsTask;
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
-class Kernel extends ConsoleKernel
+class DeleteAttachmentCommand
 {
-    protected $commands = [];
+    protected $attachmentId;
 
-    protected function schedule(Schedule $schedule)
+    public function __construct($attachmentId)
     {
-        $schedule->call(CheckForUnusedAttachmentsTask::class ."@execute")->hourly();
+        $this->attachmentId = $attachmentId;
+    }
+
+    public function getAttachmentId()
+    {
+        return $this->attachmentId;
     }
 }

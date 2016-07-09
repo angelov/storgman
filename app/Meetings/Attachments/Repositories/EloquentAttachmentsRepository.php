@@ -41,4 +41,9 @@ class EloquentAttachmentsRepository extends AbstractEloquentRepository implement
     {
         $attachment->save();
     }
+
+    public function getUnused()
+    {
+        return Attachment::where('meeting_id', null)->get()->all();
+    }
 }

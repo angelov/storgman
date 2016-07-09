@@ -108,4 +108,12 @@ class Attachment extends Model
     {
         $this->owner()->associate($owner);
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->getAttribute('created_at');
+    }
 }
