@@ -86,8 +86,7 @@
 
                             <div class="col-md-12">
                                 <span class="pull-left help-block small">
-                                    You can also drag and drop your files here.<br />
-                                    The files will be uploaded when you press the "Publish" button.
+                                    Drop your files here or use the button to add an attachment.
                                 </span>
 
                                 <span class="btn btn-info btn-sm fileinput-button pull-right">
@@ -115,6 +114,20 @@
                                         <a href="" class="delete">
                                             <i class="glyphicon glyphicon-remove"></i>
                                         </a>
+                                    </div>
+                                </div>
+
+                                <div class="row progress-bar-row" style="margin-top: 5px; display: none;">
+                                    <div class="col-md-11">
+                                        <div class="file-progress-bar"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top: 5px;">
+                                    <div class="col-md-11">
+                                        <p class="small file-error-messages text-muted" style="display: none;">
+                                            <span class="text-danger"><strong>Errors:</strong></span><br />
+                                        </p>
                                     </div>
                                 </div>
 
@@ -187,7 +200,7 @@
 
                 <div class="row pull-right">
                     <div class="col-md-12 ">
-                        <button type="submit" class="btn btn-info" id="btn-create-meeting">Save</button>
+                        <button type="submit" class="btn btn-info uploads-files" id="btn-create-meeting">Save</button>
                     </div>
                 </div>
 
@@ -195,5 +208,37 @@
 
         </div>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+        var uploadUrl = "{{ route('meetings.attachments.store') }}";
+    </script>
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function() {
+            var attachment;
+            var size;
+
+            {% for attachment in meeting.getAttachments() %}
+                size = {{ attachment.getSize() }};
+                size *= myDropzone.options.filesizeBase;
+
+                attachment = {
+                    name: "{{ attachment.getFilename() }}",
+                    size: size,
+                    id: {{ attachment.getId() }},
+                    mock: true
+                };
+
+                myDropzone.emit("addedfile", attachment);
+            {% endfor %}
+        });
+    </script>
+
 
 {% endblock %}

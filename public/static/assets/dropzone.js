@@ -11,7 +11,7 @@ $(function() {
     var progressBars = [];
     var uploadedFiles = [];
 
-    var myDropzone = new Dropzone(document.body, {
+    myDropzone = new Dropzone(document.body, {
         url: "/meetings/attachments",
         parallelUploads: 1,
         previewTemplate: previewTemplate,
@@ -22,7 +22,8 @@ $(function() {
 
     myDropzone.on("addedfile", function(file) {
 
-        var id = "f" + Date.now();
+        var existingId = file.id;
+        var id = "f" + Date.now() + (Math.round(Math.random() * 100));
 
         file.id = id;
 
@@ -31,11 +32,18 @@ $(function() {
 
         el.attr('id', id);
 
+        if (file.mock) { // this is true when there are existing files to be listed
+            uploadedFiles[id] = existingId;
+            return;
+        }
+
         progressBars[id] = new ProgressBar.Line("#" + id, {
             strokeWidth: 2,
             color: '#c4e3f3',
             trailColor: '#eee'
         });
+
+        previewElement.find(".progress-bar-row").show();
 
         var fsb = myDropzone.options.filesizeBase;
         var fileSize = (file.size / fsb) / fsb;
