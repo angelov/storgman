@@ -62,7 +62,7 @@ If you want to contribute, submit an issue or a pull request.
 ### License
 
 EESTEC Platform for Local Committees    
-Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>    
+Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
     
 This file is part of EESTEC Platform.   
     
