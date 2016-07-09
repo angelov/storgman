@@ -27,16 +27,21 @@
 
 namespace Angelov\Eestec\Platform\Meetings\Handlers;
 
+use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
+use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
 use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
+use Angelov\Eestec\Platform\Meetings\Meeting;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 
 class UpdateMeetingCommandHandler
 {
     protected $meetings;
+    protected $attachments;
 
-    public function __construct(MeetingsRepositoryInterface $meetings)
+    public function __construct(MeetingsRepositoryInterface $meetings, AttachmentsRepositoryInterface $attachments)
     {
         $this->meetings = $meetings;
+        $this->attachments = $attachments;
     }
 
     public function handle(UpdateMeetingCommand $command)
@@ -48,8 +53,42 @@ class UpdateMeetingCommandHandler
         $meeting->setLocation($command->getLocation());
         $meeting->setInfo($command->getDetails());
 
+        $attachments = $this->attachments->getByIds($command->getAttachments());
+
+        $this->syncAttachments($meeting, $attachments);
+
         $this->meetings->store($meeting);
 
         // @todo fire event
+    }
+
+    /**
+     * @param Meeting $meeting
+     * @param Attachment[] $attachments
+     */
+    private function syncAttachments(Meeting $meeting, array $attachments)
+    {
+        $existing = $meeting->getAttachments();
+        $current = [];
+
+        foreach ($attachments as $attachment) {
+            $id = $attachment->getId();
+            $current[$id] = $attachment;
+        }
+
+        foreach ($existing as $attachment) {
+            $id = $attachment->getId();
+
+            if (in_array($id, array_keys($current))) {
+                unset($current[$id]);
+                continue;
+            }
+
+            $attachment->setMeeting(null);
+
+            $this->attachments->store($attachment);
+        }
+
+        $meeting->addAttachments($current);
     }
 }

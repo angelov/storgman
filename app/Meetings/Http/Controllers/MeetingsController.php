@@ -195,8 +195,9 @@ class MeetingsController extends BaseController
         $date = $request->get('date') ." ". $request->get('time');
         $details = $request->get('details', '');
         $location = $request->get('location');
+        $attachments = $this->parseAttachmentIds($request->get('attachments'));
 
-        $this->commandBus->dispatch(new UpdateMeetingCommand($id, $title, $location, $date, $details));
+        $this->commandBus->dispatch(new UpdateMeetingCommand($id, $title, $location, $date, $details, $attachments));
 
         $minutes = $request->get('minutes', '');
         $attendants = $this->meetingsService->parseAttendantsIds($request->get('attendants', ''));

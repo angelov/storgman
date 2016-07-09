@@ -213,6 +213,9 @@ class Meeting extends Model
         $this->attachments = array_merge($this->attachments, $attachments);
     }
 
+    /**
+     * @return Attachment[]
+     */
     public function getAttachments()
     {
         return $this->getAttribute('attachments')->all();

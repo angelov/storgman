@@ -36,14 +36,16 @@ class UpdateMeetingCommand extends Command
     protected $location;
     protected $date;
     protected $details;
+    protected $attachments = [];
 
-    public function __construct($meetingId, $title, $location, $date, $details)
+    public function __construct($meetingId, $title, $location, $date, $details, array $attachments = [])
     {
         $this->meetingId = $meetingId;
         $this->title = $title;
         $this->date = $date;
         $this->details = $details;
         $this->location = $location;
+        $this->attachments = $attachments;
     }
 
     public function getMeetingId()
@@ -70,5 +72,9 @@ class UpdateMeetingCommand extends Command
     {
         return $this->location;
     }
-}
 
+    public function getAttachments()
+    {
+        return $this->attachments;
+    }
+}

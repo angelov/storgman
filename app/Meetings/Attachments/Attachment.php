@@ -73,7 +73,7 @@ class Attachment extends Model
         return $this->meeting;
     }
 
-    public function setMeeting(Meeting $meeting)
+    public function setMeeting(Meeting $meeting = null)
     {
         $this->meeting()->associate($meeting);
     }
