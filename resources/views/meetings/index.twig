@@ -25,13 +25,17 @@
             <p>There are total <strong>{{ meetings.total }}</strong> meetings.</p>
         </div>
 
-        <div class="col-md-5 text-right">
+        {% if member.isBoardMember() %}
 
-            <a href="{{ route('meetings.create') }}" class="btn btn-info">
-                <i class="glyphicon glyphicon-plus"></i> Add meeting
-            </a>
+            <div class="col-md-5 text-right">
 
-        </div>
+                <a href="{{ route('meetings.create') }}" class="btn btn-info">
+                    <i class="glyphicon glyphicon-plus"></i> Add meeting
+                </a>
+
+            </div>
+
+        {% endif %}
     </div>
 
     <div class="row" style="margin-top: 15px;">
@@ -48,13 +52,13 @@
                 </thead>
                 <tbody>
                 {% for meeting in meetings %}
-                    <tr {% if meeting.needsReport() %} class="danger" {% endif %}>
+                    <tr {% if meeting.needsReport() and member.isBoardMember() %} class="danger" {% endif %}>
                         <td>{{ meeting.getTitle() }}</td>
                         <td><span class="date-to-format">{{ meeting.getDate() }}</span>, {{ meeting.getTime()|date('H:i') }}</td>
                         <td>{{ meeting.getLocation() }}</td>
                         <td class="text-right">
 
-                            {% if meeting.needsReport() %}
+                            {% if meeting.needsReport() and member.isBoardMember() %}
                                 <a href="{{ route('meetings.reports.create', meeting.getId()) }}" class="btn btn-warning btn-xs has-tooltip"
                                     data-toggle="tooltip" data-placement="top" title="Please write the meeting's minutes and list the attendants">
                                     Write report
@@ -63,22 +67,27 @@
 
                             {# view meeting details #}
                             <a href="{{ route('meetings.show', meeting.getId()) }}"
-                               data-toggle="tooltip" data-placement="top" title="View meeting" class="has-tooltip">
+                               data-toggle="tooltip" data-placement="top" title="Details" class="has-tooltip">
                                 <i class="glyphicon glyphicon-file"></i>
                             </a>
 
-                            {# edit meeting details #}
-                            <a href="{{ route('meetings.edit', meeting.getId()) }}" data-toggle="tooltip"
-                               data-placement="top" title="Edit" class="has-tooltip">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
+                            {% if member.isBoardMember() %}
 
-                            {# delete meeting #}
-                            <a data-toggle="tooltip" data-placement="top" title="Delete"
-                               href="{{ route('meetings.destroy', meeting.getId()) }}" data-meeting="{{ meeting.getId() }}"
-                               class="btn-delete-meeting has-tooltip">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
+                                {# edit meeting details #}
+                                <a href="{{ route('meetings.edit', meeting.getId()) }}" data-toggle="tooltip"
+                                   data-placement="top" title="Edit" class="has-tooltip">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </a>
+
+                                {# delete meeting #}
+                                <a data-toggle="tooltip" data-placement="top" title="Delete"
+                                   href="{{ route('meetings.destroy', meeting.getId()) }}" data-meeting="{{ meeting.getId() }}"
+                                   class="btn-delete-meeting has-tooltip">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+
+                            {% endif %}
+
                         </td>
                     </tr>
                 {% endfor %}

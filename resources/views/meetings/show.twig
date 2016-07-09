@@ -47,17 +47,23 @@
                     <span class="pull-left"><strong>Announced by:</strong></span>
                     {{ meeting.getCreator().getFullName() }}
                 </li>
-                <li class="list-group-item">
-                    <span class="pull-left"><strong>Report written by:</strong></span>
-                    {% if meeting.hasReport() %}
-                        {{ meeting.getReportAuthor().getFullName() }}
-                    {% else %}
-                        /
-                    {% endif %}
-                </li>
+
+                {% if member.isBoardMember() %}
+
+                    <li class="list-group-item">
+                        <span class="pull-left"><strong>Report written by:</strong></span>
+                        {% if meeting.hasReport() %}
+                            {{ meeting.getReportAuthor().getFullName() }}
+                        {% else %}
+                            /
+                        {% endif %}
+                    </li>
+
+                {% endif %}
+
             </ul>
 
-            {% if meeting.hasReport() %}
+            {% if meeting.hasReport() and member.isBoardMember() %}
 
                 <ul class="list-group">
                     <li class="list-group-item text-muted text-left">Statistics</li>
@@ -175,7 +181,7 @@
                 </li>
             </ul>
 
-            {% if meeting.hasReport() %}
+            {% if meeting.hasReport() and member.isBoardMember() %}
 
                 <ul class="list-group">
                     <li class="list-group-item text-muted text-left">Meeting Minutes</li>

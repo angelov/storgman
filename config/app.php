@@ -11,6 +11,7 @@ use Angelov\Eestec\Platform\Members\Photos\Providers\PhotosRepositoryServiceProv
 use Angelov\Eestec\Platform\Members\Providers\EventsServiceProvider as MembersEventsServiceProvider;
 use Angelov\Eestec\Platform\Members\Providers\MembersPopulatorServiceProvider;
 use Angelov\Eestec\Platform\Members\Providers\MembersRepositoryServiceProvider;
+use Angelov\Eestec\Platform\Members\Providers\ViewComposersServiceProvider;
 use Angelov\Eestec\Platform\Members\SocialProfiles\Providers\SocialProfilesRepositoryServiceProvider;
 use Angelov\Eestec\Platform\Membership\Providers\EventsServiceProvider as MembershipEventsServiceProvider;
 use Angelov\Eestec\Platform\Membership\Providers\FeesRepositoryServiceProvider;
@@ -126,7 +127,7 @@ return [
     |
     */
 
-    'providers' => array(
+    'providers' => [
 
         /*
          * Laravel Framework Service Providers...
@@ -185,9 +186,10 @@ return [
         MembershipEventsServiceProvider::class,
         MembersEventsServiceProvider::class,
         AttachmentsRepositoryServiceProvider::class,
-        PackagingManagerServiceProvider::class
+        PackagingManagerServiceProvider::class,
+        ViewComposersServiceProvider::class
 
-    ),
+    ],
 
     /*
     |--------------------------------------------------------------------------

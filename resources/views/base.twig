@@ -41,6 +41,8 @@
 
                     {% if Auth.user().isBoardMember() %}
 
+                        {# board members main menu #}
+
                         <ul class="nav navbar-nav navbar-left">
                             <li><a href="/">Dashboard</a></li>
                             <li><a href="{{ route('members.index') }}">Members</a></li>
@@ -52,6 +54,10 @@
                     {% else %}
 
                         {# non-board members main menu #}
+
+                        <ul class="nav navbar-nav navbar-left">
+                            <li><a href="{{ route('meetings.index') }}">Meetings</a></li>
+                        </ul>
 
                     {% endif %}
 
