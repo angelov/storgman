@@ -114,12 +114,16 @@
             <ul class="list-group">
                 <li class="list-group-item text-muted text-left">
                     Attachments
-                    <span class="pull-right small text-muted">
-                        <a href="" class="btn btn-default btn-xs">
-                            <i class="glyphicon glyphicon-download-alt"></i>
-                            .zip
-                        </a>
-                    </span>
+
+                    {% if meeting.hasAttachments() %}
+                        <span class="pull-right small text-muted">
+                            <a href="{{ route('meetings.attachments.index', {id: meeting.getId(), format: "zip"}) }}" class="btn btn-default btn-xs">
+                                <i class="glyphicon glyphicon-download-alt"></i>
+                                .zip
+                            </a>
+                        </span>
+                    {% endif %}
+
                 </li>
                 <li class="list-group-item">
 
@@ -134,7 +138,6 @@
                                 </div>
                                 <div class="col-md-4 text-right">
                                     <span class="small text-muted">{{ attachment.getSize() }}</span>
-                                    {# todo: add unit #}
                                 </div>
                                 <div class="col-md-1 text-right">
                                     <a href="{{ route('meetings.attachments.show', attachment.getId()) }}">

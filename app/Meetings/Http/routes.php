@@ -42,4 +42,6 @@ $router->group(['prefix' => 'meetings', 'middleware' => ['auth', 'boardMember'],
     $router->get('/{id}/report',  ['as' => 'meetings.reports.create', 'uses' => 'ReportsController@create']);
     $router->post('/{id}/report', ['as' => 'meetings.reports.store',  'uses' => 'ReportsController@store']);
 
+    $router->get('/{id}/attachments', ['as' => 'meetings.attachments.index',  'uses' => 'AttachmentsController@index']);
+
 });

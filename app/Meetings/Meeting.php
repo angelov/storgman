@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Model;
 class Meeting extends Model
 {
     protected $table = 'meetings';
+    protected $dates = ["date"];
 
     public function __construct(array $attributes = [])
     {
@@ -203,6 +204,11 @@ class Meeting extends Model
     public function attachments()
     {
         return $this->hasMany(Attachment::class, 'meeting_id');
+    }
+
+    public function hasAttachments()
+    {
+        return count($this->getAttachments()) > 0;
     }
 
     /**
