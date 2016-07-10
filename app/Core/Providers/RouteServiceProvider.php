@@ -72,7 +72,8 @@ class RouteServiceProvider extends ServiceProvider
                 'Meetings',
                 'Meetings/Attachments',
                 'Documents',
-                'News'
+                'News',
+                'Events'
             ];
 
             foreach ($modules as $module) {

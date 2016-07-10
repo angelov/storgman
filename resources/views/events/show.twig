@@ -1,0 +1,257 @@
+{% set page_title = 'Events' %}
+
+{% extends "base.twig" %}
+
+{% block body %}
+
+    <div class="row vertical-center">
+        <div class="col-md-7">
+            <h1 style="margin-bottom: 30px;">Startup Lab: Upcoming Technologies</h1>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <ul class="list-group text-right">
+                <li class="list-group-item text-muted text-left">About the event</li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Host:</strong></span>
+                    LC Zurich
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Date:</strong></span>
+                    May 15 - May 22, 2016
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Deadline:</strong></span>
+                    April 12, 11:59 p.m.
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Time left:</strong></span>
+                    19 days
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Participants:</strong></span>
+                    15
+                </li>
+                <li class="list-group-item text-center">
+
+                    <a href="" class="btn btn-default btn-sm" style="">
+                        <i class="glyphicon glyphicon-new-window" style="margin-right: 3px;"></i>
+                        Apply on <strong><span style="color: red">eestec.net</span></strong>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="list-group text-right">
+                <li class="list-group-item text-muted text-left">Zurich</li>
+                <li class="list-group-item text-left small">
+                    <img src="https://cdn.zuerich.com/sites/default/files/styles/viewport_xxl/public/frontpage/web_zurich_viewport_scheffold-icon1_1600x900_03.jpg?itok=nkhg7eKF"
+                         class="image" style="width: 100%; margin-bottom: 10px" />
+
+                    <p>The city of Zurich lies at the north end of Lake Zurich in northern Switzerland,
+                        a global center for banking and finance. The picturesque lanes of the central
+                        Altstadt (Old Town), on either side of the Limmat River, reflect its premedieval
+                        history. Waterfront promenades like the Limmatquai follow the river toward the
+                        17th-century Rathaus (town hall).</p>
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Deadline:</strong></span>
+                    April 12, 11:59 p.m.
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Time left:</strong></span>
+                    15 days
+                </li>
+                <li class="list-group-item">
+                    <span class="pull-left"><strong>Participants:</strong></span>
+                    15
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-5">
+
+            <ul class="list-group text-right">
+                <li class="list-group-item text-left">
+                    {#<img src="{{ asset('static/assets/img/default-member-photo.png') }}" class="img-thumbnail" style="width: 50px" />#}
+                    <form>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Leave a comment!" rows="3"></textarea>
+                        </div>
+                        <div class="form-group text-right text-muted">
+                            <span class="pull-left">
+                                <a href=""><i class="fa fa-smile-o fa-lg"></i></a>
+                                <a href=""><i class="fa fa-picture-o fa-lg"></i></a>
+                            </span>
+                            <input type="submit" name="" class="btn btn-default btn-sm" value="Post it!" style="margin-bottom: -10px" />
+                        </div>
+                    </form>
+                </li>
+
+            </ul>
+
+            <ul class="list-group ">
+                <li class="list-group-item text-right">
+                    <span class="pull-left">
+                        <img src="{{ asset('static/assets/img/default-member-photo.png') }}"  style="width: 25px" />
+                        Dejan Angelov
+                    </span>
+                    <span class=" text-muted small">2 hours ago</span>
+                </li>
+                <li class="list-group-item ">
+                    Cool event! Обичен коментар шо не кажува ништо туку е само за пример.
+                </li>
+            </ul>
+
+            <ul class="list-group ">
+                <li class="list-group-item text-right">
+                    <span class="pull-left">
+                        <img src="{{ asset('static/assets/img/default-member-photo.png') }}"  style="width: 25px" />
+                        Cool Guy
+                    </span>
+                    <span class=" text-muted small">Yesterday</span>
+                </li>
+                <li class="list-group-item ">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nulla sapien magna, egestas id rhoncus quis, varius id risus.
+                    Ut id tristique tortor. Maecenas et massa quis eros facilisis pulvinar.
+                    Ut efficitur ut orci et porttitor. Quisque semper ultricies elit, non venenatis neque
+                    interdum eu.
+
+                    <img src="http://vignette3.wikia.nocookie.net/heyarnold/images/1/10/Cool_Party.jpg/revision/latest?cb=20100717205608"
+                         style="width: 100%; margin: 10px 0 10px 0;" />
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div id="europe-map"></div>
+
+            <ul class="list-group" style="margin-top: 10px;">
+                <li class="list-group-item text-muted text-left">
+                    Other events
+                </li>
+                <li class="list-group-item">
+                    <table class="table table-striped">
+                        <tbody>
+
+                        <tr>
+                            <td>
+                                Embedded Minds
+                            </td>
+                            <td>
+                                <span class="small">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                    <strong>LC Patras</strong>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                House of Apps
+                            </td>
+                            <td>
+                                <span class="small">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                    <strong>LC Xanthi</strong>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                just PRINT3D
+                            </td>
+                            <td>
+                                <span class="small">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                    <strong>LC Cosenza</strong>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Polish Up Your JAVA
+                            </td>
+                            <td>
+                                <span class="small">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                    <strong>LC Gliwice</strong>
+                                </span>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function () {
+
+            $('#europe-map').highcharts('Map', {
+                chart : {
+                    borderWidth : 0
+                },
+                credits: {
+                    enabled: false
+                },
+
+                title : {
+                    text : '',
+                    enabled: false
+                },
+
+                legend: {
+                    enabled: false
+                },
+
+                series : [{
+                    name: 'Country',
+                    mapData: Highcharts.maps['custom/europe'],
+                    dataLabels: {
+                        enabled: true,
+                        color: '#FFFFFF',
+                        formatter: function () {
+                            if (this.point.value) {
+                                return this.point.name;
+                            }
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '',
+                        pointFormat: '{point.name}'
+                    }
+                },
+                    {
+                        "type": "mappoint",
+                        "marker": {
+                            "symbol": "url({{ asset('static/assets/pin.png') }})"
+                        },
+                        "data": [
+                            {
+                                "name": "LC Zurich",
+                                "lat": 47.3667,
+                                "lon": 8.5500
+                            }
+                        ]
+                    }]
+            });
+        });
+    </script>
+
+{% endblock %}

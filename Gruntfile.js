@@ -13,6 +13,8 @@ module.exports = function(grunt) {
                     dir + '/vendor/holderjs/holder.js',
                     dir + '/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js',
                     dir + '/vendor/highcharts-release/highcharts.js',
+                    dir + '/vendor/highcharts-release/modules/map.js',
+                    dir + '/vendor/highcharts-release/modules/data.js',
                     dir + '/vendor/handlebars/handlebars.min.js',
                     dir + '/vendor/handlebars/handlebars.runtime.min.js',
                     dir + '/vendor/wysihtml5x/dist/wysihtml5x-toolbar.min.js',
@@ -24,6 +26,8 @@ module.exports = function(grunt) {
                     dir + '/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.js',
                     dir + '/vendor/dropzone/dist/min/dropzone.min.js',
                     dir + '/vendor/progressbar.js/dist/progressbar.min.js',
+                    dir + '/vendor/proj4/dist/proj4.js',
+                    dir + '/europe.js', // http://code.highcharts.com/mapdata/
                     dir + '/app.js',
                     dir + '/dates.js',
                     dir + '/datepicker.js',
