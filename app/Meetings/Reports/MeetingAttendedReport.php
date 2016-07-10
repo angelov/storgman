@@ -38,7 +38,7 @@ class MeetingAttendedReport
 
     /**
      * @param Member $member
-     * @param \Angelov\Eestec\Platform\Meetings\Meeting $meeting
+     * @param Meeting $meeting
      * @param boolean $attended
      */
     public function __construct(Member $member, Meeting $meeting, $attended)
@@ -65,7 +65,7 @@ class MeetingAttendedReport
     }
 
     /**
-     * @param \Angelov\Eestec\Platform\Meetings\Meeting $meeting
+     * @param Meeting $meeting
      */
     public function setMeeting($meeting)
     {
@@ -73,7 +73,7 @@ class MeetingAttendedReport
     }
 
     /**
-     * @return \Angelov\Eestec\Platform\Meetings\Meeting
+     * @return Meeting
      */
     public function getMeeting()
     {
@@ -81,7 +81,7 @@ class MeetingAttendedReport
     }
 
     /**
-     * @param \Angelov\Eestec\Platform\Members\Member $member
+     * @param Member $member
      */
     public function setMember($member)
     {

@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -33,40 +33,24 @@ use Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand;
 use Angelov\Eestec\Platform\Membership\Http\Requests\StoreFeeRequest;
 use Angelov\Eestec\Platform\Membership\FeesPaginator;
 use Angelov\Eestec\Platform\Membership\MembershipService;
-use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Illuminate\View\Factory;
 
 class FeesController extends BaseController
 {
-    protected $request;
     protected $fees;
     protected $members;
     protected $paginator;
     protected $membership;
-    protected $view;
-    protected $commandBus;
 
-    public function __construct(
-        Request $request,
-        Factory $view,
-        FeesRepositoryInterface $fees,
-        MembersRepositoryInterface $members,
-        MembershipService $membership,
-        FeesPaginator $paginator,
-        Dispatcher $commandBus
-    ) {
-        $this->request = $request;
+    public function __construct(FeesRepositoryInterface $fees, MembersRepositoryInterface $members, MembershipService $membership)
+    {
         $this->fees = $fees;
         $this->members = $members;
-        $this->paginator = $paginator;
         $this->membership = $membership;
-        $this->view = $view;
-        $this->commandBus = $commandBus;
     }
 
     /**
@@ -80,42 +64,45 @@ class FeesController extends BaseController
         $toExpire = $this->fees->getSoonToExpire(5);
         $fees = json_encode($this->membership->getExpectedAndPaidFeesPerMonthLastYear());
 
-        return $this->view->make('fees.index', compact('latest', 'toExpire', 'fees'));
+        return view('fees.index', compact('latest', 'toExpire', 'fees'));
     }
 
     /**
      * List all paid fees
      *
+     * @param Request $request
+     * @param FeesPaginator $paginator
      * @return View
      */
-    public function archive()
+    public function archive(Request $request, FeesPaginator $paginator)
     {
-        $page = $this->request->get('page', 1);
-        $fees = $this->paginator->get($page, ['member']);
+        $page = $request->get('page', 1);
+        $fees = $paginator->get($page, ['member']);
 
-        return $this->view->make('fees.archive', compact('fees'));
+        return view('fees.archive', compact('fees'));
     }
 
     /**
      * Show the form for creating a new fee.
      * Method available only via ajax.
      *
-     * @return View
+     * @param Request $request
+     * @return string The rendered view
      */
-    public function create()
+    public function create(Request $request)
     {
-        $memberId = $this->request->get('member_id');
+        $memberId = $request->get('member_id');
         $member = $this->members->get($memberId);
 
         $suggestDates = $this->membership->suggestDates($member);
 
-        return $this->view->make('members.modals.renew-membership', compact('member', 'suggestDates'))->render();
+        return view('members.modals.renew-membership', compact('member', 'suggestDates'))->render();
     }
 
     /**
      * Store a newly created fee.
      *
-     * @param \Angelov\Eestec\Platform\Membership\Http\Requests\StoreFeeRequest $request
+     * @param StoreFeeRequest $request
      * @return JsonResponse
      */
     public function store(StoreFeeRequest $request)
@@ -124,7 +111,7 @@ class FeesController extends BaseController
         $from = $request->get('from');
         $to = $request->get('to');
 
-        $this->commandBus->dispatch(new StoreFeeCommand($memberId, $from, $to));
+        dispatch(new StoreFeeCommand($memberId, $from, $to));
 
         return $this->successfulJsonResponse('The membership was renewed successfully.');
     }
@@ -138,7 +125,7 @@ class FeesController extends BaseController
      */
     public function destroy($id)
     {
-        $this->commandBus->dispatch(new DeleteFeeCommand($id));
+        dispatch(new DeleteFeeCommand($id));
 
         return $this->successfulJsonResponse('Fee deleted successfully.');
     }

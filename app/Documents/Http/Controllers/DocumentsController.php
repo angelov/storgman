@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -36,20 +36,16 @@ use Angelov\Eestec\Platform\Documents\Http\Requests\StoreDocumentRequest;
 use Angelov\Eestec\Platform\Documents\DocumentsPaginator;
 use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
 use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
+use Angelov\Eestec\Platform\Members\Member;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 
 class DocumentsController extends BaseController
 {
-    protected $views;
-    protected $commandBus;
     protected $documents;
     protected $tags;
     protected $events;
@@ -57,12 +53,8 @@ class DocumentsController extends BaseController
     public function __construct(
         DocumentsRepositoryInterface $documents,
         TagsRepositoryInterface $tags,
-        Factory $views,
-        Dispatcher $commandBus,
         EventsDispatcher $events
     ) {
-        $this->views = $views;
-        $this->commandBus = $commandBus;
         $this->documents = $documents;
         $this->tags = $tags;
         $this->events = $events;
@@ -81,39 +73,40 @@ class DocumentsController extends BaseController
         $documents = $paginator->get($page, $with = ['submitter', 'openedBy', 'tags']);
         $tags = $this->tags->all($with = ['documents']);
 
-        return $this->views->make('documents.index', compact('documents', 'tags'));
+        return view('documents.index', compact('documents', 'tags'));
     }
 
     /**
      * Store a new document
      *
-     * @param \Angelov\Eestec\Platform\Documents\Http\Requests\StoreDocumentRequest $request
+     * @param StoreDocumentRequest $request
      * @return View
      */
     public function store(StoreDocumentRequest $request)
     {
         $data = $request->all();
-        $document = $this->commandBus->dispatch(new StoreDocumentCommand($data));
+        $document = dispatch(new StoreDocumentCommand($data));
 
-        return $this->views->make('documents.components.document', compact('document'));
+        return view('documents.components.document', compact('document'));
     }
 
     /**
      * Redirect the user to the document's url
      *
-     * @param Redirector $redirector
      * @param Guard $authenticator
      * @param int $id
      * @return RedirectResponse
      */
-    public function show(Redirector $redirector, Guard $authenticator, $id)
+    public function show(Guard $authenticator, $id)
     {
         $document = $this->documents->get($id);
+
+        /** @var Member $member */
         $member = $authenticator->user();
 
         $this->events->fire(new DocumentWasOpened($document, $member));
 
-        return $redirector->to($document->getUrl(), 301);
+        return redirect()->to($document->getUrl(), 301);
     }
 
     /**
@@ -126,7 +119,7 @@ class DocumentsController extends BaseController
     {
         // @todo Check if the member is allowed to delete the document
 
-        $this->commandBus->dispatch(new DeleteDocumentCommand($id));
+        dispatch(new DeleteDocumentCommand($id));
 
         return $this->successfulJsonResponse("Document deleted successfully.");
     }
@@ -137,14 +130,14 @@ class DocumentsController extends BaseController
         $documents = $tag->getDocuments();
         $tags = $tags->all($with = ['documents']);
 
-        return $this->views->make('documents.by-tag', compact('tag', 'documents', 'tags'));
+        return view('documents.by-tag', compact('tag', 'documents', 'tags'));
     }
 
     public function edit($id)
     {
         $document = $this->documents->get($id);
 
-        return $this->views->make('documents.modals.edit-document', compact('document'));
+        return view('documents.modals.edit-document', compact('document'));
     }
 
     public function update(StoreDocumentRequest $request, $id)
@@ -152,7 +145,7 @@ class DocumentsController extends BaseController
         $data = $request->all();
         $data['id'] = $id;
 
-        $this->commandBus->dispatch(new UpdateDocumentCommand($id, $data));
+        dispatch(new UpdateDocumentCommand($id, $data));
 
         return $this->successfulJsonResponse("Document updated successfully.", ['document' => $data]);
     }

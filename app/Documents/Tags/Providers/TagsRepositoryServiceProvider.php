@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,13 +20,15 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
 namespace Angelov\Eestec\Platform\Documents\Tags\Providers;
 
+use Angelov\Eestec\Platform\Documents\Tags\Repositories\EloquentTagsRepository;
+use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class TagsRepositoryServiceProvider extends ServiceProvider
@@ -34,8 +36,8 @@ class TagsRepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            'Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface',
-            'Angelov\Eestec\Platform\Documents\Tags\Repositories\EloquentTagsRepository'
+            TagsRepositoryInterface::class,
+            EloquentTagsRepository::class
         );
     }
 }

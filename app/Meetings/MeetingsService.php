@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -53,7 +53,7 @@ class MeetingsService
     /**
      * Calculates the member's attendance details for the weekly meetings.
      *
-     * @param \Angelov\Eestec\Platform\Members\Member $member
+     * @param Member $member
      * @return MeetingsAttendanceDetailsForMemberReport
      */
     public function calculateAttendanceDetailsForMember(Member $member)
@@ -84,8 +84,8 @@ class MeetingsService
     }
 
     /**
-     * @param \Angelov\Eestec\Platform\Members\Member $member
-     * @return \Angelov\Eestec\Platform\Meetings\Reports\MeetingAttendedReport[]
+     * @param Member $member
+     * @return MeetingAttendedReport[]
      */
     public function latestMeetingsAttendanceStatusForMember(Member $member)
     {
@@ -101,8 +101,8 @@ class MeetingsService
     }
 
     /**
-     * @param \Angelov\Eestec\Platform\Members\Member $member
-     * @return \Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendedByMemberPerMonthReport
+     * @param Member $member
+     * @return MeetingsAttendedByMemberPerMonthReport
      */
     public function calculateMonthlyAttendanceDetailsForMember(Member $member)
     {
@@ -148,7 +148,7 @@ class MeetingsService
     /**
      * Serialize the attendants' IDs in one string
      *
-     * @param \Angelov\Eestec\Platform\Members\Member[] $attendants
+     * @param Member[] $attendants
      * @return string
      */
     public function prepareAttendantsIds(array $attendants)
@@ -168,7 +168,7 @@ class MeetingsService
 
     /**
      * @param string $ids
-     * @return \Angelov\Eestec\Platform\Members\Member[]
+     * @return Member[]
      */
     public function extractAttendants($ids)
     {

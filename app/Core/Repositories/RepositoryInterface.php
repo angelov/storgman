@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -58,7 +58,7 @@ interface RepositoryInterface
     public function latest($count, array $withRelationships = [], $orderByField = 'id');
 
     /**
-     * Deletes a fee from the storage
+     * Deletes an item from the storage
      *
      * @param $id int
      * @return void
@@ -66,7 +66,7 @@ interface RepositoryInterface
     public function destroy($id);
 
     /**
-     * Returns the member with the specific IDs
+     * Returns the items with the specific IDs
      *
      * @param array $ids
      * @return array
@@ -74,7 +74,7 @@ interface RepositoryInterface
     public function getByIds(array $ids);
 
     /**
-     * Counts the members
+     * Counts the items
      *
      * @return int
      */

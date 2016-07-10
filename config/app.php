@@ -1,23 +1,5 @@
 <?php
 
-use Angelov\Eestec\Platform\Documents\Providers\DocumentsRepositoryServiceProvider;
-use Angelov\Eestec\Platform\Documents\Providers\EventsServiceProvider as DocumentsEventsServiceProvider;
-use Angelov\Eestec\Platform\Documents\Tags\Providers\TagsRepositoryServiceProvider;
-use Angelov\Eestec\Platform\Meetings\Attachments\Packaging\PackagingManagerServiceProvider;
-use Angelov\Eestec\Platform\Meetings\Attachments\Providers\AttachmentsRepositoryServiceProvider;
-use Angelov\Eestec\Platform\Meetings\Attachments\Providers\EventsServiceProvider as AttachmentsEventsServiceProvider;
-use Angelov\Eestec\Platform\Meetings\Providers\MeetingsRepositoryServiceProvider;
-use Angelov\Eestec\Platform\Meetings\Providers\MeetingsServiceServiceProvider;
-use Angelov\Eestec\Platform\Members\Photos\Providers\PhotosRepositoryServiceProvider;
-use Angelov\Eestec\Platform\Members\Providers\EventsServiceProvider as MembersEventsServiceProvider;
-use Angelov\Eestec\Platform\Members\Providers\MembersPopulatorServiceProvider;
-use Angelov\Eestec\Platform\Members\Providers\MembersRepositoryServiceProvider;
-use Angelov\Eestec\Platform\Members\Providers\ViewComposersServiceProvider;
-use Angelov\Eestec\Platform\Members\SocialProfiles\Providers\SocialProfilesRepositoryServiceProvider;
-use Angelov\Eestec\Platform\Membership\Providers\EventsServiceProvider as MembershipEventsServiceProvider;
-use Angelov\Eestec\Platform\Membership\Providers\FeesRepositoryServiceProvider;
-use Angelov\Eestec\Platform\Membership\Providers\MembershipServiceServiceProvider;
-
 return [
 
     'env' => env('APP_ENV', 'production'),
@@ -128,71 +110,7 @@ return [
     |
     */
 
-    'providers' => [
-
-        /*
-         * Laravel Framework Service Providers...
-         */
-
-        'Illuminate\Auth\AuthServiceProvider',
-        'Illuminate\Cache\CacheServiceProvider',
-        'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
-        'Illuminate\Cookie\CookieServiceProvider',
-        'Illuminate\Database\DatabaseServiceProvider',
-        'Illuminate\Encryption\EncryptionServiceProvider',
-        'Illuminate\Filesystem\FilesystemServiceProvider',
-        'Illuminate\Foundation\Providers\FoundationServiceProvider',
-        'Illuminate\Hashing\HashServiceProvider',
-        'Illuminate\Mail\MailServiceProvider',
-        'Illuminate\Pagination\PaginationServiceProvider',
-        'Illuminate\Pipeline\PipelineServiceProvider',
-        'Illuminate\Queue\QueueServiceProvider',
-        'Illuminate\Redis\RedisServiceProvider',
-        'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
-        'Illuminate\Session\SessionServiceProvider',
-        'Illuminate\Translation\TranslationServiceProvider',
-        'Illuminate\Validation\ValidationServiceProvider',
-        'Illuminate\View\ViewServiceProvider',
-        'Illuminate\Broadcasting\BroadcastServiceProvider',
-
-        /*
-         * Other vendor providers
-         */
-
-        'TwigBridge\ServiceProvider',
-        'Intervention\Image\ImageServiceProviderLaravel5',
-//        'Barryvdh\Debugbar\ServiceProvider',
-        'Laravel\Socialite\SocialiteServiceProvider',
-        Collective\Bus\BusServiceProvider::class,
-
-        /*
-         * Application Service Providers...
-         */
-
-        'Angelov\Eestec\Platform\Core\Providers\AppServiceProvider',
-        'Angelov\Eestec\Platform\Core\Providers\BusServiceProvider',
-        'Angelov\Eestec\Platform\Core\Providers\ConfigServiceProvider',
-        'Angelov\Eestec\Platform\Core\Providers\RouteServiceProvider',
-        MembersRepositoryServiceProvider::class,
-        SocialProfilesRepositoryServiceProvider::class,
-        FeesRepositoryServiceProvider::class,
-        PhotosRepositoryServiceProvider::class,
-        MeetingsRepositoryServiceProvider::class,
-        DocumentsRepositoryServiceProvider::class,
-        TagsRepositoryServiceProvider::class,
-        MembershipServiceServiceProvider::class,
-        MeetingsServiceServiceProvider::class,
-        MembersPopulatorServiceProvider::class,
-        DocumentsEventsServiceProvider::class,
-        MembershipEventsServiceProvider::class,
-        MembersEventsServiceProvider::class,
-        AttachmentsRepositoryServiceProvider::class,
-        PackagingManagerServiceProvider::class,
-        ViewComposersServiceProvider::class,
-        AttachmentsEventsServiceProvider::class,
-        \Angelov\Eestec\Platform\Meetings\Providers\EventsServiceProvider::class
-
-    ],
+    'providers' => include "providers.php",
 
     /*
     |--------------------------------------------------------------------------
@@ -203,6 +121,7 @@ return [
     | is started. However, feel free to register as many as you wish as
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
+    / @todo probably don't need those
     */
 
     'aliases' => [

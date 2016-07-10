@@ -184,7 +184,7 @@ class Meeting extends Model
     }
 
     /**
-     * @return \Angelov\Eestec\Platform\Members\Member
+     * @return Member
      */
     public function getCreator()
     {
@@ -193,12 +193,12 @@ class Meeting extends Model
 
     public function attendants()
     {
-        return $this->belongsToMany('Angelov\Eestec\Platform\Members\Member');
+        return $this->belongsToMany(Member::class);
     }
 
     public function creator()
     {
-        return $this->belongsTo('Angelov\Eestec\Platform\Members\Member', 'created_by');
+        return $this->belongsTo(Member::class, 'created_by');
     }
 
     public function attachments()

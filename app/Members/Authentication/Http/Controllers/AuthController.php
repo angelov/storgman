@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -32,34 +32,17 @@ use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Members\Authentication\Http\Requests\LoginFormRequest;
 use Angelov\Eestec\Platform\Members\SocialProfiles\Repositories\SocialProfilesRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
-use Illuminate\Session\Store;
 use Laravel\Socialite\Contracts\Factory as SocialiteFactory;
 
 class AuthController extends BaseController
 {
-    protected $request;
-    protected $view;
-    protected $session;
     protected $authenticator;
-    protected $redirector;
 
-    public function __construct(
-        Factory $view,
-        Store $session,
-        Request $request,
-        Guard $authenticator,
-        Redirector $redirector
-    ) {
-        $this->request = $request;
-        $this->view = $view;
-        $this->session = $session;
+    public function __construct(Guard $authenticator)
+    {
         $this->authenticator = $authenticator;
-        $this->redirector = $redirector;
     }
 
     /**
@@ -69,14 +52,14 @@ class AuthController extends BaseController
      */
     public function index()
     {
-        return $this->view->make('auth.index');
+        return view('auth.index');
     }
 
     /**
      * Check the login data and authenticate the member.
      * Thanks to reddit.com/user/baileylo for the suggestions.
      *
-     * @param \Angelov\Eestec\Platform\Members\Authentication\Http\Requests\LoginFormRequest $request
+     * @param LoginFormRequest $request
      * @return RedirectResponse
      */
     public function login(LoginFormRequest $request)
@@ -106,9 +89,9 @@ class AuthController extends BaseController
             $this->authenticator->logout();
         }
 
-        $this->session->flash('auth-error', $error);
+        session()->flash('auth-error', $error);
 
-        return $this->redirector->back()->withInput();
+        return redirect()->back()->withInput();
     }
 
     /**
@@ -120,7 +103,7 @@ class AuthController extends BaseController
     {
         $this->authenticator->logout();
 
-        return $this->redirector->to('/');
+        return redirect()->route('auth');
     }
 
     public function loginWithFacebook(SocialiteFactory $socialite)
@@ -138,15 +121,15 @@ class AuthController extends BaseController
         $profile = $socialProfiles->getByProfileIdAndProvider($profileId, "facebook");
 
         if (!$profile) {
-            $this->session->flash('auth-error', 'Have you connected your account with Facebook?');
-            return $this->redirector->route('auth');
+            session()->flash()->flash('auth-error', 'Have you connected your account with Facebook?');
+            return redirect()->route('auth');
         }
 
         $member = $profile->getMember();
 
         $this->authenticator->login($member);
 
-        return $this->redirector->to('/');
+        return redirect()->route('homepage');
     }
 
     protected function proceedLogin(Member $member)
@@ -155,6 +138,6 @@ class AuthController extends BaseController
             return $this->redirectBackWithError('Your account is not approved yet.');
         }
 
-        return $this->redirector->to('/');
+        return redirect()->route('homepage');
     }
 }

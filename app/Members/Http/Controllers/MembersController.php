@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -39,48 +39,28 @@ use Angelov\Eestec\Platform\Members\MembersPaginator;
 use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
 use Angelov\Eestec\Platform\Meetings\MeetingsService;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
-use Illuminate\Session\Store;
 
 class MembersController extends BaseController
 {
     protected $members;
-    protected $paginator;
     protected $fees;
-    protected $view;
-    protected $authenticator;
-    protected $session;
-    protected $redirector;
-    protected $commandBus;
 
-    public function __construct(
-        Factory $view,
-        Store $session,
-        Redirector $redirector,
-        MembersRepositoryInterface $members,
-        FeesRepositoryInterface $fees,
-        Dispatcher $commandBus
-    ) {
+    public function __construct(MembersRepositoryInterface $members, FeesRepositoryInterface $fees)
+    {
         $this->members = $members;
         $this->fees = $fees;
-        $this->view = $view;
-        $this->session = $session;
-        $this->redirector = $redirector;
-        $this->commandBus = $commandBus;
     }
 
     /**
      * Display a listing of members
      *
      * @param Request $request
-     * @param \Angelov\Eestec\Platform\Members\MembersPaginator $paginator
+     * @param MembersPaginator $paginator
      * @return View
      */
     public function index(Request $request, MembersPaginator $paginator)
@@ -91,7 +71,7 @@ class MembersController extends BaseController
         /** @todo This can get a little optimized */
         $pending = count($this->members->getUnapprovedMembers());
 
-        return $this->view->make('members.index', compact('members', 'pending'));
+        return view('members.index', compact('members', 'pending'));
     }
 
     /**
@@ -126,7 +106,7 @@ class MembersController extends BaseController
     {
         $members = $this->members->getBoardMembers();
 
-        return $this->view->make('members.board', compact('members'));
+        return view('members.board', compact('members'));
     }
 
     /**
@@ -138,7 +118,7 @@ class MembersController extends BaseController
     {
         $members = $this->members->getUnapprovedMembers();
 
-        return $this->view->make('members.unapproved', compact('members'));
+        return view('members.unapproved', compact('members'));
     }
 
     /**
@@ -148,7 +128,7 @@ class MembersController extends BaseController
      */
     public function create()
     {
-        return $this->view->make('members.create');
+        return view('members.create');
     }
 
     /**
@@ -161,11 +141,11 @@ class MembersController extends BaseController
     {
         $data = $request->all();
 
-        $this->commandBus->dispatch(new CreateMemberCommand($data, $approve = true));
+        dispatch(new CreateMemberCommand($data, $approve = true));
 
-        $this->session->flash('action-message', "Member added successfully.");
+        session()->flash('action-message', "Member added successfully.");
 
-        return $this->redirector->route('members.index');
+        return redirect()->route('members.index');
     }
 
     /**
@@ -187,7 +167,7 @@ class MembersController extends BaseController
 
         $monthly = json_encode($meetingsService->calculateMonthlyAttendanceDetailsForMember($member));
 
-        return $this->view->make('members.show', compact('member', 'attendance', 'latestMeetings', 'monthly'));
+        return view('members.show', compact('member', 'attendance', 'latestMeetings', 'monthly'));
     }
 
     /**
@@ -201,7 +181,7 @@ class MembersController extends BaseController
     {
         $member = $this->members->get($id);
 
-        return $this->view->make('members.components.quick-info', compact('member'));
+        return view('members.components.quick-info', compact('member'));
     }
 
     /**
@@ -214,13 +194,13 @@ class MembersController extends BaseController
     {
         $member = $this->members->get($id);
 
-        return $this->view->make('members.edit', compact('member'));
+        return view('members.edit', compact('member'));
     }
 
     /**
      * Update the specified member in storage.
      *
-     * @param \Angelov\Eestec\Platform\Members\Http\Requests\UpdateMemberRequest $request
+     * @param UpdateMemberRequest $request
      * @param  int $id
      * @return RedirectResponse
      */
@@ -228,11 +208,11 @@ class MembersController extends BaseController
     {
         $data = $request->all();
 
-        $this->commandBus->dispatch(new UpdateMemberCommand($id, $data));
+        dispatch(new UpdateMemberCommand($id, $data));
 
-        $this->session->flash('action-message', "Member updated successfully.");
+        session()->flash('action-message', "Member updated successfully.");
 
-        return $this->redirector->route('members.index');
+        return redirect()->route('members.index');
     }
 
     /**
@@ -244,7 +224,7 @@ class MembersController extends BaseController
      */
     public function destroy($id)
     {
-        $this->commandBus->dispatch(new DeleteMemberCommand($id));
+        dispatch(new DeleteMemberCommand($id));
 
         return $this->successfulJsonResponse('Member deleted successfully.');
     }
@@ -258,7 +238,7 @@ class MembersController extends BaseController
      */
     public function approve($id)
     {
-        $this->commandBus->dispatch(new ApproveMemberCommand($id));
+        dispatch(new ApproveMemberCommand($id));
 
         return $this->successfulJsonResponse('Member approved successfully.');
     }
@@ -272,7 +252,7 @@ class MembersController extends BaseController
      */
     public function decline($id)
     {
-        $this->commandBus->dispatch(new DeclineMemberCommand($id));
+        dispatch(new DeclineMemberCommand($id));
 
         return $this->successfulJsonResponse('Member declined successfully.');
     }
@@ -284,7 +264,7 @@ class MembersController extends BaseController
      */
     public function register()
     {
-        return $this->view->make('members.register');
+        return view('members.register');
     }
 
     /**
@@ -297,11 +277,13 @@ class MembersController extends BaseController
     {
         $data = $request->all();
 
-        $this->commandBus->dispatch(new CreateMemberCommand($data));
+        dispatch(new CreateMemberCommand($data));
 
-        $this->session->flash('action-message',
-            "Your account was created successfully. You will be notified when the board members approve it.");
+        session()->flash(
+            'action-message',
+            "Your account was created successfully. You will be notified when the board members approve it."
+        );
 
-        return $this->redirector->route('members.register');
+        return redirect()->route('members.register');
     }
 }

@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,13 +20,15 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
 namespace Angelov\Eestec\Platform\Meetings\Providers;
 
+use Angelov\Eestec\Platform\Meetings\Repositories\EloquentMeetingsRepository;
+use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class MeetingsRepositoryServiceProvider extends ServiceProvider
@@ -34,8 +36,8 @@ class MeetingsRepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            'Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface',
-            'Angelov\Eestec\Platform\Meetings\Repositories\EloquentMeetingsRepository'
+            MeetingsRepositoryInterface::class,
+            EloquentMeetingsRepository::class
         );
     }
 }

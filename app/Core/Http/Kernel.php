@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,14 +20,26 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
 namespace Angelov\Eestec\Platform\Core\Http;
 
+use Angelov\Eestec\Platform\Core\Http\Middleware\AjaxOnlyMiddleware;
+use Angelov\Eestec\Platform\Core\Http\Middleware\VerifyCsrfToken;
+use Angelov\Eestec\Platform\Members\Authentication\Http\Middleware\Authenticate;
+use Angelov\Eestec\Platform\Members\Authentication\Http\Middleware\RedirectIfAuthenticated;
+use Angelov\Eestec\Platform\Members\Authorization\Http\Middleware\BoardMembersOnlyMiddleware;
+use Angelov\Eestec\Platform\Members\Authorization\Http\Middleware\BoardMembersOrSelfMiddleware;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel
 {
@@ -37,12 +49,12 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
-        'Illuminate\Cookie\Middleware\EncryptCookies',
-        'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-        'Illuminate\Session\Middleware\StartSession',
-        'Illuminate\View\Middleware\ShareErrorsFromSession',
-        'Angelov\Eestec\Platform\Core\Http\Middleware\VerifyCsrfToken',
+        CheckForMaintenanceMode::class,
+        EncryptCookies::class,
+        AddQueuedCookiesToResponse::class,
+        StartSession::class,
+        ShareErrorsFromSession::class,
+        VerifyCsrfToken::class,
     ];
 
     /**
@@ -51,11 +63,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => 'Angelov\Eestec\Platform\Members\Authentication\Http\Middleware\Authenticate',
-        'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
-        'guest' => 'Angelov\Eestec\Platform\Members\Authentication\Http\Middleware\RedirectIfAuthenticated',
-        'boardMember' => 'Angelov\Eestec\Platform\Members\Authorization\Http\Middleware\BoardMembersOnlyMiddleware',
-        'ajax' => 'Angelov\Eestec\Platform\Core\Http\Middleware\AjaxOnlyMiddleware',
-        'boardMemberOrSelf' => 'Angelov\Eestec\Platform\Members\Authorization\Http\Middleware\BoardMembersOrSelfMiddleware',
+        'auth'              => Authenticate::class,
+        'auth.basic'        => AuthenticateWithBasicAuth::class,
+        'guest'             => RedirectIfAuthenticated::class,
+        'boardMember'       => BoardMembersOnlyMiddleware::class,
+        'ajax'              => AjaxOnlyMiddleware::class,
+        'boardMemberOrSelf' => BoardMembersOrSelfMiddleware::class,
     ];
 }

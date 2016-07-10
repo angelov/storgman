@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -33,11 +33,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Fee extends Model
 {
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'fees';
 
     protected $dates = ['from_date', 'to_date'];
@@ -49,7 +44,7 @@ class Fee extends Model
      */
     public function member()
     {
-        return $this->belongsTo('Angelov\Eestec\Platform\Members\Member');
+        return $this->belongsTo(Member::class);
     }
 
     /**
@@ -92,7 +87,7 @@ class Fee extends Model
     }
 
     /**
-     * @return \Angelov\Eestec\Platform\Members\Member
+     * @return Member
      */
     public function getMember()
     {

@@ -60,7 +60,7 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
     /**
      * Stores a meeting
      *
-     * @param  \Angelov\Eestec\Platform\Meetings\Meeting $meeting
+     * @param  Meeting $meeting
      * @return void
      */
     public function store(Meeting $meeting);
@@ -104,10 +104,10 @@ interface MeetingsRepositoryInterface extends RepositoryInterface
     /**
      * Count the number of meetings attended by member per month
      *
-     * @param \Angelov\Eestec\Platform\Members\Member $member
+     * @param Member $member
      * @param DateTime $from
      * @param DateTime $to
-     * @return \Angelov\Eestec\Platform\Meetings\Reports\MeetingsPerMonthReport
+     * @return MeetingsPerMonthReport
      */
     public function countAttendedMeetingsByMemberPerMonth(Member $member, DateTime $from, DateTime $to);
 

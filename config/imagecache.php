@@ -1,7 +1,5 @@
 <?php
 
-use Intervention\Image\Image;
-
 return array(
 
     /*

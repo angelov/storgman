@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,13 +20,14 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
 namespace Angelov\Eestec\Platform\Documents\Tags;
 
+use Angelov\Eestec\Platform\Documents\Document;
 use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
@@ -81,7 +82,7 @@ class Tag extends Model
 
     public function documents()
     {
-        return $this->belongsToMany('Angelov\Eestec\Platform\Documents\Document');
+        return $this->belongsToMany(Document::class);
     }
 
     public function countDocuments()
@@ -89,6 +90,9 @@ class Tag extends Model
         return $this->documents->count();
     }
 
+    /**
+     * @return Document[]
+     */
     public function getDocuments()
     {
         return $this->documents->all();

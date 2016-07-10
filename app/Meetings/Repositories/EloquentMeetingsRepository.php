@@ -42,7 +42,7 @@ class EloquentMeetingsRepository extends AbstractEloquentRepository implements M
 {
     public function __construct(Meeting $meeting)
     {
-        $this->entity = $meeting;
+        parent::__construct($meeting);
     }
 
     public function store(Meeting $meeting)

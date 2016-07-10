@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,7 +20,7 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014-2015, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
@@ -75,11 +75,11 @@ class Document extends Model
 
     public function submitter()
     {
-        return $this->belongsTo('Angelov\Eestec\Platform\Members\Member', 'submitted_by');
+        return $this->belongsTo(Member::class, 'submitted_by');
     }
 
     /**
-     * @return \Angelov\Eestec\Platform\Members\Member
+     * @return Member
      */
     public function getSubmitter()
     {
@@ -96,7 +96,7 @@ class Document extends Model
 
     public function openedBy()
     {
-        return $this->belongsToMany('Angelov\Eestec\Platform\Members\Member', 'document_openings')->withTimestamps();
+        return $this->belongsToMany(Member::class, 'document_openings')->withTimestamps();
     }
 
     public function addOpener(Member $member)
@@ -105,7 +105,7 @@ class Document extends Model
     }
 
     /**
-     * @return \Angelov\Eestec\Platform\Members\Member[]
+     * @return Member[]
      */
     public function getOpeners()
     {
@@ -133,11 +133,11 @@ class Document extends Model
 
     public function tags()
     {
-        return $this->belongsToMany('Angelov\Eestec\Platform\Documents\Tags\Tag');
+        return $this->belongsToMany(Tag::class);
     }
 
     /**
-     * @param \Angelov\Eestec\Platform\Documents\Tags\Tag $tag
+     * @param Tag $tag
      */
     public function addTag(Tag $tag)
     {

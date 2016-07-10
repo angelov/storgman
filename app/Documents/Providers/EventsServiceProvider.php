@@ -27,13 +27,15 @@
 
 namespace Angelov\Eestec\Platform\Documents\Providers;
 
+use Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened;
+use Angelov\Eestec\Platform\Documents\Listeners\TrackDocumentOpening;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventsServiceProvider extends ServiceProvider
 {
     protected $listen = [
-        'Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened' => [
-            'Angelov\Eestec\Platform\Documents\Listeners\TrackDocumentOpening'
+        DocumentWasOpened::class => [
+            TrackDocumentOpening::class
         ]
     ];
 }

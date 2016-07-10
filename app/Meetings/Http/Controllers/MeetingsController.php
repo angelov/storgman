@@ -28,7 +28,6 @@
 namespace Angelov\Eestec\Platform\Meetings\Http\Controllers;
 
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Meetings\Attachments\FileSize;
 use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingCommand;
 use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
@@ -39,66 +38,40 @@ use Angelov\Eestec\Platform\Meetings\MeetingsPaginator;
 use Angelov\Eestec\Platform\Meetings\MeetingsService;
 use Angelov\Eestec\Platform\Members\Member;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Illuminate\Routing\Redirector;
-use Illuminate\Session\Store;
 
 class MeetingsController extends BaseController
 {
-    protected $request;
     protected $meetings;
     protected $members;
-    protected $paginator;
     protected $meetingsService;
-    protected $view;
-    protected $authenticator;
-    protected $session;
-    protected $redirector;
-    protected $commandBus;
 
-    public function __construct(
-        Request $request,
-        Factory $view,
-        Guard $authenticator,
-        Store $session,
-        Redirector $redirector,
-        MeetingsRepositoryInterface $meetings,
-        MembersRepositoryInterface $members,
-        MeetingsPaginator $paginator,
-        MeetingsService $meetingsService,
-        Dispatcher $commandBus
-    ) {
-        $this->request = $request;
+    public function __construct(MeetingsRepositoryInterface $meetings, MembersRepositoryInterface $members, MeetingsService $meetingsService)
+    {
         $this->meetings = $meetings;
         $this->members = $members;
-        $this->paginator = $paginator;
         $this->meetingsService = $meetingsService;
-        $this->view = $view;
-        $this->authenticator = $authenticator;
-        $this->session = $session;
-        $this->redirector = $redirector;
-        $this->commandBus = $commandBus;
     }
 
     /**
      * Display a listing of the meetings.
      * GET /meetings
      *
+     * @param Request $request
+     * @param MeetingsPaginator $paginator
      * @return View
      */
-    public function index()
+    public function index(Request $request, MeetingsPaginator $paginator)
     {
-        $page = $this->request->get('page', 1);
-        $meetings = $this->paginator->get($page, ['attendants']);
+        $page = $request->get('page', 1);
+        $meetings = $paginator->get($page, ['attendants']);
 
-        return $this->view->make('meetings.index', compact('meetings'));
+        return view('meetings.index', compact('meetings'));
     }
 
     /**
@@ -109,7 +82,7 @@ class MeetingsController extends BaseController
      */
     public function create()
     {
-        return $this->view->make('meetings.create');
+        return view('meetings.create');
     }
 
     /**
@@ -117,9 +90,10 @@ class MeetingsController extends BaseController
      * POST /meetings
      *
      * @param StoreMeetingRequest $request
+     * @param Guard $auth
      * @return RedirectResponse
      */
-    public function store(StoreMeetingRequest $request)
+    public function store(StoreMeetingRequest $request, Guard $auth)
     {
         $title = $request->get('title', '');
         $location = $request->get('location');
@@ -129,16 +103,16 @@ class MeetingsController extends BaseController
         $attachments = $this->parseAttachmentIds($request->get('attachments'));
 
         /** @var Member $author */
-        $author = $this->authenticator->user();
+        $author = $auth->user();
         $authorId = $author->getId();
 
         $command = new CreateMeetingCommand($title, $location, $date, $details, $authorId, $attachments, $notifyMembers);
 
-        $meeting = $this->commandBus->dispatch($command);
+        $meeting = dispatch($command);
 
-        $this->session->flash('action-message', 'Meeting added successfully.');
+        session()->flash('action-message', 'Meeting added successfully.');
 
-        return $this->redirector->route('meetings.show', $meeting->getId());
+        return redirect()->route('meetings.show', $meeting->getId());
     }
 
     // @todo move to separate class or something
@@ -175,7 +149,7 @@ class MeetingsController extends BaseController
 
         $attendantsType = json_encode($this->meetings->getAttendantsTypeForMeeting($meeting));
 
-        return $this->view->make('meetings.show', compact('meeting', 'averageAttendants', 'previousMeeting', 'attendantsType'));
+        return view('meetings.show', compact('meeting', 'averageAttendants', 'previousMeeting', 'attendantsType'));
     }
 
     /**
@@ -191,7 +165,7 @@ class MeetingsController extends BaseController
         $attendants = $meeting->getAttendants();
         $attendantsIds = $this->meetingsService->prepareAttendantsIds($attendants);
 
-        return $this->view->make('meetings.edit', compact('meeting', 'attendantsIds'));
+        return view('meetings.edit', compact('meeting', 'attendantsIds'));
     }
 
     /**
@@ -210,18 +184,18 @@ class MeetingsController extends BaseController
         $location = $request->get('location');
         $attachments = $this->parseAttachmentIds($request->get('attachments'));
 
-        $this->commandBus->dispatch(new UpdateMeetingCommand($id, $title, $location, $date, $details, $attachments));
+        dispatch(new UpdateMeetingCommand($id, $title, $location, $date, $details, $attachments));
 
         $minutes = $request->get('minutes', '');
         $attendants = $this->meetingsService->parseAttendantsIds($request->get('attendants', ''));
 
         if (count($attendants) > 0) { // maybe we should get the Meeting object and check there?
-            $this->commandBus->dispatch(new UpdateMeetingReportCommand($id, $attendants, $minutes));
+            dispatch(new UpdateMeetingReportCommand($id, $attendants, $minutes));
         }
 
-        $this->session->flash('action-message', 'Meeting updated successfully.');
+        session()->flash('action-message', 'Meeting updated successfully.');
 
-        return $this->redirector->route('meetings.index');
+        return redirect()->route('meetings.index');
     }
 
     /**
@@ -233,7 +207,7 @@ class MeetingsController extends BaseController
      */
     public function destroy($id)
     {
-        $this->commandBus->dispatch(new DeleteMeetingCommand($id));
+        dispatch(new DeleteMeetingCommand($id));
 
         return $this->successfulJsonResponse('Meeting deleted successfully.');
     }

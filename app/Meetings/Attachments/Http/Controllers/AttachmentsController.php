@@ -34,16 +34,13 @@ use Angelov\Eestec\Platform\Meetings\Attachments\Http\Requests\StoreAttachmentRe
 use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Member;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Bus\Dispatcher;
 
 class AttachmentsController extends BaseController
 {
-    protected $commandBus;
     protected $attachments;
 
-    public function __construct(AttachmentsRepositoryInterface $attachments, Dispatcher $commandBus)
+    public function __construct(AttachmentsRepositoryInterface $attachments)
     {
-        $this->commandBus = $commandBus;
         $this->attachments = $attachments;
     }
 
@@ -56,7 +53,7 @@ class AttachmentsController extends BaseController
         $owner = $owner->getId();
 
         /** @var Attachment $attachment */
-        $attachment = $this->commandBus->dispatch(new StoreAttachmentCommand($file, $owner));
+        $attachment = dispatch(new StoreAttachmentCommand($file, $owner));
 
         return $attachment->getId();
     }
