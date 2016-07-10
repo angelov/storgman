@@ -42,7 +42,7 @@ class CurrentMemberViewComposer
     public function compose(View $view)
     {
         if ($this->auth->check()) {
-            $view->with('member', $this->auth->user());
+            $view->with('loggedMember', $this->auth->user());
         }
     }
 }

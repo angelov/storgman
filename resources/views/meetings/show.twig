@@ -36,7 +36,7 @@
                     {{ meeting.getLocation() }}
                 </li>
 
-                {% if member.isBoardMember() %}
+                {% if loggedMember.isBoardMember() %}
 
                     <li class="list-group-item">
                         <span class="pull-left"><strong># of attendants:</strong></span>
@@ -59,7 +59,7 @@
                     {{ meeting.getCreator().getFullName() }}
                 </li>
 
-                {% if member.isBoardMember() %}
+                {% if loggedMember.isBoardMember() %}
 
                     <li class="list-group-item">
                         <span class="pull-left"><strong>Report written by:</strong></span>
@@ -79,7 +79,7 @@
 
             </ul>
 
-            {% if meeting.hasReport() and member.isBoardMember() %}
+            {% if meeting.hasReport() and loggedMember.isBoardMember() %}
 
                 <ul class="list-group">
                     <li class="list-group-item text-muted text-left">
@@ -238,7 +238,7 @@
                 </li>
             </ul>
 
-            {% if meeting.hasReport() and member.isBoardMember() %}
+            {% if meeting.hasReport() and loggedMember.isBoardMember() %}
 
                 <ul class="list-group">
                     <li class="list-group-item text-muted text-left">
