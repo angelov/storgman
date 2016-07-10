@@ -1,0 +1,23 @@
+<h1>Hello {{ member.getFullName() }},</h1>
+
+<p>A new meeting was announced! Here are the details:</p>
+
+<p>
+    <strong>Title:</strong> {{ meeting.getTitle() }}  <br />
+    <strong>Date:</strong> {{ meeting.getDate().format('Y-m-d') }} {{ meeting.getTime().format('H:i:s') }} <br />
+    <strong>Location:</strong> {{ meeting.getLocation() }} <br />
+</p>
+
+<p>
+    <strong>Details:</strong> <br />
+    {{ meeting.getInfo()|raw }}
+</p>
+
+<p>
+    For more information, check out this url:<br />
+    {% set url = route('meetings.show', meeting.getId()) %}
+    <a href="{{ url }}">{{ url }}</a>
+</p>
+
+<p>Thank you for being part of the family,<br />
+<strong>{{ Config.get('main.title') }}</strong></p>

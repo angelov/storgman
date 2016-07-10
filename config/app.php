@@ -189,7 +189,8 @@ return [
         AttachmentsRepositoryServiceProvider::class,
         PackagingManagerServiceProvider::class,
         ViewComposersServiceProvider::class,
-        AttachmentsEventsServiceProvider::class
+        AttachmentsEventsServiceProvider::class,
+        \Angelov\Eestec\Platform\Meetings\Providers\EventsServiceProvider::class
 
     ],
 

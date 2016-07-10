@@ -25,32 +25,23 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Events;
+namespace Angelov\Eestec\Platform\Meetings\Providers;
 
-use Angelov\Eestec\Platform\Core\Event;
-use Angelov\Eestec\Platform\Meetings\Meeting;
+use Angelov\Eestec\Platform\Meetings\Events\MeetingWasCreatedEvent;
+use Angelov\Eestec\Platform\Meetings\Events\MeetingWasUpdatedEvent;
+use Angelov\Eestec\Platform\Meetings\Listeners\NotifyMembersForNewMeeting;
+use Angelov\Eestec\Platform\Meetings\Listeners\NotifyMembersForUpdatedMeeting;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
-class MeetingWasCreatedEvent extends Event
+class EventsServiceProvider extends ServiceProvider
 {
-    protected $meeting;
-    protected $notifyMembers = true;
+    protected $listen = [
+        MeetingWasCreatedEvent::class => [
+            NotifyMembersForNewMeeting::class
+        ],
 
-    public function __construct(Meeting $meeting, $notifyMembers)
-    {
-        $this->meeting = $meeting;
-        $this->notifyMembers = $notifyMembers;
-    }
-
-    /**
-     * @return Meeting
-     */
-    public function getMeeting()
-    {
-        return $this->meeting;
-    }
-
-    public function shouldNotifyMembers()
-    {
-        return $this->notifyMembers == true;
-    }
+        MeetingWasUpdatedEvent::class => [
+            NotifyMembersForUpdatedMeeting::class
+        ]
+    ];
 }

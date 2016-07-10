@@ -1,0 +1,12 @@
+<h1>Hello {{ member.getFullName() }},</h1>
+
+<p>Some details about the <strong>"{{ meeting.getTitle() }}"</strong> meeting were updated!</p>
+
+<p>
+    For more information, check out this url:<br />
+    {% set url = route('meetings.show', meeting.getId()) %}
+    <a href="{{ url }}">{{ url }}</a>
+</p>
+
+<p>Thank you for being part of the family,<br />
+<strong>{{ Config.get('main.title') }}</strong></p>

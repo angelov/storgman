@@ -30,15 +30,13 @@ namespace Angelov\Eestec\Platform\Meetings\Events;
 use Angelov\Eestec\Platform\Core\Event;
 use Angelov\Eestec\Platform\Meetings\Meeting;
 
-class MeetingWasCreatedEvent extends Event
+class MeetingWasUpdatedEvent extends Event
 {
     protected $meeting;
-    protected $notifyMembers = true;
 
-    public function __construct(Meeting $meeting, $notifyMembers)
+    public function __construct(Meeting $meeting)
     {
         $this->meeting = $meeting;
-        $this->notifyMembers = $notifyMembers;
     }
 
     /**
@@ -47,10 +45,5 @@ class MeetingWasCreatedEvent extends Event
     public function getMeeting()
     {
         return $this->meeting;
-    }
-
-    public function shouldNotifyMembers()
-    {
-        return $this->notifyMembers == true;
     }
 }

@@ -30,18 +30,22 @@ namespace Angelov\Eestec\Platform\Meetings\Handlers;
 use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
 use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
 use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
+use Angelov\Eestec\Platform\Meetings\Events\MeetingWasUpdatedEvent;
 use Angelov\Eestec\Platform\Meetings\Meeting;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class UpdateMeetingCommandHandler
 {
     protected $meetings;
     protected $attachments;
+    protected $events;
 
-    public function __construct(MeetingsRepositoryInterface $meetings, AttachmentsRepositoryInterface $attachments)
+    public function __construct(MeetingsRepositoryInterface $meetings, AttachmentsRepositoryInterface $attachments, Dispatcher $events)
     {
         $this->meetings = $meetings;
         $this->attachments = $attachments;
+        $this->events = $events;
     }
 
     public function handle(UpdateMeetingCommand $command)
@@ -59,7 +63,7 @@ class UpdateMeetingCommandHandler
 
         $this->meetings->store($meeting);
 
-        // @todo fire event
+        $this->events->fire(new MeetingWasUpdatedEvent($meeting));
     }
 
     /**

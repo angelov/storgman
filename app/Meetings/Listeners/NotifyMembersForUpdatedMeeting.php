@@ -25,32 +25,38 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Events;
+namespace Angelov\Eestec\Platform\Meetings\Listeners;
 
-use Angelov\Eestec\Platform\Core\Event;
-use Angelov\Eestec\Platform\Meetings\Meeting;
+use Angelov\Eestec\Platform\Meetings\Events\MeetingWasUpdatedEvent;
+use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Mail\Message;
 
-class MeetingWasCreatedEvent extends Event
+class NotifyMembersForUpdatedMeeting
 {
-    protected $meeting;
-    protected $notifyMembers = true;
+    protected $mailer;
+    protected $members;
 
-    public function __construct(Meeting $meeting, $notifyMembers)
+    public function __construct(Mailer $mailer, MembersRepositoryInterface $members)
     {
-        $this->meeting = $meeting;
-        $this->notifyMembers = $notifyMembers;
+        $this->mailer = $mailer;
+        $this->members = $members;
     }
 
-    /**
-     * @return Meeting
-     */
-    public function getMeeting()
+    public function handle(MeetingWasUpdatedEvent $event)
     {
-        return $this->meeting;
-    }
+        $members = $this->members->all();
+        $meeting = $event->getMeeting();
 
-    public function shouldNotifyMembers()
-    {
-        return $this->notifyMembers == true;
+        foreach ($members as $member) {
+
+            if (! $member->isApproved()) {
+                continue;
+            }
+
+            $this->mailer->send('emails.meetings.updated', compact('member', 'meeting'), function (Message $message) use ($member) {
+                $message->to($member->getEmail())->subject('Meeting details updated!');
+            });
+        }
     }
 }
