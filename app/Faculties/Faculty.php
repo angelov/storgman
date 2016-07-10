@@ -68,7 +68,7 @@ class Faculty extends Model
 
     public function isEnabled()
     {
-        return $this->getAttribute('enabled') === true;
+        return $this->getAttribute('enabled') == true;
     }
 
     public function setEnabled($enabled)

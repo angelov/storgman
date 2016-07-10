@@ -25,24 +25,15 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Settings\Http\Controllers;
+namespace Angelov\Eestec\Platform\Faculties\Repositories;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Eestec\Platform\Faculties\Faculty;
 
-class FacultiesController extends BaseController
+class EloquentFacultiesRepository extends AbstractEloquentRepository implements FacultiesRepositoryInterface
 {
-    protected $faculties;
-
-    public function __construct(FacultiesRepositoryInterface $faculties)
+    public function __construct(Faculty $entity)
     {
-        $this->faculties = $faculties;
-    }
-
-    public function index()
-    {
-        $faculties = $this->faculties->all();
-
-        return view('settings.faculties.index', compact('faculties'));
+        parent::__construct($entity);
     }
 }

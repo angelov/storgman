@@ -83,145 +83,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Факултет за информатички науки и компјутерско инженерство</td>
-                        <td>ФИНКИ</td>
-                        <td>St. Cyril and Methodius University of Skopje</td>
-                        <td class="text-right">
 
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Disable" class="has-tooltip">
-                                <i class="glyphicon glyphicon-remove-circle"></i>
-                            </a>
+                    {% for faculty in faculties %}
 
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Edit" class="has-tooltip">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
+                        <tr {% if not faculty.isEnabled() %} class="text-muted" {% endif %}>
+                            <td>{{ faculty.getTitle() }}</td>
+                            <td>{{ faculty.getAbbreviation() }}</td>
+                            <td>{{ faculty.getUniversity() }}</td>
+                            <td class="text-right">
 
-                            <a href="#"
-                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
+                                {% if faculty.isEnabled() %}
+                                    <a href="#" data-toggle="tooltip"
+                                       data-placement="top" title="Disable" class="has-tooltip">
+                                        <i class="glyphicon glyphicon-remove-circle"></i>
+                                    </a>
+                                {% else %}
+                                    <a href="#" data-toggle="tooltip"
+                                       data-placement="top" title="Enable" class="has-tooltip">
+                                        <i class="glyphicon glyphicon-ok-circle"></i>
+                                    </a>
+                                {% endif %}
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Факултет за електротехника и информациски технологии</td>
-                        <td>ФЕИТ</td>
-                        <td>St. Cyril and Methodius University of Skopje</td>
-                        <td class="text-right">
+                                <a href="#" data-toggle="tooltip"
+                                   data-placement="top" title="Edit" class="has-tooltip">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </a>
 
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Disable" class="has-tooltip">
-                                <i class="glyphicon glyphicon-remove-circle"></i>
-                            </a>
+                                <a href="#"
+                                   data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
 
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Edit" class="has-tooltip">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
+                            </td>
+                        </tr>
 
-                            <a href="#"
-                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
+                    {% endfor %}
 
-                        </td>
-                    </tr>
-
-                    <tr class="text-muted">
-                        <td>Факултет за ликовна уметност</td>
-                        <td>ФЛУ</td>
-                        <td>St. Cyril and Methodius University of Skopje</td>
-                        <td class="text-right">
-
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Enable" class="has-tooltip">
-                                <i class="glyphicon glyphicon-ok-circle"></i>
-                            </a>
-
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Edit" class="has-tooltip">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
-
-                            <a href="#"
-                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Машински факултет</td>
-                        <td>МФС</td>
-                        <td>St. Cyril and Methodius University of Skopje</td>
-                        <td class="text-right">
-
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Disable" class="has-tooltip">
-                                <i class="glyphicon glyphicon-remove-circle"></i>
-                            </a>
-
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Edit" class="has-tooltip">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
-
-                            <a href="#"
-                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Технолошко-металуршки факултет</td>
-                        <td>МФС</td>
-                        <td>St. Cyril and Methodius University of Skopje</td>
-                        <td class="text-right">
-
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Disable" class="has-tooltip">
-                                <i class="glyphicon glyphicon-remove-circle"></i>
-                            </a>
-
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Edit" class="has-tooltip">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
-
-                            <a href="#"
-                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Природно-математички факултет</td>
-                        <td>ПМФ</td>
-                        <td>St. Cyril and Methodius University of Skopje</td>
-                        <td class="text-right">
-
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Disable" class="has-tooltip">
-                                <i class="glyphicon glyphicon-remove-circle"></i>
-                            </a>
-
-                            <a href="#" data-toggle="tooltip"
-                               data-placement="top" title="Edit" class="has-tooltip">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
-
-                            <a href="#"
-                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
-
-                        </td>
-                    </tr>
                 </tbody>
 
             </table>

@@ -25,24 +25,19 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Settings\Http\Controllers;
+namespace Angelov\Eestec\Platform\Faculties\Providers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
+use Angelov\Eestec\Platform\Faculties\Repositories\EloquentFacultiesRepository;
 use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
+use Illuminate\Support\ServiceProvider;
 
-class FacultiesController extends BaseController
+class FacultiesRepositoryServiceProvider extends ServiceProvider
 {
-    protected $faculties;
-
-    public function __construct(FacultiesRepositoryInterface $faculties)
+    public function register()
     {
-        $this->faculties = $faculties;
-    }
-
-    public function index()
-    {
-        $faculties = $this->faculties->all();
-
-        return view('settings.faculties.index', compact('faculties'));
+        $this->app->bind(
+            FacultiesRepositoryInterface::class,
+            EloquentFacultiesRepository::class
+        );
     }
 }

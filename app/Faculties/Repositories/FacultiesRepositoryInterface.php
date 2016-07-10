@@ -25,24 +25,18 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Settings\Http\Controllers;
+namespace Angelov\Eestec\Platform\Faculties\Repositories;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
+use Angelov\Eestec\Platform\Faculties\Faculty;
 
-class FacultiesController extends BaseController
+interface FacultiesRepositoryInterface extends RepositoryInterface
 {
-    protected $faculties;
-
-    public function __construct(FacultiesRepositoryInterface $faculties)
-    {
-        $this->faculties = $faculties;
-    }
-
-    public function index()
-    {
-        $faculties = $this->faculties->all();
-
-        return view('settings.faculties.index', compact('faculties'));
-    }
+    /**
+     * Returns all members
+     *
+     * @param array $withRelationships
+     * @return Faculty[]
+     */
+    public function all(array $withRelationships = []);
 }

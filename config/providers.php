@@ -82,4 +82,8 @@ return [
     Angelov\Eestec\Platform\Documents\Tags\Providers\TagsRepositoryServiceProvider::class,
     Angelov\Eestec\Platform\Documents\Providers\EventsServiceProvider::class,
 
+    // Faculties
+
+    Angelov\Eestec\Platform\Faculties\Providers\FacultiesRepositoryServiceProvider::class,
+
 ];
