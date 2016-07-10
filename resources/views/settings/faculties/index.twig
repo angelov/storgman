@@ -1,0 +1,232 @@
+{% set page_title = "Supported Faculties Settings" %}
+{% set section = "faculties" %}
+
+{% extends "settings/base.twig" %}
+
+{% block section %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <legend  style="padding-top: 0">Add Faculty</legend>
+
+            <div class="alert alert-success alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Faculty successfully added to the list.
+            </div>
+
+            <form role="form">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Faculty title">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="title">Abbreviation:</label>
+                            <input type="text" class="form-control col-md-4" id="title" name="title" placeholder="eg. FEEIT">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="university">University:</label>
+                            <input type="text" class="form-control" id="university" placeholder="University title">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="small text-muted pull-left"><span class="text-warning">*</span> All fields are required</p>
+                        <button type="submit" class="btn btn-info pull-right">Add</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-6">
+            <legend  style="padding-top: 0">Statistics</legend>
+            <script type="text/javascript">
+                var membersPerFaculty = [["\u0422\u041c\u0424",114],["\u041c\u0424\u0421",108],["\u0424\u0415\u0418\u0422",96],["\u0424\u0418\u041d\u041a\u0418",93],["\u041f\u041c\u0424",90]];
+            </script>
+            <div id="chart-members-faculties"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <legend>Supported Faculties</legend>
+
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Error:</strong> There are members who have chosen the faculty you wanted to delete. Please disable it instead.
+            </div>
+
+            <div class="alert alert-success alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Faculty successfully deleted.
+            </div>
+
+            <table class="table table-bordered table-striped" style="">
+                <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Abbreviation</th>
+                        <th>University</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Факултет за информатички науки и компјутерско инженерство</td>
+                        <td>ФИНКИ</td>
+                        <td>St. Cyril and Methodius University of Skopje</td>
+                        <td class="text-right">
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Disable" class="has-tooltip">
+                                <i class="glyphicon glyphicon-remove-circle"></i>
+                            </a>
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Edit" class="has-tooltip">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+
+                            <a href="#"
+                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Факултет за електротехника и информациски технологии</td>
+                        <td>ФЕИТ</td>
+                        <td>St. Cyril and Methodius University of Skopje</td>
+                        <td class="text-right">
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Disable" class="has-tooltip">
+                                <i class="glyphicon glyphicon-remove-circle"></i>
+                            </a>
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Edit" class="has-tooltip">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+
+                            <a href="#"
+                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+
+                    <tr class="text-muted">
+                        <td>Факултет за ликовна уметност</td>
+                        <td>ФЛУ</td>
+                        <td>St. Cyril and Methodius University of Skopje</td>
+                        <td class="text-right">
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Enable" class="has-tooltip">
+                                <i class="glyphicon glyphicon-ok-circle"></i>
+                            </a>
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Edit" class="has-tooltip">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+
+                            <a href="#"
+                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Машински факултет</td>
+                        <td>МФС</td>
+                        <td>St. Cyril and Methodius University of Skopje</td>
+                        <td class="text-right">
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Disable" class="has-tooltip">
+                                <i class="glyphicon glyphicon-remove-circle"></i>
+                            </a>
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Edit" class="has-tooltip">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+
+                            <a href="#"
+                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Технолошко-металуршки факултет</td>
+                        <td>МФС</td>
+                        <td>St. Cyril and Methodius University of Skopje</td>
+                        <td class="text-right">
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Disable" class="has-tooltip">
+                                <i class="glyphicon glyphicon-remove-circle"></i>
+                            </a>
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Edit" class="has-tooltip">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+
+                            <a href="#"
+                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Природно-математички факултет</td>
+                        <td>ПМФ</td>
+                        <td>St. Cyril and Methodius University of Skopje</td>
+                        <td class="text-right">
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Disable" class="has-tooltip">
+                                <i class="glyphicon glyphicon-remove-circle"></i>
+                            </a>
+
+                            <a href="#" data-toggle="tooltip"
+                               data-placement="top" title="Edit" class="has-tooltip">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+
+                            <a href="#"
+                               data-toggle="tooltip" data-placement="top" title="Delete" class="has-tooltip">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}

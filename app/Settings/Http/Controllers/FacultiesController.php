@@ -25,18 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Illuminate\Routing\Router;
+namespace Angelov\Eestec\Platform\Settings\Http\Controllers;
 
-/** @var Router $router */
+use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 
-$router->group(['prefix' => 'settings', 'namespace' => 'Settings\Http\Controllers', 'middleware' => ['auth', 'boardMember']], function (Router $router) {
-
-    $router->get('/', ['as' => 'settings.index', 'uses' => 'SettingsController@index']);
-
-    $router->group(['prefix' => 'faculties'], function (Router $router) {
-
-        $router->get('/', ['as' => 'settings.faculties.index', 'uses' => 'FacultiesController@index']);
-
-    });
-
-});
+class FacultiesController extends BaseController
+{
+    public function index()
+    {
+        return view('settings.faculties.index');
+    }
+}

@@ -59,7 +59,8 @@ module.exports = function(grunt) {
                         dir + '/vendor/dropzone/dist/min/basic.min.css',
                         dir + '/vendor/dropzone/dist/min/dropzone.min.css',
                         dir + '/style.css',
-                        dir + '/typeahead-fix.css'
+                        dir + '/typeahead-fix.css',
+                        dir + '/tabs-nav.css'
                     ]
                 }
             }
