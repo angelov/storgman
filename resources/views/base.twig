@@ -67,6 +67,10 @@
 
                 <ul class="nav navbar-nav navbar-right">
 
+                    {% if Auth.user().isBoardMember() %}
+                        <li><a href="{{ route('settings.index') }}"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
+                    {% endif %}
+
                     {% if Auth.check() %}
                         <li><a href="{{ route('logout') }}"><i class="glyphicon glyphicon-user"></i> Logout</a></li>
                     {% else %}
