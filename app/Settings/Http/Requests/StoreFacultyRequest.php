@@ -25,20 +25,29 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties\Repositories;
+namespace Angelov\Eestec\Platform\Settings\Http\Requests;
 
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Faculties\Faculty;
+use Angelov\Eestec\Platform\Core\Http\Request;
+use Illuminate\Http\JsonResponse;
 
-class EloquentFacultiesRepository extends AbstractEloquentRepository implements FacultiesRepositoryInterface
+class StoreFacultyRequest extends Request
 {
-    public function __construct(Faculty $entity)
-    {
-        parent::__construct($entity);
-    }
+    protected $rules = [
+        'title'        => 'required',
+        'abbreviation' => 'required',
+        'university'   => 'required'
+    ];
 
-    public function store(Faculty $faculty)
+    public function response(array $errors)
     {
-        $faculty->save();
+        $responseData = [
+            'status' => "error",
+            'message' => "Please fix the following errors:",
+            'data' => [
+                'errors' => $this->parseErrors($errors)
+            ]
+        ];
+
+        return new JsonResponse($responseData);
     }
 }

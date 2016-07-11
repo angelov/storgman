@@ -25,20 +25,35 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties\Repositories;
+namespace Angelov\Eestec\Platform\Faculties\Commands;
 
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Faculties\Faculty;
+use Angelov\Eestec\Platform\Core\Command;
 
-class EloquentFacultiesRepository extends AbstractEloquentRepository implements FacultiesRepositoryInterface
+class StoreFacultyCommand extends Command
 {
-    public function __construct(Faculty $entity)
+    protected $title;
+    protected $abbreviation;
+    protected $university;
+
+    public function __construct($title, $abbreviation, $university)
     {
-        parent::__construct($entity);
+        $this->title = $title;
+        $this->abbreviation = $abbreviation;
+        $this->university = $university;
     }
 
-    public function store(Faculty $faculty)
+    public function getTitle()
     {
-        $faculty->save();
+        return $this->title;
+    }
+
+    public function getAbbreviation()
+    {
+        return $this->abbreviation;
+    }
+
+    public function getUniversity()
+    {
+        return $this->university;
     }
 }

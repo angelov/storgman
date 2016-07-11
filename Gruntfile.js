@@ -33,7 +33,8 @@ module.exports = function(grunt) {
                     dir + '/datepicker.js',
                     dir + '/wysiwyg.js',
                     dir + '/charts.js',
-                    dir + '/dropzone.js'
+                    dir + '/dropzone.js',
+                    dir + '/settings/faculties.js'
                 ],
                 dest: dir + '/build/js/app.js'
             }

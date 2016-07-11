@@ -35,7 +35,8 @@ $router->group(['prefix' => 'settings', 'namespace' => 'Settings\Http\Controller
 
     $router->group(['prefix' => 'faculties'], function (Router $router) {
 
-        $router->get('/', ['as' => 'settings.faculties.index', 'uses' => 'FacultiesController@index']);
+        $router->get( '/', ['as' => 'settings.faculties.index',                         'uses' => 'FacultiesController@index']);
+        $router->post('/', ['as' => 'settings.faculties.store', 'middleware' => 'ajax', 'uses' => 'FacultiesController@store']);
 
     });
 

@@ -39,4 +39,10 @@ interface FacultiesRepositoryInterface extends RepositoryInterface
      * @return Faculty[]
      */
     public function all(array $withRelationships = []);
+
+    /**
+     * @param Faculty $faculty
+     * @return void
+     */
+    public function store(Faculty $faculty);
 }

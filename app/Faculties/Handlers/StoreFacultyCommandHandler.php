@@ -25,15 +25,13 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Settings\Http\Controllers;
+namespace Angelov\Eestec\Platform\Faculties\Handlers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Faculties\Commands\StoreFacultyCommand;
+use Angelov\Eestec\Platform\Faculties\Faculty;
 use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
-use Angelov\Eestec\Platform\Settings\Http\Requests\StoreFacultyRequest;
-use Illuminate\Http\JsonResponse;
 
-class FacultiesController extends BaseController
+class StoreFacultyCommandHandler
 {
     protected $faculties;
 
@@ -42,30 +40,17 @@ class FacultiesController extends BaseController
         $this->faculties = $faculties;
     }
 
-    public function index()
+    public function handle(StoreFacultyCommand $command)
     {
-        $faculties = $this->faculties->all();
+        $faculty = new Faculty();
 
-        return view('settings.faculties.index', compact('faculties'));
-    }
+        $faculty->setTitle($command->getTitle());
+        $faculty->setAbbreviation($command->getAbbreviation());
+        $faculty->setUniversity($command->getUniversity());
+        $faculty->setEnabled(true);
 
-    /**
-     * Add a faculty to the list of supported faculties
-     * Method available only via AJAX requests
-     *
-     * @param StoreFacultyRequest $request
-     * @return JsonResponse
-     */
-    public function store(StoreFacultyRequest $request)
-    {
-        $title = $request->get('title');
-        $abbreviation = $request->get('abbreviation');
-        $university = $request->get('university');
+        $this->faculties->store($faculty);
 
-        $faculty = dispatch(new StoreFacultyCommand($title, $abbreviation, $university));
-
-        $data['view'] = view('settings.faculties.partials.faculty-row', compact('faculty'))->render();
-
-        return $this->successfulJsonResponse("Faculty successfully added to the list.", $data);
+        return $faculty;
     }
 }
