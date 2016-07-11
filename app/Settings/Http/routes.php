@@ -38,6 +38,8 @@ $router->group(['prefix' => 'settings', 'namespace' => 'Settings\Http\Controller
         $router->get( '/', ['as' => 'settings.faculties.index',                         'uses' => 'FacultiesController@index']);
         $router->post('/', ['as' => 'settings.faculties.store', 'middleware' => 'ajax', 'uses' => 'FacultiesController@store']);
 
+        $router->delete('/{id}', ['as' => 'settings.faculties.delete', 'middleware' => 'ajax', 'uses' => 'FacultiesController@delete']);
+
         $router->post('/{id}/enable',  ['as' => 'settings.faculties.enable',  'middleware' => 'ajax', 'uses' => 'FacultiesController@enable']);
         $router->post('/{id}/disable', ['as' => 'settings.faculties.disable', 'middleware' => 'ajax', 'uses' => 'FacultiesController@disable']);
 

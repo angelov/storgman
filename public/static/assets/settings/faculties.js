@@ -95,4 +95,38 @@ $(function() {
         return false;
     });
 
+    $(document).on('click', '.btn-delete-faculty', function(e) {
+        var url = $(this).attr("href");
+        var el = $("#action-status");
+        var token = $("#csrf-token").val();
+        var row = $(this).parents("tr");
+
+        var confirmed = confirm('Are you sure?');
+
+        if (! confirmed) {
+            return;
+        }
+
+        $.ajax({
+            type: 'delete',
+            url: url,
+            data: {
+                _token: token
+            },
+            success: function (data) {
+
+                if (data.status == "success") {
+                    el.find("#action-status-message").html(data.message);
+                    el.addClass("alert-success");
+                    row.hide();
+                    el.show();
+                }
+
+            }
+        });
+
+        e.preventDefault();
+        return false;
+    });
+
 });

@@ -29,6 +29,7 @@ namespace Angelov\Eestec\Platform\Settings\Http\Controllers;
 
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Faculties\Commands\ChangeFacultyStatusCommand;
+use Angelov\Eestec\Platform\Faculties\Commands\DeleteFacultyCommand;
 use Angelov\Eestec\Platform\Faculties\Commands\StoreFacultyCommand;
 use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
 use Angelov\Eestec\Platform\Settings\Http\Requests\StoreFacultyRequest;
@@ -87,5 +88,12 @@ class FacultiesController extends BaseController
 
         return $this->successfulJsonResponse("Faculty successfully disabled.", $data);
 
+    }
+
+    public function delete($id)
+    {
+        dispatch(new DeleteFacultyCommand($id));
+
+        return $this->successfulJsonResponse("Faculty successfully deleted");
     }
 }
