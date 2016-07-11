@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Faculties\Repositories;
 
+use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\Faculties\Faculty;
 
@@ -45,4 +46,11 @@ interface FacultiesRepositoryInterface extends RepositoryInterface
      * @return void
      */
     public function store(Faculty $faculty);
+
+    /**
+     * @param int $id
+     * @return Faculty
+     * @throws ResourceNotFoundException
+     */
+    public function get($id);
 }

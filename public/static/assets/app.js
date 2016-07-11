@@ -11,8 +11,9 @@ $(function(){
      * of completely removing them
      */
 
-    $("[data-hide]").on("click", function(){
+    $("[data-hide]").on("click", function(e){
         $(this).closest("." + $(this).attr("data-hide")).hide();
+        e.preventDefault();
     });
 
     /**

@@ -25,22 +25,26 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Illuminate\Routing\Router;
+namespace Angelov\Eestec\Platform\Faculties\Handlers;
 
-/** @var Router $router */
+use Angelov\Eestec\Platform\Faculties\Commands\ChangeFacultyStatusCommand;
+use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
 
-$router->group(['prefix' => 'settings', 'namespace' => 'Settings\Http\Controllers', 'middleware' => ['auth', 'boardMember']], function (Router $router) {
+class ChangeFacultyStatusCommandHandler
+{
+    protected $faculties;
 
-    $router->get('/', ['as' => 'settings.index', 'uses' => 'SettingsController@index']);
+    public function __construct(FacultiesRepositoryInterface $faculties)
+    {
+        $this->faculties = $faculties;
+    }
 
-    $router->group(['prefix' => 'faculties'], function (Router $router) {
+    public function handle(ChangeFacultyStatusCommand $command)
+    {
+        $faculty = $this->faculties->get($command->getFacultyId());
 
-        $router->get( '/', ['as' => 'settings.faculties.index',                         'uses' => 'FacultiesController@index']);
-        $router->post('/', ['as' => 'settings.faculties.store', 'middleware' => 'ajax', 'uses' => 'FacultiesController@store']);
+        $faculty->setEnabled($command->isEnabled());
 
-        $router->post('/{id}/enable',  ['as' => 'settings.faculties.enable',  'middleware' => 'ajax', 'uses' => 'FacultiesController@enable']);
-        $router->post('/{id}/disable', ['as' => 'settings.faculties.disable', 'middleware' => 'ajax', 'uses' => 'FacultiesController@disable']);
-
-    });
-
-});
+        $this->faculties->store($faculty);
+    }
+}

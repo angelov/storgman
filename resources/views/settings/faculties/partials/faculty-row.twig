@@ -1,20 +1,19 @@
-<tr {% if not faculty.isEnabled() %} class="text-muted" {% endif %}>
+<tr {% if not faculty.isEnabled() %} class="text-muted" {% endif %} data-id="{{ faculty.getId() }}">
     <td>{{ faculty.getTitle() }}</td>
     <td>{{ faculty.getAbbreviation() }}</td>
     <td>{{ faculty.getUniversity() }}</td>
     <td class="text-right">
 
-        {% if faculty.isEnabled() %}
-            <a href="#" data-toggle="tooltip"
-               data-placement="top" title="Disable" class="has-tooltip">
-                <i class="glyphicon glyphicon-remove-circle"></i>
-            </a>
-        {% else %}
-            <a href="#" data-toggle="tooltip"
-               data-placement="top" title="Enable" class="has-tooltip">
-                <i class="glyphicon glyphicon-ok-circle"></i>
-            </a>
-        {% endif %}
+        <a href="{{ route('settings.faculties.disable', faculty.getId()) }}" data-toggle="tooltip"
+           data-placement="top" title="Disable" class="has-tooltip btn-disable-faculty btn-change-status-faculty"
+           {% if not faculty.isEnabled() %}style="display: none;"{% endif %}>
+            <i class="glyphicon glyphicon-remove-circle"></i>
+        </a>
+        <a href="{{ route('settings.faculties.enable', faculty.getId()) }}" data-toggle="tooltip"
+           data-placement="top" title="Enable" class="has-tooltip btn-enable-faculty btn-change-status-faculty"
+           {% if faculty.isEnabled() %}style="display: none;"{% endif %}>
+            <i class="glyphicon glyphicon-ok-circle"></i>
+        </a>
 
         <a href="#" data-toggle="tooltip"
            data-placement="top" title="Edit" class="has-tooltip">

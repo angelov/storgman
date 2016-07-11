@@ -28,6 +28,7 @@
 namespace Angelov\Eestec\Platform\Settings\Http\Controllers;
 
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
+use Angelov\Eestec\Platform\Faculties\Commands\ChangeFacultyStatusCommand;
 use Angelov\Eestec\Platform\Faculties\Commands\StoreFacultyCommand;
 use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
 use Angelov\Eestec\Platform\Settings\Http\Requests\StoreFacultyRequest;
@@ -67,5 +68,24 @@ class FacultiesController extends BaseController
         $data['view'] = view('settings.faculties.partials.faculty-row', compact('faculty'))->render();
 
         return $this->successfulJsonResponse("Faculty successfully added to the list.", $data);
+    }
+
+    public function enable($id)
+    {
+        dispatch(new ChangeFacultyStatusCommand($id, ChangeFacultyStatusCommand::STATUS_ENABLED));
+
+        $data['enabled'] = ChangeFacultyStatusCommand::STATUS_ENABLED;
+
+        return $this->successfulJsonResponse("Faculty successfully enabled.", $data);
+    }
+
+    public function disable($id)
+    {
+        dispatch(new ChangeFacultyStatusCommand($id, ChangeFacultyStatusCommand::STATUS_DISABLED));
+
+        $data['enabled'] = ChangeFacultyStatusCommand::STATUS_DISABLED;
+
+        return $this->successfulJsonResponse("Faculty successfully disabled.", $data);
+
     }
 }
