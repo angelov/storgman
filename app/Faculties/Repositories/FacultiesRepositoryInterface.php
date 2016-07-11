@@ -53,4 +53,9 @@ interface FacultiesRepositoryInterface extends RepositoryInterface
      * @throws ResourceNotFoundException
      */
     public function get($id);
+
+    /**
+     * @return Faculty[]
+     */
+    public function getEnabled();
 }

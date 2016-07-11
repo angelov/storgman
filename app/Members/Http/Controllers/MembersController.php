@@ -28,6 +28,7 @@
 namespace Angelov\Eestec\Platform\Members\Http\Controllers;
 
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
+use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Commands\ApproveMemberCommand;
 use Angelov\Eestec\Platform\Members\Commands\CreateMemberCommand;
 use Angelov\Eestec\Platform\Members\Commands\DeclineMemberCommand;
@@ -124,11 +125,14 @@ class MembersController extends BaseController
     /**
      * Show the form for creating a new member
      *
+     * @param FacultiesRepositoryInterface $faculties
      * @return View
      */
-    public function create()
+    public function create(FacultiesRepositoryInterface $faculties)
     {
-        return view('members.create');
+        $faculties = $faculties->getEnabled();
+
+        return view('members.create', compact('faculties'));
     }
 
     /**
@@ -187,14 +191,16 @@ class MembersController extends BaseController
     /**
      * Show the form for editing the specified member.
      *
-     * @param  int      $id
+     * @param  int $id
+     * @param FacultiesRepositoryInterface $faculties
      * @return View
      */
-    public function edit($id)
+    public function edit($id, FacultiesRepositoryInterface $faculties)
     {
         $member = $this->members->get($id);
+        $faculties = $faculties->getEnabled();
 
-        return view('members.edit', compact('member'));
+        return view('members.edit', compact('member', 'faculties'));
     }
 
     /**
@@ -260,11 +266,14 @@ class MembersController extends BaseController
     /**
      * The new members can create their profiles on the system
      *
+     * @param FacultiesRepositoryInterface $faculties
      * @return View
      */
-    public function register()
+    public function register(FacultiesRepositoryInterface $faculties)
     {
-        return view('members.register');
+        $faculties = $faculties->getEnabled();
+
+        return view('members.register', compact('faculties'));
     }
 
     /**

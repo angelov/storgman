@@ -41,4 +41,9 @@ class EloquentFacultiesRepository extends AbstractEloquentRepository implements 
     {
         $faculty->save();
     }
+
+    public function getEnabled()
+    {
+        return Faculty::where('enabled', true)->get()->all();
+    }
 }

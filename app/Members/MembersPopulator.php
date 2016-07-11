@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Members;
 
+use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
 use DateTime;
@@ -36,11 +37,13 @@ class MembersPopulator
 {
     protected $hasher;
     protected $photos;
+    protected $faculties;
 
-    public function __construct(Hasher $hasher, PhotosRepositoryInterface $photos)
+    public function __construct(Hasher $hasher, PhotosRepositoryInterface $photos, FacultiesRepositoryInterface $faculties)
     {
         $this->hasher = $hasher;
         $this->photos = $photos;
+        $this->faculties = $faculties;
     }
 
     public function populateFromArray(Member $member, array $data)
@@ -55,7 +58,6 @@ class MembersPopulator
             $member->setPassword($hashed);
         }
 
-        $member->setFaculty($data['faculty']);
         $member->setFieldOfStudy($data['field_of_study']);
         $member->setYearOfGraduation($data['year_of_graduation']);
         $member->setBoardMember(array_get($data, 'board_member', 0) == 1);
@@ -66,6 +68,11 @@ class MembersPopulator
 
         if (isset($data['alumni_member'])) {
             $member->setAlumniMember($data['alumni_member'] == 1);
+        }
+
+        if (isset($data['faculty'])) {
+            $faculty = $this->faculties->get($data['faculty']);
+            $member->setFaculty($faculty);
         }
 
         $member->setFacebook($data['facebook']);

@@ -109,10 +109,19 @@
                         <legend>Education:</legend>
 
                         <div class="form-group">
-                            <label for="faculty">Faculty:
-                                <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="faculty" name="faculty"
-                                   value="{{ member.getFaculty() }}">
+                            <label for="faculty">
+                                Faculty:
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-control" id="faculty" name="faculty">
+                                {% for faculty in faculties %}
+                                    <option value="{{ faculty.getId() }}"
+                                            {% if faculty.getId() == member.getFaculty().getId() %}selected{% endif %}>
+                                        {{ faculty }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
                         </div>
 
                         <div class="form-group">

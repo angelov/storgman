@@ -93,8 +93,15 @@
                                 Faculty:
                                 <span class="text-danger">*</span>
                             </label>
-                            <input type="text" class="form-control" id="faculty" name="faculty"
-                                   value="{{ Input.old('faculty') }}">
+                            <select class="form-control" id="faculty" name="faculty">
+                                {% for faculty in faculties %}
+                                    <option value="{{ faculty.getId() }}"
+                                            {% if faculty.getId() == Input.old('faculty') %}selected{% endif %}>
+                                        {{ faculty }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
                         </div>
 
                         <div class="form-group">
