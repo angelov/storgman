@@ -75,4 +75,9 @@ class Faculty extends Model
     {
         $this->setAttribute('enabled', $enabled === true);
     }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }

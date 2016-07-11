@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Members;
 
+use Angelov\Eestec\Platform\Faculties\Faculty;
 use Angelov\Eestec\Platform\Meetings\Meeting;
 use Angelov\Eestec\Platform\Membership\Fee;
 use Carbon\Carbon;
@@ -111,17 +112,22 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->getFirstName() . " " . $this->getLastName();
     }
 
-    public function getFaculty()
+    public function faculty()
     {
-        return $this->getAttribute('faculty');
+        return $this->belongsTo(Faculty::class, 'faculty_id');
     }
 
     /**
-     * @param string $faculty
+     * @return Faculty
      */
-    public function setFaculty($faculty)
+    public function getFaculty()
     {
-        $this->setAttribute('faculty', $faculty);
+        return $this->faculty;
+    }
+
+    public function setFaculty(Faculty $faculty)
+    {
+        $this->faculty()->associate($faculty);
     }
 
     public function getFieldOfStudy()
