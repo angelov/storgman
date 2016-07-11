@@ -32,7 +32,6 @@ use Angelov\Eestec\Platform\Core\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Membership\Reports\MembershipStatusReport;
-use Angelov\Eestec\Platform\Members\Reports\MembersPerFacultyReport;
 use Angelov\Eestec\Platform\Members\Reports\NewMembersPerMonthReport;
 
 interface MembersRepositoryInterface extends RepositoryInterface
@@ -76,13 +75,6 @@ interface MembersRepositoryInterface extends RepositoryInterface
      * @return array
      */
     public function getByBirthdayDate(DateTime $date);
-
-    /**
-     * Counts the members per faculties
-     *
-     * @return MembersPerFacultyReport
-     */
-    public function countPerFaculty();
 
     /**
      * Counts the number of new members per months in a given period

@@ -30,6 +30,7 @@ namespace Angelov\Eestec\Platform\Faculties\Repositories;
 use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
 use Angelov\Eestec\Platform\Faculties\Faculty;
+use Angelov\Eestec\Platform\Faculties\Reports\MembersPerFacultyReport;
 
 interface FacultiesRepositoryInterface extends RepositoryInterface
 {
@@ -58,4 +59,11 @@ interface FacultiesRepositoryInterface extends RepositoryInterface
      * @return Faculty[]
      */
     public function getEnabled();
+
+    /**
+     * Counts the members per faculties
+     *
+     * @return MembersPerFacultyReport
+     */
+    public function countPerFaculty();
 }

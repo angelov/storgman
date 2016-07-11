@@ -48,8 +48,9 @@ class FacultiesController extends BaseController
     public function index()
     {
         $faculties = $this->faculties->all();
+        $perFaculty = json_encode($this->faculties->countPerFaculty());
 
-        return view('settings.faculties.index', compact('faculties'));
+        return view('settings.faculties.index', compact('faculties', 'perFaculty'));
     }
 
     /**

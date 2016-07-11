@@ -31,7 +31,6 @@ use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
 use Angelov\Eestec\Platform\Core\DateTime;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Membership\Reports\MembershipStatusReport;
-use Angelov\Eestec\Platform\Members\Reports\MembersPerFacultyReport;
 use Angelov\Eestec\Platform\Members\Reports\NewMembersPerMonthReport;
 use DB;
 
@@ -80,30 +79,6 @@ class EloquentMembersRepository extends AbstractEloquentRepository implements Me
         )->get()->all();
 
         return $members;
-    }
-
-    public function countPerFaculty()
-    {
-
-        // The query works with both MySQL and PostgreSQL
-        $results = (array)DB::select(
-            '
-                SELECT faculty,
-                       count(id) AS members
-                FROM members
-                GROUP BY faculty
-                ORDER BY members DESC;
-            '
-        );
-
-        $report = new MembersPerFacultyReport();
-
-        foreach ($results as $current) {
-            $current = (array)$current;
-            $report->addFaculty($current["faculty"], $current["members"]);
-        }
-
-        return $report;
     }
 
     public function countNewMembersPerMonth(DateTime $from, DateTime $to)

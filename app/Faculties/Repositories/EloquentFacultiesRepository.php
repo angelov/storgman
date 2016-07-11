@@ -29,6 +29,8 @@ namespace Angelov\Eestec\Platform\Faculties\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
 use Angelov\Eestec\Platform\Faculties\Faculty;
+use Angelov\Eestec\Platform\Faculties\Reports\MembersPerFacultyReport;
+use Illuminate\Support\Facades\DB;
 
 class EloquentFacultiesRepository extends AbstractEloquentRepository implements FacultiesRepositoryInterface
 {
@@ -45,5 +47,41 @@ class EloquentFacultiesRepository extends AbstractEloquentRepository implements 
     public function getEnabled()
     {
         return Faculty::where('enabled', true)->get()->all();
+    }
+
+    public function countPerFaculty()
+    {
+        // The query works with both MySQL and PostgreSQL
+        $results = (array)DB::select(
+            '
+                SELECT faculty_id,
+                       count(id) AS members
+                FROM members
+                WHERE faculty_id IS NOT NULL
+                AND members.approved = TRUE
+                GROUP BY faculty_id
+                ORDER BY members DESC;
+            '
+        );
+
+        $resultsById = [];
+
+        foreach ($results as $result) {
+            $resultsById[$result->faculty_id] = (int) $result->members;
+        }
+
+        $ids = array_keys($resultsById);
+
+        /** @var Faculty[] $faculties */
+        $faculties = $this->getByIds($ids);
+
+        $report = new MembersPerFacultyReport();
+
+        foreach ($faculties as $faculty) {
+            $count = $resultsById[$faculty->getId()];
+            $report->addFaculty($faculty, $count);
+        }
+
+        return $report;
     }
 }

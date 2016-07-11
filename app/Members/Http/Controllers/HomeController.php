@@ -29,6 +29,7 @@ namespace Angelov\Eestec\Platform\Members\Http\Controllers;
 
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Core\DateTime;
+use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Member;
 use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
@@ -39,16 +40,19 @@ class HomeController extends BaseController
 {
     protected $members;
     protected $meetings;
+    protected $faculties;
     protected $membersStats;
 
     public function __construct(
         MembersRepositoryInterface $members,
         MeetingsRepositoryInterface $meetings,
+        FacultiesRepositoryInterface $faculties,
         MembersStatisticsService $membersStats
     ) {
         $this->members = $members;
         $this->meetings = $meetings;
         $this->membersStats = $membersStats;
+        $this->faculties = $faculties;
     }
 
     public function showHomepage(Guard $auth)
@@ -66,7 +70,7 @@ class HomeController extends BaseController
         $withBirthday = $this->members->getByBirthdayDate($today);
         $attendance = $this->meetings->calculateAttendanceDetails();
         $byMembershipStatus = $this->members->countByMembershipStatus();
-        $perFaculty = json_encode($this->members->countPerFaculty());
+        $perFaculty = json_encode($this->faculties->countPerFaculty());
 
         $perMonthAll = $this->membersStats->newMembersMonthlyLastYear();
 

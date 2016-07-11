@@ -2,7 +2,7 @@
 
 /**
  * EESTEC Platform for Local Committees
- * Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  *
  * This file is part of EESTEC Platform.
  *
@@ -20,26 +20,24 @@
  * along with EESTEC Platform.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package EESTEC Platform
- * @copyright Copyright (C) 2014, Dejan Angelov <angelovdejan92@gmail.com>
+ * @copyright Copyright (C) 2014-2016, Dejan Angelov <angelovdejan92@gmail.com>
  * @license https://github.com/angelov/eestec-platform/blob/master/LICENSE
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Reports;
+namespace Angelov\Eestec\Platform\Faculties\Reports;
 
+use Angelov\Eestec\Platform\Faculties\Faculty;
 use JsonSerializable;
 
+// @todo can be improved
 class MembersPerFacultyReport implements JsonSerializable
 {
     protected $faculties = [];
 
-    /**
-     * @param string $faculty The faculty's name
-     * @param integer $countMembers Number of members who go to the specific faculty
-     */
-    public function addFaculty($faculty, $countMembers)
+    public function addFaculty(Faculty $faculty, $count)
     {
-        $this->faculties[$faculty] = $countMembers;
+        $this->faculties[] = [$faculty, $count];
     }
 
     public function getFaculties()
@@ -51,8 +49,11 @@ class MembersPerFacultyReport implements JsonSerializable
     {
         $faculties = [];
 
-        foreach ($this->faculties as $faculty => $count) {
-            $faculties[] = [$faculty, (int)$count];
+        foreach ($this->faculties as $current) {
+            $count = $current[1];
+            /** @var Faculty $faculty */
+            $faculty = $current[0];
+            $faculties[] = [$faculty->getAbbreviation(), (int)$count];
         }
 
         return $faculties;
