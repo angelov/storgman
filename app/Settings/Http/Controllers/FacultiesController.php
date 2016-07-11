@@ -31,6 +31,7 @@ use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Faculties\Commands\ChangeFacultyStatusCommand;
 use Angelov\Eestec\Platform\Faculties\Commands\DeleteFacultyCommand;
 use Angelov\Eestec\Platform\Faculties\Commands\StoreFacultyCommand;
+use Angelov\Eestec\Platform\Faculties\Commands\UpdateFacultyCommand;
 use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
 use Angelov\Eestec\Platform\Settings\Http\Requests\StoreFacultyRequest;
 use Illuminate\Http\JsonResponse;
@@ -95,5 +96,23 @@ class FacultiesController extends BaseController
         dispatch(new DeleteFacultyCommand($id));
 
         return $this->successfulJsonResponse("Faculty successfully deleted");
+    }
+
+    public function edit($id)
+    {
+        $faculty = $this->faculties->get($id);
+
+        return view('settings.faculties.modals.modal-edit-faculty', compact('faculty'))->render();
+    }
+
+    public function update($id, StoreFacultyRequest $request)
+    {
+        $title = $request->get('title');
+        $abbreviation = $request->get('abbreviation');
+        $university = $request->get('university');
+
+        dispatch(new UpdateFacultyCommand($id, $title, $abbreviation, $university));
+
+        return $this->successfulJsonResponse("Faculty successfully updated.");
     }
 }

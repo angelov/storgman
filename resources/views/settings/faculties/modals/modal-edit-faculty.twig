@@ -1,0 +1,47 @@
+<div class="modal-dialog modal-md" id="modal-edit-faculty-{{ faculty.getId() }}">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Edit faculty</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="alert alert-dismissable" id="status-update-faculty" style="display: none;" role="alert">
+                <a class="close" data-hide="alert" href="#">×</a>
+                <div id="status-update-faculty-message"></div>
+            </div>
+
+            <form role="form" method="post" action="{{ route('settings.faculties.update', faculty.getId()) }}">
+                <input type="hidden" id="csrf-token" name="_token" value="{{ csrf_token() }}" />
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="title">Title:</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Faculty title" value="{{ faculty.getTitle() }}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="abbreviation">Abbreviation:</label>
+                            <input type="text" class="form-control col-md-4" id="abbreviation" name="abbreviation" placeholder="eg. FEEIT" value="{{ faculty.getAbbreviation() }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="university">University:</label>
+                            <input type="text" class="form-control" id="university" name="university" placeholder="University title" value="{{ faculty.getUniversity() }}">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <p class="small text-muted pull-left"><span class="text-warning">*</span> All fields are required</p>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btn-update-faculty">Save</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

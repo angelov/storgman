@@ -1,7 +1,7 @@
 <tr {% if not faculty.isEnabled() %} class="text-muted" {% endif %} data-id="{{ faculty.getId() }}">
-    <td>{{ faculty.getTitle() }}</td>
-    <td>{{ faculty.getAbbreviation() }}</td>
-    <td>{{ faculty.getUniversity() }}</td>
+    <td class="title-cell">{{ faculty.getTitle() }}</td>
+    <td class="abbreviation-cell">{{ faculty.getAbbreviation() }}</td>
+    <td class="university-cell">{{ faculty.getUniversity() }}</td>
     <td class="text-right">
 
         <a href="{{ route('settings.faculties.disable', faculty.getId()) }}" data-toggle="tooltip"
@@ -15,8 +15,8 @@
             <i class="glyphicon glyphicon-ok-circle"></i>
         </a>
 
-        <a href="#" data-toggle="tooltip"
-           data-placement="top" title="Edit" class="has-tooltip">
+        <a href="{{ route('settings.faculties.edit', faculty.getId()) }}" data-toggle="tooltip"
+           data-placement="top" title="Edit" class="has-tooltip btn-edit-faculty">
             <i class="glyphicon glyphicon-pencil"></i>
         </a>
 

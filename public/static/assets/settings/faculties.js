@@ -129,4 +129,77 @@ $(function() {
         return false;
     });
 
+    var editingId = null;
+
+    $(document).on("click", ".btn-edit-faculty", function(e) {
+
+        var url = $(this).attr("href");
+        var modal = $("#modal-edit-faculty");
+        editingId = $(this).parents("tr").data('id');
+
+        $.ajax({
+            type: 'get',
+            url: url,
+            success: function (data) {
+                modal.html(data);
+                modal.modal('show');
+
+            }
+        });
+
+        e.preventDefault();
+        return false;
+    });
+
+    $(document).on("click", ".btn-update-faculty", function(e) {
+
+        var modal = $("#modal-edit-faculty");
+        var modalBody = modal.find(".modal-body");
+        var form = modalBody.find('form');
+        var url = form.attr('action');
+        var token = $("#csrf-token").val();
+        var titleField = form.find("#title");
+        var universityField = form.find("#university");
+        var abbreviationField = form.find("#abbreviation");
+
+        $.ajax({
+            type: 'put',
+            url: url,
+            dataType: "json",
+            data: {
+                _token: token,
+                title: titleField.val(),
+                university: universityField.val(),
+                abbreviation: abbreviationField.val()
+            },
+            success: function (data) {
+
+                var el = $("#status-update-faculty");
+                var msgField = el.find("#status-update-faculty-message");
+
+                if (data.status == "success") {
+                    msgField.html(data.message);
+                    el.addClass('alert-success');
+                }
+
+                var row = $("#supported-faculties-table").find("[data-id='" + editingId + "']");
+
+                row.find(".title-cell").html(titleField.val());
+                row.find(".university-cell").html(universityField.val());
+                row.find(".abbreviation-cell").html(abbreviationField.val());
+
+                el.show();
+
+                setTimeout(function(){
+                    modal.modal('hide');
+                }, 1000);
+
+            }
+        });
+
+        e.preventDefault();
+        return false;
+
+    });
+
 });
