@@ -115,12 +115,19 @@ $(function() {
             },
             success: function (data) {
 
+                el.removeClass("alert-danger");
+                el.removeClass("alert-success");
+
                 if (data.status == "success") {
                     el.find("#action-status-message").html(data.message);
                     el.addClass("alert-success");
                     row.hide();
-                    el.show();
+                } else {
+                    el.find("#action-status-message").html("<strong>Error:</strong> " + data.message);
+                    el.addClass("alert-danger");
                 }
+
+                el.show();
 
             }
         });

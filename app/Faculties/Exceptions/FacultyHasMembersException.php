@@ -25,31 +25,8 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties\Handlers;
+namespace Angelov\Eestec\Platform\Faculties\Exceptions;
 
-use Angelov\Eestec\Platform\Faculties\Commands\DeleteFacultyCommand;
-use Angelov\Eestec\Platform\Faculties\Exceptions\FacultyHasMembersException;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
-
-class DeleteFacultyCommandHandler
+class FacultyHasMembersException extends \Exception
 {
-    protected $faculties;
-
-    public function __construct(FacultiesRepositoryInterface $faculties)
-    {
-        $this->faculties = $faculties;
-    }
-
-    public function handle(DeleteFacultyCommand $command)
-    {
-        $id = $command->getFacultyId();
-
-        $faculty = $this->faculties->get($id);
-
-        if ($faculty->hasMembers()) {
-            throw new FacultyHasMembersException();
-        }
-
-        $this->faculties->destroy($command->getFacultyId());
-    }
 }

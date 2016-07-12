@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Faculties;
 
+use Angelov\Eestec\Platform\Members\Member;
 use Illuminate\Database\Eloquent\Model;
 
 class Faculty extends Model
@@ -74,6 +75,16 @@ class Faculty extends Model
     public function setEnabled($enabled)
     {
         $this->setAttribute('enabled', $enabled === true);
+    }
+
+    public function members()
+    {
+        return $this->hasMany(Member::class);
+    }
+
+    public function hasMembers()
+    {
+        return $this->members()->count() > 0;
     }
 
     public function __toString()

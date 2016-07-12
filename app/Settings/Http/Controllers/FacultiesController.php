@@ -32,6 +32,7 @@ use Angelov\Eestec\Platform\Faculties\Commands\ChangeFacultyStatusCommand;
 use Angelov\Eestec\Platform\Faculties\Commands\DeleteFacultyCommand;
 use Angelov\Eestec\Platform\Faculties\Commands\StoreFacultyCommand;
 use Angelov\Eestec\Platform\Faculties\Commands\UpdateFacultyCommand;
+use Angelov\Eestec\Platform\Faculties\Exceptions\FacultyHasMembersException;
 use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
 use Angelov\Eestec\Platform\Settings\Http\Requests\StoreFacultyRequest;
 use Illuminate\Http\JsonResponse;
@@ -94,7 +95,11 @@ class FacultiesController extends BaseController
 
     public function delete($id)
     {
-        dispatch(new DeleteFacultyCommand($id));
+        try {
+            dispatch(new DeleteFacultyCommand($id));
+        } catch (FacultyHasMembersException $e) {
+            return $this->errorJsonResponse("There are members who have chosen the faculty you wanted to delete. Please disable it instead.");
+        }
 
         return $this->successfulJsonResponse("Faculty successfully deleted");
     }
