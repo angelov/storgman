@@ -74,7 +74,7 @@
                             <span class="label label-warning">Unapproved</span>
                         {% endif %}
                     </td>
-                    <td>{{ member.getFaculty() }}</td>
+                    <td><span title="{{ member.getFaculty().getTitle() }}">{{ member.getFaculty().getAbbreviation() }}</span></td>
                     <td>{{ member.getFieldOfStudy() }}</td>
                     <td class="text-right">
                         {# view member details #}
