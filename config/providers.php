@@ -86,4 +86,8 @@ return [
 
     Angelov\Eestec\Platform\Faculties\Providers\FacultiesRepositoryServiceProvider::class,
 
+    // Local Committees
+
+    Angelov\Eestec\Platform\LocalCommittees\Cities\Providers\CitiesRepositoryServiceProvider::class,
+
 ];
