@@ -70,8 +70,6 @@ class AttachmentsController extends BaseController
         $file = $filesystem->find($attachment->getStorageFilename());
         $content = $filesystem->read($file);
 
-        return response($content)
-                    ->header('Content-Type', $file->getMimeType())
-                    ->header('Content-Disposition', sprintf('attachment;filename="%s"', $attachment->getFilename()));
+        return response($content)->header('Content-Disposition', sprintf('attachment;filename="%s"', $attachment->getFilename()));
     }
 }

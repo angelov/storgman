@@ -55,9 +55,4 @@ class File
 
         return $parts[count($parts) - 1];
     }
-
-    public function getMimeType()
-    {
-        return mime_content_type($this->path);
-    }
 }
