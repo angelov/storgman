@@ -25,29 +25,35 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Commands;
+namespace Angelov\Eestec\Platform\Core\FileSystem;
 
-use Angelov\Eestec\Platform\Core\Command;
-use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
-
-class StoreAttachmentCommand extends Command
+class FileSystemsRegistry
 {
-    protected $file;
-    protected $ownerId;
+    protected $map;
 
-    public function __construct(AttachmentFile $file, $ownerId)
+    /**
+     * @param string $subject
+     * @param FileSystemInterface $filesystem
+     */
+    public function addFileSystem($subject, FileSystemInterface $filesystem)
     {
-        $this->file = $file;
-        $this->ownerId = $ownerId;
+        $this->map[$subject] = $filesystem;
     }
 
-    public function getFile()
+    /**
+     * @param $subject
+     * @return FileSystemInterface
+     * @throws FileSystemNotFoundException
+     */
+    public function get($subject)
     {
-        return $this->file;
-    }
+        if (!isset($this->map)) {
+            throw new FileSystemNotFoundException(sprintf(
+                "Could not find a file system for \"%s\"",
+                $subject
+            ));
+        }
 
-    public function getOwnerId()
-    {
-        return $this->ownerId;
+        return $this->map[$subject];
     }
 }

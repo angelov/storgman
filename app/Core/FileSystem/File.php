@@ -25,29 +25,39 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Commands;
+namespace Angelov\Eestec\Platform\Core\FileSystem;
 
-use Angelov\Eestec\Platform\Core\Command;
-use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
-
-class StoreAttachmentCommand extends Command
+class File
 {
-    protected $file;
-    protected $ownerId;
+    protected $filename;
+    protected $path;
 
-    public function __construct(AttachmentFile $file, $ownerId)
+    public function __construct($filename, $path = "")
     {
-        $this->file = $file;
-        $this->ownerId = $ownerId;
+        $this->filename = $filename;
+        $this->path = $path;
     }
 
-    public function getFile()
+    public function getFilename()
     {
-        return $this->file;
+        return $this->filename;
     }
 
-    public function getOwnerId()
+    public function getPath()
     {
-        return $this->ownerId;
+        return $this->path;
+    }
+
+    public function getExtension()
+    {
+        $filename = $this->getFilename();
+        $parts = explode(".", $filename);
+
+        return $parts[count($parts) - 1];
+    }
+
+    public function getMimeType()
+    {
+        return mime_content_type($this->path);
     }
 }

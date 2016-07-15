@@ -27,7 +27,9 @@
 
 namespace Angelov\Eestec\Platform\Meetings\Attachments\Handlers;
 
+use Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistry;
 use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
+use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
 use Angelov\Eestec\Platform\Meetings\Attachments\Commands\StoreAttachmentCommand;
 use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
 use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
@@ -36,11 +38,16 @@ class StoreAttachmentCommandHandler
 {
     protected $members;
     protected $attachments;
+    protected $filesystem;
 
-    public function __construct(MembersRepositoryInterface $members, AttachmentsRepositoryInterface $attachments)
+    public function __construct(
+        MembersRepositoryInterface $members,
+        AttachmentsRepositoryInterface $attachments,
+        FileSystemsRegistry $filesystems)
     {
         $this->members = $members;
         $this->attachments = $attachments;
+        $this->filesystem = $filesystems->get(AttachmentFile::class);
     }
 
     public function handle(StoreAttachmentCommand $command)
@@ -51,17 +58,16 @@ class StoreAttachmentCommandHandler
         $attachment->setOwner($owner);
 
         $file = $command->getFile();
-        $filename = $file->getClientOriginalName();
-        $size = $this->convertSizeToKilobytes($file->getSize());
+        $filename = $file->getFilename();
+
+        $size = $this->convertSizeToKilobytes(100000); // todo fix
 
         $attachment->setFilename($filename);
         $attachment->setSize($size);
 
-        // @todo refactor
-        $filename = md5($file->getClientOriginalName()) . "_" . md5(rand(0, 10000)) . "." . $file->getClientOriginalExtension();
-        $file->move(storage_path("meetings/attachments"), $filename);
+        $file = $this->filesystem->store($file, true);
 
-        $attachment->setStorageFilename($filename);
+        $attachment->setStorageFilename($file->getFilename());
 
         $this->attachments->store($attachment);
 

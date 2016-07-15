@@ -25,29 +25,36 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Commands;
+namespace Angelov\Eestec\Platform\Core\FileSystem;
 
-use Angelov\Eestec\Platform\Core\Command;
-use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
 
-class StoreAttachmentCommand extends Command
+class FileSystemsRegistryServiceProvider extends ServiceProvider
 {
-    protected $file;
-    protected $ownerId;
-
-    public function __construct(AttachmentFile $file, $ownerId)
+    public function register()
     {
-        $this->file = $file;
-        $this->ownerId = $ownerId;
-    }
+        $this->app->singleton(FileSystemsRegistry::class, function(Application $app) {
 
-    public function getFile()
-    {
-        return $this->file;
-    }
+            $registry = new FileSystemsRegistry();
 
-    public function getOwnerId()
-    {
-        return $this->ownerId;
+            /** @var ConfigRepository $config */
+            $config = $app->make(ConfigRepository::class);
+            $map = $config->get('filesystems.map');
+
+            foreach ($map as $subject => $details) {
+                $filesystem = $details['filesystem'];
+
+                /** @var FileSystemInterface $filesystem */
+                $filesystem = $app->make($filesystem);
+                $filesystem->setBasePath($details['base_path']);
+
+                $registry->addFileSystem($subject, $filesystem);
+            }
+
+            return $registry;
+
+        });
     }
 }

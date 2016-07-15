@@ -1,6 +1,18 @@
 <?php
 
+use Angelov\Eestec\Platform\Core\FileSystem\LocalFileSystem;
+use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
+
 return [
+
+    'map' => [
+
+        AttachmentFile::class => [
+            'filesystem' => LocalFileSystem::class,
+            'base_path' => storage_path("/meetings/attachments")
+        ]
+
+    ],
 
     /*
     |--------------------------------------------------------------------------

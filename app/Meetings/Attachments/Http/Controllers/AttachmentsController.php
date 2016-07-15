@@ -27,8 +27,10 @@
 
 namespace Angelov\Eestec\Platform\Meetings\Attachments\Http\Controllers;
 
+use Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistry;
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
 use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
+use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
 use Angelov\Eestec\Platform\Meetings\Attachments\Commands\StoreAttachmentCommand;
 use Angelov\Eestec\Platform\Meetings\Attachments\Http\Requests\StoreAttachmentRequest;
 use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
@@ -52,17 +54,24 @@ class AttachmentsController extends BaseController
         $owner = $auth->user();
         $owner = $owner->getId();
 
+        $file = new AttachmentFile($file->getClientOriginalName(), $file->getRealPath());
+
         /** @var Attachment $attachment */
         $attachment = dispatch(new StoreAttachmentCommand($file, $owner));
 
         return $attachment->getId();
     }
 
-    public function show($id)
+    public function show($id, FileSystemsRegistry $registry)
     {
         $attachment = $this->attachments->get($id);
-        $path = storage_path('meetings/attachments/') . $attachment->getStorageFilename();
+        $filesystem = $registry->get(AttachmentFile::class);
 
-        return response()->download($path, $attachment->getFilename());
+        $file = $filesystem->find($attachment->getStorageFilename());
+        $content = $filesystem->read($file);
+
+        return response($content)
+                    ->header('Content-Type', $file->getMimeType())
+                    ->header('Content-Disposition', sprintf('attachment;filename="%s"', $attachment->getFilename()));
     }
 }

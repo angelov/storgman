@@ -50,6 +50,7 @@ return [
     Angelov\Eestec\Platform\Core\Providers\BusServiceProvider::class,
     Angelov\Eestec\Platform\Core\Providers\ConfigServiceProvider::class,
     Angelov\Eestec\Platform\Core\Providers\RouteServiceProvider::class,
+    Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistryServiceProvider::class,
 
     // Members
 

@@ -25,29 +25,8 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Commands;
+namespace Angelov\Eestec\Platform\Core\FileSystem;
 
-use Angelov\Eestec\Platform\Core\Command;
-use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
-
-class StoreAttachmentCommand extends Command
+class FileSystemNotFoundException extends \Exception
 {
-    protected $file;
-    protected $ownerId;
-
-    public function __construct(AttachmentFile $file, $ownerId)
-    {
-        $this->file = $file;
-        $this->ownerId = $ownerId;
-    }
-
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    public function getOwnerId()
-    {
-        return $this->ownerId;
-    }
 }

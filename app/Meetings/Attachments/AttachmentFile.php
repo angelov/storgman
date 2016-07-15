@@ -25,29 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Commands;
+namespace Angelov\Eestec\Platform\Meetings\Attachments;
 
-use Angelov\Eestec\Platform\Core\Command;
-use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
+use Angelov\Eestec\Platform\Core\FileSystem\File;
 
-class StoreAttachmentCommand extends Command
+class AttachmentFile extends File
 {
-    protected $file;
-    protected $ownerId;
-
-    public function __construct(AttachmentFile $file, $ownerId)
-    {
-        $this->file = $file;
-        $this->ownerId = $ownerId;
-    }
-
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    public function getOwnerId()
-    {
-        return $this->ownerId;
-    }
 }
