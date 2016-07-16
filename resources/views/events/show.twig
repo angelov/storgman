@@ -6,7 +6,7 @@
 
     <div class="row vertical-center">
         <div class="col-md-7">
-            <h1 style="margin-bottom: 30px;">Startup Lab: Upcoming Technologies</h1>
+            <h1 style="margin-bottom: 30px;">{{ event.getTitle() }}</h1>
         </div>
     </div>
 
@@ -15,29 +15,32 @@
         <div class="col-md-3">
             <ul class="list-group text-right">
                 <li class="list-group-item text-muted text-left">About the event</li>
+                <li class="list-group-item text-left small">
+                    <img src="{{ route('events.image', event.getId()) }}"
+                         class="image" style="width: 100%; margin-bottom: 10px" />
+
+                    <p>{{ event.getDescription() }}</p>
+                </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Host:</strong></span>
-                    LC Zurich
+                    {{ event.getHost().getTitle() }}
                 </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Date:</strong></span>
-                    May 15 - May 22, 2016
+                    {{ event.getStartDate()|date("M d") }} -
+                    {{ event.getEndDate()|date("M d, Y") }}
                 </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Deadline:</strong></span>
-                    April 12, 11:59 p.m.
+                    {{ event.getDeadline()|date('d F Y, H:i') }}
                 </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Time left:</strong></span>
                     19 days
                 </li>
-                <li class="list-group-item">
-                    <span class="pull-left"><strong>Participants:</strong></span>
-                    15
-                </li>
                 <li class="list-group-item text-center">
 
-                    <a href="" class="btn btn-default btn-sm" style="">
+                    <a href="{{ event.getUrl() }}" class="btn btn-default btn-sm" style="" target="_blank">
                         <i class="glyphicon glyphicon-new-window" style="margin-right: 3px;"></i>
                         Apply on <strong><span style="color: red">eestec.net</span></strong>
                     </a>
@@ -45,28 +48,13 @@
             </ul>
 
             <ul class="list-group text-right">
-                <li class="list-group-item text-muted text-left">Zurich</li>
+                {% set city = event.getHost().getCity() %}
+                <li class="list-group-item text-muted text-left">{{ city.getName() }}, {{ city.getCountry() }}</li>
                 <li class="list-group-item text-left small">
                     <img src="https://cdn.zuerich.com/sites/default/files/styles/viewport_xxl/public/frontpage/web_zurich_viewport_scheffold-icon1_1600x900_03.jpg?itok=nkhg7eKF"
                          class="image" style="width: 100%; margin-bottom: 10px" />
 
-                    <p>The city of Zurich lies at the north end of Lake Zurich in northern Switzerland,
-                        a global center for banking and finance. The picturesque lanes of the central
-                        Altstadt (Old Town), on either side of the Limmat River, reflect its premedieval
-                        history. Waterfront promenades like the Limmatquai follow the river toward the
-                        17th-century Rathaus (town hall).</p>
-                </li>
-                <li class="list-group-item">
-                    <span class="pull-left"><strong>Deadline:</strong></span>
-                    April 12, 11:59 p.m.
-                </li>
-                <li class="list-group-item">
-                    <span class="pull-left"><strong>Time left:</strong></span>
-                    15 days
-                </li>
-                <li class="list-group-item">
-                    <span class="pull-left"><strong>Participants:</strong></span>
-                    15
+                    <p>{{ city.getDetails() }}</p>
                 </li>
             </ul>
         </div>
@@ -75,7 +63,6 @@
 
             <ul class="list-group text-right">
                 <li class="list-group-item text-left">
-                    {#<img src="{{ asset('static/assets/img/default-member-photo.png') }}" class="img-thumbnail" style="width: 50px" />#}
                     <form>
                         <div class="form-group">
                             <textarea class="form-control" placeholder="Leave a comment!" rows="3"></textarea>
