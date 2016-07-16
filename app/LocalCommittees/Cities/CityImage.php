@@ -25,12 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Illuminate\Routing\Router;
+namespace Angelov\Eestec\Platform\LocalCommittees\Cities;
 
-/** @var Router $router */
+use Angelov\Eestec\Platform\Core\FileSystem\File;
 
-$router->group(['cities' => 'settings', 'namespace' => 'LocalCommittees\Cities\Http\Controllers', 'middleware' => ['auth']], function (Router $router) {
-
-    $router->get('/{id}/image', ['as' => 'local-committees.cities.image', 'uses' => 'CitiesController@image']);
-
-});
+class CityImage extends File
+{
+}

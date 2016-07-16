@@ -37,4 +37,10 @@ interface CitiesRepositoryInterface extends RepositoryInterface
      * @return void
      */
     public function store(City $city);
+
+    /**
+     * @param $id
+     * @return City
+     */
+    public function get($id);
 }

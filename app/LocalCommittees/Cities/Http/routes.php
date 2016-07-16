@@ -29,8 +29,11 @@ use Illuminate\Routing\Router;
 
 /** @var Router $router */
 
-$router->group(['cities' => 'settings', 'namespace' => 'LocalCommittees\Cities\Http\Controllers', 'middleware' => ['auth']], function (Router $router) {
+$router->group(['prefix' => 'news', 'namespace' => 'News\Http\Controllers'], function (Router $router) {
 
-    $router->get('/{id}/image', ['as' => 'local-committees.cities.image', 'uses' => 'CitiesController@image']);
+    // experimental, used simply to display the template
+    $router->get('/create', function(){
+        return view('news.create');
+    });
 
 });

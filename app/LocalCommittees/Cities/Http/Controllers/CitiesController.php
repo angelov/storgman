@@ -25,12 +25,32 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Illuminate\Routing\Router;
+namespace Angelov\Eestec\Platform\LocalCommittees\Cities\Http\Controllers;
 
-/** @var Router $router */
+use Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistry;
+use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
+use Angelov\Eestec\Platform\LocalCommittees\Cities\CityImage;
+use Angelov\Eestec\Platform\LocalCommittees\Cities\Repositories\CitiesRepositoryInterface;
 
-$router->group(['cities' => 'settings', 'namespace' => 'LocalCommittees\Cities\Http\Controllers', 'middleware' => ['auth']], function (Router $router) {
+class CitiesController extends BaseController
+{
+    protected $cities;
 
-    $router->get('/{id}/image', ['as' => 'local-committees.cities.image', 'uses' => 'CitiesController@image']);
+    public function __construct(CitiesRepositoryInterface $cities)
+    {
+        $this->cities = $cities;
+    }
 
-});
+    public function image($id, FileSystemsRegistry $fileSystemsRegistry)
+    {
+        $city = $this->cities->get($id);
+        $fileSystem = $fileSystemsRegistry->get(CityImage::class);
+
+        $image = $city->getImage();
+
+        $image = $fileSystem->find($image);
+        $content = $fileSystem->read($image);
+
+        return response($content);
+    }
+}

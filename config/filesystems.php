@@ -2,6 +2,7 @@
 
 use Angelov\Eestec\Platform\Core\FileSystem\LocalFileSystem;
 use Angelov\Eestec\Platform\Events\EventImage;
+use Angelov\Eestec\Platform\LocalCommittees\Cities\CityImage;
 use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
 
 return [
@@ -11,6 +12,11 @@ return [
         AttachmentFile::class => [
             'filesystem' => LocalFileSystem::class,
             'base_path' => storage_path("/meetings/attachments")
+        ],
+
+        CityImage::class => [
+            'filesystem' => LocalFileSystem::class,
+            'base_path' => storage_path("/photos/local-committees/cities")
         ],
 
         EventImage::class => [

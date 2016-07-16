@@ -51,8 +51,7 @@
                 {% set city = event.getHost().getCity() %}
                 <li class="list-group-item text-muted text-left">{{ city.getName() }}, {{ city.getCountry() }}</li>
                 <li class="list-group-item text-left small">
-                    <img src="https://cdn.zuerich.com/sites/default/files/styles/viewport_xxl/public/frontpage/web_zurich_viewport_scheffold-icon1_1600x900_03.jpg?itok=nkhg7eKF"
-                         class="image" style="width: 100%; margin-bottom: 10px" />
+                    <img src="{{ route('local-committees.cities.image', city.getId()) }}" class="image" style="width: 100%; margin-bottom: 10px" />
 
                     <p>{{ city.getDetails() }}</p>
                 </li>
