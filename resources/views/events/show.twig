@@ -115,6 +115,14 @@
 
         <div class="col-md-4">
 
+            <script type="text/javascript">
+                {% set city = event.getHost().getCity() %}
+                var cities = [{
+                    name: "{{ event.getHost().getTitle() }}",
+                    lat: "{{ city.getLocation().getLatitude() }}",
+                    lon: "{{ city.getLocation().getLongitude() }}"
+                }];
+            </script>
             <div id="europe-map"></div>
 
             <ul class="list-group" style="margin-top: 10px;">
@@ -228,13 +236,7 @@
                         "marker": {
                             "symbol": "url({{ asset('static/assets/pin.png') }})"
                         },
-                        "data": [
-                            {
-                                "name": "LC Zurich",
-                                "lat": 47.3667,
-                                "lon": 8.5500
-                            }
-                        ]
+                        "data": cities
                     }]
             });
         });
