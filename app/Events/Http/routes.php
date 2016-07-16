@@ -31,7 +31,8 @@ use Illuminate\Routing\Router;
 
 $router->group(['prefix' => 'events', 'namespace' => 'Events\Http\Controllers'], function (Router $router) {
 
-    $router->get('/', ['as' => 'events.index',   'uses' => 'EventsController@index']);
-    $router->get('/{id}', ['as' => 'events.show',   'uses' => 'EventsController@show']);
+    $router->get('/',           ['as' => 'events.index', 'uses' => 'EventsController@index']);
+    $router->get('/{id}',       ['as' => 'events.show',  'uses' => 'EventsController@show']);
+    $router->get('/{id}/image', ['as' => 'events.image', 'uses' => 'EventsController@image']);
 
 });

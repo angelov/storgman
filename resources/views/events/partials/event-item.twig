@@ -1,0 +1,88 @@
+<script type="text/javascript">
+    {% set city = event.getHost().getCity() %}
+    cities.push({
+        name: "{{ event.getHost().getTitle() }}",
+        lat: "{{ city.getLocation().getLatitude() }}",
+        lon: "{{ city.getLocation().getLongitude() }}"
+    });
+</script>
+
+<div class="panel panel-default document-item">
+    <div class="panel-heading clearfix">
+        <h3 class="panel-title pull-left">{{ event.getTitle() }}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+
+            <div class="col-md-3">
+                <img src="{{ route('events.image', event.getId()) }}"  class="img-thumbnail" style="width: 100%" />
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <table class="table">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <i class="glyphicon glyphicon-home" style="margin-right: 5px;"></i> <strong>{{ event.getHost().getTitle() }}</strong>
+                                                    <span class="pull-right">
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                        <strong>
+                                                            {{ event.getStartDate()|date("M d") }} -
+                                                            {{ event.getEndDate()|date("M d, Y") }}
+                                                        </strong>
+                                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="small">
+                                                {{ event.getDescription() }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row" style=" margin-bottom: -30px;">
+                                        <div class="col-md-6">
+                                            <p class="small" style="margin-top: 5px;"><strong>Deadline:</strong> {{ event.getDeadline()|date('d F Y, H:i') }}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p style="" class="pull-right">
+                                                <a href="" class="btn btn-default btn-sm" style="margin-right: 7px;">
+                                                    <i class="glyphicon glyphicon-comment"  style="margin-right: 3px;"></i> <strong>4</strong> Comments
+                                                </a>
+
+                                                <a href="" class="btn btn-default btn-sm" style="margin-right: 7px;">
+                                                    <i class="glyphicon glyphicon-new-window" style="margin-right: 3px;"></i> View
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

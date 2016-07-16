@@ -14,164 +14,17 @@
 
         <div class="col-md-7">
 
-            <legend>Open for applications:</legend>
+            <legend>Upcoming events:</legend>
 
-            <div class="panel panel-default document-item">
-                <div class="panel-heading clearfix">
-                    <h3 class="panel-title  pull-left document-title">Startup Lab: Upcoming Technologies</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
+            <script type="text/javascript">var cities = [];</script>
+            {% for event in events %}
 
-                        <div class="col-md-3">
-                            <img src="{{ asset('static/assets/event.jpg') }}"  class="img-thumbnail" style="width: 100%" />
-                        </div>
+                {% include "events/partials/event-item.twig" %}
 
-                        <div class="col-md-9">
-
-                            <div class="row">
-
-                                <div class="col-md-12">
-
-                                    <table class="table">
-                                        <thead>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <i class="glyphicon glyphicon-home" style="margin-right: 5px;"></i> <strong>LC Zurich</strong>
-                                                    <span class="pull-right">
-                                                        <i class="glyphicon glyphicon-calendar"></i> <strong>May 15 - May 22, 2016</strong>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <p class="small">
-                                                                What if you could turn one of your dreams into reality? What if you could make a lot of money with it? Ever dreamed about building the next Facebook?
-                                                                What if you could get a glance at what it means to grow your own business from...
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row" style=" margin-bottom: -30px;">
-                                                        <div class="col-md-6">
-                                                            <p class="small" style="margin-top: 5px;"><strong>Deadline:</strong> April 12, 2016, 11:59 p.m.</p>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <p style="" class="pull-right">
-                                                                <a href="" class="btn btn-default btn-sm" style="margin-right: 7px;">
-                                                                    <i class="glyphicon glyphicon-comment"  style="margin-right: 3px;"></i> <strong>4</strong> Comments
-                                                                </a>
-
-                                                                <a href="" class="btn btn-default btn-sm" style="margin-right: 7px;">
-                                                                    <i class="glyphicon glyphicon-new-window" style="margin-right: 3px;"></i> View
-                                                                </a>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-
-
-
-
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel panel-default document-item">
-                <div class="panel-heading clearfix">
-                    <h3 class="panel-title  pull-left document-title">Embedded Minds</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-
-                        <div class="col-md-3">
-                            <img src="{{ asset('static/assets/event.jpg') }}"  class="img-thumbnail" style="width: 100%" />
-                        </div>
-
-                        <div class="col-md-9">
-
-                            <div class="row">
-
-                                <div class="col-md-12">
-
-                                    <table class="table">
-                                        <thead>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <i class="glyphicon glyphicon-home" style="margin-right: 5px;"></i> <strong>LC Bucharest</strong>
-                                                    <span class="pull-right">
-                                                        <i class="glyphicon glyphicon-calendar"></i> <strong>May 8 - May 15, 2016</strong>
-                                                    </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <p class="small">
-                                                            It’s time to find out together what the embedded systems are and how do they work and now we have the opportunity to do it!
-                                                            In the third month of spring, LC Bucharest keeps...
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="row" style=" margin-bottom: -30px;">
-                                                    <div class="col-md-6">
-                                                        <p class="small" style="margin-top: 5px;"><strong>Deadline:</strong> April 6, 2016, 11:59 p.m.</p>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <p style="" class="pull-right">
-                                                            <a href="" class="btn btn-default btn-sm" style="margin-right: 7px;">
-                                                                <i class="glyphicon glyphicon-comment"  style="margin-right: 3px;"></i> <strong>3</strong> Comments
-                                                            </a>
-
-                                                            <a href="" class="btn btn-default btn-sm" style="margin-right: 7px;">
-                                                                <i class="glyphicon glyphicon-new-window" style="margin-right: 3px;"></i> View
-                                                            </a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-
-
-
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
 
             <p class="help-block text-right small">
-                The events are automatically fetched from <a href="#" class="text-danger"><strong>eestec.net</strong></a>.
+                The events are automatically fetched from <a href="http://eestec.net" target="_blank" class="text-danger"><strong>eestec.net</strong></a>.
                 The list is updated daily.
             </p>
 
@@ -182,7 +35,9 @@
             <legend>Map:</legend>
 
 
-
+            <script type="text/javascript">
+                var cities =
+            </script>
             <div id="europe-map" style="height: 500px; min-width: 310px; max-width: 600px;"></div>
 
 
@@ -238,18 +93,7 @@
                         "marker": {
                             "symbol": "url({{ asset('static/assets/pin.png') }})"
                         },
-                        "data": [
-                            {
-                                "name": "LC Zurich",
-                                "lat": 47.3667,
-                                "lon": 8.5500
-                            },
-                            {
-                                "name": "LC Bucharest",
-                                "lat": 44.4268,
-                                "lon": 26.1025
-                            }
-                        ]
+                        "data": cities
                     }]
             });
         });

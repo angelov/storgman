@@ -29,6 +29,7 @@ namespace Angelov\Eestec\Platform\Events\Repositories;
 
 use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
 use Angelov\Eestec\Platform\Events\Event;
+use Carbon\Carbon;
 
 class EloquentEventsRepository extends AbstractEloquentRepository implements EventsRepositoryInterface
 {
@@ -40,5 +41,10 @@ class EloquentEventsRepository extends AbstractEloquentRepository implements Eve
     public function store(Event $event)
     {
         $event->save();
+    }
+
+    public function getUpcoming()
+    {
+        return Event::where('start_date', '>', Carbon::now())->orderBy('start_date', 'ASC')->get()->all();
     }
 }

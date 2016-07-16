@@ -33,8 +33,19 @@ use Angelov\Eestec\Platform\Events\Event;
 interface EventsRepositoryInterface extends RepositoryInterface
 {
     /**
+     * @param $id
+     * @return Event
+     */
+    public function get($id);
+
+    /**
      * @param Event $event
      * @return void
      */
     public function store(Event $event);
+
+    /**
+     * @return Event[]
+     */
+    public function getUpcoming();
 }

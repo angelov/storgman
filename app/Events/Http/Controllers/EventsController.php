@@ -27,17 +27,41 @@
 
 namespace Angelov\Eestec\Platform\Events\Http\Controllers;
 
+use Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistry;
 use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
+use Angelov\Eestec\Platform\Events\EventImage;
+use Angelov\Eestec\Platform\Events\Repositories\EventsRepositoryInterface;
 
 class EventsController extends BaseController
 {
+    protected $events;
+
+    public function __construct(EventsRepositoryInterface $events)
+    {
+        $this->events = $events;
+    }
+
     public function index()
     {
-        return view('events.index');
+        $events = $this->events->getUpcoming();
+
+        return view('events.index', compact('events'));
     }
 
     public function show($id)
     {
         return view('events.show');
+    }
+
+    public function image($id, FileSystemsRegistry $fileSystemsRegistry)
+    {
+        $fileSystem = $fileSystemsRegistry->get(EventImage::class);
+        $event = $this->events->get($id);
+        $image = $event->getImage();
+
+        $image = $fileSystem->find($image);
+        $content = $fileSystem->read($image);
+
+        return response($content);//->header('Content-Disposition', sprintf('attachment;filename="%s"', $image->getFilename()));
     }
 }
