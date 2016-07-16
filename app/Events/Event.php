@@ -58,7 +58,7 @@ class Event extends Model
 
     public function setDescription($desc)
     {
-        $this->setAttribute('desc', $desc);
+        $this->setAttribute('description', $desc);
     }
 
     public function host()
@@ -126,5 +126,15 @@ class Event extends Model
     public function setUrl($url)
     {
         $this->setAttribute('url', $url);
+    }
+
+    public function getImage()
+    {
+        return $this->getAttribute('image');
+    }
+
+    public function setImage($filename)
+    {
+        $this->setAttribute('image', $filename);
     }
 }

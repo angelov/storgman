@@ -90,5 +90,10 @@ return [
     // Local Committees
 
     Angelov\Eestec\Platform\LocalCommittees\Cities\Providers\CitiesRepositoryServiceProvider::class,
+    Angelov\Eestec\Platform\LocalCommittees\Providers\LocalCommitteesRepositoryServiceProvider::class,
+
+    // EESTEC Events
+
+    Angelov\Eestec\Platform\Events\Providers\EventsRepositoryServiceProvider::class,
 
 ];
