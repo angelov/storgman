@@ -162,6 +162,43 @@
                     {% endif %}
                 </li>
             </ul>
+
+            <ul class="list-group" style="margin-top: 10px;">
+                <li class="list-group-item text-muted text-left">
+                    Other events by <strong>{{ event.getHost().getTitle() }}</strong>
+                </li>
+                <li class="list-group-item">
+
+                    {% if event.getHost().getEvents()|length > 1 %}
+
+                        <table class="table table-striped">
+                            <tbody>
+
+                            {% for otherEvent in event.getHost().getEvents() if not otherEvent.equals(event) %}
+
+                                <tr>
+                                    <td>
+                                        <a href="">
+                                            {{ otherEvent.getTitle() }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                            <span class="small">
+                                                {{ event.getStartDate()|date("Y") }}
+                                            </span>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    {% else %}
+                        <p class="small">There are no other events organized by this LC.</p>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
 
     </div>

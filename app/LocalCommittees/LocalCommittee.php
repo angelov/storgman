@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\LocalCommittees;
 
+use Angelov\Eestec\Platform\Events\Event;
 use Angelov\Eestec\Platform\LocalCommittees\Cities\City;
 use Illuminate\Database\Eloquent\Model;
 
@@ -63,5 +64,18 @@ class LocalCommittee extends Model
     public function getCity()
     {
         return $this->city;
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'host_id');
+    }
+
+    /**
+     * @return Event[]
+     */
+    public function getEvents()
+    {
+        return $this->events->all();
     }
 }
