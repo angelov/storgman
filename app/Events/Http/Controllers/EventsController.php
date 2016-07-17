@@ -51,8 +51,9 @@ class EventsController extends BaseController
     public function show($id)
     {
         $event = $this->events->get($id);
+        $upcoming = $this->events->getUpcoming();
 
-        return view('events.show', compact('event'));
+        return view('events.show', compact('event', 'upcoming'));
     }
 
     public function image($id, FileSystemsRegistry $fileSystemsRegistry)

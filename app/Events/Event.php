@@ -137,4 +137,9 @@ class Event extends Model
     {
         $this->setAttribute('image', $filename);
     }
+
+    public function equals(Event $event)
+    {
+        return $event->getId() === $this->getId();
+    }
 }

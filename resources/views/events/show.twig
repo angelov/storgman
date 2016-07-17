@@ -127,61 +127,39 @@
 
             <ul class="list-group" style="margin-top: 10px;">
                 <li class="list-group-item text-muted text-left">
-                    Other events
+                    Other upcoming events
                 </li>
                 <li class="list-group-item">
-                    <table class="table table-striped">
-                        <tbody>
 
-                        <tr>
-                            <td>
-                                Embedded Minds
-                            </td>
-                            <td>
-                                <span class="small">
-                                    <i class="glyphicon glyphicon-home"></i>
-                                    <strong>LC Patras</strong>
-                                </span>
-                            </td>
-                        </tr>
+                    {% if upcoming|length > 0 %}
 
-                        <tr>
-                            <td>
-                                House of Apps
-                            </td>
-                            <td>
-                                <span class="small">
-                                    <i class="glyphicon glyphicon-home"></i>
-                                    <strong>LC Xanthi</strong>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                just PRINT3D
-                            </td>
-                            <td>
-                                <span class="small">
-                                    <i class="glyphicon glyphicon-home"></i>
-                                    <strong>LC Cosenza</strong>
-                                </span>
-                            </td>
-                        </tr>
+                        <table class="table table-striped">
+                            <tbody>
 
-                        <tr>
-                            <td>
-                                Polish Up Your JAVA
-                            </td>
-                            <td>
-                                <span class="small">
-                                    <i class="glyphicon glyphicon-home"></i>
-                                    <strong>LC Gliwice</strong>
-                                </span>
-                            </td>
-                        </tr>
+                                {% for upcomingEvent in upcoming if not upcomingEvent.equals(event) %}
 
-                        </tbody>
-                    </table>
+                                    <tr>
+                                        <td>
+                                            <a href="">
+                                                {{ upcomingEvent.getTitle() }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span class="small">
+                                                <i class="glyphicon glyphicon-home"></i>
+                                                <strong>{{ upcomingEvent.getHost().getTitle() }}</strong>
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    {% else %}
+                        <p class="small">There are no other upcoming events available.</p>
+                    {% endif %}
                 </li>
             </ul>
         </div>
