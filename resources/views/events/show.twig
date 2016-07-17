@@ -140,7 +140,7 @@
 
                                     <tr>
                                         <td>
-                                            <a href="">
+                                            <a href="{{ route('events.show', upcomingEvent.getId()) }}">
                                                 {{ upcomingEvent.getTitle() }}
                                             </a>
                                         </td>
@@ -178,7 +178,7 @@
 
                                 <tr>
                                     <td>
-                                        <a href="">
+                                        <a href="{{ route('events.show', otherEvent.getId()) }}">
                                             {{ otherEvent.getTitle() }}
                                         </a>
                                     </td>
