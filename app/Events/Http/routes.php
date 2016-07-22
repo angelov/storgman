@@ -35,4 +35,11 @@ $router->group(['prefix' => 'events', 'namespace' => 'Events\Http\Controllers'],
     $router->get('/{id}',       ['as' => 'events.show',  'uses' => 'EventsController@show']);
     $router->get('/{id}/image', ['as' => 'events.image', 'uses' => 'EventsController@image']);
 
+    // experimental
+    $router->get('/import', function (\Angelov\Eestec\Platform\Events\Importing\EestecNetEventsImporter $importer) {
+
+        $importer->import();
+
+    });
+
 });
