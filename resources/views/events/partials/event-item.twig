@@ -56,7 +56,7 @@
                                         <div class="col-md-6">
                                             <p style="" class="pull-right">
                                                 <a href="{{ route('events.show', event.getId()) }}" class="btn btn-default btn-sm" style="margin-right: 7px;">
-                                                    <i class="glyphicon glyphicon-comment"  style="margin-right: 3px;"></i> <strong>4</strong> Comments
+                                                    <i class="glyphicon glyphicon-comment"  style="margin-right: 3px;"></i> <strong>{{ event.countComments() }}</strong> Comments
                                                 </a>
 
                                                 <a href="{{ route('events.show', event.getId()) }}" class="btn btn-default btn-sm" style="margin-right: 7px;">
