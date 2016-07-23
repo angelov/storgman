@@ -95,5 +95,6 @@ return [
     // EESTEC Events
 
     Angelov\Eestec\Platform\Events\Providers\EventsRepositoryServiceProvider::class,
+    Angelov\Eestec\Platform\Events\Comments\Providers\CommentsRepositoryServiceProvider::class
 
 ];

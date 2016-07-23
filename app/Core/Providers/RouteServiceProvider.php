@@ -74,6 +74,7 @@ class RouteServiceProvider extends ServiceProvider
                 'Documents',
                 'News',
                 'Events',
+                'Events/Comments',
                 'Settings'
             ];
 

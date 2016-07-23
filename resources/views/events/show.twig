@@ -62,9 +62,11 @@
 
             <ul class="list-group text-right">
                 <li class="list-group-item text-left">
-                    <form>
+                    <form method="post" action="{{ route('events.comments.store') }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="event_id" value="{{ event.getId() }}" />
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Leave a comment!" rows="3"></textarea>
+                            <textarea class="form-control" placeholder="Leave a comment!" rows="3" name="content"></textarea>
                         </div>
                         <div class="form-group text-right text-muted">
                             <span class="pull-left">
