@@ -80,7 +80,19 @@
 
             </ul>
 
-            <ul class="list-group ">
+            {% if event.hasComments() %}
+
+                {% for comment in event.getComments() %}
+                    {% include 'events/partials/comment-item.twig' %}
+                {% endfor %}
+
+            {% else %}
+
+                <p>There are no comments for this event.</p>
+
+            {% endif %}
+
+           {# <ul class="list-group ">
                 <li class="list-group-item text-right">
                     <span class="pull-left">
                         <img src="{{ asset('static/assets/img/default-member-photo.png') }}"  style="width: 25px" />
@@ -111,7 +123,7 @@
                     <img src="http://vignette3.wikia.nocookie.net/heyarnold/images/1/10/Cool_Party.jpg/revision/latest?cb=20100717205608"
                          style="width: 100%; margin: 10px 0 10px 0;" />
                 </li>
-            </ul>
+            </ul>#}
 
         </div>
 

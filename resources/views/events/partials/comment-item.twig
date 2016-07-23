@@ -1,0 +1,12 @@
+<ul class="list-group ">
+    <li class="list-group-item text-right">
+                    <span class="pull-left">
+                        <img src="{{ asset('static/assets/img/default-member-photo.png') }}"  style="width: 25px" />
+                        {{ comment.getAuthor().getFullName() }}
+                    </span>
+        <span class="text-muted small date-to-humanize">{{ comment.getCreatedAt()|date('Y-m-d H:i:s') }}</span>
+    </li>
+    <li class="list-group-item ">
+        {{ comment.getContent() }}
+    </li>
+</ul>

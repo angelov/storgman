@@ -27,6 +27,7 @@
 
 namespace Angelov\Eestec\Platform\Events;
 
+use Angelov\Eestec\Platform\Events\Comments\Comment;
 use Angelov\Eestec\Platform\LocalCommittees\LocalCommittee;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -136,6 +137,29 @@ class Event extends Model
     public function setImage($filename)
     {
         $this->setAttribute('image', $filename);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * @return Comment[]
+     */
+    public function getComments()
+    {
+        return $this->comments()->orderBy('created_at', 'DESC')->get()->all();
+    }
+
+    public function countComments()
+    {
+        return $this->comments()->count();
+    }
+
+    public function hasComments()
+    {
+        return $this->countComments() > 0;
     }
 
     public function equals(Event $event)
