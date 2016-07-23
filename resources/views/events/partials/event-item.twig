@@ -10,6 +10,13 @@
 <div class="panel panel-default document-item">
     <div class="panel-heading clearfix">
         <h3 class="panel-title pull-left">{{ event.getTitle() }}</h3>
+
+        {% if event.isReceivingApplications() %}
+            <span class="label pull-right label-success">Open to apply!</span>
+        {% else %}
+            <span class="label pull-right label-danger">Deadline passed</span>
+        {% endif %}
+
     </div>
     <div class="panel-body">
         <div class="row">

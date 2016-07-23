@@ -119,6 +119,11 @@ class Event extends Model
         $this->setAttribute('deadline', $date);
     }
 
+    public function isReceivingApplications()
+    {
+        return Carbon::now() < $this->getDeadline();
+    }
+
     public function getUrl()
     {
         return $this->getAttribute('url');
