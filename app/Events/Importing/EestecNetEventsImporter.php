@@ -29,7 +29,9 @@ namespace Angelov\Eestec\Platform\Events\Importing;
 
 use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
 use Angelov\Eestec\Platform\Events\Commands\StoreEventCommand;
+use Angelov\Eestec\Platform\Events\Commands\UpdateEventCommand;
 use Angelov\Eestec\Platform\Events\EventImage;
+use Angelov\Eestec\Platform\Events\Repositories\EventsRepositoryInterface;
 use Angelov\Eestec\Platform\LocalCommittees\Repositories\LocalCommitteesRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Contracts\Bus\Dispatcher;
@@ -43,18 +45,21 @@ class EestecNetEventsImporter
     protected $logger;
     protected $lcs;
     protected $commandBus;
+    protected $events;
     protected $baseUrl;
 
     public function __construct(
         Scrapper $scrapper,
         LocalCommitteesRepositoryInterface $lcs,
         Dispatcher $commandBus,
+        EventsRepositoryInterface $events,
         LoggerInterface $logger = null)
     {
         $this->scrapper = $scrapper;
         $this->logger = (isset($logger)) ? $logger : new NullLogger();
         $this->lcs = $lcs;
         $this->commandBus = $commandBus;
+        $this->events = $events;
     }
 
     public function import()
@@ -63,10 +68,13 @@ class EestecNetEventsImporter
 
         $events = $this->scrapper->parseEvents($url . "/events");
 
+        $this->logger->info("Events importing started.");
+
         foreach ($events as $event) {
             $this->importEvent($event);
         }
 
+        $this->logger->info("Events importing finished.");
     }
 
     // @todo refactor
@@ -133,9 +141,29 @@ class EestecNetEventsImporter
         $endDate = new Carbon($data['end']);
         $deadline = new Carbon($data['deadline']);
 
-        $command = new StoreEventCommand($title, $description, $hostId, $url, $image, $startDate, $endDate, $deadline);
+        try {
+
+            $event = $this->events->getByTitle($title);
+            $id = $event->getId();
+
+            $command = new UpdateEventCommand($id, $title, $description, $hostId, $url, $image, $startDate, $endDate, $deadline);
+
+            $this->logger->info(sprintf(
+                "Event \"%s\" already exists. Will be updated if needed.",
+                $title
+            ));
+
+        } catch (ResourceNotFoundException $e) {
+
+            $command = new StoreEventCommand($title, $description, $hostId, $url, $image, $startDate, $endDate, $deadline);
+
+            $this->logger->info(sprintf(
+                "Event \"%s\" imported",
+                $title
+            ));
+
+        }
 
         $this->commandBus->dispatch($command);
-
     }
 }

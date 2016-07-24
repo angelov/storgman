@@ -25,33 +25,21 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Repositories;
+namespace Angelov\Eestec\Platform\Events\Tasks;
 
-use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Events\Event;
+use Angelov\Eestec\Platform\Events\Importing\EestecNetEventsImporter;
 
-interface EventsRepositoryInterface extends RepositoryInterface
+class SynchronizeEventsTask
 {
-    /**
-     * @param $id
-     * @return Event
-     */
-    public function get($id);
+    protected $importer;
 
-    /**
-     * @param Event $event
-     * @return void
-     */
-    public function store(Event $event);
+    public function __construct(EestecNetEventsImporter $importer)
+    {
+        $this->importer = $importer;
+    }
 
-    /**
-     * @return Event[]
-     */
-    public function getUpcoming();
-
-    /**
-     * @param string $title
-     * @return Event
-     */
-    public function getByTitle($title);
+    public function execute()
+    {
+        $this->importer->import();
+    }
 }
