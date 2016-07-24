@@ -36,7 +36,11 @@
                 </li>
                 <li class="list-group-item">
                     <span class="pull-left"><strong>Time left:</strong></span>
-                    19 days
+                    {% if event.isReceivingApplications() == false %}
+                        /
+                    {% else %}
+                        <span class="time-left">{{ event.getDeadline()|date('d F Y, H:i') }}</span>
+                    {% endif %}
                 </li>
                 <li class="list-group-item text-center">
 
