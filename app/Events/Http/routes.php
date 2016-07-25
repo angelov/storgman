@@ -29,17 +29,10 @@ use Illuminate\Routing\Router;
 
 /** @var Router $router */
 
-$router->group(['prefix' => 'events', 'namespace' => 'Events\Http\Controllers'], function (Router $router) {
+$router->group(['prefix' => 'events', 'middleware' => 'auth', 'namespace' => 'Events\Http\Controllers'], function (Router $router) {
 
     $router->get('/',           ['as' => 'events.index', 'uses' => 'EventsController@index']);
     $router->get('/{id}',       ['as' => 'events.show',  'uses' => 'EventsController@show']);
     $router->get('/{id}/image', ['as' => 'events.image', 'uses' => 'EventsController@image']);
-
-    // experimental
-    $router->get('/import', function (\Angelov\Eestec\Platform\Events\Importing\EestecNetEventsImporter $importer) {
-
-        $importer->import();
-
-    });
 
 });
