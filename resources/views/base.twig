@@ -9,6 +9,16 @@
         <meta name="author" content="Angelov Dejan - http://angelovdejan.me">
     {% endblock %}
 
+    {% block facebook_meta %}
+
+        <meta property="og:url"         content="{{ Request.fullUrl() }}" />
+        <meta property="og:type"        content="website" />
+        <meta property="og:title"       content="{{ page_title }}" />
+        <meta property="og:description" content="EESTEC Platform for Local Committees" />
+        <meta property="og:image"       content="{{ asset('/static/assets/img/eestec-logo.png') }}" />
+
+    {% endblock %}
+
     <title>{{ page_title }} :: {{ Config.get('main.title') }}</title>
 
     {% block stylesheets %}
