@@ -134,6 +134,14 @@
 
         <div class="col-md-4">
 
+            <ul class="list-group">
+                <li class="list-group-item col-md-12" style="line-height: 10px;">
+
+                    {% include 'events/partials/social-share.twig' %}
+
+                </li>
+            </ul>
+
             <script type="text/javascript">
                 {% set city = event.getHost().getCity() %}
                 var cities = [{
