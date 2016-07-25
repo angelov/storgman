@@ -65,6 +65,6 @@ class EventsController extends BaseController
         $image = $fileSystem->find($image);
         $content = $fileSystem->read($image);
 
-        return response($content);//->header('Content-Disposition', sprintf('attachment;filename="%s"', $image->getFilename()));
+        return response($content)->header('Cache-Control', 'public, max-age=253938');
     }
 }
