@@ -51,6 +51,7 @@ return [
     Angelov\Eestec\Platform\Core\Providers\ConfigServiceProvider::class,
     Angelov\Eestec\Platform\Core\Providers\RouteServiceProvider::class,
     Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistryServiceProvider::class,
+    Angelov\Eestec\Platform\Core\Doctrine\DoctrineServiceProvider::class,
 
     // Members
 
