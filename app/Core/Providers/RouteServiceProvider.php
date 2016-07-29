@@ -76,7 +76,6 @@ class RouteServiceProvider extends ServiceProvider
                 'Events',
                 'Events/Comments',
                 'Settings',
-                'DoctrineExperimental'
             ];
 
             foreach ($modules as $module) {
