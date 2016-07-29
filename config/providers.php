@@ -60,6 +60,7 @@ return [
     Angelov\Eestec\Platform\Members\Providers\MembersPopulatorServiceProvider::class,
     Angelov\Eestec\Platform\Members\Providers\EventsServiceProvider::class,
     Angelov\Eestec\Platform\Members\Providers\ViewComposersServiceProvider::class,
+    Angelov\Eestec\Platform\Members\Authentication\UserProviders\DoctrineUserProviderServiceProvider::class,
 
     // Social Profiles
 

@@ -61,13 +61,13 @@ return [
     | sources which represent each model / table. These sources may then
     | be assigned to any extra authentication guards you have defined.
     |
-    | Supported: "database", "eloquent"
+    | Supported: "database", "eloquent", "doctrine"
     |
     */
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
+            'driver' => 'doctrine',
             'model' => \Angelov\Eestec\Platform\Members\Member::class,
         ]
     ],

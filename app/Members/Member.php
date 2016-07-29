@@ -28,93 +28,184 @@
 namespace Angelov\Eestec\Platform\Members;
 
 use Angelov\Eestec\Platform\Faculties\Faculty;
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Membership\Fee;
+//use Angelov\Eestec\Platform\Meetings\Meeting;
+//use Angelov\Eestec\Platform\Membership\Fee;
 use Carbon\Carbon;
-use DateTime;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
+use Doctrine\ORM\Mapping as ORM;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableInterface;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordInterface;
-use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model implements AuthenticatableInterface, CanResetPasswordInterface
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="member")
+ */
+class Member implements AuthenticatableInterface
 {
-    use Authenticatable, CanResetPassword;
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-    protected $table = 'members';
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $email;
 
-    protected $hidden = ['password', 'remember_token'];
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
-    protected $appends = ['full_name', 'membership_status', 'membership_expiration_date'];
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $rememberToken;
 
-    protected $dates = ['birthday'];
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $lastName;
+
+    // @todo relation
+    private $faculty;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $fieldOfStudy;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $graduationYear;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $photo;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $birthday;
+
+    // age
+
+    /**
+     * @ORM\Column(type="boolean", options={"default"=false})
+     */
+    private $boardMember;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $positionTitle;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+//    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $facebook;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $twitter;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $googlePlus;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $phoneNumber;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $website;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default"=false})
+     */
+    private $alumni;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default"=false})
+     */
+    private $approved;
+
+    public function __construct()
+    {
+        $this->createdAt = new Carbon();
+    }
 
     public function getId()
     {
-        return $this->getAttribute('id');
+        return $this->id;
     }
 
     public function getEmail()
     {
-        return $this->getAttribute('email');
+        return $this->email;
     }
 
-    /**
-     * @param string $email
-     */
     public function setEmail($email)
     {
-        $this->setAttribute('email', $email);
+        $this->email = $email;
     }
 
     public function getPassword()
     {
-        return $this->getAttribute('password');
+        return $this->password;
     }
 
-    /**
-     * @param string $password
-     */
     public function setPassword($password)
     {
-        $this->setAttribute('password', $password);
+        $this->password = $password;
     }
 
     public function getFirstName()
     {
-        return $this->getAttribute('first_name');
+        return $this->firstName;
     }
 
-    /**
-     * @param string $firstName
-     */
     public function setFirstName($firstName)
     {
-        $this->setAttribute('first_name', $firstName);
+        $this->firstName = $firstName;
     }
 
     public function getLastName()
     {
-        return $this->getAttribute('last_name');
+        return $this->lastName;
     }
 
-    /**
-     * @param string $lastName
-     */
     public function setLastName($lastName)
     {
-        $this->setAttribute('last_name', $lastName);
+        $this->lastName = $lastName;
     }
 
-    public function getFullName()
+    public function getFullname()
     {
-        return $this->getFirstName() . " " . $this->getLastName();
-    }
-
-    public function faculty()
-    {
-        return $this->belongsTo(Faculty::class, 'faculty_id');
+        return sprintf(
+            "%s %s",
+            $this->getFirstName(),
+            $this->getLastName()
+        );
     }
 
     /**
@@ -125,50 +216,42 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
         return $this->faculty;
     }
 
+    /**
+     * @param Faculty $faculty
+     */
     public function setFaculty(Faculty $faculty)
     {
-        $this->faculty()->associate($faculty);
+        $this->faculty = $faculty;
     }
 
     public function getFieldOfStudy()
     {
-        return $this->getAttribute('field_of_study');
+        return $this->fieldOfStudy;
     }
 
-    /**
-     * @param string $field
-     */
-    public function setFieldOfStudy($field)
+    public function setFieldOfStudy($fieldOfStudy)
     {
-        $this->setAttribute('field_of_study', $field);
+        $this->fieldOfStudy = $fieldOfStudy;
     }
 
-    public function getYearOfGraduation()
+    public function getGraduationYear()
     {
-        return $this->getAttribute('year_of_graduation');
+        return $this->graduationYear;
     }
 
-    /**
-     * @param int $year
-     */
-    public function setYearOfGraduation($year)
+    public function setGraduationYear($graduationYear)
     {
-        $this->setAttribute('year_of_graduation', $year);
+        $this->graduationYear = $graduationYear;
     }
 
     public function getPhoto()
     {
-        $photo = $this->getAttribute('photo');
-
-        return ($photo) ? $photo : "default-member-photo.png";
+        return $this->photo;
     }
 
-    /**
-     * @param string $photoFileName
-     */
-    public function setPhoto($photoFileName)
+    public function setPhoto($photo)
     {
-        $this->setAttribute('photo', $photoFileName);
+        $this->photo = $photo;
     }
 
     /**
@@ -176,17 +259,14 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
      */
     public function getBirthday()
     {
-        return $this->getAttribute('birthday');
+        return $this->birthday;
     }
 
-    public function setBirthday(DateTime $birthday)
+    public function setBirthday(Carbon $birthday)
     {
-        $this->setAttribute('birthday', $birthday);
+        $this->birthday = $birthday;
     }
 
-    /**
-     * @return int
-     */
     public function getAge()
     {
         return $this->getBirthday()->age;
@@ -194,28 +274,22 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
 
     public function isBoardMember()
     {
-        return $this->getAttribute('board_member');
+        return $this->boardMember == true;
     }
 
-    /**
-     * @param boolean $isBoardMember
-     */
     public function setBoardMember($isBoardMember)
     {
-        $this->setAttribute('board_member', $isBoardMember);
+        $this->boardMember = $isBoardMember == true;
     }
 
     public function getPositionTitle()
     {
-        return $this->getAttribute('position_title');
+        return $this->positionTitle;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setPositionTitle($title)
+    public function setPositionTitle($positionTitle)
     {
-        $this->setAttribute('position_title', $title);
+        $this->positionTitle = $positionTitle;
     }
 
     /**
@@ -223,210 +297,219 @@ class Member extends Model implements AuthenticatableInterface, CanResetPassword
      */
     public function getCreatedAt()
     {
-        return $this->getAttribute('created_at');
-    }
-
-    /**
-     * @return Carbon
-     */
-    public function getUpdatedAt()
-    {
-        return $this->getAttribute('updated_at');
+        return $this->createdAt;
     }
 
     public function getFacebook()
     {
-        return $this->getAttribute('facebook');
+        return $this->facebook;
     }
 
-    /**
-     * @param string $profile
-     */
-    public function setFacebook($profile)
+    public function setFacebook($facebook)
     {
-        $this->setAttribute('facebook', $profile);
+        $this->facebook = $facebook;
     }
 
     public function getTwitter()
     {
-        return $this->getAttribute('twitter');
+        return $this->twitter;
     }
 
-    /**
-     * @param string $profile
-     */
-    public function setTwitter($profile)
+    public function setTwitter($twitter)
     {
-        $this->setAttribute('twitter', $profile);
+        $this->twitter = $twitter;
     }
 
     public function getGooglePlus()
     {
-        return $this->getAttribute('google_plus');
+        return $this->googlePlus;
     }
 
-    /**
-     * @param string $profile
-     */
-    public function setGooglePlus($profile)
+    public function setGooglePlus($googlePlus)
     {
-        $this->setAttribute('google_plus', $profile);
+        $this->googlePlus = $googlePlus;
     }
 
     public function getPhoneNumber()
     {
-        return $this->getAttribute('phone');
+        return $this->phoneNumber;
     }
 
-    /**
-     * @param string $number
-     */
-    public function setPhoneNumber($number)
+    public function setPhoneNumber($phoneNumber)
     {
-        $this->setAttribute('phone', $number);
+        $this->phoneNumber = $phoneNumber;
     }
 
     public function getWebsite()
     {
-        return $this->getAttribute('website');
+        return $this->website;
     }
 
-    /**
-     * @param string $url
-     */
-    public function setWebsite($url)
+    public function setWebsite($website)
     {
-        $this->setAttribute('website', $url);
+        $this->website = $website;
     }
 
-    public function isAlumniMember()
+    public function isAlumni()
     {
-        return $this->getAttribute('alumni');
+        return $this->alumni == true;
     }
 
-    /**
-     * @param boolean $isAlumni
-     */
-    public function setAlumniMember($isAlumni)
+    public function setAlumni($isAlumni)
     {
-        $this->setAttribute('alumni', $isAlumni);
+        $this->alumni = $isAlumni;
     }
 
     public function isApproved()
     {
-        return $this->getAttribute('approved');
+        return $this->approved == true;
     }
 
-    /**
-     * @param boolean $isApproved
-     */
     public function setApproved($isApproved)
     {
-        $this->setAttribute('approved', $isApproved);
+        $this->approved = $isApproved;
+    }
+
+
+    // ==========================================================================
+//
+//    /**
+//     * Membership fees paid by the member
+//     *
+//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+//     */
+//    public function fees()
+//    {
+//        return $this->hasMany(Fee::class);
+//    }
+//
+//    /**
+//     * @return Fee[]
+//     */
+//    public function getFees()
+//    {
+//        return $this->fees;
+//    }
+//
+//    /**
+//     * @return Carbon
+//     */
+//    public function getExpirationDate()
+//    {
+//        $fee = $this->getLatestFee();
+//
+//        return (!$fee) ? null : $fee->getToDate();
+//    }
+//
+//    /**
+//     * @return Carbon
+//     */
+//    public function getJoiningDate()
+//    {
+//        $fee = $this->getFirstFee();
+//
+//        return ($fee) ? $fee->getFromDate() : $this->getCreatedAt();
+//    }
+//
+//    /**
+//     * @param string $order ASC or DESC
+//     * @return Fee
+//     */
+//    private function getFeeByOrder($order)
+//    {
+//        $fee = $this->fees()->orderBy('to_date', $order)->first();
+//
+//        return $fee;
+//    }
+//
+//    /**
+//     * @return Fee
+//     */
+//    public function getLatestFee()
+//    {
+//        return $this->getFeeByOrder("DESC");
+//    }
+//
+//    /**
+//     * @return Fee
+//     */
+//    public function getFirstFee()
+//    {
+//        return $this->getFeeByOrder("ASC");
+//    }
+//
+//    /**
+//     * @return bool
+//     */
+//    public function isActive()
+//    {
+//        $expirationDate = $this->getExpirationDate();
+//
+//        if (!$expirationDate) {
+//            return false;
+//        }
+//
+//        $today = new DateTime();
+//
+//        return $today < $expirationDate;
+//    }
+//
+//    /**
+//     * @return string
+//     */
+//    public function getMembershipStatus()
+//    {
+//        return ($this->isActive()) ? "Active" : "Inactive";
+//    }
+//
+//    /**
+//     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+//     */
+//    public function attendedMeetings()
+//    {
+//        return $this->belongsToMany(Meeting::class);
+//    }
+//
+//    /**
+//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+//     */
+//    public function createdMeetings()
+//    {
+//        return $this->hasMany(Meeting::class);
+//    }
+
+    public function getAuthIdentifierName()
+    {
+        return "id";
     }
 
     /**
-     * Membership fees paid by the member
+     * Get the unique identifier for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return mixed
      */
-    public function fees()
+    public function getAuthIdentifier()
     {
-        return $this->hasMany(Fee::class);
+        return "email";
     }
 
-    /**
-     * @return Fee[]
-     */
-    public function getFees()
+    public function getAuthPassword()
     {
-        return $this->fees;
+        return $this->getPassword();
     }
 
-    /**
-     * @return Carbon
-     */
-    public function getExpirationDate()
+    public function getRememberToken()
     {
-        $fee = $this->getLatestFee();
-
-        return (!$fee) ? null : $fee->getToDate();
+        return $this->rememberToken;
     }
 
-    /**
-     * @return Carbon
-     */
-    public function getJoiningDate()
+    public function setRememberToken($value)
     {
-        $fee = $this->getFirstFee();
-
-        return ($fee) ? $fee->getFromDate() : $this->getCreatedAt();
+        $this->rememberToken = $value;
     }
 
-    /**
-     * @param string $order ASC or DESC
-     * @return Fee
-     */
-    private function getFeeByOrder($order)
+    public function getRememberTokenName()
     {
-        $fee = $this->fees()->orderBy('to_date', $order)->first();
-
-        return $fee;
-    }
-
-    /**
-     * @return Fee
-     */
-    public function getLatestFee()
-    {
-        return $this->getFeeByOrder("DESC");
-    }
-
-    /**
-     * @return Fee
-     */
-    public function getFirstFee()
-    {
-        return $this->getFeeByOrder("ASC");
-    }
-
-    /**
-     * @return bool
-     */
-    public function isActive()
-    {
-        $expirationDate = $this->getExpirationDate();
-
-        if (!$expirationDate) {
-            return false;
-        }
-
-        $today = new DateTime();
-
-        return $today < $expirationDate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMembershipStatus()
-    {
-        return ($this->isActive()) ? "Active" : "Inactive";
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function attendedMeetings()
-    {
-        return $this->belongsToMany(Meeting::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function createdMeetings()
-    {
-        return $this->hasMany(Meeting::class);
+        return "rememberToken";
     }
 }
