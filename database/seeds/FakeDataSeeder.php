@@ -26,6 +26,8 @@
  */
 
 use Angelov\Eestec\Platform\Documents\Document;
+use Angelov\Eestec\Platform\Faculties\Faculty;
+use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
 use Angelov\Eestec\Platform\Membership\Fee;
 use Angelov\Eestec\Platform\Meetings\Meeting;
 use Angelov\Eestec\Platform\Members\Member;
@@ -45,8 +47,10 @@ class FakeDataSeeder extends Seeder
     protected $documents;
     protected $tags;
     protected $faker;
+    protected $faculties;
     protected $generatedMembers;
     protected $generatedTags;
+    protected $generatedFaculties;
 
     public function __construct(
         MembersRepositoryInterface $members,
@@ -54,6 +58,7 @@ class FakeDataSeeder extends Seeder
         MeetingsRepositoryInterface $meetings,
         DocumentsRepositoryInterface $documents,
         TagsRepositoryInterface $tags,
+        FacultiesRepositoryInterface $faculties,
         Faker\Factory $fakerFactory
     ) {
         $this->members = $members;
@@ -61,24 +66,46 @@ class FakeDataSeeder extends Seeder
         $this->meetings = $meetings;
         $this->faker = $fakerFactory::create();
         $this->generatedMembers = [];
+        $this->gerneratedFaculties = [];
         $this->documents = $documents;
         $this->tags = $tags;
+        $this->faculties = $faculties;
     }
 
     public function run()
     {
-        $this->generateMembers(500);
+        $this->generateFaculties();
+        $this->generateMembers(50);
         $this->generateFees();
-        $this->generateMeetings(50);
-        $this->generateTags(20);
-        $this->generateDocuments(20);
+        $this->generateMeetings(15);
+        $this->generateTags(10);
+        $this->generateDocuments(5);
+    }
+
+    private function generateFaculties()
+    {
+        $faculties = [
+            "Fax 1" => "FAX1",
+            "Fax 2" => "FAX2",
+            "Fax 3" => "FAX3"
+        ];
+
+        foreach ($faculties as $title => $abbr) {
+            $faculty = new Faculty();
+            $faculty->setTitle($title);
+            $faculty->setAbbreviation($abbr);
+            $faculty->setUniversity('Example University');
+
+            $this->faculties->store($faculty);
+
+            $this->generatedFaculties[] = $faculty;
+        }
     }
 
     private function generateMembers($count = 200)
     {
         print "Generating members started...\n";
 
-        $faculties = ["Fax 1", "Fax 2", "Fax 3"];
         $fieldOfStudies = ["Computer Science", "Electrical Engineering", "Automation"];
         $birthYearFrom = "-27 years";
         $birthYearTo = "-19 years";
@@ -90,7 +117,9 @@ class FakeDataSeeder extends Seeder
             $member->setPassword(Hash::make('123456'));
             $member->setFirstName($this->faker->firstName);
             $member->setLastName($this->faker->lastName);
-            $member->setFaculty($this->faker->randomElement($faculties));
+
+            $member->setFaculty($this->faker->randomElement($this->generatedFaculties));
+
             $member->setFieldOfStudy($this->faker->randomElement($fieldOfStudies));
             $member->setYearOfGraduation($this->faker->numberBetween(2015, 2018));
 
