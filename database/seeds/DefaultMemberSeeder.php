@@ -54,7 +54,6 @@ class DefaultMemberSeeder extends Seeder
         $user->setFirstName("Administrator");
         $user->setLastName("DontNeedIt");
 
-        $user->setFaculty("WillChangeIt");
         $user->setFieldOfStudy("Something");
         $user->setYearOfGraduation(2015);
 
