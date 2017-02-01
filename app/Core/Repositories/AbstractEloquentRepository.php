@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Repositories;
+namespace Angelov\Storgman\Core\Repositories;
 
-use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
+use Angelov\Storgman\Core\Exceptions\ResourceNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractEloquentRepository implements RepositoryInterface

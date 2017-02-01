@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties\Handlers;
+namespace Angelov\Storgman\Faculties\Handlers;
 
-use Angelov\Eestec\Platform\Faculties\Commands\StoreFacultyCommand;
-use Angelov\Eestec\Platform\Faculties\Faculty;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Storgman\Faculties\Commands\StoreFacultyCommand;
+use Angelov\Storgman\Faculties\Faculty;
+use Angelov\Storgman\Faculties\Repositories\FacultiesRepositoryInterface;
 
 class StoreFacultyCommandHandler
 {

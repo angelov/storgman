@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\SocialProfiles\Repositories;
+namespace Angelov\Storgman\Members\SocialProfiles\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Members\SocialProfiles\SocialProfile;
+use Angelov\Storgman\Core\Repositories\RepositoryInterface;
+use Angelov\Storgman\Members\SocialProfiles\SocialProfile;
 
 interface SocialProfilesRepositoryInterface extends RepositoryInterface
 {

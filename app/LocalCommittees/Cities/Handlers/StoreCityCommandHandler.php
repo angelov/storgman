@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees\Cities\Handlers;
+namespace Angelov\Storgman\LocalCommittees\Cities\Handlers;
 
-use Angelov\Eestec\Platform\LocalCommittees\Cities\City;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\Commands\StoreCityCommand;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\Repositories\CitiesRepositoryInterface;
+use Angelov\Storgman\LocalCommittees\Cities\City;
+use Angelov\Storgman\LocalCommittees\Cities\Commands\StoreCityCommand;
+use Angelov\Storgman\LocalCommittees\Cities\Repositories\CitiesRepositoryInterface;
 
 class StoreCityCommandHandler
 {

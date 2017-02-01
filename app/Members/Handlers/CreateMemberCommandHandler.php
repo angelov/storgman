@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Handlers;
+namespace Angelov\Storgman\Members\Handlers;
 
-use Angelov\Eestec\Platform\Members\Commands\CreateMemberCommand;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Members\Events\MemberJoinedEvent;
-use Angelov\Eestec\Platform\Members\MembersPopulator;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
+use Angelov\Storgman\Members\Commands\CreateMemberCommand;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Members\Events\MemberJoinedEvent;
+use Angelov\Storgman\Members\MembersPopulator;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Members\Photos\Repositories\PhotosRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

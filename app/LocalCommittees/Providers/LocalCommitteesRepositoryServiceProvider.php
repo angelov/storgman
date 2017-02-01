@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees\Providers;
+namespace Angelov\Storgman\LocalCommittees\Providers;
 
-use Angelov\Eestec\Platform\LocalCommittees\Repositories\EloquentLocalCommitteesRepository;
-use Angelov\Eestec\Platform\LocalCommittees\Repositories\LocalCommitteesRepositoryInterface;
+use Angelov\Storgman\LocalCommittees\Repositories\EloquentLocalCommitteesRepository;
+use Angelov\Storgman\LocalCommittees\Repositories\LocalCommitteesRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class LocalCommitteesRepositoryServiceProvider extends ServiceProvider

@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees\Repositories;
+namespace Angelov\Storgman\LocalCommittees\Repositories;
 
-use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\LocalCommittees\LocalCommittee;
+use Angelov\Storgman\Core\Exceptions\ResourceNotFoundException;
+use Angelov\Storgman\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Storgman\LocalCommittees\LocalCommittee;
 
 class EloquentLocalCommitteesRepository extends AbstractEloquentRepository implements LocalCommitteesRepositoryInterface
 {

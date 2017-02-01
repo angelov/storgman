@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Listeners;
+namespace Angelov\Storgman\Meetings\Attachments\Listeners;
 
-use Angelov\Eestec\Platform\Meetings\Attachments\Events\AttachmentWasDeletedEvent;
+use Angelov\Storgman\Meetings\Attachments\Events\AttachmentWasDeletedEvent;
 
 class RemoveAttachmentFile
 {

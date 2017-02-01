@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Providers;
+namespace Angelov\Storgman\Core\Providers;
 
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Angelov\Eestec\Platform';
+    protected $namespace = 'Angelov\Storgman';
 
     /**
      * Define your route model bindings, pattern filters, etc.

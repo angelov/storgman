@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Commands;
+namespace Angelov\Storgman\Meetings\Commands;
 
-use Angelov\Eestec\Platform\Core\Command;
+use Angelov\Storgman\Core\Command;
 
 class UpdateMeetingCommand extends Command
 {

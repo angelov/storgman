@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Repositories;
+namespace Angelov\Storgman\Meetings\Attachments\Repositories;
 
-use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
-use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
+use Angelov\Storgman\Core\Exceptions\ResourceNotFoundException;
+use Angelov\Storgman\Core\Repositories\RepositoryInterface;
+use Angelov\Storgman\Meetings\Attachments\Attachment;
 
 interface AttachmentsRepositoryInterface extends RepositoryInterface
 {

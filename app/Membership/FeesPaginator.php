@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership;
+namespace Angelov\Storgman\Membership;
 
-use Angelov\Eestec\Platform\Core\Pagination\AbstractPaginator;
-use Angelov\Eestec\Platform\Core\Pagination\Factory;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Storgman\Core\Pagination\AbstractPaginator;
+use Angelov\Storgman\Core\Pagination\Factory;
+use Angelov\Storgman\Membership\Repositories\FeesRepositoryInterface;
 
 class FeesPaginator extends AbstractPaginator
 {

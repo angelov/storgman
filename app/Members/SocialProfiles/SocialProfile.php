@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\SocialProfiles;
+namespace Angelov\Storgman\Members\SocialProfiles;
 
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Members\Member;
 use Illuminate\Database\Eloquent\Model;
 
 class SocialProfile extends Model

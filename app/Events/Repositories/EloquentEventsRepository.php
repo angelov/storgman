@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Repositories;
+namespace Angelov\Storgman\Events\Repositories;
 
-use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Events\Event;
+use Angelov\Storgman\Core\Exceptions\ResourceNotFoundException;
+use Angelov\Storgman\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Storgman\Events\Event;
 use Carbon\Carbon;
 
 class EloquentEventsRepository extends AbstractEloquentRepository implements EventsRepositoryInterface

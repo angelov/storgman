@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Repositories;
+namespace Angelov\Storgman\Core\Repositories;
 
 interface RepositoryInterface
 {

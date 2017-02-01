@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Listeners;
+namespace Angelov\Storgman\Meetings\Listeners;
 
-use Angelov\Eestec\Platform\Meetings\Events\MeetingWasCreatedEvent;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Meetings\Events\MeetingWasCreatedEvent;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 

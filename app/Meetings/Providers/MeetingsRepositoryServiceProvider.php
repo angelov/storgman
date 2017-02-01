@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Providers;
+namespace Angelov\Storgman\Meetings\Providers;
 
-use Angelov\Eestec\Platform\Meetings\Repositories\EloquentMeetingsRepository;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Meetings\Repositories\EloquentMeetingsRepository;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class MeetingsRepositoryServiceProvider extends ServiceProvider

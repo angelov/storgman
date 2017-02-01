@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees\Cities\Repositories;
+namespace Angelov\Storgman\LocalCommittees\Cities\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\City;
+use Angelov\Storgman\Core\Repositories\RepositoryInterface;
+use Angelov\Storgman\LocalCommittees\Cities\City;
 
 interface CitiesRepositoryInterface extends RepositoryInterface
 {

@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Handlers;
+namespace Angelov\Storgman\Meetings\Attachments\Handlers;
 
-use Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistry;
-use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
-use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
-use Angelov\Eestec\Platform\Meetings\Attachments\Commands\StoreAttachmentCommand;
-use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Core\FileSystem\FileSystemsRegistry;
+use Angelov\Storgman\Meetings\Attachments\Attachment;
+use Angelov\Storgman\Meetings\Attachments\AttachmentFile;
+use Angelov\Storgman\Meetings\Attachments\Commands\StoreAttachmentCommand;
+use Angelov\Storgman\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 
 class StoreAttachmentCommandHandler
 {

@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Events\Commands\StoreEventCommand;
-use Angelov\Eestec\Platform\Events\EventImage;
-use Angelov\Eestec\Platform\LocalCommittees\Repositories\LocalCommitteesRepositoryInterface;
+use Angelov\Storgman\Events\Commands\StoreEventCommand;
+use Angelov\Storgman\Events\EventImage;
+use Angelov\Storgman\LocalCommittees\Repositories\LocalCommitteesRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 

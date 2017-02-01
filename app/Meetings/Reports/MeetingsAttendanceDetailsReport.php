@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Reports;
+namespace Angelov\Storgman\Meetings\Reports;
 
 class MeetingsAttendanceDetailsReport
 {

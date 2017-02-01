@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Exceptions;
+namespace Angelov\Storgman\Core\Exceptions;
 
 class ResourceNotFoundException extends \Exception
 {

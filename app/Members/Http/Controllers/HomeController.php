@@ -25,15 +25,15 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Http\Controllers;
+namespace Angelov\Storgman\Members\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Members\MembersStatisticsService;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Members\MembersStatisticsService;
 use Illuminate\Contracts\Auth\Guard;
 
 class HomeController extends BaseController

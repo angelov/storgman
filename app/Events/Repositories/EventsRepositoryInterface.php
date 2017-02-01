@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Repositories;
+namespace Angelov\Storgman\Events\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Events\Event;
+use Angelov\Storgman\Core\Repositories\RepositoryInterface;
+use Angelov\Storgman\Events\Event;
 
 interface EventsRepositoryInterface extends RepositoryInterface
 {

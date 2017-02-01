@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments;
+namespace Angelov\Storgman\Meetings\Attachments;
 
-use Angelov\Eestec\Platform\Core\FileSystem\File;
+use Angelov\Storgman\Core\FileSystem\File;
 
 class AttachmentFile extends File
 {

@@ -26,10 +26,10 @@
  */
 
 use Illuminate\Database\Seeder;
-use Angelov\Eestec\Platform\Membership\Fee;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Membership\Fee;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 
 class DefaultMemberSeeder extends Seeder
 {

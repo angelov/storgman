@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Providers;
+namespace Angelov\Storgman\Documents\Providers;
 
-use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
-use Angelov\Eestec\Platform\Documents\Repositories\EloquentDocumentsRepository;
+use Angelov\Storgman\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Storgman\Documents\Repositories\EloquentDocumentsRepository;
 use Illuminate\Support\ServiceProvider;
 
 class DocumentsRepositoryServiceProvider extends ServiceProvider

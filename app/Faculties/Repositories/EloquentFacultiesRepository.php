@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties\Repositories;
+namespace Angelov\Storgman\Faculties\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Faculties\Faculty;
-use Angelov\Eestec\Platform\Faculties\Reports\MembersPerFacultyReport;
+use Angelov\Storgman\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Storgman\Faculties\Faculty;
+use Angelov\Storgman\Faculties\Reports\MembersPerFacultyReport;
 use Illuminate\Support\Facades\DB;
 
 class EloquentFacultiesRepository extends AbstractEloquentRepository implements FacultiesRepositoryInterface

@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Repositories;
+namespace Angelov\Storgman\Members\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
-use Angelov\Eestec\Platform\Membership\Reports\MembershipStatusReport;
-use Angelov\Eestec\Platform\Members\Reports\NewMembersPerMonthReport;
+use Angelov\Storgman\Core\Repositories\RepositoryInterface;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Core\Exceptions\ResourceNotFoundException;
+use Angelov\Storgman\Membership\Reports\MembershipStatusReport;
+use Angelov\Storgman\Members\Reports\NewMembersPerMonthReport;
 
 interface MembersRepositoryInterface extends RepositoryInterface
 {

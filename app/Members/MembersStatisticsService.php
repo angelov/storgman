@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members;
+namespace Angelov\Storgman\Members;
 
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 
 class MembersStatisticsService
 {

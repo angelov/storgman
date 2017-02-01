@@ -25,12 +25,12 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees\Cities\Http\Controllers;
+namespace Angelov\Storgman\LocalCommittees\Cities\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistry;
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\CityImage;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\Repositories\CitiesRepositoryInterface;
+use Angelov\Storgman\Core\FileSystem\FileSystemsRegistry;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\LocalCommittees\Cities\CityImage;
+use Angelov\Storgman\LocalCommittees\Cities\Repositories\CitiesRepositoryInterface;
 
 class CitiesController extends BaseController
 {

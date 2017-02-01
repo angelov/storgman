@@ -25,17 +25,17 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Handlers;
+namespace Angelov\Storgman\Meetings\Handlers;
 
-use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
-use Angelov\Eestec\Platform\Meetings\Attachments\Exceptions\NotOwnerOfAttachmentException;
-use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
-use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingCommand;
-use Angelov\Eestec\Platform\Meetings\Events\MeetingWasCreatedEvent;
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Meetings\Attachments\Attachment;
+use Angelov\Storgman\Meetings\Attachments\Exceptions\NotOwnerOfAttachmentException;
+use Angelov\Storgman\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
+use Angelov\Storgman\Meetings\Commands\CreateMeetingCommand;
+use Angelov\Storgman\Meetings\Events\MeetingWasCreatedEvent;
+use Angelov\Storgman\Meetings\Meeting;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class CreateMeetingCommandHandler

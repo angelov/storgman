@@ -25,19 +25,19 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Tests\Meetings;
+namespace Angelov\Storgman\Tests\Meetings;
 
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Meetings\MeetingsService;
-use Angelov\Eestec\Platform\Meetings\Reports\MeetingAttendedReport;
-use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendanceDetailsForMemberReport;
-use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendedByMemberPerMonthReport;
-use Angelov\Eestec\Platform\Meetings\Reports\MeetingsPerMonthReport;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Membership\MembershipService;
-use Angelov\Eestec\Platform\Tests\TestCase;
+use Angelov\Storgman\Meetings\Meeting;
+use Angelov\Storgman\Meetings\MeetingsService;
+use Angelov\Storgman\Meetings\Reports\MeetingAttendedReport;
+use Angelov\Storgman\Meetings\Reports\MeetingsAttendanceDetailsForMemberReport;
+use Angelov\Storgman\Meetings\Reports\MeetingsAttendedByMemberPerMonthReport;
+use Angelov\Storgman\Meetings\Reports\MeetingsPerMonthReport;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Membership\MembershipService;
+use Angelov\Storgman\Tests\TestCase;
 use Carbon\Carbon;
 use Mockery;
 

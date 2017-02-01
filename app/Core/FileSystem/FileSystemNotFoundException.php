@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\FileSystem;
+namespace Angelov\Storgman\Core\FileSystem;
 
 class FileSystemNotFoundException extends \Exception
 {

@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\FeatureContexts;
+namespace Angelov\Storgman\Core\FeatureContexts;
 
 class WebContext extends BaseContext
 {

@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Exceptions;
+namespace Angelov\Storgman\Meetings\Attachments\Exceptions;
 
 class NotOwnerOfAttachmentException extends \Exception
 {

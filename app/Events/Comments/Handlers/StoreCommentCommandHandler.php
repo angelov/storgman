@@ -25,13 +25,13 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Comments\Handlers;
+namespace Angelov\Storgman\Events\Comments\Handlers;
 
-use Angelov\Eestec\Platform\Events\Comments\Commands\StoreCommentCommand;
-use Angelov\Eestec\Platform\Events\Comments\Comment;
-use Angelov\Eestec\Platform\Events\Comments\Repositories\CommentsRepositoryInterface;
-use Angelov\Eestec\Platform\Events\Repositories\EventsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Events\Comments\Commands\StoreCommentCommand;
+use Angelov\Storgman\Events\Comments\Comment;
+use Angelov\Storgman\Events\Comments\Repositories\CommentsRepositoryInterface;
+use Angelov\Storgman\Events\Repositories\EventsRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 
 class StoreCommentCommandHandler
 {

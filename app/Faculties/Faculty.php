@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties;
+namespace Angelov\Storgman\Faculties;
 
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Members\Member;
 use Illuminate\Database\Eloquent\Model;
 
 class Faculty extends Model

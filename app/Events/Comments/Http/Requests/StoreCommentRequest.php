@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Comments\Http\Requests;
+namespace Angelov\Storgman\Events\Comments\Http\Requests;
 
-use Angelov\Eestec\Platform\Core\Http\Request;
+use Angelov\Storgman\Core\Http\Request;
 
 class StoreCommentRequest extends Request
 {

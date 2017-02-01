@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Tests;
+namespace Angelov\Storgman\Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Mockery;

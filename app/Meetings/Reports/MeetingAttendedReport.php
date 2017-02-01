@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Reports;
+namespace Angelov\Storgman\Meetings\Reports;
 
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Meetings\Meeting;
+use Angelov\Storgman\Members\Member;
 
 class MeetingAttendedReport
 {

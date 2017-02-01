@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees;
+namespace Angelov\Storgman\LocalCommittees;
 
-use Angelov\Eestec\Platform\Events\Event;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\City;
+use Angelov\Storgman\Events\Event;
+use Angelov\Storgman\LocalCommittees\Cities\City;
 use Illuminate\Database\Eloquent\Model;
 
 class LocalCommittee extends Model

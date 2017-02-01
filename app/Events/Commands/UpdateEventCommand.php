@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Commands;
+namespace Angelov\Storgman\Events\Commands;
 
-use Angelov\Eestec\Platform\Core\Command;
-use Angelov\Eestec\Platform\Events\EventImage;
+use Angelov\Storgman\Core\Command;
+use Angelov\Storgman\Events\EventImage;
 use Carbon\Carbon;
 
 class UpdateEventCommand extends Command

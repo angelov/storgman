@@ -25,12 +25,12 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Handlers;
+namespace Angelov\Storgman\Members\Handlers;
 
-use Angelov\Eestec\Platform\Members\Commands\DeclineMemberCommand;
-use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
-use Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Members\Commands\DeclineMemberCommand;
+use Angelov\Storgman\Members\Commands\DeleteMemberCommand;
+use Angelov\Storgman\Members\Events\MemberWasDeclinedEvent;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 

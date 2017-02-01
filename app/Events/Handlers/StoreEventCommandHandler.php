@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Handlers;
+namespace Angelov\Storgman\Events\Handlers;
 
-use Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistry;
-use Angelov\Eestec\Platform\Events\Commands\StoreEventCommand;
-use Angelov\Eestec\Platform\Events\Event;
-use Angelov\Eestec\Platform\Events\EventImage;
-use Angelov\Eestec\Platform\Events\Repositories\EventsRepositoryInterface;
-use Angelov\Eestec\Platform\LocalCommittees\Repositories\LocalCommitteesRepositoryInterface;
+use Angelov\Storgman\Core\FileSystem\FileSystemsRegistry;
+use Angelov\Storgman\Events\Commands\StoreEventCommand;
+use Angelov\Storgman\Events\Event;
+use Angelov\Storgman\Events\EventImage;
+use Angelov\Storgman\Events\Repositories\EventsRepositoryInterface;
+use Angelov\Storgman\LocalCommittees\Repositories\LocalCommitteesRepositoryInterface;
 
 class StoreEventCommandHandler
 {

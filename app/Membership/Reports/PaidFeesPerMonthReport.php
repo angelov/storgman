@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Reports;
+namespace Angelov\Storgman\Membership\Reports;
 
-use Angelov\Eestec\Platform\Core\Reports\AbstractMonthlyReport;
+use Angelov\Storgman\Core\Reports\AbstractMonthlyReport;
 
 class PaidFeesPerMonthReport extends AbstractMonthlyReport
 {

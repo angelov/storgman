@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Tasks;
+namespace Angelov\Storgman\Events\Tasks;
 
-use Angelov\Eestec\Platform\Events\Importing\EestecNetEventsImporter;
+use Angelov\Storgman\Events\Importing\EestecNetEventsImporter;
 
 class SynchronizeEventsTask
 {

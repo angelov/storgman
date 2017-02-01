@@ -27,10 +27,10 @@
 
 // Note: Mess inside.
 
-namespace Angelov\Eestec\Platform\Members\FeatureContexts;
+namespace Angelov\Storgman\Members\FeatureContexts;
 
-use Angelov\Eestec\Platform\Core\FeatureContexts\BaseContext;
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Core\FeatureContexts\BaseContext;
+use Angelov\Storgman\Members\Member;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 

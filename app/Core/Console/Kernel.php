@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Console;
+namespace Angelov\Storgman\Core\Console;
 
-use Angelov\Eestec\Platform\Events\Tasks\SynchronizeEventsTask;
-use Angelov\Eestec\Platform\Meetings\Attachments\Tasks\CheckForUnusedAttachmentsTask;
+use Angelov\Storgman\Events\Tasks\SynchronizeEventsTask;
+use Angelov\Storgman\Meetings\Attachments\Tasks\CheckForUnusedAttachmentsTask;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 

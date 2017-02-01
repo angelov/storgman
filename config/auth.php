@@ -68,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => \Angelov\Eestec\Platform\Members\Member::class,
+            'model' => \Angelov\Storgman\Members\Member::class,
         ]
     ],
 

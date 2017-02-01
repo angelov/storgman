@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Events;
+namespace Angelov\Storgman\Meetings\Attachments\Events;
 
-use Angelov\Eestec\Platform\Core\Event;
-use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
+use Angelov\Storgman\Core\Event;
+use Angelov\Storgman\Meetings\Attachments\Attachment;
 
 class AttachmentWasDeletedEvent extends Event
 {

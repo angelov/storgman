@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Comments\Providers;
+namespace Angelov\Storgman\Events\Comments\Providers;
 
-use Angelov\Eestec\Platform\Events\Comments\Repositories\CommentsRepositoryInterface;
-use Angelov\Eestec\Platform\Events\Comments\Repositories\EloquentCommentsRepository;
+use Angelov\Storgman\Events\Comments\Repositories\CommentsRepositoryInterface;
+use Angelov\Storgman\Events\Comments\Repositories\EloquentCommentsRepository;
 use Illuminate\Support\ServiceProvider;
 
 class CommentsRepositoryServiceProvider extends ServiceProvider

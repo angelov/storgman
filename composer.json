@@ -36,12 +36,12 @@
             "database"
         ],
         "psr-4": {
-            "Angelov\\Eestec\\Platform\\": "app/"
+            "Angelov\\Storgman\\": "app/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-          "Angelov\\Eestec\\Platform\\Tests\\": "tests/"
+          "Angelov\\Storgman\\Tests\\": "tests/"
         }
     },
     "scripts": {

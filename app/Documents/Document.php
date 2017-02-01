@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents;
+namespace Angelov\Storgman\Documents;
 
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Documents\Tags\Tag;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Documents\Tags\Tag;
 use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model

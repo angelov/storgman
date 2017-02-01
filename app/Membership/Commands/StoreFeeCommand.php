@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Commands;
+namespace Angelov\Storgman\Membership\Commands;
 
-use Angelov\Eestec\Platform\Core\Command;
+use Angelov\Storgman\Core\Command;
 
 class StoreFeeCommand extends Command
 {

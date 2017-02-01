@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\SocialProfiles\Providers;
+namespace Angelov\Storgman\Members\SocialProfiles\Providers;
 
-use Angelov\Eestec\Platform\Members\SocialProfiles\Repositories\EloquentSocialProfilesRepository;
-use Angelov\Eestec\Platform\Members\SocialProfiles\Repositories\SocialProfilesRepositoryInterface;
+use Angelov\Storgman\Members\SocialProfiles\Repositories\EloquentSocialProfilesRepository;
+use Angelov\Storgman\Members\SocialProfiles\Repositories\SocialProfilesRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class SocialProfilesRepositoryServiceProvider extends ServiceProvider

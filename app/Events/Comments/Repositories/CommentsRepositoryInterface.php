@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Comments\Repositories;
+namespace Angelov\Storgman\Events\Comments\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Events\Comments\Comment;
+use Angelov\Storgman\Core\Repositories\RepositoryInterface;
+use Angelov\Storgman\Events\Comments\Comment;
 
 interface CommentsRepositoryInterface extends RepositoryInterface
 {

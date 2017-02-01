@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Handlers;
+namespace Angelov\Storgman\Meetings\Attachments\Handlers;
 
-use Angelov\Eestec\Platform\Meetings\Attachments\Commands\DeleteAttachmentCommand;
-use Angelov\Eestec\Platform\Meetings\Attachments\Events\AttachmentWasDeletedEvent;
-use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
+use Angelov\Storgman\Meetings\Attachments\Commands\DeleteAttachmentCommand;
+use Angelov\Storgman\Meetings\Attachments\Events\AttachmentWasDeletedEvent;
+use Angelov\Storgman\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class DeleteAttachmentCommandHandler

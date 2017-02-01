@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties\Handlers;
+namespace Angelov\Storgman\Faculties\Handlers;
 
-use Angelov\Eestec\Platform\Faculties\Commands\DeleteFacultyCommand;
-use Angelov\Eestec\Platform\Faculties\Exceptions\FacultyHasMembersException;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Storgman\Faculties\Commands\DeleteFacultyCommand;
+use Angelov\Storgman\Faculties\Exceptions\FacultyHasMembersException;
+use Angelov\Storgman\Faculties\Repositories\FacultiesRepositoryInterface;
 
 class DeleteFacultyCommandHandler
 {

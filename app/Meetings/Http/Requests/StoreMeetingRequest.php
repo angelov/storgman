@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Http\Requests;
+namespace Angelov\Storgman\Meetings\Http\Requests;
 
-use Angelov\Eestec\Platform\Core\Http\Request;
+use Angelov\Storgman\Core\Http\Request;
 
 class StoreMeetingRequest extends Request
 {

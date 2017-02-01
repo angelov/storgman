@@ -25,13 +25,13 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership;
+namespace Angelov\Storgman\Membership;
 
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Membership\Reports\ExpectedAndPaidFeesPerMonthReport;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Membership\Reports\ExpectedAndPaidFeesPerMonthReport;
+use Angelov\Storgman\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 
 class MembershipService
 {

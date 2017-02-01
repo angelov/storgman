@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Tags\Repositories;
+namespace Angelov\Storgman\Documents\Tags\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Documents\Tags\Tag;
+use Angelov\Storgman\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Storgman\Documents\Tags\Tag;
 
 class EloquentTagsRepository extends AbstractEloquentRepository implements TagsRepositoryInterface
 {

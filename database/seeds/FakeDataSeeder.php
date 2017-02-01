@@ -25,19 +25,19 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-use Angelov\Eestec\Platform\Documents\Document;
-use Angelov\Eestec\Platform\Faculties\Faculty;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
-use Angelov\Eestec\Platform\Membership\Fee;
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Documents\Tags\Tag;
-use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
+use Angelov\Storgman\Documents\Document;
+use Angelov\Storgman\Faculties\Faculty;
+use Angelov\Storgman\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Storgman\Membership\Fee;
+use Angelov\Storgman\Meetings\Meeting;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Documents\Tags\Tag;
+use Angelov\Storgman\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Documents\Tags\Repositories\TagsRepositoryInterface;
 use Illuminate\Database\Seeder;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 
 class FakeDataSeeder extends Seeder
 {

@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Providers;
+namespace Angelov\Storgman\Documents\Providers;
 
-use Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened;
-use Angelov\Eestec\Platform\Documents\Listeners\TrackDocumentOpening;
+use Angelov\Storgman\Documents\Events\DocumentWasOpened;
+use Angelov\Storgman\Documents\Listeners\TrackDocumentOpening;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventsServiceProvider extends ServiceProvider

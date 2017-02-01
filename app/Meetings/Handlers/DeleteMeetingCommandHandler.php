@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Handlers;
+namespace Angelov\Storgman\Meetings\Handlers;
 
-use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingCommand;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Meetings\Commands\DeleteMeetingCommand;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
 
 class DeleteMeetingCommandHandler
 {

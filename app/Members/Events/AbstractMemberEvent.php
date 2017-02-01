@@ -25,12 +25,12 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Events;
+namespace Angelov\Storgman\Members\Events;
 
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Core\Event;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Core\Event;
 
-abstract class AbstractMemberEvent extends \Angelov\Eestec\Platform\Core\Event
+abstract class AbstractMemberEvent extends \Angelov\Storgman\Core\Event
 {
     protected $member;
 

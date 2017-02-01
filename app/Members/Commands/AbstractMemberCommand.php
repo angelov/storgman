@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Commands;
+namespace Angelov\Storgman\Members\Commands;
 
-use Angelov\Eestec\Platform\Core\Command;
+use Angelov\Storgman\Core\Command;
 
 abstract class AbstractMemberCommand extends Command
 {

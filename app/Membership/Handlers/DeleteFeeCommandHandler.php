@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Handlers;
+namespace Angelov\Storgman\Membership\Handlers;
 
-use Angelov\Eestec\Platform\Membership\Commands\DeleteFeeCommand;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Storgman\Membership\Commands\DeleteFeeCommand;
+use Angelov\Storgman\Membership\Repositories\FeesRepositoryInterface;
 
 class DeleteFeeCommandHandler
 {

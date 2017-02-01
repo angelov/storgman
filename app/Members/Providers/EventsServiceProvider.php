@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Providers;
+namespace Angelov\Storgman\Members\Providers;
 
-use Angelov\Eestec\Platform\Members\Events\MemberJoinedEvent;
-use Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent;
-use Angelov\Eestec\Platform\Members\Events\MemberWasDeclinedEvent;
-use Angelov\Eestec\Platform\Members\Listeners\EmailApprovalConfirmation;
-use Angelov\Eestec\Platform\Members\Listeners\EmailDenialConfirmation;
-use Angelov\Eestec\Platform\Members\Listeners\EmailWelcomeMessage;
+use Angelov\Storgman\Members\Events\MemberJoinedEvent;
+use Angelov\Storgman\Members\Events\MemberWasApprovedEvent;
+use Angelov\Storgman\Members\Events\MemberWasDeclinedEvent;
+use Angelov\Storgman\Members\Listeners\EmailApprovalConfirmation;
+use Angelov\Storgman\Members\Listeners\EmailDenialConfirmation;
+use Angelov\Storgman\Members\Listeners\EmailWelcomeMessage;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventsServiceProvider extends ServiceProvider

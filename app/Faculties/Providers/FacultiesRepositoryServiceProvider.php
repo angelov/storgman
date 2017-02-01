@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties\Providers;
+namespace Angelov\Storgman\Faculties\Providers;
 
-use Angelov\Eestec\Platform\Faculties\Repositories\EloquentFacultiesRepository;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Storgman\Faculties\Repositories\EloquentFacultiesRepository;
+use Angelov\Storgman\Faculties\Repositories\FacultiesRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class FacultiesRepositoryServiceProvider extends ServiceProvider

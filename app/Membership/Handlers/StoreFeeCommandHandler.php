@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Handlers;
+namespace Angelov\Storgman\Membership\Handlers;
 
-use Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand;
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Membership\Fee;
-use Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Membership\Commands\StoreFeeCommand;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Membership\Fee;
+use Angelov\Storgman\Membership\Events\FeeWasProceededEvent;
+use Angelov\Storgman\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class StoreFeeCommandHandler

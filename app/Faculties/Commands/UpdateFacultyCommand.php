@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties\Commands;
+namespace Angelov\Storgman\Faculties\Commands;
 
-use Angelov\Eestec\Platform\Core\Command;
+use Angelov\Storgman\Core\Command;
 
 class UpdateFacultyCommand extends Command
 {

@@ -25,12 +25,12 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Handlers;
+namespace Angelov\Storgman\Members\Handlers;
 
-use Angelov\Eestec\Platform\Members\Commands\UpdateMemberCommand;
-use Angelov\Eestec\Platform\Members\MembersPopulator;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
+use Angelov\Storgman\Members\Commands\UpdateMemberCommand;
+use Angelov\Storgman\Members\MembersPopulator;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Members\Photos\Repositories\PhotosRepositoryInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UpdateMemberCommandHandler

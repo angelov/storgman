@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Providers;
+namespace Angelov\Storgman\Members\Providers;
 
-use Angelov\Eestec\Platform\Members\Repositories\EloquentMembersRepository;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\EloquentMembersRepository;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class MembersRepositoryServiceProvider extends ServiceProvider

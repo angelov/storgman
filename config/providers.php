@@ -46,55 +46,55 @@ return [
 
     // Core
 
-    Angelov\Eestec\Platform\Core\Providers\AppServiceProvider::class,
-    Angelov\Eestec\Platform\Core\Providers\BusServiceProvider::class,
-    Angelov\Eestec\Platform\Core\Providers\ConfigServiceProvider::class,
-    Angelov\Eestec\Platform\Core\Providers\RouteServiceProvider::class,
-    Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistryServiceProvider::class,
+    Angelov\Storgman\Core\Providers\AppServiceProvider::class,
+    Angelov\Storgman\Core\Providers\BusServiceProvider::class,
+    Angelov\Storgman\Core\Providers\ConfigServiceProvider::class,
+    Angelov\Storgman\Core\Providers\RouteServiceProvider::class,
+    Angelov\Storgman\Core\FileSystem\FileSystemsRegistryServiceProvider::class,
 
     // Members
 
-    Angelov\Eestec\Platform\Members\Providers\MembersRepositoryServiceProvider::class,
-    Angelov\Eestec\Platform\Members\Photos\Providers\PhotosRepositoryServiceProvider::class,
-    Angelov\Eestec\Platform\Members\Providers\MembersPopulatorServiceProvider::class,
-    Angelov\Eestec\Platform\Members\Providers\EventsServiceProvider::class,
-    Angelov\Eestec\Platform\Members\Providers\ViewComposersServiceProvider::class,
+    Angelov\Storgman\Members\Providers\MembersRepositoryServiceProvider::class,
+    Angelov\Storgman\Members\Photos\Providers\PhotosRepositoryServiceProvider::class,
+    Angelov\Storgman\Members\Providers\MembersPopulatorServiceProvider::class,
+    Angelov\Storgman\Members\Providers\EventsServiceProvider::class,
+    Angelov\Storgman\Members\Providers\ViewComposersServiceProvider::class,
 
     // Social Profiles
 
-    Angelov\Eestec\Platform\Members\SocialProfiles\Providers\SocialProfilesRepositoryServiceProvider::class,
+    Angelov\Storgman\Members\SocialProfiles\Providers\SocialProfilesRepositoryServiceProvider::class,
 
     // Membership (Fees)
 
-    Angelov\Eestec\Platform\Membership\Providers\FeesRepositoryServiceProvider::class,
-    Angelov\Eestec\Platform\Membership\Providers\EventsServiceProvider::class,
+    Angelov\Storgman\Membership\Providers\FeesRepositoryServiceProvider::class,
+    Angelov\Storgman\Membership\Providers\EventsServiceProvider::class,
 
     // Meetings
 
-    Angelov\Eestec\Platform\Meetings\Providers\MeetingsRepositoryServiceProvider::class,
-    Angelov\Eestec\Platform\Meetings\Providers\EventsServiceProvider::class,
-    Angelov\Eestec\Platform\Meetings\Attachments\Providers\AttachmentsRepositoryServiceProvider::class,
-    Angelov\Eestec\Platform\Meetings\Attachments\Providers\EventsServiceProvider::class,
-    Angelov\Eestec\Platform\Meetings\Attachments\Packaging\PackagingManagerServiceProvider::class,
+    Angelov\Storgman\Meetings\Providers\MeetingsRepositoryServiceProvider::class,
+    Angelov\Storgman\Meetings\Providers\EventsServiceProvider::class,
+    Angelov\Storgman\Meetings\Attachments\Providers\AttachmentsRepositoryServiceProvider::class,
+    Angelov\Storgman\Meetings\Attachments\Providers\EventsServiceProvider::class,
+    Angelov\Storgman\Meetings\Attachments\Packaging\PackagingManagerServiceProvider::class,
 
     // Documents
 
-    Angelov\Eestec\Platform\Documents\Providers\DocumentsRepositoryServiceProvider::class,
-    Angelov\Eestec\Platform\Documents\Tags\Providers\TagsRepositoryServiceProvider::class,
-    Angelov\Eestec\Platform\Documents\Providers\EventsServiceProvider::class,
+    Angelov\Storgman\Documents\Providers\DocumentsRepositoryServiceProvider::class,
+    Angelov\Storgman\Documents\Tags\Providers\TagsRepositoryServiceProvider::class,
+    Angelov\Storgman\Documents\Providers\EventsServiceProvider::class,
 
     // Faculties
 
-    Angelov\Eestec\Platform\Faculties\Providers\FacultiesRepositoryServiceProvider::class,
+    Angelov\Storgman\Faculties\Providers\FacultiesRepositoryServiceProvider::class,
 
     // Local Committees
 
-    Angelov\Eestec\Platform\LocalCommittees\Cities\Providers\CitiesRepositoryServiceProvider::class,
-    Angelov\Eestec\Platform\LocalCommittees\Providers\LocalCommitteesRepositoryServiceProvider::class,
+    Angelov\Storgman\LocalCommittees\Cities\Providers\CitiesRepositoryServiceProvider::class,
+    Angelov\Storgman\LocalCommittees\Providers\LocalCommitteesRepositoryServiceProvider::class,
 
     // EESTEC Events
 
-    Angelov\Eestec\Platform\Events\Providers\EventsRepositoryServiceProvider::class,
-    Angelov\Eestec\Platform\Events\Comments\Providers\CommentsRepositoryServiceProvider::class
+    Angelov\Storgman\Events\Providers\EventsRepositoryServiceProvider::class,
+    Angelov\Storgman\Events\Comments\Providers\CommentsRepositoryServiceProvider::class
 
 ];

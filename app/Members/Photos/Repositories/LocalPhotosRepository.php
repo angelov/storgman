@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Photos\Repositories;
+namespace Angelov\Storgman\Members\Photos\Repositories;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile as File;
 

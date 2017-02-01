@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Providers;
+namespace Angelov\Storgman\Membership\Providers;
 
-use Angelov\Eestec\Platform\Membership\Repositories\EloquentFeesRepository;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Storgman\Membership\Repositories\EloquentFeesRepository;
+use Angelov\Storgman\Membership\Repositories\FeesRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class FeesRepositoryServiceProvider extends ServiceProvider

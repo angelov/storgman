@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Http;
+namespace Angelov\Storgman\Core\Http;
 
-use Angelov\Eestec\Platform\Core\Http\Middleware\AjaxOnlyMiddleware;
-use Angelov\Eestec\Platform\Core\Http\Middleware\VerifyCsrfToken;
-use Angelov\Eestec\Platform\Members\Authentication\Http\Middleware\Authenticate;
-use Angelov\Eestec\Platform\Members\Authentication\Http\Middleware\RedirectIfAuthenticated;
-use Angelov\Eestec\Platform\Members\Authorization\Http\Middleware\BoardMembersOnlyMiddleware;
-use Angelov\Eestec\Platform\Members\Authorization\Http\Middleware\BoardMembersOrSelfMiddleware;
+use Angelov\Storgman\Core\Http\Middleware\AjaxOnlyMiddleware;
+use Angelov\Storgman\Core\Http\Middleware\VerifyCsrfToken;
+use Angelov\Storgman\Members\Authentication\Http\Middleware\Authenticate;
+use Angelov\Storgman\Members\Authentication\Http\Middleware\RedirectIfAuthenticated;
+use Angelov\Storgman\Members\Authorization\Http\Middleware\BoardMembersOnlyMiddleware;
+use Angelov\Storgman\Members\Authorization\Http\Middleware\BoardMembersOrSelfMiddleware;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;

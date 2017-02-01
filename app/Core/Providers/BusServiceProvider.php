@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Providers;
+namespace Angelov\Storgman\Core\Providers;
 
 use Collective\Bus\Dispatcher;
 use Illuminate\Support\ServiceProvider;

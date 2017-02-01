@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Photos\Sizes;
+namespace Angelov\Storgman\Members\Photos\Sizes;
 
 use Intervention\Image\Filters\FilterInterface;
 use Intervention\Image\Image;

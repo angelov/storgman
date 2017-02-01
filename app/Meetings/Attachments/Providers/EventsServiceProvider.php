@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Providers;
+namespace Angelov\Storgman\Meetings\Attachments\Providers;
 
-use Angelov\Eestec\Platform\Meetings\Attachments\Events\AttachmentWasDeletedEvent;
-use Angelov\Eestec\Platform\Meetings\Attachments\Listeners\RemoveAttachmentFile;
+use Angelov\Storgman\Meetings\Attachments\Events\AttachmentWasDeletedEvent;
+use Angelov\Storgman\Meetings\Attachments\Listeners\RemoveAttachmentFile;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventsServiceProvider extends ServiceProvider

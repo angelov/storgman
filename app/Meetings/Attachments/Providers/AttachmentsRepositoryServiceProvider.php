@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Providers;
+namespace Angelov\Storgman\Meetings\Attachments\Providers;
 
-use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
-use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\EloquentAttachmentsRepository;
+use Angelov\Storgman\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
+use Angelov\Storgman\Meetings\Attachments\Repositories\EloquentAttachmentsRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AttachmentsRepositoryServiceProvider extends ServiceProvider

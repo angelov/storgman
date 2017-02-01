@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees\Cities;
+namespace Angelov\Storgman\LocalCommittees\Cities;
 
-use Angelov\Eestec\Platform\Core\FileSystem\File;
+use Angelov\Storgman\Core\FileSystem\File;
 
 class CityImage extends File
 {

@@ -25,12 +25,12 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Authentication\Http\Controllers;
+namespace Angelov\Storgman\Members\Authentication\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Members\Authentication\Http\Requests\LoginFormRequest;
-use Angelov\Eestec\Platform\Members\SocialProfiles\Repositories\SocialProfilesRepositoryInterface;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Members\Authentication\Http\Requests\LoginFormRequest;
+use Angelov\Storgman\Members\SocialProfiles\Repositories\SocialProfilesRepositoryInterface;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;

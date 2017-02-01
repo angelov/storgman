@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings;
+namespace Angelov\Storgman\Meetings;
 
-use Angelov\Eestec\Platform\Core\Pagination\AbstractPaginator;
-use Angelov\Eestec\Platform\Core\Pagination\Factory;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Core\Pagination\AbstractPaginator;
+use Angelov\Storgman\Core\Pagination\Factory;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
 
 class MeetingsPaginator extends AbstractPaginator
 {

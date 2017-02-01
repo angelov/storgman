@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees\Cities\Repositories;
+namespace Angelov\Storgman\LocalCommittees\Cities\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\City;
+use Angelov\Storgman\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Storgman\LocalCommittees\Cities\City;
 
 class EloquentCitiesRepository extends AbstractEloquentRepository implements CitiesRepositoryInterface
 {

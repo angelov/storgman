@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Events;
+namespace Angelov\Storgman\Membership\Events;
 
-use Angelov\Eestec\Platform\Membership\Fee;
-use Angelov\Eestec\Platform\Core\Event;
+use Angelov\Storgman\Membership\Fee;
+use Angelov\Storgman\Core\Event;
 
 class FeeWasProceededEvent extends Event
 {

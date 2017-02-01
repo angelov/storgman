@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Handlers;
+namespace Angelov\Storgman\Documents\Handlers;
 
-use Angelov\Eestec\Platform\Documents\Commands\DeleteDocumentCommand;
-use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Storgman\Documents\Commands\DeleteDocumentCommand;
+use Angelov\Storgman\Documents\Repositories\DocumentsRepositoryInterface;
 
 class DeleteDocumentCommandHandler
 {

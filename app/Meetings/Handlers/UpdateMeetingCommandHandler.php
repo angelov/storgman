@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Handlers;
+namespace Angelov\Storgman\Meetings\Handlers;
 
-use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
-use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
-use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
-use Angelov\Eestec\Platform\Meetings\Events\MeetingWasUpdatedEvent;
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Meetings\Attachments\Attachment;
+use Angelov\Storgman\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
+use Angelov\Storgman\Meetings\Commands\UpdateMeetingCommand;
+use Angelov\Storgman\Meetings\Events\MeetingWasUpdatedEvent;
+use Angelov\Storgman\Meetings\Meeting;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class UpdateMeetingCommandHandler

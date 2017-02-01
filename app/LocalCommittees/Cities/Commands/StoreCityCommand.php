@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees\Cities\Commands;
+namespace Angelov\Storgman\LocalCommittees\Cities\Commands;
 
-use Angelov\Eestec\Platform\Core\Command;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\Location;
+use Angelov\Storgman\Core\Command;
+use Angelov\Storgman\LocalCommittees\Cities\Location;
 use Symfony\Component\HttpFoundation\File\File;
 
 class StoreCityCommand extends Command

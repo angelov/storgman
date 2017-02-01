@@ -25,19 +25,19 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Http\Controllers;
+namespace Angelov\Storgman\Membership\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Membership\Commands\DeleteFeeCommand;
-use Angelov\Eestec\Platform\Membership\Commands\StoreFeeCommand;
-use Angelov\Eestec\Platform\Membership\Http\Requests\StoreFeeRequest;
-use Angelov\Eestec\Platform\Membership\FeesPaginator;
-use Angelov\Eestec\Platform\Membership\MembershipService;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Membership\Commands\DeleteFeeCommand;
+use Angelov\Storgman\Membership\Commands\StoreFeeCommand;
+use Angelov\Storgman\Membership\Http\Requests\StoreFeeRequest;
+use Angelov\Storgman\Membership\FeesPaginator;
+use Angelov\Storgman\Membership\MembershipService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 
 class FeesController extends BaseController
 {

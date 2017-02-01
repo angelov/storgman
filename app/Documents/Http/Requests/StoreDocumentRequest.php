@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Http\Requests;
+namespace Angelov\Storgman\Documents\Http\Requests;
 
-use Angelov\Eestec\Platform\Core\Http\Request;
+use Angelov\Storgman\Core\Http\Request;
 
 class StoreDocumentRequest extends Request
 {

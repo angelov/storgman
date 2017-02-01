@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Photos\Providers;
+namespace Angelov\Storgman\Members\Photos\Providers;
 
-use Angelov\Eestec\Platform\Members\Photos\Repositories\LocalPhotosRepository;
-use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
+use Angelov\Storgman\Members\Photos\Repositories\LocalPhotosRepository;
+use Angelov\Storgman\Members\Photos\Repositories\PhotosRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class PhotosRepositoryServiceProvider extends ServiceProvider

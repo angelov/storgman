@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Importing;
+namespace Angelov\Storgman\Events\Importing;
 
 use Goutte\Client;
 use Symfony\Component\DomCrawler\Crawler;

@@ -1,7 +1,7 @@
 <?php
 
-use Angelov\Eestec\Platform\LocalCommittees\Cities\Commands\StoreCityCommand;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\Location;
+use Angelov\Storgman\LocalCommittees\Cities\Commands\StoreCityCommand;
+use Angelov\Storgman\LocalCommittees\Cities\Location;
 use Illuminate\Database\Seeder;
 use Symfony\Component\HttpFoundation\File\File;
 

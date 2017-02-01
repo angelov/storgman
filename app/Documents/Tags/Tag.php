@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Tags;
+namespace Angelov\Storgman\Documents\Tags;
 
-use Angelov\Eestec\Platform\Documents\Document;
+use Angelov\Storgman\Documents\Document;
 use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model

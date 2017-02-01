@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Authentication\Http\Requests;
+namespace Angelov\Storgman\Members\Authentication\Http\Requests;
 
-use Angelov\Eestec\Platform\Core\Http\Request;
+use Angelov\Storgman\Core\Http\Request;
 
 class LoginFormRequest extends Request
 {

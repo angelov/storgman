@@ -25,12 +25,12 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Handlers;
+namespace Angelov\Storgman\Meetings\Handlers;
 
-use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand;
-use Angelov\Eestec\Platform\Meetings\Events\MeetingReportWasCreatedEvent;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Meetings\Commands\CreateMeetingReportCommand;
+use Angelov\Storgman\Meetings\Events\MeetingReportWasCreatedEvent;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class CreateMeetingReportCommandHandler

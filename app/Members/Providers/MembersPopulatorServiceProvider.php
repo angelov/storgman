@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Providers;
+namespace Angelov\Storgman\Members\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -36,7 +36,7 @@ class MembersPopulatorServiceProvider extends ServiceProvider
         $container = $this->app;
 
         $this->app->bind('MembersPopulator', function () use ($container) {
-            return $container->make('Angelov\Eestec\Platform\Members\MembersPopulator');
+            return $container->make('Angelov\Storgman\Members\MembersPopulator');
         });
     }
 }

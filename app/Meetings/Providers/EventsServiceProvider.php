@@ -25,12 +25,12 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Providers;
+namespace Angelov\Storgman\Meetings\Providers;
 
-use Angelov\Eestec\Platform\Meetings\Events\MeetingWasCreatedEvent;
-use Angelov\Eestec\Platform\Meetings\Events\MeetingWasUpdatedEvent;
-use Angelov\Eestec\Platform\Meetings\Listeners\NotifyMembersForNewMeeting;
-use Angelov\Eestec\Platform\Meetings\Listeners\NotifyMembersForUpdatedMeeting;
+use Angelov\Storgman\Meetings\Events\MeetingWasCreatedEvent;
+use Angelov\Storgman\Meetings\Events\MeetingWasUpdatedEvent;
+use Angelov\Storgman\Meetings\Listeners\NotifyMembersForNewMeeting;
+use Angelov\Storgman\Meetings\Listeners\NotifyMembersForUpdatedMeeting;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventsServiceProvider extends ServiceProvider

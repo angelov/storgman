@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Handlers;
+namespace Angelov\Storgman\Members\Handlers;
 
-use Angelov\Eestec\Platform\Members\Commands\ApproveMemberCommand;
-use Angelov\Eestec\Platform\Members\Events\MemberWasApprovedEvent;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Members\Commands\ApproveMemberCommand;
+use Angelov\Storgman\Members\Events\MemberWasApprovedEvent;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class ApproveMemberCommandHandler

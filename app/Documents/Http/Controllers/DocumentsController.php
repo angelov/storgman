@@ -25,18 +25,18 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Http\Controllers;
+namespace Angelov\Storgman\Documents\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Documents\Commands\DeleteDocumentCommand;
-use Angelov\Eestec\Platform\Documents\Commands\StoreDocumentCommand;
-use Angelov\Eestec\Platform\Documents\Commands\UpdateDocumentCommand;
-use Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened;
-use Angelov\Eestec\Platform\Documents\Http\Requests\StoreDocumentRequest;
-use Angelov\Eestec\Platform\Documents\DocumentsPaginator;
-use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
-use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Documents\Commands\DeleteDocumentCommand;
+use Angelov\Storgman\Documents\Commands\StoreDocumentCommand;
+use Angelov\Storgman\Documents\Commands\UpdateDocumentCommand;
+use Angelov\Storgman\Documents\Events\DocumentWasOpened;
+use Angelov\Storgman\Documents\Http\Requests\StoreDocumentRequest;
+use Angelov\Storgman\Documents\DocumentsPaginator;
+use Angelov\Storgman\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Storgman\Documents\Tags\Repositories\TagsRepositoryInterface;
+use Angelov\Storgman\Members\Member;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Contracts\View\View;

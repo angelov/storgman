@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Packaging;
+namespace Angelov\Storgman\Meetings\Attachments\Packaging;
 
-use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
+use Angelov\Storgman\Meetings\Attachments\Attachment;
 use SplFileInfo;
 use ZipArchive;
 

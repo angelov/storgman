@@ -25,12 +25,12 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties\Repositories;
+namespace Angelov\Storgman\Faculties\Repositories;
 
-use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
-use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Faculties\Faculty;
-use Angelov\Eestec\Platform\Faculties\Reports\MembersPerFacultyReport;
+use Angelov\Storgman\Core\Exceptions\ResourceNotFoundException;
+use Angelov\Storgman\Core\Repositories\RepositoryInterface;
+use Angelov\Storgman\Faculties\Faculty;
+use Angelov\Storgman\Faculties\Reports\MembersPerFacultyReport;
 
 interface FacultiesRepositoryInterface extends RepositoryInterface
 {

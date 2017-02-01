@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Providers;
+namespace Angelov\Storgman\Events\Providers;
 
-use Angelov\Eestec\Platform\Events\Repositories\EloquentEventsRepository;
-use Angelov\Eestec\Platform\Events\Repositories\EventsRepositoryInterface;
+use Angelov\Storgman\Events\Repositories\EloquentEventsRepository;
+use Angelov\Storgman\Events\Repositories\EventsRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class EventsRepositoryServiceProvider extends ServiceProvider

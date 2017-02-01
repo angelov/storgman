@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Commands;
+namespace Angelov\Storgman\Meetings\Attachments\Commands;
 
-use Angelov\Eestec\Platform\Core\Command;
-use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
+use Angelov\Storgman\Core\Command;
+use Angelov\Storgman\Meetings\Attachments\AttachmentFile;
 
 class StoreAttachmentCommand extends Command
 {

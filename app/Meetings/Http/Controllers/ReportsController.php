@@ -25,13 +25,13 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Http\Controllers;
+namespace Angelov\Storgman\Meetings\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingReportCommand;
-use Angelov\Eestec\Platform\Meetings\MeetingsService;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Meetings\Commands\CreateMeetingReportCommand;
+use Angelov\Storgman\Meetings\MeetingsService;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Members\Member;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 

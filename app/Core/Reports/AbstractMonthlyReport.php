@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Reports;
+namespace Angelov\Storgman\Core\Reports;
 
-use Angelov\Eestec\Platform\Core\DateTime;
+use Angelov\Storgman\Core\DateTime;
 use JsonSerializable;
 
 abstract class AbstractMonthlyReport implements JsonSerializable

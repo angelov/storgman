@@ -25,13 +25,13 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Repositories;
+namespace Angelov\Storgman\Membership\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Membership\Fee;
-use Angelov\Eestec\Platform\Membership\Reports\ExpectedFeesPerMonthReport;
-use Angelov\Eestec\Platform\Membership\Reports\PaidFeesPerMonthReport;
+use Angelov\Storgman\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Membership\Fee;
+use Angelov\Storgman\Membership\Reports\ExpectedFeesPerMonthReport;
+use Angelov\Storgman\Membership\Reports\PaidFeesPerMonthReport;
 use DB;
 
 class EloquentFeesRepository extends AbstractEloquentRepository implements FeesRepositoryInterface

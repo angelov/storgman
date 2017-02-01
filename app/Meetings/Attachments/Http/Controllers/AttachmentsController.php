@@ -25,16 +25,16 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Http\Controllers;
+namespace Angelov\Storgman\Meetings\Attachments\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistry;
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
-use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
-use Angelov\Eestec\Platform\Meetings\Attachments\Commands\StoreAttachmentCommand;
-use Angelov\Eestec\Platform\Meetings\Attachments\Http\Requests\StoreAttachmentRequest;
-use Angelov\Eestec\Platform\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Core\FileSystem\FileSystemsRegistry;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Meetings\Attachments\Attachment;
+use Angelov\Storgman\Meetings\Attachments\AttachmentFile;
+use Angelov\Storgman\Meetings\Attachments\Commands\StoreAttachmentCommand;
+use Angelov\Storgman\Meetings\Attachments\Http\Requests\StoreAttachmentRequest;
+use Angelov\Storgman\Meetings\Attachments\Repositories\AttachmentsRepositoryInterface;
+use Angelov\Storgman\Members\Member;
 use Illuminate\Contracts\Auth\Guard;
 
 class AttachmentsController extends BaseController

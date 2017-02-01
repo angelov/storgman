@@ -1,10 +1,10 @@
 <?php
 
-namespace Angelov\Eestec\Platform\Tests\Core\Reports;
+namespace Angelov\Storgman\Tests\Core\Reports;
 
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Core\Reports\AbstractMonthlyReport;
-use Angelov\Eestec\Platform\Tests\TestCase;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Core\Reports\AbstractMonthlyReport;
+use Angelov\Storgman\Tests\TestCase;
 use Mockery;
 
 class AbstractMonthlyReportTest extends TestCase

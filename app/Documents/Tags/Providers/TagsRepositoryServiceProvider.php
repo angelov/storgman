@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Tags\Providers;
+namespace Angelov\Storgman\Documents\Tags\Providers;
 
-use Angelov\Eestec\Platform\Documents\Tags\Repositories\EloquentTagsRepository;
-use Angelov\Eestec\Platform\Documents\Tags\Repositories\TagsRepositoryInterface;
+use Angelov\Storgman\Documents\Tags\Repositories\EloquentTagsRepository;
+use Angelov\Storgman\Documents\Tags\Repositories\TagsRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class TagsRepositoryServiceProvider extends ServiceProvider

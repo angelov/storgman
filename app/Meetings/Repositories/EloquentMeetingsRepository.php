@@ -25,16 +25,16 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Repositories;
+namespace Angelov\Storgman\Meetings\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Meetings\Exceptions\NoPreviousMeetingException;
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Meetings\Reports\MeetingAttendantsTypeReport;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendanceDetailsReport;
-use Angelov\Eestec\Platform\Meetings\Reports\MeetingsPerMonthReport;
+use Angelov\Storgman\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Meetings\Exceptions\NoPreviousMeetingException;
+use Angelov\Storgman\Meetings\Meeting;
+use Angelov\Storgman\Meetings\Reports\MeetingAttendantsTypeReport;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Meetings\Reports\MeetingsAttendanceDetailsReport;
+use Angelov\Storgman\Meetings\Reports\MeetingsPerMonthReport;
 use Carbon\Carbon;
 use DB;
 

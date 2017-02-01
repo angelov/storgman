@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Http\Requests;
+namespace Angelov\Storgman\Members\Http\Requests;
 
-use Angelov\Eestec\Platform\Members\Http\Requests\StoreMemberRequest;
+use Angelov\Storgman\Members\Http\Requests\StoreMemberRequest;
 
 class UpdateMemberRequest extends StoreMemberRequest
 {

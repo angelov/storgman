@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Listeners;
+namespace Angelov\Storgman\Documents\Listeners;
 
-use Angelov\Eestec\Platform\Documents\Events\DocumentWasOpened;
-use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Storgman\Documents\Events\DocumentWasOpened;
+use Angelov\Storgman\Documents\Repositories\DocumentsRepositoryInterface;
 
 class TrackDocumentOpening
 {

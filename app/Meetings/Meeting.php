@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings;
+namespace Angelov\Storgman\Meetings;
 
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Meetings\Attachments\Attachment;
+use Angelov\Storgman\Members\Member;
 use Illuminate\Database\Eloquent\Model;
 
 class Meeting extends Model

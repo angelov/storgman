@@ -25,16 +25,16 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings;
+namespace Angelov\Storgman\Meetings;
 
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Meetings\Reports\MeetingAttendedReport;
-use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendanceDetailsForMemberReport;
-use Angelov\Eestec\Platform\Meetings\Reports\MeetingsAttendedByMemberPerMonthReport;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Membership\MembershipService;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Meetings\Reports\MeetingAttendedReport;
+use Angelov\Storgman\Meetings\Reports\MeetingsAttendanceDetailsForMemberReport;
+use Angelov\Storgman\Meetings\Reports\MeetingsAttendedByMemberPerMonthReport;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Membership\MembershipService;
 use InvalidArgumentException;
 
 class MeetingsService

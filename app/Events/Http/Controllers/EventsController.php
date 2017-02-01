@@ -25,12 +25,12 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Http\Controllers;
+namespace Angelov\Storgman\Events\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\FileSystem\FileSystemsRegistry;
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Events\EventImage;
-use Angelov\Eestec\Platform\Events\Repositories\EventsRepositoryInterface;
+use Angelov\Storgman\Core\FileSystem\FileSystemsRegistry;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Events\EventImage;
+use Angelov\Storgman\Events\Repositories\EventsRepositoryInterface;
 
 class EventsController extends BaseController
 {

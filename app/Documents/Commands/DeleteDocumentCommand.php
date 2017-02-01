@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Commands;
+namespace Angelov\Storgman\Documents\Commands;
 
-use Angelov\Eestec\Platform\Core\Command;
+use Angelov\Storgman\Core\Command;
 
 class DeleteDocumentCommand extends Command
 {

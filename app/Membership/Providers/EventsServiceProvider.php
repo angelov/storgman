@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Providers;
+namespace Angelov\Storgman\Membership\Providers;
 
-use Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent;
-use Angelov\Eestec\Platform\Membership\Listeners\EmailProceedingConfirmation;
+use Angelov\Storgman\Membership\Events\FeeWasProceededEvent;
+use Angelov\Storgman\Membership\Listeners\EmailProceedingConfirmation;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventsServiceProvider extends ServiceProvider

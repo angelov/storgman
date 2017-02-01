@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Settings\Http\Requests;
+namespace Angelov\Storgman\Settings\Http\Requests;
 
-use Angelov\Eestec\Platform\Core\Http\Request;
+use Angelov\Storgman\Core\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class StoreFacultyRequest extends Request

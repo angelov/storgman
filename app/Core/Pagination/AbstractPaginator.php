@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Pagination;
+namespace Angelov\Storgman\Core\Pagination;
 
 abstract class AbstractPaginator
 {
     /** @var Factory $paginator */
     protected $paginator;
 
-    /** @var \Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface */
+    /** @var \Angelov\Storgman\Core\Repositories\RepositoryInterface */
     protected $repository;
 
     protected $itemsPerPage = 15;

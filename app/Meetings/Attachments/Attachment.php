@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments;
+namespace Angelov\Storgman\Meetings\Attachments;
 
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Meetings\Meeting;
+use Angelov\Storgman\Members\Member;
 use Illuminate\Database\Eloquent\Model;
 
 class Attachment extends Model

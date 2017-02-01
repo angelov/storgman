@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Handlers;
+namespace Angelov\Storgman\Members\Handlers;
 
-use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
+use Angelov\Storgman\Members\Commands\DeleteMemberCommand;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Members\Photos\Repositories\PhotosRepositoryInterface;
 
 class DeleteMemberCommandHandler
 {

@@ -25,21 +25,21 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Http\Controllers;
+namespace Angelov\Storgman\Members\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Commands\ApproveMemberCommand;
-use Angelov\Eestec\Platform\Members\Commands\CreateMemberCommand;
-use Angelov\Eestec\Platform\Members\Commands\DeclineMemberCommand;
-use Angelov\Eestec\Platform\Members\Commands\DeleteMemberCommand;
-use Angelov\Eestec\Platform\Members\Commands\UpdateMemberCommand;
-use Angelov\Eestec\Platform\Members\Http\Requests\StoreMemberRequest;
-use Angelov\Eestec\Platform\Members\Http\Requests\UpdateMemberRequest;
-use Angelov\Eestec\Platform\Members\MembersPaginator;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Meetings\MeetingsService;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Storgman\Members\Commands\ApproveMemberCommand;
+use Angelov\Storgman\Members\Commands\CreateMemberCommand;
+use Angelov\Storgman\Members\Commands\DeclineMemberCommand;
+use Angelov\Storgman\Members\Commands\DeleteMemberCommand;
+use Angelov\Storgman\Members\Commands\UpdateMemberCommand;
+use Angelov\Storgman\Members\Http\Requests\StoreMemberRequest;
+use Angelov\Storgman\Members\Http\Requests\UpdateMemberRequest;
+use Angelov\Storgman\Members\MembersPaginator;
+use Angelov\Storgman\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Storgman\Meetings\MeetingsService;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;

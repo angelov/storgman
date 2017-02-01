@@ -1,9 +1,9 @@
 <?php
 
-use Angelov\Eestec\Platform\Core\FileSystem\LocalFileSystem;
-use Angelov\Eestec\Platform\Events\EventImage;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\CityImage;
-use Angelov\Eestec\Platform\Meetings\Attachments\AttachmentFile;
+use Angelov\Storgman\Core\FileSystem\LocalFileSystem;
+use Angelov\Storgman\Events\EventImage;
+use Angelov\Storgman\LocalCommittees\Cities\CityImage;
+use Angelov\Storgman\Meetings\Attachments\AttachmentFile;
 
 return [
 

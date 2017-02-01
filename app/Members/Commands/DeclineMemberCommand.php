@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Commands;
+namespace Angelov\Storgman\Members\Commands;
 
 class DeclineMemberCommand extends AbstractMemberCommand
 {

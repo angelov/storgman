@@ -25,16 +25,16 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Settings\Http\Controllers;
+namespace Angelov\Storgman\Settings\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Faculties\Commands\ChangeFacultyStatusCommand;
-use Angelov\Eestec\Platform\Faculties\Commands\DeleteFacultyCommand;
-use Angelov\Eestec\Platform\Faculties\Commands\StoreFacultyCommand;
-use Angelov\Eestec\Platform\Faculties\Commands\UpdateFacultyCommand;
-use Angelov\Eestec\Platform\Faculties\Exceptions\FacultyHasMembersException;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
-use Angelov\Eestec\Platform\Settings\Http\Requests\StoreFacultyRequest;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Faculties\Commands\ChangeFacultyStatusCommand;
+use Angelov\Storgman\Faculties\Commands\DeleteFacultyCommand;
+use Angelov\Storgman\Faculties\Commands\StoreFacultyCommand;
+use Angelov\Storgman\Faculties\Commands\UpdateFacultyCommand;
+use Angelov\Storgman\Faculties\Exceptions\FacultyHasMembersException;
+use Angelov\Storgman\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Storgman\Settings\Http\Requests\StoreFacultyRequest;
 use Illuminate\Http\JsonResponse;
 
 class FacultiesController extends BaseController

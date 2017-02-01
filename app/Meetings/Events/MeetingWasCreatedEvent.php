@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Events;
+namespace Angelov\Storgman\Meetings\Events;
 
-use Angelov\Eestec\Platform\Core\Event;
-use Angelov\Eestec\Platform\Meetings\Meeting;
+use Angelov\Storgman\Core\Event;
+use Angelov\Storgman\Meetings\Meeting;
 
 class MeetingWasCreatedEvent extends Event
 {

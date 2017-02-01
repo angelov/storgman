@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Commands;
+namespace Angelov\Storgman\Membership\Commands;
 
 class DeleteFeeCommand
 {

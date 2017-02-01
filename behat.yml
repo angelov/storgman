@@ -14,8 +14,8 @@ default:
     members:
       contexts:
         - Behat\MinkExtension\Context\MinkContext
-        - Angelov\Eestec\Platform\Core\FeatureContexts\DatabasePreparationsContext
-        - Angelov\Eestec\Platform\Members\FeatureContexts\MembersManagementContext
+        - Angelov\Storgman\Core\FeatureContexts\DatabasePreparationsContext
+        - Angelov\Storgman\Members\FeatureContexts\MembersManagementContext
         - Knp\FriendlyContexts\Context\TableContext
       filters:
         tags: "@members"

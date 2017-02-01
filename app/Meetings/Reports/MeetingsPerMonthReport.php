@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Reports;
+namespace Angelov\Storgman\Meetings\Reports;
 
-use Angelov\Eestec\Platform\Core\Reports\AbstractMonthlyReport;
+use Angelov\Storgman\Core\Reports\AbstractMonthlyReport;
 
 class MeetingsPerMonthReport extends AbstractMonthlyReport
 {

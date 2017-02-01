@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Repositories;
+namespace Angelov\Storgman\Documents\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Documents\Document;
-use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
+use Angelov\Storgman\Core\Repositories\RepositoryInterface;
+use Angelov\Storgman\Documents\Document;
+use Angelov\Storgman\Core\Exceptions\ResourceNotFoundException;
 
 interface DocumentsRepositoryInterface extends RepositoryInterface
 {

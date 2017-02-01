@@ -1,8 +1,8 @@
 <?php
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Http\Requests;
+namespace Angelov\Storgman\Meetings\Attachments\Http\Requests;
 
-use Angelov\Eestec\Platform\Core\Http\Request;
+use Angelov\Storgman\Core\Http\Request;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;

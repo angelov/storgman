@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core;
+namespace Angelov\Storgman\Core;
 
 abstract class Event
 {

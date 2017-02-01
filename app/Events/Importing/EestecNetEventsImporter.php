@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Importing;
+namespace Angelov\Storgman\Events\Importing;
 
-use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
-use Angelov\Eestec\Platform\Events\Commands\StoreEventCommand;
-use Angelov\Eestec\Platform\Events\Commands\UpdateEventCommand;
-use Angelov\Eestec\Platform\Events\EventImage;
-use Angelov\Eestec\Platform\Events\Repositories\EventsRepositoryInterface;
-use Angelov\Eestec\Platform\LocalCommittees\Repositories\LocalCommitteesRepositoryInterface;
+use Angelov\Storgman\Core\Exceptions\ResourceNotFoundException;
+use Angelov\Storgman\Events\Commands\StoreEventCommand;
+use Angelov\Storgman\Events\Commands\UpdateEventCommand;
+use Angelov\Storgman\Events\EventImage;
+use Angelov\Storgman\Events\Repositories\EventsRepositoryInterface;
+use Angelov\Storgman\LocalCommittees\Repositories\LocalCommitteesRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Psr\Log\LoggerInterface;

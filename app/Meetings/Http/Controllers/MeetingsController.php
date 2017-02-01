@@ -25,25 +25,25 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Http\Controllers;
+namespace Angelov\Storgman\Meetings\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Meetings\Commands\CreateMeetingCommand;
-use Angelov\Eestec\Platform\Meetings\Commands\DeleteMeetingCommand;
-use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingCommand;
-use Angelov\Eestec\Platform\Meetings\Commands\UpdateMeetingReportCommand;
-use Angelov\Eestec\Platform\Meetings\Exceptions\NoPreviousMeetingException;
-use Angelov\Eestec\Platform\Meetings\Http\Requests\StoreMeetingRequest;
-use Angelov\Eestec\Platform\Meetings\MeetingsPaginator;
-use Angelov\Eestec\Platform\Meetings\MeetingsService;
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Meetings\Commands\CreateMeetingCommand;
+use Angelov\Storgman\Meetings\Commands\DeleteMeetingCommand;
+use Angelov\Storgman\Meetings\Commands\UpdateMeetingCommand;
+use Angelov\Storgman\Meetings\Commands\UpdateMeetingReportCommand;
+use Angelov\Storgman\Meetings\Exceptions\NoPreviousMeetingException;
+use Angelov\Storgman\Meetings\Http\Requests\StoreMeetingRequest;
+use Angelov\Storgman\Meetings\MeetingsPaginator;
+use Angelov\Storgman\Meetings\MeetingsService;
+use Angelov\Storgman\Members\Member;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
 
 class MeetingsController extends BaseController
 {

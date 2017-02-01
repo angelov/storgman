@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Attachments\Repositories;
+namespace Angelov\Storgman\Meetings\Attachments\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Meetings\Attachments\Attachment;
+use Angelov\Storgman\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Storgman\Meetings\Attachments\Attachment;
 
 class EloquentAttachmentsRepository extends AbstractEloquentRepository implements AttachmentsRepositoryInterface
 {

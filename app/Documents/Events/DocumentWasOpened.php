@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Events;
+namespace Angelov\Storgman\Documents\Events;
 
-use Angelov\Eestec\Platform\Documents\Document;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Core\Event;
+use Angelov\Storgman\Documents\Document;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Core\Event;
 
 class DocumentWasOpened extends Event
 {

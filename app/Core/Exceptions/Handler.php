@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Exceptions;
+namespace Angelov\Storgman\Core\Exceptions;
 
-use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
+use Angelov\Storgman\Core\Exceptions\ResourceNotFoundException;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Validation\ValidationException;

@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Events;
+namespace Angelov\Storgman\Members\Events;
 
 class MemberWasApprovedEvent extends AbstractMemberEvent
 {

@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Comments\Http\Controllers;
+namespace Angelov\Storgman\Events\Comments\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Events\Comments\Commands\StoreCommentCommand;
-use Angelov\Eestec\Platform\Events\Comments\Http\Requests\StoreCommentRequest;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Events\Comments\Commands\StoreCommentCommand;
+use Angelov\Storgman\Events\Comments\Http\Requests\StoreCommentRequest;
 use Illuminate\Contracts\Auth\Guard;
 
 class CommentsController extends BaseController

@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership;
+namespace Angelov\Storgman\Membership;
 
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Members\Member;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 

@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events\Comments;
+namespace Angelov\Storgman\Events\Comments;
 
-use Angelov\Eestec\Platform\Events\Event;
-use Angelov\Eestec\Platform\Members\Member;
+use Angelov\Storgman\Events\Event;
+use Angelov\Storgman\Members\Member;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 

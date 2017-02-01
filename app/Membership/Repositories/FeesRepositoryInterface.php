@@ -25,14 +25,14 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Repositories;
+namespace Angelov\Storgman\Membership\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\RepositoryInterface;
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Membership\Fee;
-use Angelov\Eestec\Platform\Core\Exceptions\ResourceNotFoundException;
-use Angelov\Eestec\Platform\Membership\Reports\ExpectedFeesPerMonthReport;
-use Angelov\Eestec\Platform\Membership\Reports\PaidFeesPerMonthReport;
+use Angelov\Storgman\Core\Repositories\RepositoryInterface;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Membership\Fee;
+use Angelov\Storgman\Core\Exceptions\ResourceNotFoundException;
+use Angelov\Storgman\Membership\Reports\ExpectedFeesPerMonthReport;
+use Angelov\Storgman\Membership\Reports\PaidFeesPerMonthReport;
 
 interface FeesRepositoryInterface extends RepositoryInterface
 {

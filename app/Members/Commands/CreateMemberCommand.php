@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Commands;
+namespace Angelov\Storgman\Members\Commands;
 
-use Angelov\Eestec\Platform\Core\Command;
+use Angelov\Storgman\Core\Command;
 
-class CreateMemberCommand extends \Angelov\Eestec\Platform\Core\Command
+class CreateMemberCommand extends \Angelov\Storgman\Core\Command
 {
     protected $memberData;
     protected $approve;

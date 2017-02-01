@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members;
+namespace Angelov\Storgman\Members;
 
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Members\Photos\Repositories\PhotosRepositoryInterface;
+use Angelov\Storgman\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Members\Photos\Repositories\PhotosRepositoryInterface;
 use DateTime;
 use Illuminate\Contracts\Hashing\Hasher;
 

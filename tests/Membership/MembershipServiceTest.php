@@ -25,17 +25,17 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Tests\Meetings;
+namespace Angelov\Storgman\Tests\Meetings;
 
-use Angelov\Eestec\Platform\Core\DateTime;
-use Angelov\Eestec\Platform\Members\Member;
-use Angelov\Eestec\Platform\Members\Repositories\MembersRepositoryInterface;
-use Angelov\Eestec\Platform\Membership\MembershipService;
-use Angelov\Eestec\Platform\Membership\Reports\ExpectedAndPaidFeesPerMonthReport;
-use Angelov\Eestec\Platform\Membership\Reports\ExpectedFeesPerMonthReport;
-use Angelov\Eestec\Platform\Membership\Reports\PaidFeesPerMonthReport;
-use Angelov\Eestec\Platform\Membership\Repositories\FeesRepositoryInterface;
-use Angelov\Eestec\Platform\Tests\TestCase;
+use Angelov\Storgman\Core\DateTime;
+use Angelov\Storgman\Members\Member;
+use Angelov\Storgman\Members\Repositories\MembersRepositoryInterface;
+use Angelov\Storgman\Membership\MembershipService;
+use Angelov\Storgman\Membership\Reports\ExpectedAndPaidFeesPerMonthReport;
+use Angelov\Storgman\Membership\Reports\ExpectedFeesPerMonthReport;
+use Angelov\Storgman\Membership\Reports\PaidFeesPerMonthReport;
+use Angelov\Storgman\Membership\Repositories\FeesRepositoryInterface;
+use Angelov\Storgman\Tests\TestCase;
 use Carbon\Carbon;
 use Mockery;
 

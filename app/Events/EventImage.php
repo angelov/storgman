@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Events;
+namespace Angelov\Storgman\Events;
 
-use Angelov\Eestec\Platform\Core\FileSystem\File;
+use Angelov\Storgman\Core\FileSystem\File;
 
 class EventImage extends File
 {

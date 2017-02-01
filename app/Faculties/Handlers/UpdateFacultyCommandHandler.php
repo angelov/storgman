@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Faculties\Handlers;
+namespace Angelov\Storgman\Faculties\Handlers;
 
-use Angelov\Eestec\Platform\Faculties\Commands\UpdateFacultyCommand;
-use Angelov\Eestec\Platform\Faculties\Repositories\FacultiesRepositoryInterface;
+use Angelov\Storgman\Faculties\Commands\UpdateFacultyCommand;
+use Angelov\Storgman\Faculties\Repositories\FacultiesRepositoryInterface;
 
 class UpdateFacultyCommandHandler
 {

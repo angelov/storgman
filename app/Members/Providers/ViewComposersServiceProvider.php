@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\Providers;
+namespace Angelov\Storgman\Members\Providers;
 
-use Angelov\Eestec\Platform\Members\ViewComposers\CurrentMemberViewComposer;
+use Angelov\Storgman\Members\ViewComposers\CurrentMemberViewComposer;
 use Illuminate\Support\ServiceProvider;
 
 class ViewComposersServiceProvider extends ServiceProvider

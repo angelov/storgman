@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees\Cities;
+namespace Angelov\Storgman\LocalCommittees\Cities;
 
 use Illuminate\Database\Eloquent\Model;
 

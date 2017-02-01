@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Exceptions;
+namespace Angelov\Storgman\Meetings\Exceptions;
 
 use Exception;
 

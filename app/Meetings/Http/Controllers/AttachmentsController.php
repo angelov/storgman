@@ -25,12 +25,12 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Meetings\Http\Controllers;
+namespace Angelov\Storgman\Meetings\Http\Controllers;
 
-use Angelov\Eestec\Platform\Core\Http\Controllers\BaseController;
-use Angelov\Eestec\Platform\Meetings\Attachments\Packaging\FormatNotSupportedException;
-use Angelov\Eestec\Platform\Meetings\Attachments\Packaging\PackagingManager;
-use Angelov\Eestec\Platform\Meetings\Repositories\MeetingsRepositoryInterface;
+use Angelov\Storgman\Core\Http\Controllers\BaseController;
+use Angelov\Storgman\Meetings\Attachments\Packaging\FormatNotSupportedException;
+use Angelov\Storgman\Meetings\Attachments\Packaging\PackagingManager;
+use Angelov\Storgman\Meetings\Repositories\MeetingsRepositoryInterface;
 use Illuminate\Http\Request;
 
 class AttachmentsController extends BaseController

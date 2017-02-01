@@ -25,9 +25,9 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Membership\Listeners;
+namespace Angelov\Storgman\Membership\Listeners;
 
-use Angelov\Eestec\Platform\Membership\Events\FeeWasProceededEvent;
+use Angelov\Storgman\Membership\Events\FeeWasProceededEvent;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 

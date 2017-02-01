@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members\ViewComposers;
+namespace Angelov\Storgman\Members\ViewComposers;
 
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\View\View;

@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\LocalCommittees\Cities\Providers;
+namespace Angelov\Storgman\LocalCommittees\Cities\Providers;
 
-use Angelov\Eestec\Platform\LocalCommittees\Cities\Repositories\CitiesRepositoryInterface;
-use Angelov\Eestec\Platform\LocalCommittees\Cities\Repositories\EloquentCitiesRepository;
+use Angelov\Storgman\LocalCommittees\Cities\Repositories\CitiesRepositoryInterface;
+use Angelov\Storgman\LocalCommittees\Cities\Repositories\EloquentCitiesRepository;
 use Illuminate\Support\ServiceProvider;
 
 class CitiesRepositoryServiceProvider extends ServiceProvider

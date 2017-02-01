@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents;
+namespace Angelov\Storgman\Documents;
 
-use Angelov\Eestec\Platform\Core\Pagination\AbstractPaginator;
-use Angelov\Eestec\Platform\Core\Pagination\Factory;
-use Angelov\Eestec\Platform\Documents\Repositories\DocumentsRepositoryInterface;
+use Angelov\Storgman\Core\Pagination\AbstractPaginator;
+use Angelov\Storgman\Core\Pagination\Factory;
+use Angelov\Storgman\Documents\Repositories\DocumentsRepositoryInterface;
 
 class DocumentsPaginator extends AbstractPaginator
 {

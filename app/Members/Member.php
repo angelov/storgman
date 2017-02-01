@@ -25,11 +25,11 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Members;
+namespace Angelov\Storgman\Members;
 
-use Angelov\Eestec\Platform\Faculties\Faculty;
-use Angelov\Eestec\Platform\Meetings\Meeting;
-use Angelov\Eestec\Platform\Membership\Fee;
+use Angelov\Storgman\Faculties\Faculty;
+use Angelov\Storgman\Meetings\Meeting;
+use Angelov\Storgman\Membership\Fee;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Auth\Authenticatable;

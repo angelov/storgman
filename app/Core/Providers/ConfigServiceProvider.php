@@ -25,7 +25,7 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Core\Providers;
+namespace Angelov\Storgman\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

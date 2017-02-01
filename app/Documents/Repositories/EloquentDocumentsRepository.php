@@ -25,10 +25,10 @@
  * @author Dejan Angelov <angelovdejan92@gmail.com>
  */
 
-namespace Angelov\Eestec\Platform\Documents\Repositories;
+namespace Angelov\Storgman\Documents\Repositories;
 
-use Angelov\Eestec\Platform\Core\Repositories\AbstractEloquentRepository;
-use Angelov\Eestec\Platform\Documents\Document;
+use Angelov\Storgman\Core\Repositories\AbstractEloquentRepository;
+use Angelov\Storgman\Documents\Document;
 
 class EloquentDocumentsRepository extends AbstractEloquentRepository implements DocumentsRepositoryInterface
 {
