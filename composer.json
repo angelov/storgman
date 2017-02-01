@@ -1,7 +1,7 @@
 {
-    "name": "angelov/eestec-platform",
-    "description": "EESTEC platform for local committees",
-    "keywords": ["eestec", "organization"],
+    "name": "angelov/storgman",
+    "description": "Storgman - Student Organizations Management",
+    "keywords": ["storgman", "organization"],
     "license": "GPL-3.0",
     "require": {
         "php": ">=5.6|7.0",

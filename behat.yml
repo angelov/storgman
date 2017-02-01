@@ -1,7 +1,7 @@
 default:
   extensions:
     Behat\MinkExtension:
-      base_url: 'http://eestec.local'
+      base_url: 'http://storgman.local'
       goutte: ~
       selenium2:
         browser: chrome
